@@ -1,0 +1,49 @@
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 3.0.0                                     ║
+// ║  Encrypted: 2026-03-19 08:26:52 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
+
+// Encrypted by Obfuscationary by JusticeTech v3.0.0
+(async () => {
+  if (typeof require === 'undefined') {
+    throw new Error('[Obfuscationary] Browser mode not supported for multi-layer. Use Node.js.');
+  }
+
+  const _b64            = 'oeNC3jdK6Shw3/9PutIrDfLgeCDRGx8/uastziYKXD85x+nh6gEdLcmEXdexUF5DMZ9W3xN8XgV5wfuW10CIY4MjPwcmsuh8qajJvE0LuYYDJTxPSQJDCS9WoPgdNtYPqdm9YShvu2DGS1aNlw3Qo6nR79xOADK5mNsQgqPODXmVSgVw1bIDSuIRlcOM9zzxZd4SR/xZIpejSmYRNGsLzJ14J308LbQw1htRLf52Q0qMobeFJyzkuIAEipVGj5aSM2u7ivW9/Ot8hxYBKZX6vh3/PdY4E8dwTKUr3Y+jyEgjnUdl5vqIPyKKIrseOu/jWDFKqbweR5Hb0nFcyIfBMhFSvguR1Aob56PBZjRRL2/8HKapQZQeFbhrCICEnmUp2GP9VGF92LlLBjWd6zpymUiwSRqVmmGRyQs/OJICLkRKiu08XVd5R6RBWIJASn3rdxN/iKKG244WPRxAasYC6wfqdsTH5M7MKj3SXbf3gNbpPKpSN1/mtDNq3HhKcGca9rdNDCeXO7zEijnNscA3zK1VzxAU6qLkKYlFNQ68PfSa9ts9qcaBAaDYdHoqjMzAtgrzT0DUBu8kLMWtE1GYOyJB6lRp/qVZgwhtJ6Xpffzl65WnJWWlvmA5Yh70lKv/sQ3+gOE7wc8xohUn3GWoiSmHZYh+WA/GY4smXeWH3UbfopHHwyQlWOrbgDWodkV9BLzQBUOnajwkHBIKBQ0kRefDlkk7VAc=';
+  const _INTEGRITY_HASH = '0b433cec20e626ffcb262e3c7764440b6f904e0fa984fe1178df55b5840751f8';
+  let   _src;
+
+  const _PWDS  = ["change_me_to_a_strong_password"];
+  const _ITERS = 600000;
+
+  // Integrity check
+  const _crypto2 = require('crypto');
+  const _actualHash = _crypto2.createHash('sha256').update(_b64).digest('hex');
+  if (_actualHash !== _INTEGRITY_HASH) {
+    throw new Error('[Obfuscationary] Tamper detected! File integrity check failed.');
+  }
+
+  // Multi-layer decrypt (reverse order)
+  let _data = Buffer.from(_b64, 'base64');
+  for (let _i = _PWDS.length - 1; _i >= 0; _i--) {
+    const _pw   = _PWDS[_i];
+    const _salt = _data.slice(0, 16);
+    const _iv2  = _data.slice(16, 28);
+    const _ct2  = _data.slice(28);
+    const _ctag2 = _ct2.slice(_ct2.length - 16);
+    const _cdat2 = _ct2.slice(0, _ct2.length - 16);
+    const _key2  = _crypto2.pbkdf2Sync(_pw, _salt, _ITERS, 32, 'sha256');
+    const _dec2  = _crypto2.createDecipheriv('aes-256-gcm', _key2, _iv2);
+    _dec2.setAuthTag(_ctag2);
+    _data = Buffer.concat([_dec2.update(_cdat2), _dec2.final()]);
+  }
+  _src = _data.toString('utf8');
+
+  const _Fn = Object.getPrototypeOf(async function(){}).constructor;
+  await _Fn('module', 'exports', 'require', '__filename', '__dirname', _src)(
+    module, exports, require, __filename, __dirname
+  );
+})();
