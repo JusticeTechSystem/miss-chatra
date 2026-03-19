@@ -1,0 +1,49 @@
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 3.0.0                                     ║
+// ║  Encrypted: 2026-03-19 13:08:08 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
+
+// Encrypted by Obfuscationary by JusticeTech v3.0.0
+(async () => {
+  if (typeof require === 'undefined') {
+    throw new Error('[Obfuscationary] Browser mode not supported for multi-layer. Use Node.js.');
+  }
+
+  const _b64            = 'nRVSOtRabNTdzVqLOCG8gJlA4cEvya01qXD8qEjDfYfSUZMCT4MJDKUOxmQyO16k7RjJ3C3ZowH8exIvbFeTcpcuuQRSOnMUl0W9TyQmPZKva02JNZo6EZboJyOPjRg0MEFed0MaQdTKwNeFPGyINyz1S+JqJt0P4Idz8KZwQgGdG8nltM+tuyGZqWAvwtmFKU3IanRAiV91O1d+1BC+YQAI0QrL/MjIlDAl0jKVOvADPJ6kx1vimV8SlGcZIhCjWSE43M0HCIcUGFIF88/1IAHy6nlPHiym9FaLn7skkRMumBX0H4HwXMuELh+vs05N2+xeOtXZwEFJSCWgk8OgkvmzdoWWjFps0mPrE+hNyWDIh68b2Mi7yh25roxsxbCGUII3LNFJa4csB929RpwtLVPFuksXvGFQSEEOVIqfwapr+B2jd77uHiFjv81fVTHjSXfEpP7MpU7R8JdR8UYSyyA4hd0yU5ALgJMOeHRRidPsJCayxKta41+ZJgQR5N8YhMiS/9qmWr5yvzSD8pAdTrM5litgjcfFCie4CBJ182Y5CStGo8fmdnUBGt1nqno5ogfUUQUp7RLdwCaDD2BkthodbduY9HnroF6WsQdz3ob2SxVpEHc1kf30x3Qje+UcP2TM7JBFRWMRIFk+Pc8vE24p1GnmqbnYk3flzjkgXq4URYe8p4+i4X5YjmQd+kasCk8ASDOY5mygXifngPqk773tNYsGW6xPoagym5eREymbbqWWz60XJbyCDEzTovu6vuLCLiuM2uVm13/8W+YaqwuKAJHt3JqGm9Mh2JqDlKbpEvvhJotSInHarxvbomhUmqNisTzkje31hfb8YJvTan/eUFjokpGDAgRgXh9Ax18eZQTt0FV5LWW8Ihixpl7r0f3NcjFk32nLcKE104EaRLunhcBZmW1CGXL4dm3nK9dvhrnIywa9XVyA+hSar1nDdE0z+g2+7ys+NfIQF5aN1nV16yFQPhV3ewZaCh74aAfIU5omlosDpecSCitqjEjb8A==';
+  const _INTEGRITY_HASH = 'f5dc48eb8121e9e33ef85671fa6b6c38498665038b49c44baa1c5d5d5b60fc62';
+  let   _src;
+
+  const _PWDS  = ["change_me_to_a_strong_password"];
+  const _ITERS = 600000;
+
+  // Integrity check
+  const _crypto2 = require('crypto');
+  const _actualHash = _crypto2.createHash('sha256').update(_b64).digest('hex');
+  if (_actualHash !== _INTEGRITY_HASH) {
+    throw new Error('[Obfuscationary] Tamper detected! File integrity check failed.');
+  }
+
+  // Multi-layer decrypt (reverse order)
+  let _data = Buffer.from(_b64, 'base64');
+  for (let _i = _PWDS.length - 1; _i >= 0; _i--) {
+    const _pw   = _PWDS[_i];
+    const _salt = _data.slice(0, 16);
+    const _iv2  = _data.slice(16, 28);
+    const _ct2  = _data.slice(28);
+    const _ctag2 = _ct2.slice(_ct2.length - 16);
+    const _cdat2 = _ct2.slice(0, _ct2.length - 16);
+    const _key2  = _crypto2.pbkdf2Sync(_pw, _salt, _ITERS, 32, 'sha256');
+    const _dec2  = _crypto2.createDecipheriv('aes-256-gcm', _key2, _iv2);
+    _dec2.setAuthTag(_ctag2);
+    _data = Buffer.concat([_dec2.update(_cdat2), _dec2.final()]);
+  }
+  _src = _data.toString('utf8');
+
+  const _Fn = Object.getPrototypeOf(async function(){}).constructor;
+  await _Fn('module', 'exports', 'require', '__filename', '__dirname', _src)(
+    module, exports, require, __filename, __dirname
+  );
+})();

@@ -1,0 +1,24 @@
+# WhatsApp Sessions — NEVER commit these
+sessions/
+credentials/
+*.json.bak
+
+# Runtime data — these are per-instance
+database/bot_status.json
+database/channel_members.json
+database/approved_owners.json
+database/plugin_requests.json
+database/freeze_state.json
+database/plugin_approvals.json
+
+# Environment
+.env
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
