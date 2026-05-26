@@ -1,0 +1,21 @@
+{
+  "dev_numbers": [
+    "2349032578690",
+    "2348166337692"
+  ],
+  "communities": {
+    "tools_group": "https://chat.whatsapp.com/GL6GUJL5QNJEuBy9fWIssu?mode=gi_t",
+    "support_group": "https://chat.whatsapp.com/Gyt75qFHoul3wp53IKi25v?mode=gi_t",
+    "channel_id": "120363421368625350@newsletter",
+    "channel_invite": "https://whatsapp.com/channel/0029VaoLagu3hRFKWlqk9W2T"
+  },
+  "auto_channel_add": true,
+  "marketplace_approval_required": true,
+  "suspended_bots": [],
+  "restricted_bots": [],
+  "frozen_bots": [],
+  "banned_bots": [],
+  "approved_installs": {},
+  "global_plugins_disabled": [],
+  "global_plugins_added": []
+}

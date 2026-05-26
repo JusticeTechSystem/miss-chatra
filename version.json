@@ -1,0 +1,18 @@
+{
+  "version": "1.1.0",
+  "codename": "CHATRA-2",
+  "releaseDate": "2026-05-21",
+  "changelog": [
+    "FIXED: Media downloader — corrected API endpoints (YouTube video/audio), added full prexzyvilla fallback chain",
+    "FIXED: Twitter/X and Spotify downloads now use correct prexzyvilla endpoints",
+    "FIXED: Deep JSON URL extraction now handles all API response formats",
+    "ADDED: SoundCloud download support",
+    "ADDED: Word Chain Game (/wordchain /wc /wcjoin /wcscore /endwc /wctime)",
+    "ADDED: Giveaway System (/gstart /genter /gend /gstatus /greroll /glist)",
+    "ADDED: Hidetag / Silent Tag All (/hidetag /stag /tagall)",
+    "ADDED: URL Shortener (/shorten /short) — three-provider fallback",
+    "ADDED: Economy System (/balance /daily /work /pay /deposit /withdraw /ecotop)",
+    "ADDED: Auto-clean + Profile Change Monitor (/autoclean /profilealerts /cleaninactive)",
+    "IMPROVED: Active group tracking for profile monitor events"
+  ]
+}

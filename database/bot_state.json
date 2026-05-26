@@ -1,0 +1,39 @@
+{
+  "chatbot_conversations": {},
+  "chatbot_training": {
+    "name": "Miss Chatra",
+    "developer": "JusticeTech",
+    "developer_username": "@justicetechie",
+    "company": "JusticeTech System",
+    "company_location": "JusticeTech City, Nigeria",
+    "company_focus": "Web Development, App Development, Bot Development and Automation",
+    "custom_training": {},
+    "special_instructions": {
+      "personality": "Respond like a mature adult having a natural conversation. No formal greetings. 1-3 sentences max.",
+      "language": "Use natural, everyday language. Sound like a real person.",
+      "developer_recognition": "Always recognize the developer JusticeTech and company JusticeTech System when asked.",
+      "company_location": "Company location: JusticeTech City, Nigeria."
+    }
+  },
+  "user_chatbot_training": {},
+  "auto_delete_enabled": true,
+  "auto_delete_delay": 180,
+  "auto_delete_bot_messages": true,
+  "auto_delete_user_messages": false,
+  "auto_delete_groups": true,
+  "auto_delete_private": true,
+  "last_triggered": {},
+  "update_log_text": "",
+  "report_max_per_user": 1,
+  "report_counts": {},
+  "review_sessions": {},
+  "game_settings": {},
+  "active_games": {},
+  "inactive_threshold": 3600,
+  "user_message_counts": {},
+  "command_users": {},
+  "welcome_autodelete_delay": 60,
+  "goodbye_autodelete_delay": 60,
+  "last_welcome": {},
+  "last_goodbye": {}
+}
