@@ -1,0 +1,30 @@
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.0                                     ║
+// ║  Encrypted: 2026-05-27 03:49:53 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
+
+// Encrypted by Obfuscationary by JusticeTech v4.0.0
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='ae9c4026b6b7201b1fd1ca46cb478e2f245aaff9a56fccba767811f9ea90cfed';let _src;
+
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=600000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
+
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();
