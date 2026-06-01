@@ -1,0 +1,30 @@
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-01 22:33:30 UTC                   ║
+// ║  Cipher   : AES-256-GCM (Quantum-KDF)                 ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
+
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='UUVOQ/73EMsYBp2Tu9A3uB3EoJ51bWxaHYIxtKjAXG2HydW1gMy/PGecIeTrp1bMax2ivr/GxtL+3/H1Py4SgWeh8SfKkP2Iz6g8cjHGQItRBXbc0Mu3y0D+99hWmSfWw0Fkt7YiPUm9TnafnPknrWG28uAi7Ov7JCcchzz64mSfn//LPTI3TYz9Jpmd2/SVZ4ORz+QyxMYmoPVTMS4s5gH4eKgMWvVXAQZNs1mB/Lgzhk8YeFaRPgu3voeiiMo9JS/W2jkKvGxAEp2lz0vGPWFSUrWkdfNs8m4TqmDLiJts06nPTEAHSDVeR33Xde6/iivrJP9s1nWtBaGcz7StmupcSY+WAxamemOWUI4tsXmxn8esJQ/Y3sK1NOHkS+POBLtomdxV9VbWJb9QtcOkHj83/bTWd6veDkCX7daUQmVLw+6e5E30E9LE1zyobwLZOpYnwoyZMtI1dbBsDBaPCWHWWq26bG7dx9sfRUabnzQAy/IkZpw9f22i6Oh5ixublUqDU+1+IcSgaehCkiKnQAZ+AiTVXxPev3y5xzzwpyZVwf97+eRepmTPzUOm5M/AN22GSWNY5/WtqJCCEHczsemKJT9g+gdJEoNe56gy6Iy097IBpdbrDbQ7dQHY/YJhIeX5pIhCAEAL0t3kdzQtcbQhxIPgOHiGmW6OjAs0btsh5DE9fTH1y4ss6tvISSD4jZCf1nEaLTUkRErzjhLFHY5hmxmz+R2+VOeN/huvNo+gRCMQbVryrkWEKv75NTAKsrzIov+nB23ftkz4n9XFcNr8tSeDMKr1c4Y5MAocMQ70HR4BHmILAXDzfed876KpwPfB9mmr/zCMVjFTno+sn2gRtAnRfgqenwxLZFbMmcU0Xkb4yw+N5O7vfcJ47uPNINy0bMHZPR+75qXcUViQB3RkOTEhIcjRewl8mkpVaByBA/eEv0PgoFrcnkE=';const _IH='1e18e097e654994e19a4f76b5543b6bd08870dd3283f71609ce1c4e1a445be25';let _src;
+
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=0;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
+
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();
