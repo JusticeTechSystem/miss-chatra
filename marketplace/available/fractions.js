@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════════════════════╗
 // ║  Obfuscationary by JusticeTech                      ║
 // ║  Version  : 4.0.3                                     ║
-// ║  Encrypted: 2026-06-01 23:58:14 UTC                   ║
+// ║  Encrypted: 2026-06-02 12:36:06 UTC                   ║
 // ║  Cipher   : AES-256-GCM                               ║
 // ║  Tamper   : Protected via SHA-256 integrity check    ║
 // ╚══════════════════════════════════════════════════════╝
@@ -9,9 +9,9 @@
 // Encrypted by Obfuscationary by JusticeTech v4.0.3
 (async()=>{
   if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='Ae9JunGXTgDr2bqusNS308JdKcMWvKmDFvCTJdQyb+tWo4sa0f+KqEI2OHKvNoFKsC5UesORAte6+kHwlOdoJNuNl7m8TbrlWCVv9UQQqcKumuWX8JrceH/KTDrIqdRXwlVmuyhJ0ud3n6T1qwqsWOCEigtArkXQBMjnWuXo+F8dyhTUmk3DfNVkEffP1VDwsbuKLL8XUr1zgW9EzjQuoiILkjwg1tygaIkLiUhnljbtRwPEKGm2hFbOLn1NHORI8nOSsQmXCpwiS0AIuCq9QY6N4IaLV713xGX7Oi3rEhLwWAzT4/sV7/C0+3SSfyu67ZaPUUrXjmel5OSllG6DcUz+cN/0Y1O6v77sMLoVkjTWkoW4aEn79DECK53hslUpq3wq75g5EMU+5KUsXTxlupvJe0ua72fdG+XdzAA6LwHJN3L0eBBYejAS6XKHxN6Y2dazvv/Xk2KBxIhNDuObCNNxZgxEZ+pVlJ3f9Lk32bBx8LT/PssOHV+7uIWh9w+Ly0292EXhY/2znBHwOvrb6MPnKTx1XbNL47w3/9S1/W4wtzDWNKNXL0hfVHgIJhlM2NENFQQ/MXyShfpZlGOE9wh+DpKDxscyIz1p0B8jPlB9j3xEomDBb6IvxCmBLOXgCQYRmyyF/920P+mJGEQyIDjhiAwzNZ0eOhpcmmIKM0BAh/Z7k8VWY8ayXMcSCxNGHyyGSKISrZ5lp6Wg9F/sNp/IxA9ClacPyZzSU+2EdjiA5RzE9QFa49v20fRcXWRqV46txWbG0+7WUgnHhhrf0uxY8NuMDVg7oK/F35StMrPE6+K5asNTcJd1Wxoy+8+K6zptAgKD6YTxsxhtoGjYb0AdmSzLZ0f6UeS37VOvzA9c/8VDxE0892F7ZyDgyAM0RT2OExjdXGv3cYstsoN1Mi6rkGKFm7lgSZj7x2kU2lKhrNbqnfzWSEW6T2hAzSKX7ryrI1+uLgd5WxV0BRd9iWSPfDiQ+kdgk9zE/1XZ2UTwnDvEAuy076rIA0eE8yAwXoLs9+lFWZGRPQ0vimDH/HibRL5AhfvXHLIsCi1ProbHAzEHJzX8exrERtr0tMqjVR2rci1XK2WgxHFGLyqvP4fkHXzEUdYgVt0LMzO5e1sUVjiK/kH2P5TfXTtiTgtnm5FAcbpFUe5XEA5fy92LCcQMk+Zjk1W5D43oez05BnSPXdLJsrDCYURnZ+ITIkRmcCdTZHH+/uAYae7vCjIybHyJhP4ggPQqqgxQClWRydE5QBG1wF1LD8xHey55G151i71aaUwcGkOj+yFe4bgFHC5dbnruvZm2adlf5GDJwnmRxMru/vGZdrcZjXU7Y7iHg7j/9VOTVxk9IFD9+wPrLb508CG4au5cdwUOAWxUegw7McVACIyTPWEvU3UfdGdvE6nmDOwXxhis63kl0svz2RFbuvfJ94W4HjQ0Q79gtdU=';const _IH='f417d266e3b89088224d4720ab336c6fb99807d8d79901291b322f83b03bcf94';let _src;
+  const _b64='6ydffBDbCVNVaOpxcz0/QAVHvKGnfFH+Y6dwYUSLNddCQgK+MtW1pECbp4IDoCwBPCitQcPK4vJeQRzPyjGF+jDVA8pW7QfC/LPMtqVMSjAdRE6FSOQ0g3h6LFbflMBjgz13qZeX8qOZ5W7weRvm411IEePaAvm4y/AXCDwfWEfUHrwMkqJZQIb47rbNV30dp3eK/Q2X6rK9n/VFzSqpmx7ShiFJ5/D5yX0GhPh2oUjDQtrLWWj9yYjOon6POEu3+09qcmI0skI4E7X49XkpvmTNMkFToGEBeVaDMrgQUTNXwli6QWNIPlLwX4cHVgl0O4UX0YY4H8b8yVqOyG3CKetspTjR6B9b56YTF+hbOjdJaUMZxW7zqe0wZzpFO5JkLUzW9zjfTv/GGMXkTotewHgB4Oe71fkYD1Gk1JH3aikQzIPn17u7Vf3PJt7pXOce4Cctuv9xE+S1yoeNCJPh5bJEH8hxx1M7XtNCNxITimVpa/U+bvlAUgAY71I8PJNmBF/1kyZkN8n64mjmxFuXz+cov3etGXa3Xv7YyEIiL+eHzw1jhcKx9OMJhSCFfSCAbDBsW28NbnWaBRFbHLuehXkvsfh+BHDwkbkFkMQFlhcxdH9lIc5//p6taejXXXOoxkONntvlhYotjCsjXfbzuI8cmnxEF8sY3L0yA2CrnVSWDmYrZv7PmT6vSKyOITtRAizseGcGH3MSElPX4JbXdfT4zdatakRyFKgIIe8SroH/Muow2YxcD0/xT9gFTibZr8Lz4yo23sgrcQVKDeopI9NqtNvfmIgnfdlzl/ZZ1TkiQKXhUIAQmd1TvLhVZlmGu7/uz9jeIqcwRmtp27AldDuX1QK8kDN1koR9SHsYCDJnrSSDz/gw4oauKfNG3JD9l0fYXTLVrPk37OknSPxQqoGWAntn2sNrESJQey/djxGpsmZKSleYF5j6f6uHTQn8K1AyvXqrbGt1SFhtU3usG7KNRbUnecEoldyCRoKsUcoUvgJPPWTNeNM8zQqdJ8tanY1bTBSoq1nvLzVUScPhkOS/DBtm75s8F7eB2mr+gsGAoWhTe40rGoxqN40Caa4RaTI30xl3b9eA9sFTRE+ywpvoDYBiL2W1Wim8wqLHf6LICMsGFsG+jf1Xhes+rlx6ivI/NfcIRZFAs52+atGEW3ab6iRtgR3+tUp3KRHsxEJ7VEp+mlZFNEWiI6zX5bwdijnEwehOxfzmA3NFtVb//2uHI1bHsDQwj2SItcVY6PC3rZE97TlajiOXPl74BV6vBgQbhSzG/U8EGcaAIv+3us8U+hfOQgWAiF81hVVym0Y+aOSQ+LlOmL3PiddrdmVdEucUJLOdbrzLAirLiTjdre77pRyp1vVQFYkqaLEbuXiglai2pc2qCby38AU6+HRc9YiKf+55k5HQjuJp4kaRZqRTi3gcKDBIoK9SAa+oWXY=';const _IH='2402f4d9c9a4e4160153eeb71025a0fb9353c1c5b5696aa594b19daf1b76fba9';let _src;
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=100000;
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
   const _c2=require('crypto');
   const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
   if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
