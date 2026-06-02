@@ -1,17 +1,17 @@
 // ╔══════════════════════════════════════════════════════╗
 // ║  Obfuscationary by JusticeTech                      ║
 // ║  Version  : 4.0.3                                     ║
-// ║  Encrypted: 2026-06-01 22:33:14 UTC                   ║
-// ║  Cipher   : AES-256-GCM (Quantum-KDF)                 ║
+// ║  Encrypted: 2026-06-01 23:57:55 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
 // ║  Tamper   : Protected via SHA-256 integrity check    ║
 // ╚══════════════════════════════════════════════════════╝
 
 // Encrypted by Obfuscationary by JusticeTech v4.0.3
 (async()=>{
   if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='UUVOQ9IQnjp+gPldPZY2SFhjzKeuQUodxxPsihUkLY5ghlsUwOv4nAoJCUZlwi0vmNpOzSEaf6oztMlU+yRnEO7hzptDmkzysBTuwFiaqZZr9CB2UkCGamvvq0oKF6eouRJ4WmA3xoZclMeFC0wCyaP0p6xS9RFJEgxk3728JCytHHpg8iR/V7zT2S6y0tFlFo0jaEraoX2VaaGaauyvjchqrpfUpS5U2XvvYm4HkpJj8wzmJAKYwRlbkYrLnkz1G3sPTyiQXUXg4qolcWglXcpc0hI7SGqBfWVBN3c6KjbImvGIg10b12BN195SuALW3eEVtv0O4tS+qLZ11h3eS0SB51oYPcZU0kP357dus1WhFggI8FEjzw7OtKXfjvNjW8avef57NBxtoXMBdkIqZRJ01e46iF93Ey7HID+bNFHoR8m0uWH2RRdbCUREq8Qwa1H7GK5mRF3/XuzN5uItJ8yQvySMHoVCVSaYuXpf9LjhJjlu8yodlcIBrg==';const _IH='bb83117bff6f59f9d36259e58daf526e8ddd60885a714dbaf0d645cc0eb935f7';let _src;
+  const _b64='UWbPoMRnYnFpiH9zg6Csv8OKZUGqlaXtRtt8maNAWae2g4d9sFSym9MGs7XlRmpWyayQXM5y4jexi0SOlJbnLoF1uohoDBCMsGwNO4Q5NjIuDT0+8B88WxcU9brzwMb5hcfq29lN+tahja1A1Xxtk4idMTDDMZVGIIHZqJUbo4tPJgrP0JhM3hU4GqiWnKDbuPPQ1qfX3aSopAm8RibNy2YuS0JT075sHz3CY64ZoKyH6/68JA7D4i3h2z0C+7NaF1GGch7JZiHk8qVu/mDs/pLiiPgl3IhaMmIIY5wTQDY0S8HddnUvwdopdd3dASTLMFwJIGUQDlb/JztSIhhvLoW4A9FkQ0fP+SCpUsTl6X2d90vA9+QwfRsAYasTqg+io6L7XiePFE6d3ILR+pSvZ9ZYKKSWrdeftmqLfHJRb86dsTkzG2Lxy+0S/pdhBp8o22ki8P6b1UItMjaivxJF47/8uTI2O2LB0qOhEA1ywGoFTUExE3NX';const _IH='1ed6ded4c213f523d775f5b2b15e392196316680fb45b91bb7beb5568fadfd27';let _src;
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=0;
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=100000;
   const _c2=require('crypto');
   const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
   if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
