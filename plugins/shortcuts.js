@@ -1,30 +1,141 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.3                                     ║
-// ║  Encrypted: 2026-06-03 12:28:35 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
+// plugins/shortcuts.js — Miss Chatra Command Shortcuts
+// Create short aliases for any bot command
+// e.g. /shortcut sc biblesearch → /sc = /biblesearch
+"use strict";
 
-// Encrypted by Obfuscationary by JusticeTech v4.0.3
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='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';const _IH='8231429f266f944b63b27f6ffa8e764b91dad5b4b72d45eaada4da5e23095977';let _src;
+const fs   = require("fs");
+const path = require("path");
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
+const DB_FILE = path.join(__dirname, "..", "database", "shortcuts.json");
+
+function load() {
+  try { return JSON.parse(fs.readFileSync(DB_FILE, "utf8")); } catch { return {}; }
+}
+function save(data) {
+  try {
+    if (!fs.existsSync(path.dirname(DB_FILE))) fs.mkdirSync(path.dirname(DB_FILE),{recursive:true});
+    fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2));
+  } catch {}
+}
+
+// ── Handle shortcut execution (called from message.js) ────────────────────────
+// Returns { matched: true, fullCommand } if a shortcut was found
+function resolveShortcut(cmd) {
+  const shortcuts = load();
+  const all = {};
+  // Merge global and per-user? For simplicity — global shortcuts only
+  for (const [key, val] of Object.entries(shortcuts.global || {})) {
+    all[key.toLowerCase()] = val;
   }
-  _src=_d.toString('utf8');
+  return all[cmd.toLowerCase()] || null;
+}
 
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
-})();
+module.exports = {
+  name: "Shortcuts",
+  category: "tools",
+  desc: "Create short command aliases — e.g. /shortcut sc biblesearch",
+  command: [
+    "shortcut","sc","shortcuts","myshortcuts",
+    "addshortcut","delshortcut","clearshortcuts","listshortcuts",
+  ],
+  resolveShortcut,
+
+  run: async ({ sock, m, args, command, chatId, userId, reply, prefix, isOwner, isDev }) => {
+    const pfx  = prefix || "/";
+    const shortcuts = load();
+    if (!shortcuts.global) shortcuts.global = {};
+
+    // ── LIST shortcuts ────────────────────────────────────────────────────────
+    if (["myshortcuts","listshortcuts","shortcuts"].includes(command) ||
+        (command === "shortcut" && !args.length)) {
+      const global = shortcuts.global || {};
+      const entries = Object.entries(global);
+      if (!entries.length) {
+        return reply([
+          `📌 *Command Shortcuts*`,``,
+          `No shortcuts set yet.`,``,
+          `*Usage:* ${pfx}shortcut <alias> <command>`,``,
+          `*Examples:*`,
+          `  ${pfx}shortcut bs biblesearch`,
+          `  ${pfx}shortcut ts topscorer`,
+          `  ${pfx}shortcut vi viewonce`,
+          `  ${pfx}shortcut ls livescore`,``,
+          `Then use: *${pfx}bs faith and hope* instead of *${pfx}biblesearch faith and hope*`,
+        ].join("\n"));
+      }
+      const lines = [`📌 *Active Shortcuts (${entries.length})*\n`];
+      for (const [alias, target] of entries.sort()) {
+        lines.push(`  *${pfx}${alias}* → *${pfx}${target}*`);
+      }
+      lines.push(`\n_${pfx}delshortcut <alias> to remove_`);
+      lines.push(`_${pfx}clearshortcuts to remove all_`);
+      return reply(lines.join("\n"));
+    }
+
+    // ── ADD shortcut ──────────────────────────────────────────────────────────
+    if (["shortcut","addshortcut","sc"].includes(command) && args.length >= 2) {
+      const alias  = args[0].toLowerCase().replace(/[^a-z0-9]/g, "");
+      const target = args[1].toLowerCase().replace(/[^a-z0-9]/g, "");
+
+      if (!alias || alias.length < 1) return reply("❌ Alias must be at least 1 character.");
+      if (!target)                    return reply("❌ You must specify a target command.");
+      if (alias.length > 10)          return reply("❌ Alias too long — max 10 characters.");
+
+      // Don't allow overwriting core commands
+      const coreProtected = ["menu","help","start","ping","restart","shutdown","ban","kick","broadcast"];
+      if (coreProtected.includes(alias)) return reply(`❌ Cannot override core command *${alias}*.`);
+
+      shortcuts.global[alias] = target;
+      save(shortcuts);
+      return reply([
+        `✅ *Shortcut Created*`,``,
+        `*${pfx}${alias}* → *${pfx}${target}*`,``,
+        `Now type *${pfx}${alias}* to run *${pfx}${target}*`,
+        `You can also pass arguments: *${pfx}${alias} epl*`,``,
+        `_${pfx}shortcuts — view all shortcuts_`,
+        `_${pfx}delshortcut ${alias} — remove this shortcut_`,
+      ].join("\n"));
+    }
+
+    // ── DELETE shortcut ───────────────────────────────────────────────────────
+    if (command === "delshortcut") {
+      const alias = (args[0]||"").toLowerCase().replace(/[^a-z0-9]/g,"");
+      if (!alias) return reply(`Usage: ${pfx}delshortcut <alias>`);
+      if (!shortcuts.global[alias]) return reply(`❌ Shortcut *${pfx}${alias}* not found.`);
+      const target = shortcuts.global[alias];
+      delete shortcuts.global[alias];
+      save(shortcuts);
+      return reply(`✅ Shortcut *${pfx}${alias}* (→ ${pfx}${target}) removed.`);
+    }
+
+    // ── CLEAR all shortcuts ───────────────────────────────────────────────────
+    if (command === "clearshortcuts") {
+      if (!isOwner && !isDev) return reply("🔒 Only the bot owner can clear all shortcuts.");
+      const count = Object.keys(shortcuts.global||{}).length;
+      shortcuts.global = {};
+      save(shortcuts);
+      return reply(`✅ All ${count} shortcuts cleared.`);
+    }
+
+    // ── Help ──────────────────────────────────────────────────────────────────
+    return reply([
+      `📌 *Command Shortcuts*`,``,
+      `Create short aliases for any bot command.`,``,
+      `*Commands:*`,
+      `  ${pfx}shortcut <alias> <cmd> — Create shortcut`,
+      `  ${pfx}shortcuts              — List all shortcuts`,
+      `  ${pfx}delshortcut <alias>    — Delete a shortcut`,
+      `  ${pfx}clearshortcuts         — Clear all (owner only)`,``,
+      `*Examples:*`,
+      `  ${pfx}shortcut bs biblesearch`,
+      `  ${pfx}shortcut ts topscorer`,
+      `  ${pfx}shortcut vi viewonce`,
+      `  ${pfx}shortcut ls livescore`,
+      `  ${pfx}shortcut dp getdp`,``,
+      `*After creating:*`,
+      `  ${pfx}bs love and forgiveness`,
+      `  ${pfx}ts epl`,
+      `  ${pfx}ls champions league`,
+    ].join("\n"));
+  }
+};

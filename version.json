@@ -1,8 +1,19 @@
 {
-  "_ob": true,
-  "_v": "4.0.3",
-  "_enc": "2026-06-03 12:28:34 UTC",
-  "_l": 1,
-  "_h": "c37f0a1fd9288524b19a5161cc25cbb6cf2f08620d31c4402a93996db2799704",
-  "_d": "dgycCSod47MKJyItVc2RZxmOHrk+tjP3v3inBMqUezmMqIFIF28mJCFfGed924UbUvh4d4JqtWW7FLOfrh9qZjx14ahWpcOYfJyH+NXLd0DOG+dDD9KHt9EqNrUAgnyazpDbPad3OK23SEi32Qq1e0hkmLi8tg0cA8Lmr43EklDnV3IJIRVX0IMFxQ2bogvCdjJdwZN6pXkKp+zF0WISV0oB7iIRT6Zi4Y+y3tKnot5hv5bCctqwum6WbOxTV/OBzX3wUWazmbwOF66Hhqfa7y0QimsQiPjUjD2RU1jsxP2BxgiADVRESyTn26sXHWTCo+87EbYUZCaypMsuQlk/AmVmkVn7K4A/4IRsRUjn5Rvfs2nHkWW/VB2gZ7SZlWbNYLMoLtvxVGXegebIXbC0Z0tOLueckPCJJSLAFQFm8kHWI4H34vDmaIflqFy7IqhFuYcw0UpS9uF5weZSZsRdZrxa7ysqz6YTUSN6WlLO1F9kTOj5DE8WypL3dBpan//nHoAVLA4wn6B6hFRvS0timw97IaX0i/Ox9JKhMMYEv2NPK1fd+Ez4w/0xWlaMp4GjOujx8R6XLi05ceKrVTzdGmgPXsmJjk9aKSGdnXJWEnbVOFGFgglXV/aHB+f7YlZ3ialZv36W18c60nfn2ur7EW5gLWpTZOV+gEMQjgwAmv8t7E9gz+Rxj5m/66rQaJZrSncT0qm01ZZEN/7zpZuYuFegZcINCxzZYMAEsWURQyu0scvWnTaNWfmmiT+ihIR8XQ5vbnbplqDxvd4a6WzUun1/1+Qna3s2wivU0SwDRMolB6NeqfvUxRm4a+EPLwaMBJTug4PExy/uEStSYbkmnD/YoQstwsoeyFr/I362xu9J6vu4/6pnYjuO5PP+pxVhnEpgCkxTdMYdabGjvWfw8stltQMwBjJSn7orp2L76UqpzBT2janVjusxCIEqy9/uHmcaZlOdn1hC6dRjA1XArklL2/jEWht6DY8aqHrySpBx2Zd2r2kqFnMxo0DOg0LqRo4n1OwpEVUaHVq5dFvpUIYJS6U3U+8FfzuOAKzYif8dR/iJeOaZq0w90CXsSfavD/9SKpVNrHRFNs4XuajCqsPDv2GpnfE2Qr5BUnQHJeySSV0obo+f2kbvfM5a4i96aZhaW9z9FwYjkX1wCA8Y4P4B9F/EbNR6TyNaRNyWdAybVrvyZAHdsyba2QbLJY/JP/hswy8CEOKN7sNV6e+F66vFR3Y6dklX6C+jzmMK2O7WurTRmdqJbFTnCYLKmyut6XIRpDLcXM4m/mdlGLhD7PNHdsx0UQ=="
+  "version": "1.0.4",
+  "codename": "JT",
+  "tag": "v1.0.4_JT",
+  "releaseDate": "2026-05-26",
+  "changelog": [
+    "ADDED: /story Wizard — post status with image, video, audio, text, sticker",
+    "ADDED: /tostory — instantly forward any message to status",
+    "ADDED: /research — deep AI research engine with source extraction",
+    "ADDED: /animehub — anime/manga search + 19 reaction GIF commands",
+    "ADDED: /utility — weather, currency, Wikipedia, news, calculator",
+    "ADDED: /nsfwon /nsfwoff — AI-powered NSFW image scanner per group",
+    "ADDED: /viruson /virusoff — document threat scanner with entropy analysis",
+    "ADDED: /poster /epx — EasyPosterX broadcast poster builder",
+    "ADDED: /powertools — group lock, slowmode, antilink, tag admins",
+    "FIXED: Status posting now uses correct statusJidList for Baileys 7.x",
+    "FIXED: Story wizard now correctly intercepts all message types"
+  ]
 }

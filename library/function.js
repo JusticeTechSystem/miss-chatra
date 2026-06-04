@@ -1,30 +1,316 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.3                                     ║
-// ║  Encrypted: 2026-06-03 12:28:34 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
 
-// Encrypted by Obfuscationary by JusticeTech v4.0.3
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='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';const _IH='7f44084d48c64f65508e5183489e43daf7ea86454b96386b3f78fcde22b251bf';let _src;
+// © 2025 Debraj. All Rights Reserved.
+// respect the work, don’t just copy-paste.
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
+const axios = require('axios')
+const moment = require('moment-timezone')
+const { sizeFormatter } = require('human-readable')
+const util = require('util')
+const { read, MIME_JPEG, jimp } = require('jimp')
+const vm = require("vm")
+const CryptoJS = require("crypto-js")
+
+const unixTimestampSeconds = (date = new Date()) => Math.floor(date.getTime() / 1000)
+
+const resize = async (image, width, height) => {
+    let oyy = await jimp.read(image)
+    let kiyomasa = await oyy.resize(width, height).getBufferAsync(jimp.MIME_JPEG)
+    return kiyomasa
+}
+
+const generateMessageTag = (epoch) => {
+    let tag = unixTimestampSeconds().toString();
+    if (epoch)
+        tag += '.--' + epoch;
+    return tag;
+}
+
+const processTime = (timestamp, now) => {
+    return moment.duration(now - moment(timestamp * 1000)).asSeconds()
+}
+
+const clockString = (ms) => {
+    let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
+    let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+    let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+    return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
+}
+
+const runtime = (seconds) => {
+    seconds = Number(seconds);
+
+    const days = Math.floor(seconds / (3600 * 24));
+    const hours = Math.floor((seconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    const dayDisplay = days > 0 ? `${days} ${days === 1 ? "day" : "days"}, ` : "";
+    const hourDisplay = hours > 0 ? `${hours} ${hours === 1 ? "hour" : "hours"}, ` : "";
+    const minuteDisplay = minutes > 0 ? `${minutes} ${minutes === 1 ? "minute" : "minutes"}, ` : "";
+    const secondDisplay = secs > 0 ? `${secs} ${secs === 1 ? "second" : "seconds"}` : "";
+
+    const result = (dayDisplay + hourDisplay + minuteDisplay + secondDisplay).trim().replace(/,\s*$/, "");
+
+    return result || "0 seconds";
+};
+
+const getTime = (format, date) => {
+    if (date) {
+        return moment(date).tz('Asia/Kolkata').locale('en-in').format(format)
+    } else {
+        return moment.tz('Asia/Kolkata').locale('en-in').format(format)
+    }
+}
+
+const formatDate = (dateValue, locale = 'en-IN') => {
+    let dateObj = new Date(dateValue)
+    return dateObj.toLocaleDateString(locale, {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        timeZone: 'Asia/Kolkata'
+    })
+}
+
+const formatDateIndia = (inputDate) => {
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const days = [
+        "Sunday", "Monday", "Tuesday", "Wednesday",
+        "Thursday", "Friday", "Saturday"
+    ];
+    
+    let dateObj = new Date(inputDate);
+    let dayOfMonth = dateObj.getDate();
+    let month = dateObj.getMonth();
+    let dayOfWeek = dateObj.getDay();
+    let year = dateObj.getFullYear();
+    
+    return `${days[dayOfWeek]}, ${dayOfMonth} - ${months[month]} - ${year}`;
+}
+
+const getRandom = (ext) => {
+    return `${Math.floor(Math.random() * 10000)}${ext}`
+}
+
+const getBuffer = async (url, options) => {
+    try {
+        options = options || {}
+        const res = await axios({
+            method: "get",
+            url,
+            headers: {
+                'DNT': 1,
+                'Upgrade-Insecure-Request': 1
+            },
+            ...options,
+            responseType: 'arraybuffer'
+        })
+        return res.data
+    } catch (err) {
+        return err
+    }
+}
+
+const fetchJson = async (url, options) => {
+    try {
+        options = options || {}
+        const res = await axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36'
+            },
+            ...options
+        })
+        return res.data
+    } catch (err) {
+        return err
+    }
+}
+
+const formatSize = (bytes) => {
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    if (bytes === 0) return '0 Bytes';
+    const i = Math.floor(Math.log(bytes) / Math.log(1024));
+    return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i];
+};
+
+const formatp = sizeFormatter({
+    std: 'JEDEC',
+    decimalPlaces: 2,
+    keepTrailingZeroes: false,
+    render: (literal, symbol) => `${literal} ${symbol}B`,
+})
+
+const bytesToSize = (bytes, decimals = 2) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+const getSizeMedia = (path) => {
+    return new Promise((resolve, reject) => {
+        if (/http/.test(path)) {
+            axios.get(path)
+                .then((res) => {
+                    let length = parseInt(res.headers['content-length'])
+                    let size = bytesToSize(length, 3)
+                    if (!isNaN(length)) resolve(size)
+                })
+                .catch(reject)
+        } else if (Buffer.isBuffer(path)) {
+            let length = Buffer.byteLength(path)
+            let size = bytesToSize(length, 3)
+            if (!isNaN(length)) resolve(size)
+        } else {
+            reject('Invalid path or buffer')
+        }
+    })
+}
+
+const sleep = async (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const isUrl = (url) => {
+    return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
+}
+
+const jsonformat = (string) => {
+    return JSON.stringify(string, null, 2)
+}
+
+const format = (...args) => {
+    return util.format(...args)
+}
+
+const parseMention = (text = '') => {
+    return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')
+}
+
+const getGroupAdmins = (participants) => {
+    let admins = []
+    for (let i of participants) {
+        i.admin === "superadmin" ? admins.push(i.id) : i.admin === "admin" ? admins.push(i.id) : ''
+    }
+    return admins || []
+}
+
+const generateProfilePicture = async (buffer) => {
+    const jimp = require('jimp')
+    const image = await jimp.read(buffer)
+    const min = image.getWidth()
+    const max = image.getHeight()
+    const cropped = image.crop(0, 0, min, max)
+    return {
+        img: await cropped.scaleToFit(720, 720).getBufferAsync(jimp.MIME_JPEG),
+        preview: await cropped.scaleToFit(720, 720).getBufferAsync(jimp.MIME_JPEG)
+    }
+}
+
+const dechtml = async (buffer) => {
+  const html = buffer.toString("utf8")
+
+  if (/const chunks =/.test(html)) {
+    const c = html.match(/const chunks = (\[[\s\S]*?\]);/)[1]
+    const k = html.match(/const splitKey = (\[[\s\S]*?\]);/)[1]
+    const v = html.match(/const splitIv = (\[[\s\S]*?\]);/)[1]
+
+    const s = {}
+    vm.createContext(s)
+    vm.runInContext(`chunks=${c}`, s)
+    vm.runInContext(`splitKey=${k}`, s)
+    vm.runInContext(`splitIv=${v}`, s)
+
+    const keyArr = s.splitKey[0].concat(s.splitKey[1]).map(Number)
+    const ivArr = s.splitIv[0].concat(s.splitIv[1]).map(Number)
+    const key = CryptoJS.lib.WordArray.create(new Uint8Array(keyArr))
+    const iv = CryptoJS.lib.WordArray.create(new Uint8Array(ivArr))
+
+    const decrypted = CryptoJS.AES.decrypt(
+      { ciphertext: CryptoJS.enc.Base64.parse(s.chunks.join("")) },
+      key,
+      { iv }
+    )
+
+    const words = decrypted.words
+    const sigBytes = decrypted.sigBytes
+    const out = Buffer.alloc(sigBytes)
+    for (let i = 0; i < sigBytes; i++) {
+      out[i] = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff
+    }
+    return out
   }
-  _src=_d.toString('utf8');
 
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
-})();
+  if (/atob\(/.test(html)) {
+    const base64 = html.match(/atob\(["'`]([^"'`]+)["'`]\)/)[1]
+    const decoded = Buffer.from(base64, "base64")
+
+    let text
+    try {
+      const bin = decoded.toString("binary")
+      text = decodeURIComponent(unescape(bin))
+    } catch {
+      text = decoded.toString("utf8")
+    }
+
+    return Buffer.from(text, "utf8")
+  }
+
+  return Buffer.from(html, "utf8")
+}
+
+async function fetchWithTimeout(url, ms) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), ms);
+
+    try {
+        const res = await axios.get(url, { signal: controller.signal });
+        return res;
+    } catch (err) {
+        if (err.name === 'CanceledError' || err.name === 'AbortError') {
+            throw new Error(`Request timed out after ${ms}ms`);
+        }
+        throw err;
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
+module.exports = {
+    unixTimestampSeconds,
+    resize,
+    generateMessageTag,
+    processTime,
+    getRandom,
+    getBuffer,
+    formatSize,
+    fetchJson,
+    runtime,
+    clockString,
+    sleep,
+    isUrl,
+    getTime,
+    formatDate,
+    formatDateIndia,
+    formatp,
+    jsonformat,
+    format,
+    generateProfilePicture,
+    bytesToSize,
+    getSizeMedia,
+    parseMention,
+    getGroupAdmins,
+    dechtml,
+    fetchWithTimeout
+};

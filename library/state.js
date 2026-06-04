@@ -1,30 +1,147 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.3                                     ║
-// ║  Encrypted: 2026-06-03 12:28:34 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
+// library/state.js — Miss Chatra WA State Management
+"use strict";
 
-// Encrypted by Obfuscationary by JusticeTech v4.0.3
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='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';const _IH='d050ad89fa82ca5eb71a070f78dae42b79240d4f29a70fba463b7d9e43d68c6a';let _src;
+const fs   = require("fs");
+const path = require("path");
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
+const DB_DIR    = path.join(__dirname, "..", "database");
+const STATE_FILE = path.join(DB_DIR, "bot_state.json");
+
+if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
+
+const config = require("../settings/config");
+
+// ── Auto-delete delay constants (mirror TG) ────────────────────────────────────
+const MENU_AUTODELETE_BOT_DELAY      = 120;   // seconds
+const MENU_AUTODELETE_USER_DELAY     = 15;
+const GAME_AUTODELETE_BOT_DELAY      = 60;
+const GAME_AUTODELETE_USER_DELAY     = 30;
+const WELCOME_AUTODELETE_DELAY       = 60;
+const GOODBYE_AUTODELETE_DELAY       = 60;
+
+function defaultState() {
+  return {
+    // Chatbot
+    chatbot_enabled: true,
+    chatbot_conversations: {},
+    chatbot_training: {
+      name: config.botName,
+      developer: config.developerName,
+      developer_username: `@${config.developerUsername}`,
+      company: config.companyName,
+      company_location: config.companyLocation,
+      company_focus: config.companyFocus,
+      custom_training: {},
+      special_instructions: {
+        personality: "Respond like a mature adult having a natural conversation. No formal greetings. 1-3 sentences max.",
+        language: "Use natural, everyday language. Sound like a real person.",
+        developer_recognition: `Always recognize the developer ${config.developerName} and company ${config.companyName} when asked.`,
+        company_location: `Company location: ${config.companyLocation}.`
+      }
+    },
+    user_chatbot_training: {},
+
+    // ── Auto-delete (master) ─────────────────────────────────────────────────
+    auto_delete_enabled:      true,
+    auto_delete_delay:        config.autoDeleteDelay || 180,
+    auto_delete_bot_messages: true,
+    auto_delete_user_messages: false,
+    auto_delete_groups:       true,
+    auto_delete_private:      true,
+    auto_delete_channels:     false,
+    auto_delete_supergroups:  true,
+
+    // ── Menu auto-delete ─────────────────────────────────────────────────────
+    menu_autodelete_enabled:    true,
+    menu_autodelete_bot_delay:  MENU_AUTODELETE_BOT_DELAY,
+    menu_autodelete_user_delay: MENU_AUTODELETE_USER_DELAY,
+
+    // ── Games auto-delete ────────────────────────────────────────────────────
+    games_autodelete_enabled:       true,
+    game_autodelete_bot_delay:      GAME_AUTODELETE_BOT_DELAY,
+    game_autodelete_user_delay:     GAME_AUTODELETE_USER_DELAY,
+    wordchain_autodelete_enabled:   true,
+    trivia_autodelete_enabled:      true,
+    numguess_autodelete_enabled:    true,
+    scrabble_autodelete_enabled:    true,
+    blackjack_autodelete_enabled:   true,
+
+    // ── Welcome / Goodbye delays ─────────────────────────────────────────────
+    welcome_autodelete_delay: WELCOME_AUTODELETE_DELAY,
+    goodbye_autodelete_delay: GOODBYE_AUTODELETE_DELAY,
+
+    // ── Reports auto-delete ──────────────────────────────────────────────────
+    reports_autodelete_enabled:   true,
+    reports_autodelete_bot_delay: 10,
+    reports_autodelete_user_delay: 5,
+
+    // ── GiveawayX post auto-delete ───────────────────────────────────────────
+    gx_autodelete_post_enabled: true,
+    gx_autodelete_post_delay:   240,
+
+    // ── Virus verdict auto-delete ────────────────────────────────────────────
+    vd_autodelete_enabled: true,
+    vd_autodelete_delay:   240,
+
+    // ── Appeal announce ──────────────────────────────────────────────────────
+    appeal_announce_autodelete_delay: 240,
+
+    // ── Other ────────────────────────────────────────────────────────────────
+    last_triggered: {},
+    update_log_text: "",
+    report_threshold: 20,
+    report_max_per_user: 1,
+    report_counts: {},
+    report_sessions: {},
+    appeal_sessions: {},
+    review_sessions: {},
+    game_settings: {},
+    active_games: {},
+    inactive_threshold: 3600,
+    user_message_counts: {},
+    command_users: {},
+    last_welcome: {},
+    last_goodbye: {},
+  };
+}
+
+let state;
+
+function loadState() {
+  if (fs.existsSync(STATE_FILE)) {
+    try {
+      const raw = JSON.parse(fs.readFileSync(STATE_FILE, "utf8"));
+      state = Object.assign(defaultState(), raw);
+    } catch {
+      state = defaultState();
+    }
+  } else {
+    state = defaultState();
   }
-  _src=_d.toString('utf8');
+  return state;
+}
 
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
-})();
+function saveState() {
+  try {
+    fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
+  } catch (e) {
+    console.error("[STATE] Save error:", e.message);
+  }
+}
+
+function getState() {
+  if (!state) loadState();
+  return state;
+}
+
+// Auto-save every 30 seconds
+setInterval(saveState, 30000);
+
+loadState();
+
+module.exports = {
+  getState, saveState, loadState,
+  MENU_AUTODELETE_BOT_DELAY, MENU_AUTODELETE_USER_DELAY,
+  GAME_AUTODELETE_BOT_DELAY, GAME_AUTODELETE_USER_DELAY,
+  WELCOME_AUTODELETE_DELAY, GOODBYE_AUTODELETE_DELAY,
+};

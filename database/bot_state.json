@@ -1,8 +1,39 @@
 {
-  "_ob": true,
-  "_v": "4.0.3",
-  "_enc": "2026-06-03 12:27:54 UTC",
-  "_l": 1,
-  "_h": "898075a0faf59fd286321522b975ee9dc1b5d8eb454f3b586d229a39f9768808",
-  "_d": "Neg2c3ep2EJa5rbMGT29q8H0SEf0zoZA0GaEA7A3nOkyfaKGjxqo4is3UnoSd2P2wOZ89Zgc7keJ7sfHilP1O6gInDLEY1Li5LRWpVMZgO0NAhD9xbcAZTsM3ytmB+2rpUSBvur/GzPaADYnzQdBk5Fge2BTNQSLvWOTL4gAFRhhijDRUS1TlDFFEcwbP2TaYxsY5dIbvej8IiWXCHJm2wkIcs99HMUpKOZxyFtSxP+SSiv17+tI/ZcBTAsbsfjPFiQ7ePe+JlvEf0LRkz5C6yvufLOdtoR53FNJn4hH3yW/Ly7t8+CT/x81vEeVJ9C66PGrmaRf5jDXT+wohElmpQa6xB8MWFJkSGnlvgC+7JuxFyATzNRHzU5EYAJoOFVY0jjq2UslQ+2bhkuIG9Yz0MgUm1zZ9HNuJtMV8fG+vBlm1Ch0vY48lSsYLj5XmQebRcJ0+tbMbi/NDeIeLhPaZmV6oiPw5sBh8HSrjorbEcwzqo4kKheni4BLY+EKeGbg+7edgVVEcAnwtAMFGgHOu7cQPzvx1jZmbp8PcKSmRAiox0QeIdRhKpYIMvz/TkQK56sF2kdjy5hEtU3I4rzoMUvfBw8dvpYNjxxjNfFhanZ7Wcycz5aUqKZWiE7TFUaqcj5HBwVkYQW7l4IYiNwOjs1XDO6FDZPO5kr7rXmbcMAEcFBkggw8mWyglkZi218BovrtNUMmQgVpeNh5qBtOvWclCgXT1epoUmKmqq0vMUyD1aoGnR59YBGy6l6PH1Zi/vuh7A+5b2UhLNPmG2eww/DUxw/P/bSSuKry5nupNF8Bo213pjv/2jXGh3k7+g6KXGsrXuv6rwOei4dZLGRaL7ziVHLzHaFr9Zaz5VgbWrT/FhWLoHZODj/RJkIrEYB9oF2eJ5uUSiQu7y37PERxaJJZzjPpiPi/Fx5fI6LtuLGvSi9nAt7eh+BNGtd+5+aaFa7C9VpJMY8UL1H0MLzH5S0aczk6JY2Ci3bKovWXxBI2j+OxztixOs0HgSRAHpJ6VdoNR4YXX+Y0IXzKFK7BGtH4sxYG6HQouRvfJHDw7Btuopn6FbJ10pyEsN5juFATFZoI/BD4LnhhG3uXYFfvwVqo7iH30HVxy47TDuT+JOLKS1YxJgVBOiSd4PrzmAHTSVSphmvW8pj4w95JDmdkI8zAMcrpRr8HT5LaSvVVROhC4MB6S9V1fOIY47HyPZWDuWXCsipkUhv/QWvgaGQa3Qmmd0w4GqrKO5maplOXj+/r7vzOBHMHbLBblSa/4nkpjUh1J3M5sDmBEATc+Lph3bYs7hTobuJFloT3H6BtaHy3kYjJFiGUUZXJuKdKqvAWpAQHa+rRFYjZqJv38ltlFGuTTISpUqQhF9dzE4s3n8ewSlkQsQ23r9Qzh9TUH238e/I1QQCUqFda50n6VAL6qBJusMEJFnRD8COGt1VJDOXCOb4wz+w8PiMn22VfzlNJa8Zu/iG2Hvzfh58roLIFNGF3VN9uFBoaSvAhqOEo+0M9j1/qKTg068QU0pBB2gyG3q9mup53P4FMuaJIt7lXKipxlWmYGIZFeYCVR/85JCPe09Fnbc4KCgg7JP+nM3bGpvUtS6G1Kw55sdTwgee+bNhEtA+bh9O1cmcuNv89L4ip3ReO+lUkR2WBrtgPPoPPyNjlRLqaJ8O+k9w46yLTu083K+2sRw6M7KoBsetqT0BkFuC2rLpAXRXsRzAPIqrpI3rf0wFrxqgDbsbyt2qHqaL7cxX8XHEO+wGfMeZqnqyxtb/Jh2lxhKgTU3Y8v77rUm3tBtclNPuetfWPsW8h5APeeOorHLEUYd4G6CaVF9aEdi/3vwR25pT9IuCbaxVHSCh3j3H0C3xks6XDaujRpRNKf+pFni9JtVhfHeODRct17V0Lv4ojWgJzvj6N"
+  "chatbot_conversations": {},
+  "chatbot_training": {
+    "name": "Miss Chatra",
+    "developer": "JusticeTech",
+    "developer_username": "@justicetechie",
+    "company": "JusticeTech System",
+    "company_location": "JusticeTech City, Nigeria",
+    "company_focus": "Web Development, App Development, Bot Development and Automation",
+    "custom_training": {},
+    "special_instructions": {
+      "personality": "Respond like a mature adult having a natural conversation. No formal greetings. 1-3 sentences max.",
+      "language": "Use natural, everyday language. Sound like a real person.",
+      "developer_recognition": "Always recognize the developer JusticeTech and company JusticeTech System when asked.",
+      "company_location": "Company location: JusticeTech City, Nigeria."
+    }
+  },
+  "user_chatbot_training": {},
+  "auto_delete_enabled": true,
+  "auto_delete_delay": 180,
+  "auto_delete_bot_messages": false,
+  "auto_delete_user_messages": false,
+  "auto_delete_groups": true,
+  "auto_delete_private": false,
+  "last_triggered": {},
+  "update_log_text": "",
+  "report_max_per_user": 1,
+  "report_counts": {},
+  "review_sessions": {},
+  "game_settings": {},
+  "active_games": {},
+  "inactive_threshold": 3600,
+  "user_message_counts": {},
+  "command_users": {},
+  "welcome_autodelete_delay": 60,
+  "goodbye_autodelete_delay": 60,
+  "last_welcome": {},
+  "last_goodbye": {}
 }
