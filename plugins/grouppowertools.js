@@ -1,176 +1,30 @@
-// plugins/grouppowertools.js — Group Power Tools for Miss Chatra WA
-// Ported from TG p42_group_power.py
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:34 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const { gsGet, gsSet } = require("../library/db");
-const { getState, saveState } = require("../library/state");
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='df7dcb8acbd4a1b8218120db27ed5de51e97878743edd680b5a0b9c80824fbe3';let _src;
 
-async function safeGroupAdmin(sock, chatId) {
-  try {
-    const meta = await sock.groupMetadata(chatId);
-    return meta.participants.filter(p => p.admin).map(p => p.id);
-  } catch { return []; }
-}
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
 
-module.exports = {
-  name:     "GroupPowerTools",
-  category: "moderation",
-  desc:     "Advanced group management: lock, slowmode, antilink, antispam, mass actions",
-  command:  ["lock","unlock","slowmode","antilink","antilinkon","antilinkoff",
-             "antilinkstatus","kickall","tagall","tagadmins","groupinfo",
-             "setwelcome","setgoodbye","welcomeon","welcomeoff","goodbyeon","goodbyeoff",
-             "welcomepreview","goodbyepreview","setdesc","setgroupname2","powertools"],
-
-  run: async ({ sock, m, args, command, chatId, userId, reply, isOwner, isDev, isAdmin, prefix, pushName }) => {
-    const isGroup = chatId?.endsWith("@g.us");
-
-    if (command === "powertools") {
-      return reply([
-        `⚡ *Group Power Tools*\n`,
-        `*Anti-Spam / Locks:*`,
-        `• ${prefix}lock — Lock group (restrict non-admins)`,
-        `• ${prefix}unlock — Unlock group`,
-        `• ${prefix}slowmode <seconds> — Set message cooldown`,
-        `• ${prefix}antilinkon — Auto-delete links`,
-        `• ${prefix}antilinkoff — Disable anti-link`,
-        `• ${prefix}antilinkstatus — Check status`,
-        ``,
-        `*Group Management:*`,
-        `• ${prefix}groupinfo — Full group stats`,
-        `• ${prefix}setdesc <text> — Set group description`,
-        `• ${prefix}setgroupname2 <name> — Rename group`,
-        `• ${prefix}tagadmins — Mention all admins`,
-        ``,
-        `*Welcome / Goodbye:*`,
-        `• ${prefix}setwelcome <msg> — Set welcome message`,
-        `• ${prefix}setgoodbye <msg> — Set goodbye message`,
-        `• ${prefix}welcomeon/off · ${prefix}goodbyeon/off`,
-        `• ${prefix}welcomepreview · ${prefix}goodbyepreview`,
-        ``,
-        `_Variables: {name} {group} {count}_`,
-      ].join("\n"));
-    }
-
-    if (!isGroup) return reply("⚠️ Group commands only work in groups.");
-    if (!isAdmin && !isOwner && !isDev) return reply("🔒 Admin only.");
-
-    const gs = gsGet(chatId);
-
-    // ── Lock / Unlock ─────────────────────────────────────────────────────
-    if (command === "lock") {
-      try {
-        await sock.groupSettingUpdate(chatId, "announcement");
-        return reply("🔒 Group locked. Only admins can send messages.");
-      } catch { return reply("❌ Failed to lock group. Make sure I have admin rights."); }
-    }
-    if (command === "unlock") {
-      try {
-        await sock.groupSettingUpdate(chatId, "not_announcement");
-        return reply("🔓 Group unlocked. All members can send messages.");
-      } catch { return reply("❌ Failed to unlock group."); }
-    }
-
-    // ── Slowmode ──────────────────────────────────────────────────────────
-    if (command === "slowmode") {
-      const secs = parseInt(args[0]);
-      if (isNaN(secs) || secs < 0) return reply(`Usage: ${prefix}slowmode <seconds>\nExample: ${prefix}slowmode 30\nUse 0 to disable.`);
-      gsSet(chatId, { slowmode_secs: secs });
-      return reply(secs > 0
-        ? `🐢 *Slowmode enabled*: ${secs}s cooldown between messages.`
-        : `✅ Slowmode disabled.`
-      );
-    }
-
-    // ── Anti-link ─────────────────────────────────────────────────────────
-    if (command === "antilinkon" || command === "antilink") {
-      const action = args[0]?.toLowerCase() || "delete";
-      const valid  = ["delete","warn","kick"];
-      const mode   = valid.includes(action) ? action : "delete";
-      gsSet(chatId, { antilink_mode: mode });
-      return reply(`🔗 *Anti-Link enabled* (mode: ${mode})\nLinks will be ${mode}d automatically.`);
-    }
-    if (command === "antilinkoff") {
-      gsSet(chatId, { antilink_mode: "off" });
-      return reply("✅ Anti-Link disabled.");
-    }
-    if (command === "antilinkstatus") {
-      const mode = gsGet(chatId).antilink_mode || "off";
-      return reply(`🔗 *Anti-Link Status*\nMode: *${mode}*\n\n${prefix}antilinkon [delete|warn|kick] — enable\n${prefix}antilinkoff — disable`);
-    }
-
-    // ── Group Info ────────────────────────────────────────────────────────
-    if (command === "groupinfo") {
-      try {
-        const meta    = await sock.groupMetadata(chatId);
-        const admins  = meta.participants.filter(p => p.admin).length;
-        const members = meta.participants.length;
-        const created = meta.creation ? new Date(meta.creation * 1000).toLocaleDateString() : "Unknown";
-        return reply([
-          `📊 *Group Info*\n`,
-          `📛 Name: *${meta.subject}*`,
-          `🆔 ID: ${chatId}`,
-          `👥 Members: ${members}`,
-          `👑 Admins: ${admins}`,
-          `📅 Created: ${created}`,
-          `📝 Description: ${meta.desc ? meta.desc.slice(0, 200) : "None"}`,
-        ].join("\n"));
-      } catch { return reply("❌ Could not fetch group info."); }
-    }
-
-    // ── Set Group Name / Description ──────────────────────────────────────
-    if (command === "setgroupname2") {
-      const name = args.join(" ").trim();
-      if (!name) return reply(`Usage: ${prefix}setgroupname2 <new name>`);
-      try {
-        await sock.groupUpdateSubject(chatId, name);
-        return reply(`✅ Group name updated to: *${name}*`);
-      } catch { return reply("❌ Failed. Make sure I have the right permissions."); }
-    }
-    if (command === "setdesc") {
-      const desc = args.join(" ").trim();
-      if (!desc) return reply(`Usage: ${prefix}setdesc <description>`);
-      try {
-        await sock.groupUpdateDescription(chatId, desc);
-        return reply("✅ Group description updated!");
-      } catch { return reply("❌ Failed to update description."); }
-    }
-
-    // ── Tag Admins ────────────────────────────────────────────────────────
-    if (command === "tagadmins") {
-      const admins = await safeGroupAdmin(sock, chatId);
-      if (!admins.length) return reply("❌ Could not fetch admin list.");
-      const mentions = admins.map(a => `@${a.split("@")[0]}`).join(" ");
-      await sock.sendMessage(chatId, { text: `👑 *Admins:*\n${mentions}`, mentions: admins }, { quoted: m });
-      return;
-    }
-
-    // ── Welcome / Goodbye ─────────────────────────────────────────────────
-    if (command === "setwelcome") {
-      const text = args.join(" ").trim();
-      if (!text) return reply(`Usage: ${prefix}setwelcome <message>\n\nVariables: {name} {group} {count}\nExample: ${prefix}setwelcome Welcome {name} to {group}! 🎉`);
-      gsSet(chatId, { welcome_msg: text, welcome_on: 1 });
-      return reply(`✅ Welcome message set:\n\n${text}`);
-    }
-    if (command === "setgoodbye") {
-      const text = args.join(" ").trim();
-      if (!text) return reply(`Usage: ${prefix}setgoodbye <message>\n\nVariables: {name} {group} {count}`);
-      gsSet(chatId, { goodbye_msg: text, goodbye_on: 1 });
-      return reply(`✅ Goodbye message set:\n\n${text}`);
-    }
-    if (command === "welcomeon")  { gsSet(chatId, { welcome_on: 1 }); return reply("✅ Welcome messages enabled."); }
-    if (command === "welcomeoff") { gsSet(chatId, { welcome_on: 0 }); return reply("✅ Welcome messages disabled."); }
-    if (command === "goodbyeon")  { gsSet(chatId, { goodbye_on: 1 }); return reply("✅ Goodbye messages enabled."); }
-    if (command === "goodbyeoff") { gsSet(chatId, { goodbye_on: 0 }); return reply("✅ Goodbye messages disabled."); }
-
-    if (command === "welcomepreview") {
-      const msg = gsGet(chatId).welcome_msg || "Welcome {name} to {group}! 🎉";
-      const preview = msg.replace("{name}", pushName||"User").replace("{group}", "This Group").replace("{count}", "42");
-      return reply(`👋 *Welcome Preview:*\n\n${preview}`);
-    }
-    if (command === "goodbyepreview") {
-      const msg = gsGet(chatId).goodbye_msg || "Goodbye {name}, we'll miss you!";
-      const preview = msg.replace("{name}", pushName||"User").replace("{group}", "This Group").replace("{count}", "41");
-      return reply(`👋 *Goodbye Preview:*\n\n${preview}`);
-    }
-  },
-};
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

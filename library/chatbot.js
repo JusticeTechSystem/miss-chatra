@@ -1,228 +1,30 @@
-// library/chatbot.js — Miss Chatra AI Layer (synced with TG p12_ai_commands.py / shared.py)
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:34 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const axios  = require("axios");
-const config = require("../settings/config");
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='37a9135f060ea1110272c647e2fe709e0c05870599a511ba1b54f2217b421bf1';let _src;
 
-const BASE = config.aiBaseUrl || "https://apis.prexzyvilla.site";
-
-async function callAI(endpoint, params = {}, timeoutMs = 35000) {
-  try {
-    const res = await axios.get(`${BASE}${endpoint}`, { params, timeout: timeoutMs });
-    const d   = res.data;
-    if (typeof d === "string") return d.trim();
-    return d?.result || d?.response || d?.answer || d?.text || d?.output
-      || d?.message || d?.content || d?.data?.result
-      || (typeof d === "object" ? JSON.stringify(d) : null);
-  } catch (e) {
-    if (e.code === "ECONNABORTED") return null;
-    return null;
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-}
+  _src=_d.toString('utf8');
 
-// ── All AI endpoints — exact mirror of TG shared.py ───────────────────────────
-const AI = {
-  // Core models
-  gpt5:            (t)       => callAI("/ai/gpt-5",              { text: t, prompt: t }),
-  gemini:          (t)       => callAI("/ai/gemini",             { text: t }),
-  gemini25f:       (t, s)    => callAI("/ai/chat-gemini-2-5-flash", { prompt: t, search: s || "" }),
-  gemini25p:       (t, s)    => callAI("/ai/chat-gemini-2-5-pro",   { prompt: t, search: s || "" }),
-  deepseek:        (t)       => callAI("/ai/deepseekchat",       { prompt: t }),
-  deepseekR1:      (t)       => callAI("/ai/chat--cf-deepseek-ai-deepseek-r1-distill-qwen-32b", { prompt: t }),
-  deepseekReasoner:(t)       => callAI("/ai/deepseekreasoner",   { prompt: t }),
-  claude:          (t)       => callAI("/ai/claude",             { text: t }),
-  grok:            (t)       => callAI("/ai/grok",               { text: t }),
-  meta:            (t)       => callAI("/ai/meta-ai",            { text: t }),
-  copilot:         (t)       => callAI("/ai/copilot",            { text: t }),
-  copilotDeep:     (t)       => callAI("/ai/copilot-think",      { text: t }, 60000),
-  qwq:             (t)       => callAI("/ai/chat--cf-qwen-qwq-32b", { prompt: t }),
-  logical:         (t)       => callAI("/ai/logical",            { text: t }),
-  advanced:        (t, k, v) => callAI("/ai/advanced",           { prompt: t, keywords: k || "", voice_style: v || "default" }),
-  dolphinCode:     (t)       => callAI("/ai/code-advanced",      { text: t }),
-
-  // Image generation
-  gemimage:    (p, ar) => callAI("/ai/gemimage",    { prompt: p, aspect_ratio: ar || "1:1" }),
-  imgRealistic:(p)     => callAI("/ai/realistic",   { prompt: p }),
-  imgAnime:    (p)     => callAI("/ai/anime",        { prompt: p }),
-  imgFantasy:  (p)     => callAI("/ai/fantasy",      { prompt: p }),
-  imgPixelArt: (p)     => callAI("/ai/pixel-art",    { prompt: p }),
-  imgSketch:   (p)     => callAI("/ai/sketch",       { prompt: p }),
-  imgCyberpunk:(p)     => callAI("/ai/cyberpunk",    { prompt: p }),
-  imgWatercolor:(p)    => callAI("/ai/watercolor",   { prompt: p }),
-  imgOilPainting:(p)   => callAI("/ai/oil-painting", { prompt: p }),
-  imgCartoon:  (p)     => callAI("/ai/cartoon",      { prompt: p }),
-  imgAbstract: (p)     => callAI("/ai/abstract",     { prompt: p }),
-  imgMinimalist:(p)    => callAI("/ai/minimalist",   { prompt: p }),
-  imgSurreal:  (p)     => callAI("/ai/surreal",      { prompt: p }),
-  imgVintage:  (p)     => callAI("/ai/vintage",      { prompt: p }),
-  imgSteampunk:(p)     => callAI("/ai/steampunk",    { prompt: p }),
-  imgHorror:   (p)     => callAI("/ai/horror",       { prompt: p }),
-  imgSciFi:    (p)     => callAI("/ai/sci-fi",       { prompt: p }),
-  imgPopArt:   (p)     => callAI("/ai/pop-art",      { prompt: p }),
-
-  // Code tools
-  promptToCode:(p, l)  => callAI("/ai/prompttocode", { prompt: p, language: l || "python" }),
-  detectBugs:  (c)     => callAI("/ai/detectbugs",   { code: c }),
-  convertCode: (c, t, s) => callAI("/ai/convertcode", { code: c, target: t, source: s || "" }),
-  explainCode: (c, l)  => callAI("/ai/explaincode",  { code: c, language: l || "" }),
-
-  // Media / creative
-  aiSong:        (t, g, a) => callAI("/ai/aisong",         { title: t, genre: g || "pop", artist: a || "" }),
-  aiInstrumental:(t, g)    => callAI("/ai/aiinstrumental",  { title: t, genre: g || "pop" }),
-  gemchat:       (t, ctx)  => callAI("/ai/gemchat",         { text: t, context: ctx || "" }),
-  chatYoutube:   (url, q)  => callAI("/ai/chatup-youtube",  { url, question: q }),
-  reset:         (uid)     => callAI("/ai/reset",           { user_id: uid }),
-};
-
-// ── Style → endpoint map (for /imagestyle) ────────────────────────────────────
-const STYLE_MAP = {
-  realistic: "/ai/realistic", anime: "/ai/anime", fantasy: "/ai/fantasy",
-  cyberpunk: "/ai/cyberpunk", watercolor: "/ai/watercolor",
-  oil_painting: "/ai/oil-painting", pixel_art: "/ai/pixel-art",
-  sketch: "/ai/sketch", cartoon: "/ai/cartoon", abstract: "/ai/abstract",
-  minimalist: "/ai/minimalist", surreal: "/ai/surreal", vintage: "/ai/vintage",
-  steampunk: "/ai/steampunk", horror: "/ai/horror",
-  sci_fi: "/ai/sci-fi", pop_art: "/ai/pop-art",
-};
-AI.imgStyle = (p, style) => {
-  const ep = STYLE_MAP[(style||"realistic").toLowerCase().replace(/[-\s]/g,"_")] || "/ai/realistic";
-  return callAI(ep, { prompt: p });
-};
-
-// ── Chatbot / Miss Chatra persona ─────────────────────────────────────────────
-const _ctx = {};
-function getContext(chatId, userId) {
-  const k = `${chatId}:${userId}`;
-  return _ctx[k] || [];
-}
-function addContext(chatId, userId, role, text) {
-  const k = `${chatId}:${userId}`;
-  if (!_ctx[k]) _ctx[k] = [];
-  _ctx[k].push({ role, text });
-  if (_ctx[k].length > 12) _ctx[k] = _ctx[k].slice(-12);
-}
-
-const IDENTITY_TRIGGERS = [
-  /who (are|made|created|built|designed|programmed|developed) you/i,
-  /your (name|creator|developer|owner|maker)/i,
-  /what (are|is) (you|your name)/i,
-  /introduce yourself/i, /tell me about yourself/i,
-  /are you (an ai|a bot|chatgpt|gpt|gemini|claude|copilot|bard|openai)/i,
-  /who (is|are) (your (creator|developer|owner|maker))/i,
-];
-
-const IDENTITY_RESPONSE = `I'm *Miss Chatra* 👋, an advanced AI assistant created by *JusticeTech* — a Nigerian tech company run by Justice Tech City. I'm here to help with questions, group management, media, games, and more. Just ask! 😊`;
-
-const IDENTITY_FILTER = [
-  /i'?m (copilot|chatgpt|gpt|gemini|claude|bard|an ai|microsoft)/i,
-  /i am (copilot|chatgpt|gpt-\d|gemini|claude|bard|microsoft copilot)/i,
-  /called (copilot|chatgpt|gemini|claude)/i,
-  /my name is (copilot|chatgpt|gemini|claude)/i,
-  /created by (openai|google|anthropic|microsoft)/i,
-  /made by (openai|google|anthropic|microsoft)/i,
-];
-
-async function missChatra(text, opts = {}) {
-  const { userId = "anon", context = [], deepThink = false } = opts;
-  const st = require("./state").getState();
-  const training = st.chatbot_training || {};
-  const name     = training.name || "Miss Chatra";
-  const dev      = training.developer || "JusticeTech";
-  const company  = training.company   || "JusticeTech System";
-  const location = training.company_location || "Nigeria";
-
-  // Identity override
-  for (const p of IDENTITY_TRIGGERS) {
-    if (p.test(text)) return IDENTITY_RESPONSE;
-  }
-
-  const sysPrompt = [
-    `You are ${name}, an advanced AI assistant created by ${dev} of ${company} (${location}).`,
-    `You are helpful, witty, and natural. Never claim to be ChatGPT, Claude, Gemini, Copilot, or any other AI.`,
-    `If asked who made you, always say you were created by ${dev} / ${company}.`,
-    `Keep responses concise (2-4 sentences) unless asked for detail.`,
-    deepThink ? "This is a deep-think request. Provide 200-300 word detailed analysis." : "",
-    context.length ? `Recent conversation: ${context.slice(-4).map(c => `[${c.role}]: ${c.text}`).join(" | ")}` : "",
-  ].filter(Boolean).join(" ");
-
-  const prompt = `${sysPrompt}\n\nUser: ${text}`;
-  let reply = await AI.gemini25f(prompt);
-  if (!reply) reply = await AI.gemini(prompt);
-  if (!reply) reply = await AI.gpt5(text);
-  if (!reply) return null;
-
-  // Filter identity leaks
-  for (const p of IDENTITY_FILTER) {
-    if (p.test(reply)) {
-      reply = await AI.gemini(`You are ${name} by ${dev}. Answer this naturally without naming other AIs: ${text}`);
-    }
-  }
-  return reply;
-}
-
-module.exports = { AI, callAI, missChatra, getContext, addContext, STYLE_MAP };
-
-// ── Conversation session management ──────────────────────────────────────────
-const _sessions  = new Map(); // key: `${chatId}:${userId}` → { context, active, ignored, ts }
-const SESSION_TTL = 60 * 60 * 1000; // 1 hour
-
-function _key(chatId, userId) { return `${chatId}:${userId}`; }
-function _get(chatId, userId)  { return _sessions.get(_key(chatId, userId)) || {}; }
-function _set(chatId, userId, data) {
-  _sessions.set(_key(chatId, userId), { ..._get(chatId, userId), ...data, ts: Date.now() });
-}
-
-function startConversation(chatId, userId)   { _set(chatId, userId, { active: true, ignored: false }); }
-function endConversation(chatId, userId)     { _set(chatId, userId, { active: false }); }
-function isConversationActive(chatId, userId){ const s = _get(chatId, userId); return !!(s.active && (Date.now() - (s.ts||0)) < SESSION_TTL); }
-function isConversationIgnored(chatId, userId){ return !!_get(chatId, userId).ignored; }
-function setConversationIgnored(chatId, userId, v){ _set(chatId, userId, { ignored: v }); }
-function getContext(chatId, userId)          { return _get(chatId, userId).context || []; }
-function updateContext(chatId, userId, user, bot){
-  const ctx = getContext(chatId, userId);
-  ctx.push({ role: "user", text: user }, { role: "bot", text: bot });
-  if (ctx.length > 20) ctx.splice(0, ctx.length - 20);
-  _set(chatId, userId, { context: ctx, active: true });
-}
-
-// ── TTS generation ────────────────────────────────────────────────────────────
-async function generateTTS(text) {
-  try {
-    const config = require("../settings/config");
-    const base   = config.prexzyBase || "https://apis.prexzyvilla.site";
-    const resp   = await require("axios").get(`${base}/ai/tts`, { params: { text: text.slice(0, 200) }, responseType: "arraybuffer", timeout: 15000 });
-    const buf = Buffer.from(resp.data);
-    if (buf.length > 1000) return buf;
-  } catch {}
-  return null;
-}
-
-// ── Custom training storage ────────────────────────────────────────────────────
-const _globalTraining = new Map();
-const _userTraining   = new Map();
-
-function addCustomTraining(key, value)    { _globalTraining.set(key, value); }
-function removeCustomTraining(key)        { _globalTraining.delete(key); }
-function getCustomTraining()             { return Object.fromEntries(_globalTraining); }
-function addUserTraining(userId, k, v)   { if (!_userTraining.has(userId)) _userTraining.set(userId, new Map()); _userTraining.get(userId).set(k, v); }
-function removeUserTraining(userId, k)   { _userTraining.get(userId)?.delete(k); }
-function getUserTraining(userId)         { return Object.fromEntries(_userTraining.get(userId) || []); }
-function clearUserTraining(userId)       { _userTraining.delete(userId); }
-function getTraining()                   { return { global: getCustomTraining() }; }
-
-// Cleanup stale sessions every 30 min
-setInterval(() => {
-  const now = Date.now();
-  for (const [k, s] of _sessions) { if (now - (s.ts||0) > SESSION_TTL) _sessions.delete(k); }
-}, 1800000);
-
-// Re-export with all functions
-module.exports = {
-  AI, callAI, missChatra, getContext: (c,u) => _get(c,u).context || [], addContext, STYLE_MAP,
-  // Conversation management
-  startConversation, endConversation, isConversationActive, isConversationIgnored,
-  setConversationIgnored, updateContext, generateTTS,
-  // Training
-  addCustomTraining, removeCustomTraining, getCustomTraining,
-  addUserTraining, removeUserTraining, getUserTraining, clearUserTraining, getTraining,
-};
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

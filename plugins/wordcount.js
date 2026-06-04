@@ -1,117 +1,30 @@
-// plugins/wordcount.js — Word Count & Text Analysis for Miss Chatra WA
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:35 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-// ── Part-of-speech heuristics ─────────────────────────────────────────────────
-const PRONOUNS   = new Set(["i","me","my","myself","we","our","ours","ourselves","you","your","yours","yourself","yourselves","he","him","his","himself","she","her","hers","herself","it","its","itself","they","them","their","theirs","themselves","who","whom","which","what","this","that","these","those"]);
-const PREPOSITIONS = new Set(["in","on","at","by","for","with","about","against","between","into","through","during","before","after","above","below","to","from","up","down","of","off","over","under","since","until","unless","while","toward","towards","upon","across","along","around","behind","beside","beyond","despite","except","inside","outside","within","without"]);
-const CONJUNCTIONS = new Set(["and","but","or","nor","for","yet","so","although","because","since","unless","until","whether","while","after","before","if","though","even","once","rather","than","that","when","where","wherever","as"]);
-const ARTICLES     = new Set(["a","an","the"]);
-const AUX_VERBS    = new Set(["is","are","was","were","be","been","being","have","has","had","do","does","did","will","would","shall","should","may","might","must","can","could","ought","need","dare","used","get"]);
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='8c6341a7e5d568cd17dcc45c371475271392a9498a8644a14c1dc21d1ccb7f6c';let _src;
 
-// Simple vowel counter
-const VOWELS = new Set("aeiouAEIOU");
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
 
-function analyseText(text) {
-  const words       = text.trim().match(/\b[a-zA-Z'-]+\b/g) || [];
-  const letters     = (text.match(/[a-zA-Z]/g) || []);
-  const vowels      = letters.filter(c => VOWELS.has(c));
-  const consonants  = letters.filter(c => !VOWELS.has(c));
-  const sentences   = (text.match(/[.!?]+/g) || []).length || 1;
-  const paragraphs  = text.split(/\n{2,}/).filter(p => p.trim()).length || 1;
-  const uniqueWords = new Set(words.map(w => w.toLowerCase())).size;
-  const spaces      = (text.match(/ /g) || []).length;
-  const digits      = (text.match(/\d/g) || []).length;
-  const special     = (text.match(/[^a-zA-Z0-9\s]/g) || []).length;
-
-  // POS classification
-  const pronouns    = words.filter(w => PRONOUNS.has(w.toLowerCase()));
-  const preps       = words.filter(w => PREPOSITIONS.has(w.toLowerCase()));
-  const conjuns     = words.filter(w => CONJUNCTIONS.has(w.toLowerCase()));
-  const articles    = words.filter(w => ARTICLES.has(w.toLowerCase()));
-  const auxVerbs    = words.filter(w => AUX_VERBS.has(w.toLowerCase()));
-  // Rough noun: capitalized non-first words, or ends with -tion/-ness/-ment/-ity/-ance/-ism/-er/-or
-  const nounPattern = /^[A-Z]|tion$|ness$|ment$|ity$|ance$|ism$|er$|or$|age$|ing$/;
-  const nouns       = words.filter(w => nounPattern.test(w) && !PRONOUNS.has(w.toLowerCase()) && !AUX_VERBS.has(w.toLowerCase()));
-  // Rough verb: ends with -s/-ed/-ing/-en or is aux
-  const verbPattern = /ed$|ing$|ize$|ise$|ify$/;
-  const verbs       = words.filter(w => verbPattern.test(w.toLowerCase()) || AUX_VERBS.has(w.toLowerCase()));
-  // Rough adjective: ends with -ful/-less/-ous/-ive/-al/-ble/-ic/-ish
-  const adjPattern  = /ful$|less$|ous$|ive$|al$|ble$|ic$|ish$|ent$|ant$/;
-  const adjs        = words.filter(w => adjPattern.test(w.toLowerCase()));
-  // Adverb: ends with -ly
-  const advs        = words.filter(w => /ly$/.test(w.toLowerCase()));
-
-  // Reading time (avg 200 wpm)
-  const readTimeSec = Math.max(1, Math.round((words.length / 200) * 60));
-  const readTime    = readTimeSec < 60 ? `${readTimeSec}s` : `${Math.floor(readTimeSec / 60)}m ${readTimeSec % 60}s`;
-
-  // Avg word length
-  const avgLen = words.length ? (words.reduce((s, w) => s + w.length, 0) / words.length).toFixed(1) : "0.0";
-
-  return {
-    words: words.length, letters: letters.length, vowels: vowels.length, consonants: consonants.length,
-    sentences, paragraphs, uniqueWords, spaces, digits, special, readTime, avgLen,
-    pronouns: pronouns.length, prepositions: preps.length, conjunctions: conjuns.length,
-    articles: articles.length, nouns: nouns.length, verbs: verbs.length,
-    adjectives: adjs.length, adverbs: advs.length,
-    pronounList: [...new Set(pronouns.map(w=>w.toLowerCase()))].slice(0,6).join(", ") || "none",
-  };
-}
-
-function formatReport(text, a) {
-  const preview = text.length > 50 ? text.slice(0, 50) + "…" : text;
-  return [
-    `📊 *Text Analysis*`,
-    `_"${preview}"_`,
-    ``,
-    `📝 *Counts*`,
-    `┣ Words:       *${a.words}* (${a.uniqueWords} unique)`,
-    `┣ Letters:     *${a.letters}*`,
-    `┣ Vowels:      *${a.vowels}*  Consonants: *${a.consonants}*`,
-    `┣ Sentences:   *${a.sentences}*  Paragraphs: *${a.paragraphs}*`,
-    `┣ Spaces:      *${a.spaces}*  Digits: *${a.digits}*`,
-    `┗ Avg word:    *${a.avgLen}* chars`,
-    ``,
-    `🧩 *Parts of Speech* _(estimated)_`,
-    `┣ Nouns:       *${a.nouns}*`,
-    `┣ Verbs:       *${a.verbs}*`,
-    `┣ Adjectives:  *${a.adjectives}*`,
-    `┣ Adverbs:     *${a.adverbs}*`,
-    `┣ Pronouns:    *${a.pronouns}* _(${a.pronounList})_`,
-    `┣ Prepositions:*${a.prepositions}*`,
-    `┣ Conjunctions:*${a.conjunctions}*`,
-    `┗ Articles:    *${a.articles}*`,
-    ``,
-    `⏱ *Read time:* ~${a.readTime}`,
-  ].join("\n");
-}
-
-module.exports = {
-  name:     "WordCount",
-  category: "tools",
-  desc:     "Count words, letters, vowels, POS and analyse any text",
-  command:  ["wc","wordcount","countwords","analysetext","analyzetext","textinfo","wordinfo"],
-
-  run: async ({ sock, m, args, command, chatId, reply, prefix }) => {
-    // Get text: from args, or from quoted message, or from body after command
-    let text = args.join(" ").trim();
-    if (!text && m.quoted) {
-      text = m.quoted.text || m.quoted.caption || m.quoted.body || "";
-    }
-    if (!text) {
-      return reply([
-        `📊 *Word Counter & Text Analyser*`,
-        ``,
-        `Usage:`,
-        `• *${prefix}wc <your text>* — analyse inline text`,
-        `• Reply to any message with *${prefix}wc* — analyse quoted text`,
-        ``,
-        `Shows: word count, letters, vowels, consonants, nouns, verbs, adjectives, pronouns, read time and more.`,
-      ].join("\n"));
-    }
-
-    const a      = analyseText(text);
-    const report = formatReport(text, a);
-    return reply(report);
-  },
-};
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

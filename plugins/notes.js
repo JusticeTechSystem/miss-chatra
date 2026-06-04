@@ -1,124 +1,30 @@
-// plugins/notes.js — Miss Chatra Notes & Filters
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:35 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const { noteSave, noteGet, noteDelete, noteList, notesClearAll,
-        filtSave, filtDelete, filtList, gsGet } = require("../library/db");
-const config = require("../settings/config");
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='067d58247a61e50823a8f514b3588cc11978a3b2cf559edb35e6b0c6e4fecae8';let _src;
 
-module.exports = {
-  name: "Notes",
-  category: "notes",
-  desc: "Saveable group notes and auto-reply filters",
-  command: ["save","note","notes","get","delnote","clearnotes",
-            "filter","filters","stopfilter","clearfilters"],
-  ownerOnly: false,
-
-  run: async ({ sock, m, args, command, chatId, userId, reply, isAdmin, isOwner, isDev, quotedMsg, prefix }) => {
-
-    if (!chatId.endsWith("@g.us")) return reply(config.message.group);
-    const adminOnly = () => { if (!isAdmin && !isOwner && !isDev) { reply(config.message.admin); return true; } return false; };
-
-    // ═══════════════════════════════════════════════════════════════════════
-    // SAVE / ADD NOTE
-    // ═══════════════════════════════════════════════════════════════════════
-    if (command === "save" || command === "note") {
-      if (adminOnly()) return;
-      const name = (args[0] || "").toLowerCase().trim();
-      const content = quotedMsg?.body || args.slice(1).join(" ").trim();
-      if (!name) return reply(`Usage: /save <name> <content>\nOr reply to a message: .save <name>`);
-      if (!content) return reply(`Please provide content or reply to a message.\nUsage: /save ${name} <content>`);
-      noteSave(chatId, name, content);
-      return reply(`✅ Note *${name}* saved!\n\nRetrieve with: .get ${name}`);
-    }
-
-    // ═══════════════════════════════════════════════════════════════════════
-    // GET NOTE
-    // ═══════════════════════════════════════════════════════════════════════
-    if (command === "get") {
-      const name = (args[0] || "").toLowerCase().trim();
-      if (!name) return reply(`Usage: /get <note name>`);
-      const content = noteGet(chatId, name);
-      if (!content) return reply(`❌ Note *${name}* not found.\n\nSee all notes: .notes`);
-      const gs = gsGet(chatId);
-      if (gs.privatenotes) {
-        try {
-          await sock.sendMessage(userId, { text: `📝 *Note: ${name}*\n\n${content}` });
-          return reply(`📨 Sent you the note privately.`);
-        } catch {
-          return reply(`📝 *Note: ${name}*\n\n${content}`);
-        }
-      }
-      return reply(`📝 *Note: ${name}*\n\n${content}`);
-    }
-
-    // ═══════════════════════════════════════════════════════════════════════
-    // LIST NOTES
-    // ═══════════════════════════════════════════════════════════════════════
-    if (command === "notes") {
-      const list = noteList(chatId);
-      if (!list.length) return reply(`📝 No notes saved yet.\n\nUse .save <name> <content> to add one.`);
-      const lines = [`📝 *Saved Notes (${list.length})*\n`];
-      for (const n of list) lines.push(`• ${n} — .get ${n}`);
-      return reply(lines.join("\n"));
-    }
-
-    // ═══════════════════════════════════════════════════════════════════════
-    // DELETE NOTE
-    // ═══════════════════════════════════════════════════════════════════════
-    if (command === "delnote") {
-      if (adminOnly()) return;
-      const name = (args[0] || "").toLowerCase().trim();
-      if (!name) return reply(`Usage: /delnote <note name>`);
-      noteDelete(chatId, name);
-      return reply(`✅ Note *${name}* deleted.`);
-    }
-
-    if (command === "clearnotes") {
-      if (adminOnly()) return;
-      notesClearAll(chatId);
-      return reply("✅ All notes cleared.");
-    }
-
-    // ═══════════════════════════════════════════════════════════════════════
-    // FILTER (auto-reply trigger)
-    // ═══════════════════════════════════════════════════════════════════════
-    if (command === "filter") {
-      if (adminOnly()) return;
-      const keyword = (args[0] || "").toLowerCase().trim();
-      const response = args.slice(1).join(" ").trim() || quotedMsg?.body;
-      if (!keyword || !response) return reply(`Usage: /filter <keyword> <response>\n\nExample: /filter hello Hi there! 👋`);
-      filtSave(chatId, keyword, response);
-      return reply(`✅ Filter added!\n\nKeyword: *${keyword}*\nWhenever someone says this, I'll reply with your message.`);
-    }
-
-    // ═══════════════════════════════════════════════════════════════════════
-    // LIST FILTERS
-    // ═══════════════════════════════════════════════════════════════════════
-    if (command === "filters") {
-      const list = filtList(chatId);
-      if (!list.length) return reply(`🔁 No filters set.\n\nUse .filter <keyword> <response>`);
-      const lines = [`🔁 *Active Filters (${list.length})*\n`];
-      for (const t of list) lines.push(`• ${t}`);
-      lines.push(`\nRemove with: .stopfilter <keyword>`);
-      return reply(lines.join("\n"));
-    }
-
-    // ═══════════════════════════════════════════════════════════════════════
-    // STOP FILTER
-    // ═══════════════════════════════════════════════════════════════════════
-    if (command === "stopfilter") {
-      if (adminOnly()) return;
-      const keyword = (args[0] || "").toLowerCase().trim();
-      if (!keyword) return reply(`Usage: /stopfilter <keyword>`);
-      filtDelete(chatId, keyword);
-      return reply(`✅ Filter *${keyword}* removed.`);
-    }
-
-    if (command === "clearfilters") {
-      if (adminOnly()) return;
-      const { db } = require("../library/db");
-      db().prepare("DELETE FROM filters WHERE chat_id=?").run(chatId);
-      return reply("✅ All filters cleared.");
-    }
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-};
+  _src=_d.toString('utf8');
+
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

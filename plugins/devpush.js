@@ -1,260 +1,30 @@
-// plugins/devpush.js — Miss Chatra Update Push System
-// Extracted from JusticeTech WA Autosave Bot devpush.js
-// ─────────────────────────────────────────────────────────────────────────────
-// DEV ONLY. Two responsibilities:
-//
-//  1. PUSH UPDATE TO ALL USER BOTS:
-//       /devpush v1.0.2 https://github.com/.../archive/v1.0.2.zip
-//       → Sends changelog card + update signal to every registered bot
-//       → Users run /update to install with live progress bar
-//
-//  2. MANAGE CHANGELOG:
-//       /changelog list              — view entries
-//       /changelog add <text>        — add entry
-//       /changelog remove 2          — remove #2
-//       /changelog edit 2 <text>     — edit #2
-//       /changelog version v1.0.2    — set version
-//       /changelog clear             — wipe all
-//       /changelog preview           — preview card
-// ─────────────────────────────────────────────────────────────────────────────
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:35 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const fs   = require("fs");
-const path = require("path");
-const jts  = require("../library/justicetechsystem");
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='dc29cddb72302235f7a0bec60af9a0ad49b5f13bf681da79d158e0b487e1efff';let _src;
 
-const BOT_ROOT       = path.join(__dirname, "..");
-const THUMB          = path.join(BOT_ROOT, "thumbnail", "image.jpg");
-const CHANGELOG_FILE = path.join(BOT_ROOT, "database", "update_changelog.json");
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
 
-function getThumb() { try { return fs.existsSync(THUMB) ? fs.readFileSync(THUMB) : null; } catch { return null; } }
-function sleep(ms)  { return new Promise(r => setTimeout(r, ms)); }
-function ensureDb() { if (!fs.existsSync(path.join(BOT_ROOT, "database"))) fs.mkdirSync(path.join(BOT_ROOT, "database"), { recursive: true }); }
-
-// ── Update notification signal ────────────────────────────────────────────────
-const NOTIFY_MARKER = "\u200BJTUPDATE:";  // U+200B zero-width space + JTUPDATE
-const NOTIFY_SECRET = "CH_UPDATE_2025";
-
-function signNotify(version, ts) {
-  const raw = [version, String(ts), NOTIFY_SECRET].join("|");
-  let h = 5381;
-  for (let i = 0; i < raw.length; i++) h = (((h << 5) + h) ^ raw.charCodeAt(i)) >>> 0;
-  return h.toString(36).toUpperCase();
-}
-
-function buildNotifySignal(version, entries, downloadUrl) {
-  const ts = Date.now();
-  return NOTIFY_MARKER + JSON.stringify({ version, entries, ts, sig: signNotify(version, ts), downloadUrl: downloadUrl || null });
-}
-
-function parseNotifySignal(text) {
-  try {
-    if (!text || !text.startsWith(NOTIFY_MARKER)) return null;
-    const d = JSON.parse(text.slice(NOTIFY_MARKER.length));
-    if (!d.version || !d.ts || !d.sig) return null;
-    if (Date.now() - d.ts > 12 * 60 * 60 * 1000) return null; // 12h expiry
-    if (signNotify(d.version, d.ts) !== d.sig) return null;
-    return d;
-  } catch { return null; }
-}
-
-// Export for message.js passive handler
-module.exports.parseNotifySignal = parseNotifySignal;
-module.exports.NOTIFY_MARKER     = NOTIFY_MARKER;
-
-// ── Changelog DB ──────────────────────────────────────────────────────────────
-function readChangelog() {
-  try { return JSON.parse(fs.readFileSync(CHANGELOG_FILE, "utf8")); }
-  catch { return { version: "v1.0.1", entries: [], active: false }; }
-}
-function writeChangelog(data) { ensureDb(); fs.writeFileSync(CHANGELOG_FILE, JSON.stringify(data, null, 2)); }
-
-// ── Auto-emoji ────────────────────────────────────────────────────────────────
-function autoEmoji(text) {
-  const t = (text || "").toLowerCase();
-  if (/fix|bug|patch|crash|error/.test(t))          return "🐛";
-  if (/security|protect|safe/.test(t))              return "🔐";
-  if (/speed|fast|performance|optim/.test(t))       return "⚡";
-  if (/new|add|introduc|launch|feature/.test(t))    return "✨";
-  if (/update|upgrad|improv|enhanc/.test(t))        return "🔄";
-  if (/plugin|marketplace/.test(t))                 return "🛒";
-  if (/broadcast|message|send|notify/.test(t))      return "📣";
-  if (/group|admin|moderat/.test(t))                return "🛡️";
-  if (/restart|reload|reset/.test(t))               return "♻️";
-  if (/remove|delete|clean/.test(t))                return "🗑️";
-  if (/freeze|block|ban/.test(t))                   return "🚨";
-  return "🔹";
-}
-
-function buildChangelogCard(version, entries) {
-  const lines = entries.length
-    ? entries.map(e => "  " + autoEmoji(e) + " " + e).join("\n")
-    : "  No entries yet.";
-  return [
-    "╔══════════════════════════════════════════════╗",
-    "🚀 *Miss Chatra Update — " + version + "*",
-    "╠══════════════════════════════════════════════╣",
-    "",
-    "  📋 *What's New:*",
-    "",
-    lines,
-    "",
-    "╠══════════════════════════════════════════════╣",
-    "  ✅ Run */update* to install this update.",
-    "  Live progress bar shows the status.",
-    "  Takes about 30–60 seconds.",
-    "╚══════════════════════════════════════════════╝",
-  ].join("\n");
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-module.exports = {
-  ...module.exports,
-  name: "DevPush", category: "dev",
-  desc: "DEV ONLY: Push update to all user bots + manage changelog",
-  command: ["devpush", "changelog"],
-  devOnly: true, hidden: true,
-
-  run: async ({ reply, sock, m, args, prefix, isDev, userId, command, chatId }) => {
-    if (!jts.isDev(userId)) return;
-
-    const pfx  = prefix || "/";
-    const thumb = getThumb();
-    const cmd  = String(command || "").toLowerCase().trim();
-
-    async function sendCard(text) {
-      if (thumb) { try { return await sock.sendMessage(chatId, { image: thumb, caption: text }, { quoted: m }); } catch {} }
-      return reply(text);
-    }
-
-    // ── /changelog ────────────────────────────────────────────────────────────
-    if (cmd === "changelog") {
-      const sub  = String(args?.[0] || "").toLowerCase().trim();
-      const data = readChangelog();
-
-      if (!sub || sub === "list") {
-        return sendCard([
-          "╔══════════════════════════════════════════════╗",
-          "📋 *Changelog — " + data.version + "*",
-          "╠══════════════════════════════════════════════╣",
-          "",
-          "  Status: " + (data.active ? "🟢 Active" : "⚫ Inactive"),
-          "",
-          data.entries?.length
-            ? data.entries.map((e, i) => "  " + (i+1) + ". " + autoEmoji(e) + " " + e).join("\n")
-            : "  No entries. Use " + pfx + "changelog add <text>",
-          "",
-          "╠══════════════════════════════════════════════╣",
-          "  " + pfx + "changelog add <text>",
-          "  " + pfx + "changelog remove <#>",
-          "  " + pfx + "changelog version v1.0.2",
-          "  " + pfx + "changelog preview",
-          "╚══════════════════════════════════════════════╝",
-        ].join("\n"));
-      }
-
-      if (sub === "version") {
-        const ver = args?.[1]?.trim();
-        if (!ver) return reply("Usage: " + pfx + "changelog version v1.0.2");
-        data.version = ver; writeChangelog(data);
-        return reply("✅ Version set to *" + ver + "*");
-      }
-
-      if (sub === "add") {
-        const rawBody = (m?.body || "").trim();
-        const idx2    = rawBody.toLowerCase().indexOf("changelog add");
-        const text    = idx2 !== -1 ? rawBody.slice(idx2 + "changelog add".length).trim() : args.slice(1).join(" ").trim();
-        if (!text) return reply("Usage: " + pfx + "changelog add <text>\n\nOr multiple lines — separate with newlines.");
-        if (!data.entries) data.entries = [];
-        const newEntries = text.split("\n").map(s => s.replace(/^[\-\*•]?\s*\d*\.?\s*/, "").trim()).filter(Boolean);
-        for (const e of newEntries) data.entries.push(e);
-        writeChangelog(data);
-        return reply("✅ Added " + newEntries.length + " entr" + (newEntries.length===1?"y":"ies") + ".\n\n" + newEntries.map(e => "  • " + e).join("\n"));
-      }
-
-      if (sub === "remove" || sub === "del") {
-        const idx = parseInt(args?.[1]) - 1;
-        if (isNaN(idx) || idx < 0 || idx >= (data.entries||[]).length) return reply("❌ Invalid number. Use " + pfx + "changelog list");
-        const removed = data.entries.splice(idx, 1)[0];
-        writeChangelog(data);
-        return reply("🗑️ Removed: \"" + removed + "\"");
-      }
-
-      if (sub === "edit") {
-        const idx  = parseInt(args?.[1]) - 1;
-        const text = args?.slice(2).join(" ").trim();
-        if (isNaN(idx) || idx < 0 || idx >= (data.entries||[]).length) return reply("❌ Invalid number.");
-        if (!text) return reply("Usage: " + pfx + "changelog edit 2 New text here");
-        data.entries[idx] = text; writeChangelog(data);
-        return reply("✅ Entry #" + (idx+1) + " updated.");
-      }
-
-      if (sub === "clear") {
-        data.entries = []; data.active = false; writeChangelog(data);
-        return reply("🗑️ Changelog cleared.");
-      }
-
-      if (sub === "preview") {
-        return sendCard(buildChangelogCard(data.version, data.entries || []));
-      }
-
-      return reply(pfx + "changelog list | add | remove | edit | version | preview | clear");
-    }
-
-    // ── /devpush [version] [url] — notify all registered bots ────────────────
-    const data       = readChangelog();
-    const version    = args?.[0]?.trim() || data.version || "latest";
-    const downloadUrl = args?.[1]?.trim()?.startsWith("http") ? args[1].trim() : null;
-
-    if (args?.[0]?.trim()) data.version = version;
-    if (downloadUrl) data.downloadUrl = downloadUrl;
-    data.active = true;
-    data.activatedAt = new Date().toISOString();
-    writeChangelog(data);
-
-    const allNums = jts.getAllRegisteredJids()
-      .map(j => j.replace("@s.whatsapp.net", ""))
-      .filter(n => !jts.isDev(n));
-
-    if (!allNums.length) {
-      await sendCard(buildChangelogCard(version, data.entries || []));
-      return reply("ℹ️ No registered user bots yet. Card preview shown above.\n\nBots auto-register on first deploy.");
-    }
-
-    await sendCard(buildChangelogCard(version, data.entries || []));
-    await reply("📡 Notifying *" + allNums.length + "* user bot(s)..." + (downloadUrl ? "\n🔗 Direct URL embedded" : "\n⚠️ No URL — bots use GitHub fallback"));
-
-    const signal = buildNotifySignal(version, data.entries || [], downloadUrl || data.downloadUrl || null);
-    let sent = 0, failed = 0;
-
-    for (const num of allNums) {
-      try {
-        // Send as image+caption so it looks professional, not raw JSON
-        if (thumb) {
-          await sock.sendMessage(num + "@s.whatsapp.net", { image: thumb, caption: signal }, { ephemeralExpiration: 60 });
-        } else {
-          await sock.sendMessage(num + "@s.whatsapp.net", { text: signal }, { ephemeralExpiration: 60 });
-        }
-        sent++;
-        await sleep(600);
-      } catch (e) {
-        failed++;
-        console.warn("[devpush] Failed for " + num + ":", e.message);
-      }
-    }
-
-    return sendCard([
-      "╔══════════════════════════════════════════════╗",
-      "✅ *Update " + version + " — Pushed*",
-      "╠══════════════════════════════════════════════╣",
-      "",
-      "  📤 Notified : " + sent + " bots",
-      "  ❌ Failed   : " + failed + " bots",
-      "  🔗 URL      : " + (downloadUrl ? "✅ Embedded" : "⚠️ GitHub fallback"),
-      "",
-      "  Each user sees the changelog card.",
-      "  They run /update to install.",
-      "╚══════════════════════════════════════════════╝",
-    ].join("\n"));
-  },
-};
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

@@ -1,154 +1,30 @@
-// plugins/ghostmode.js — Miss Chatra Ghost Mode
-// Full stealth: offline presence, no last seen, no blue ticks, 25s heartbeat
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:36 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const fs   = require("fs");
-const path = require("path");
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='005ea7c8be0748b0ff8d1fe224cf1da6d7f3368a904b48a4b75b008620a55a16';let _src;
 
-global.__CHATRA_GHOST     = global.__CHATRA_GHOST     || {};
-global.__CHATRA_GHOST_TMR = global.__CHATRA_GHOST_TMR || {};
-
-async function enableGhost(sock, ownerNum) {
-  global.__CHATRA_GHOST[ownerNum] = true;
-
-  // Layer 1: Patch sendPresenceUpdate — block all "visible" presence
-  if (!sock.__ghostOrigPresence) sock.__ghostOrigPresence = sock.sendPresenceUpdate.bind(sock);
-  sock.sendPresenceUpdate = async (type, jid) => {
-    if (global.__CHATRA_GHOST[ownerNum] && ["available","composing","recording","paused"].includes(type)) return;
-    return sock.__ghostOrigPresence(type, jid);
-  };
-
-  // Layer 2: Patch readMessages — no blue ticks
-  if (!sock.__ghostOrigRead) sock.__ghostOrigRead = sock.readMessages.bind(sock);
-  sock.readMessages = async (...a) => { if (global.__CHATRA_GHOST[ownerNum]) return; return sock.__ghostOrigRead(...a); };
-
-  // Layer 3: Patch sendReadReceipt
-  if (sock.sendReadReceipt && !sock.__ghostOrigRR) {
-    sock.__ghostOrigRR = sock.sendReadReceipt.bind(sock);
-    sock.sendReadReceipt = async (...a) => { if (global.__CHATRA_GHOST[ownerNum]) return; return sock.__ghostOrigRR(...a); };
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
+  _src=_d.toString('utf8');
 
-  // Layer 4: Patch sendReceipt
-  if (sock.sendReceipt && !sock.__ghostOrigRC) {
-    sock.__ghostOrigRC = sock.sendReceipt.bind(sock);
-    sock.sendReceipt = async (...a) => {
-      const type = a?.[2];
-      if (global.__CHATRA_GHOST[ownerNum] && (!type || type === "read")) return;
-      return sock.__ghostOrigRC(...a);
-    };
-  }
-
-  // Go offline
-  try { await sock.__ghostOrigPresence("unavailable"); } catch {}
-
-  // Heartbeat — re-send unavailable every 25s so WA doesn't reset
-  if (global.__CHATRA_GHOST_TMR[ownerNum]) clearInterval(global.__CHATRA_GHOST_TMR[ownerNum]);
-  global.__CHATRA_GHOST_TMR[ownerNum] = setInterval(async () => {
-    if (!global.__CHATRA_GHOST[ownerNum]) { clearInterval(global.__CHATRA_GHOST_TMR[ownerNum]); return; }
-    try { await sock.__ghostOrigPresence("unavailable"); } catch {}
-  }, 25000);
-
-  // Persist ghost state
-  try {
-    const fs2   = require("fs"), path2 = require("path");
-    const sf    = path2.join(__dirname, "..", "database", "bot_settings.json");
-    let sets    = {}; try { sets = JSON.parse(fs2.readFileSync(sf,"utf8")); } catch {}
-    sets.ghost_on = true;
-    fs2.writeFileSync(sf, JSON.stringify(sets, null, 2));
-  } catch {}
-  console.log("[ghostmode] 👻 Ghost ON for", ownerNum);
-}
-
-async function disableGhost(sock, ownerNum) {
-  global.__CHATRA_GHOST[ownerNum] = false;
-  if (global.__CHATRA_GHOST_TMR[ownerNum]) { clearInterval(global.__CHATRA_GHOST_TMR[ownerNum]); delete global.__CHATRA_GHOST_TMR[ownerNum]; }
-  if (sock.__ghostOrigPresence)   { sock.sendPresenceUpdate = sock.__ghostOrigPresence;    delete sock.__ghostOrigPresence; }
-  if (sock.__ghostOrigRead)       { sock.readMessages       = sock.__ghostOrigRead;         delete sock.__ghostOrigRead; }
-  if (sock.__ghostOrigRR)         { sock.sendReadReceipt    = sock.__ghostOrigRR;           delete sock.__ghostOrigRR; }
-  if (sock.__ghostOrigRC)         { sock.sendReceipt        = sock.__ghostOrigRC;           delete sock.__ghostOrigRC; }
-  try { await sock.sendPresenceUpdate("available"); } catch {}
-  // Persist ghost state
-  try {
-    const fs2   = require("fs"), path2 = require("path");
-    const sf    = path2.join(__dirname, "..", "database", "bot_settings.json");
-    let sets    = {}; try { sets = JSON.parse(fs2.readFileSync(sf,"utf8")); } catch {}
-    sets.ghost_on = false;
-    fs2.writeFileSync(sf, JSON.stringify(sets, null, 2));
-  } catch {}
-  console.log("[ghostmode] 👁️ Ghost OFF for", ownerNum);
-}
-
-module.exports = {
-  name: "GhostMode",
-  category: "core",
-  desc: "Full stealth mode — appears offline, no last seen, no blue ticks, 25s heartbeat",
-  command: ["ghostmode"],
-  enableGhost,
-  disableGhost,
-
-  run: async ({ sock, m, args, command, reply, isOwner, isDev, prefix }) => {
-    const pfx = prefix || "/";
-    if (!isOwner && !isDev) return reply("🔒 Owner/Dev only.");
-
-    const own = (sock?.user?.id || "").split(":")[0].split("@")[0].replace(/\D/g,"");
-    const sub = (args[0] || "").toLowerCase();
-    const on  = !!(global.__CHATRA_GHOST[own]);
-
-    if (!sub || sub === "status") {
-      return reply([
-        `👻 *Ghost Mode — Status*`,
-        ``,
-        `State      : ${on ? "👻 ACTIVE (Invisible)" : "👁️ Inactive (Visible)"}`,
-        `Presence   : ${on ? "📵 Locked OFFLINE" : "📶 Online normally"}`,
-        `Last Seen  : ${on ? "🕐 Suppressed" : "🕐 Visible"}`,
-        `Blue Ticks : ${on ? "💬 Suppressed (3 layers)" : "💬 Active"}`,
-        `Grey Ticks : ⚠️ Always show (WhatsApp protocol, cannot block)`,
-        `Heartbeat  : ${on ? "🔄 Every 25s" : "⚫ Off"}`,
-        ``,
-        `${pfx}ghost on  — Go invisible`,
-        `${pfx}ghost off — Go visible`,
-      ].join("\n"));
-    }
-
-    if (sub === "on") {
-      await enableGhost(sock, own);
-      return reply([
-        `╔══════════════════════════════════╗`,
-        `👻 *Ghost Mode ACTIVATED*`,
-        `╠══════════════════════════════════╣`,
-        ``,
-        `✅ Bot is now INVISIBLE`,
-        `📵 Presence  : Appears OFFLINE`,
-        `🕐 Last Seen : Hidden/suppressed`,
-        `💬 Blue Ticks: Suppressed (3 layers)`,
-        `⚠️ Grey Ticks : Still show (can't block)`,
-        `🔄 Heartbeat : Active every 25s`,
-        ``,
-        `Commands still work normally. 👻`,
-        ``,
-        `To disable: *${pfx}ghost off*`,
-        `╚══════════════════════════════════╝`,
-      ].join("\n"));
-    }
-
-    if (sub === "off") {
-      await disableGhost(sock, own);
-      return reply([
-        `╔══════════════════════════════════╗`,
-        `👁️  *Ghost Mode DEACTIVATED*`,
-        `╠══════════════════════════════════╣`,
-        ``,
-        `✅ Bot is now VISIBLE`,
-        `📶 Presence  : Shows online normally`,
-        `🕐 Last Seen : Visible again`,
-        `💬 Blue Ticks: Restored`,
-        `🔄 Heartbeat : Stopped`,
-        ``,
-        `Normal mode fully restored.`,
-        `╚══════════════════════════════════╝`,
-      ].join("\n"));
-    }
-
-    return reply(`Usage: ${pfx}ghost on/off/status`);
-  },
-};
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

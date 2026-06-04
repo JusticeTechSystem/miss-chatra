@@ -1,171 +1,32 @@
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:34 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-// © 2025 Debraj. All Rights Reserved.
-// respect the work, don’t just copy-paste.
+// ⚠️ Uses dynamic import() — test after encryption
 
-const fs = require('fs')
-const { tmpdir } = require("os")
-const Crypto = require("crypto")
-const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
-const ff = require('fluent-ffmpeg')
-const webp = require("node-webpmux")
-const path = require("path")
-ff.setFfmpegPath(ffmpegPath);
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='c3a4d8968a8ad8e81989cde7b98066eb5048575494fe7ae98064cdcebe9a62b4';let _src;
 
-async function imageToWebp (media) {
-    const tmpFileOut = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.webp`)
-    const tmpFileIn = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.jpg`)
-    fs.writeFileSync(tmpFileIn, media)
-    await new Promise((resolve, reject) => {
-        ff(tmpFileIn)
-            .on("error", reject)
-            .on("end", () => resolve(true))
-            .addOutputOptions([
-                "-vcodec",
-                "libwebp",
-                "-vf",
-                "scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse"
-            ])
-            .toFormat("webp")
-            .save(tmpFileOut)
-    })
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
 
-    const buff = fs.readFileSync(tmpFileOut)
-    fs.unlinkSync(tmpFileOut)
-    fs.unlinkSync(tmpFileIn)
-    return buff
-}
-
-async function videoToWebp (media) {
-    const tmpFileOut = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.webp`)
-    const tmpFileIn = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.mp4`)
-    fs.writeFileSync(tmpFileIn, media)
-    await new Promise((resolve, reject) => {
-        ff(tmpFileIn)
-            .on("error", reject)
-            .on("end", () => resolve(true))
-            .addOutputOptions([
-                "-vcodec",
-                "libwebp",
-                "-vf",
-                "scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse",
-                "-loop",
-                "0",
-                "-ss",
-                "00:00:00",
-                "-t",
-                "00:00:05",
-                "-preset",
-                "default",
-                "-an",
-                "-vsync",
-                "0"
-            ])
-            .toFormat("webp")
-            .save(tmpFileOut)
-    })
-
-    const buff = fs.readFileSync(tmpFileOut)
-    fs.unlinkSync(tmpFileOut)
-    fs.unlinkSync(tmpFileIn)
-    return buff
-}
-
-async function writeExifImg (media, metadata) {
-    let wMedia = await imageToWebp(media)
-    const tmpFileIn = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.webp`)
-    const tmpFileOut = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.webp`)
-    fs.writeFileSync(tmpFileIn, wMedia)
-
-    if (metadata.packname || metadata.author) {
-        const img = new webp.Image()
-        const json = { "sticker-pack-id": `https://github.com/DikaArdnt/Hisoka-Morou`, "sticker-pack-name": metadata.packname, "sticker-pack-publisher": metadata.author, "emojis": metadata.categories ? metadata.categories : [""] }
-        const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00])
-        const jsonBuff = Buffer.from(JSON.stringify(json), "utf-8")
-        const exif = Buffer.concat([exifAttr, jsonBuff])
-        exif.writeUIntLE(jsonBuff.length, 14, 4)
-        await img.load(tmpFileIn)
-        fs.unlinkSync(tmpFileIn)
-        img.exif = exif
-        await img.save(tmpFileOut)
-        return tmpFileOut
-    }
-}
-
-async function writeExifVid (media, metadata) {
-    let wMedia = await videoToWebp(media)
-    const tmpFileIn = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.webp`)
-    const tmpFileOut = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.webp`)
-    fs.writeFileSync(tmpFileIn, wMedia)
-
-    if (metadata.packname || metadata.author) {
-        const img = new webp.Image()
-        const json = { "sticker-pack-id": `https://github.com/DikaArdnt/Hisoka-Morou`, "sticker-pack-name": metadata.packname, "sticker-pack-publisher": metadata.author, "emojis": metadata.categories ? metadata.categories : [""] }
-        const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00])
-        const jsonBuff = Buffer.from(JSON.stringify(json), "utf-8")
-        const exif = Buffer.concat([exifAttr, jsonBuff])
-        exif.writeUIntLE(jsonBuff.length, 14, 4)
-        await img.load(tmpFileIn)
-        fs.unlinkSync(tmpFileIn)
-        img.exif = exif
-        await img.save(tmpFileOut)
-        return tmpFileOut
-    }
-}
-
-async function writeExif (media, metadata) {
-    let wMedia = /webp/.test(media.mimetype) ? media.data : /image/.test(media.mimetype) ? await imageToWebp(media.data) : /video/.test(media.mimetype) ? await videoToWebp(media.data) : ""
-    const tmpFileIn = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.webp`)
-    const tmpFileOut = path.join(tmpdir(), `${Crypto.randomBytes(6).readUIntLE(0, 6).toString(36)}.webp`)
-    fs.writeFileSync(tmpFileIn, wMedia)
-
-    if (metadata.packname || metadata.author) {
-        const img = new webp.Image()
-        const json = { "sticker-pack-id": `https://github.com/DikaArdnt/Hisoka-Morou`, "sticker-pack-name": metadata.packname, "sticker-pack-publisher": metadata.author, "emojis": metadata.categories ? metadata.categories : [""] }
-        const exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00])
-        const jsonBuff = Buffer.from(JSON.stringify(json), "utf-8")
-        const exif = Buffer.concat([exifAttr, jsonBuff])
-        exif.writeUIntLE(jsonBuff.length, 14, 4)
-        await img.load(tmpFileIn)
-        fs.unlinkSync(tmpFileIn)
-        img.exif = exif
-        await img.save(tmpFileOut)
-        return tmpFileOut
-    }
-}
-
-async function exifAvatar(buffer, packname, author, categories = [''], extra = {}) {
-  const { default: { Image }} = await import('node-webpmux')
-	const img = new Image()
-	const json = { 'sticker-pack-id': 'parel-kntll', 'sticker-pack-name': packname, 'sticker-pack-publisher': author, 'emojis': categories, 'is-avatar-sticker': 1, ...extra }
-	let exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00])
-	let jsonBuffer = Buffer.from(JSON.stringify(json), 'utf8')
-	let exif = Buffer.concat([exifAttr, jsonBuffer])
-	exif.writeUIntLE(jsonBuffer.length, 14, 4)
-	await img.load(buffer)
-	 img.exif = exif
-	return await img.save(null)
-}
-
-async function addExif(webpSticker, packname, author, categories = [''], extra = {}) {
-  const img = new webp.Image();
-  const stickerPackId = Crypto.randomBytes(32).toString('hex');
-  const json = { 'sticker-pack-id': stickerPackId, 'sticker-pack-name': packname, 'sticker-pack-publisher': author, 'emojis': categories, ...extra };
-  let exifAttr = Buffer.from([0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00, 0x01, 0x00, 0x41, 0x57, 0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x16, 0x00, 0x00, 0x00]);
-  let jsonBuffer = Buffer.from(JSON.stringify(json), 'utf8');
-  let exif = Buffer.concat([exifAttr, jsonBuffer]);
-  exif.writeUIntLE(jsonBuffer.length, 14, 4);
-  await img.load(webpSticker)
-  img.exif = exif
-  return await img.save(null)
-}
-
-
-module.exports = { 
-    imageToWebp,
-    videoToWebp, 
-    writeExifImg, 
-    writeExifVid, 
-    writeExif, 
-    exifAvatar, 
-    addExif 
-}
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

@@ -1,91 +1,30 @@
-// plugins/urlshortener.js — URL Shortener Hub for Miss Chatra WA
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:35 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const axios  = require("axios");
-const config = require("../settings/config");
-const BASE   = config.prexzyBase || "https://apis.prexzyvilla.site";
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='d85996280370cd965dbf7a331c0d2488cc601f1e315341caedfcc6f7239b5485';let _src;
 
-async function shorten(endpoint, url, extra = {}) {
-  try {
-    const r = await axios.get(`${BASE}${endpoint}`, {
-      params:  { url, ...extra },
-      timeout: 20000,
-      headers: { "User-Agent": "MissChatra/1.0" },
-    });
-    return r.data;
-  } catch (e) { return { error: e.message }; }
-}
-
-function extractShortUrl(data) {
-  if (typeof data === "string" && data.startsWith("http")) return data;
-  if (typeof data !== "object" || !data) return null;
-  for (const k of ["short_url","shortUrl","result","url","link","short","data","output"]) {
-    if (typeof data[k] === "string" && data[k].startsWith("http")) return data[k];
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-  const inner = data.data || {};
-  if (typeof inner === "object") {
-    for (const k of ["short_url","url","link","result"]) {
-      if (typeof inner[k] === "string" && inner[k].startsWith("http")) return inner[k];
-    }
-  }
-  return null;
-}
+  _src=_d.toString('utf8');
 
-const PROVIDERS = {
-  dagd:      { path: "/tools/dagd",      name: "da.gd",        extra: "custom_name" },
-  vgd:       { path: "/tools/vgd",       name: "v.gd",         extra: "custom_name" },
-  tinube:    { path: "/tools/tinube",     name: "tinu.be",      extra: "custom_name" },
-  spoome:    { path: "/tools/spoome",     name: "Spoo.me",      extra: "custom_name" },
-  spooemoji: { path: "/tools/spooemoji", name: "Spoo.me Emoji", extra: "emojis" },
-  shorturl:  { path: "/tools/shorturl",  name: "Auto Provider", extra: "custom_name" },
-};
-
-module.exports = {
-  name:     "URLShortener",
-  category: "tools",
-  desc:     "Shorten URLs with multiple providers",
-  command:  ["shorten","dagd","vgd","tinube","spoome","spooemoji","shorturl","urlmenu"],
-
-  run: async ({ args, command, reply, prefix }) => {
-    if (command === "urlmenu") {
-      return reply(
-        `🔗 *URL SHORTENER HUB*\n\n` +
-        `• *${prefix}dagd <url> [custom]* — Shorten with da.gd\n` +
-        `• *${prefix}vgd <url> [custom]* — Shorten with v.gd\n` +
-        `• *${prefix}tinube <url> [custom]* — Shorten with tinu.be\n` +
-        `• *${prefix}spoome <url> [custom]* — Shorten with Spoo.me\n` +
-        `• *${prefix}spooemoji <url> [emojis]* — Emoji short URL\n` +
-        `• *${prefix}shorturl <url> [custom]* — Auto provider\n\n` +
-        `_Example: ${prefix}dagd https://example.com mylink_`
-      );
-    }
-
-    const cmd = command === "shorten" ? "shorturl" : command;
-    const prov = PROVIDERS[cmd];
-    if (!prov) return;
-
-    const url     = args[0];
-    const extra   = args.slice(1).join(" ").trim();
-
-    if (!url || !url.startsWith("http")) {
-      return reply(`⚠️ Usage: ${prefix}${cmd} <url> [optional custom name]\nURL must start with http:// or https://`);
-    }
-
-    reply(`⏳ Shortening with *${prov.name}*...`);
-    const extraParam = extra ? { [prov.extra]: extra } : {};
-    const data       = await shorten(prov.path, url, extraParam);
-    const shortUrl   = extractShortUrl(data);
-
-    if (!shortUrl) {
-      if (data?.error) return reply(`❌ *${prov.name} failed:*\n${data.error}`);
-      return reply(`⚠️ Got response but couldn't extract short URL.`);
-    }
-
-    return reply(
-      `🔗 *URL Shortened!*\n\n` +
-      `*Provider:* ${prov.name}\n` +
-      `*Original:* ${url.slice(0, 60)}${url.length > 60 ? "..." : ""}\n` +
-      `*Short URL:* ${shortUrl}`
-    );
-  },
-};
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

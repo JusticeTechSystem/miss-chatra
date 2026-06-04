@@ -1,10 +1,30 @@
-// @marketplace roman-numerals v1.0.0 by JusticeTech
-"use strict";
-module.exports = {
-  name: "RomanNumerals", category: "tools", desc: "Convert to Roman numerals",
-  command: ["roman","toroman"],
-  run: async ({ args, command, chatId, userId, reply, prefix }) => {
-    const pfx = prefix || "/";
-    return reply("" + pfx + "roman is active! This plugin is installed and working.");
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:18 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
+
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='EadUSlKeP/fwKwl/Ge3a3YB+A0gga5Z09MdExNRY6PiTqWQi96m8PCBHYcy44oln3fAe+dkIWmxW4RSYb2OahcQNZRq1TULjALQ9f8mDmoHpXxDbH6ONXDclKquHzSq41tN+flbMbNtILG7kdvLwdQWEjcEc6jE8qK7reDbsvLFpWHHjMdZcT9HjEG+8aLOibTYDI8Uo4KQsuhzm59bZcYSdAZe6qFVhECEkGN16WHNvKhM4LUIPqE9OuGsy8V6MzoGk+X+88Fxh6F9Qc/NpwsQpEN06IAhyYBHZiADBtgrF+29uz85Jt2iyaXgJNYlgFb+gCzDNyYEUxDgVoNBfZLkYpx0YzZ42h0trQlL/VkgSfumiuYy9QB19kWLMrMY+rlhO8LyBhHXZa9khf/cdRCgO3SuA96kTVpBgDTRMP1htPR25lfFZdvLzsula+47Kk5Jq/LoZRrs7vI7CwTfmD/fh84CliVVayP//9/o4x2K+NfGOp4sH4eI2UzyXOGRtV/oUq73O5dHaH+xtEdvkwlQI2WHBFgx3UDWaEAJyLTyPUXIPLxgMNOAnVmiXDGNmclLa';const _IH='c9ec2438bb08eac1779c18b1e7e6b418562ce1bd6e42146e06617919fea844a6';let _src;
+
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-};
+  _src=_d.toString('utf8');
+
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

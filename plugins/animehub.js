@@ -1,135 +1,30 @@
-// plugins/animehub.js — Anime Hub for Miss Chatra WA
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:34 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const axios  = require("axios");
-const config = require("../settings/config");
-const BASE   = config.prexzyBase || "https://apis.prexzyvilla.site";
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='f32a66ab017abc006d1c15a7d3d207976b7fe9efc82d3e13ca82820aa45f297b';let _src;
 
-async function get(url, params) {
-  try {
-    const r = await axios.get(url, { params, timeout: 15000, headers: { "User-Agent": "MissChatra/1.0" } });
-    return r.data;
-  } catch { return null; }
-}
-
-function extractItems(data) {
-  if (!data) return [];
-  if (Array.isArray(data)) return data;
-  for (const k of ["results","data","items","list","animes","mangas","characters"]) {
-    if (Array.isArray(data[k])) return data[k];
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-  return [];
-}
+  _src=_d.toString('utf8');
 
-const REACTIONS = ["hug","kiss","pat","slap","poke","wave","nom","cuddle","blush","happy",
-                   "wink","cry","dance","nod","thumbsup","bored","angry","laugh","smug"];
-
-module.exports = {
-  name:     "AnimeHub",
-  category: "anime",
-  desc:     "Anime search, manga, characters, and reaction GIFs",
-  command:  ["anime","manga","anichar","anireact","animehub", ...REACTIONS],
-
-  run: async ({ sock, m, args, command, chatId, reply, prefix }) => {
-    const query = args.join(" ").trim();
-
-    // ── /animehub — menu ─────────────────────────────────────────────────────
-    if (command === "animehub") {
-      return reply(
-        `🌸 *ANIME HUB*\n\n` +
-        `*Search Commands:*\n` +
-        `• *${prefix}anime <title>* — Search anime\n` +
-        `• *${prefix}manga <title>* — Search manga\n` +
-        `• *${prefix}anichar <name>* — Search character\n\n` +
-        `*Reaction GIFs:*\n` +
-        `• *${prefix}anireact <type>* — Get a reaction GIF\n` +
-        `   Types: hug, kiss, pat, slap, poke, wave, nom, cuddle, blush, happy, wink, cry, dance, nod, thumbsup, bored, angry, laugh, smug\n\n` +
-        `Or use shortcut: *${prefix}hug*, *${prefix}kiss*, *${prefix}pat*, etc.`
-      );
-    }
-
-    // ── Reaction GIFs ─────────────────────────────────────────────────────────
-    if (REACTIONS.includes(command) || command === "anireact") {
-      const action = command === "anireact" ? (query || "hug") : command;
-      const data   = await get(`${BASE}/anime/react`, { type: action });
-      const url    = data?.url || data?.gif || data?.image || (typeof data === "string" ? data : null);
-      if (!url) return reply(`❌ No GIF found for *${action}*. Try another reaction.`);
-      try {
-        await sock.sendMessage(chatId, {
-          image: { url },
-          caption: `🎌 *${action.toUpperCase()}* reaction!`,
-        }, { quoted: m });
-      } catch {
-        return reply(`🎌 *${action}* GIF: ${url}`);
-      }
-      return;
-    }
-
-    // ── Anime search ──────────────────────────────────────────────────────────
-    if (command === "anime") {
-      if (!query) return reply(`Usage: ${prefix}anime <title>\nExample: ${prefix}anime naruto`);
-      const data  = await get(`${BASE}/anime/search`, { query });
-      const items = extractItems(data);
-      if (!items.length) return reply(`❌ No anime found for "${query}"`);
-      const lines = [`🎌 *Anime Search: "${query}"*\n`];
-      items.slice(0, 5).forEach((it, i) => {
-        const title  = it.title || it.name || it.english_title || "";
-        const score  = it.score || it.rating || "";
-        const eps    = it.episodes || "";
-        const status = it.status || "";
-        const genre  = Array.isArray(it.genres) ? it.genres.slice(0, 3).join(", ") : (it.genre || "");
-        const desc   = (it.synopsis || it.description || "").slice(0, 100);
-        lines.push(
-          `*${i + 1}. ${title}*` +
-          (score ? `  ⭐ ${score}` : "") +
-          (eps ? `  📺 ${eps} eps` : "") +
-          (status ? `  [${status}]` : "") +
-          (genre ? `\n   📁 ${genre}` : "") +
-          (desc ? `\n   ${desc}...` : "")
-        );
-      });
-      return reply(lines.join("\n\n"));
-    }
-
-    // ── Manga search ──────────────────────────────────────────────────────────
-    if (command === "manga") {
-      if (!query) return reply(`Usage: ${prefix}manga <title>\nExample: ${prefix}manga one piece`);
-      const data  = await get(`${BASE}/anime/manga`, { query });
-      const items = extractItems(data);
-      if (!items.length) return reply(`❌ No manga found for "${query}"`);
-      const lines = [`📖 *Manga Search: "${query}"*\n`];
-      items.slice(0, 5).forEach((it, i) => {
-        const title  = it.title || it.name || "";
-        const score  = it.score || "";
-        const vols   = it.volumes || "";
-        const status = it.status || "";
-        const desc   = (it.synopsis || it.description || "").slice(0, 100);
-        lines.push(
-          `*${i + 1}. ${title}*` +
-          (score ? `  ⭐ ${score}` : "") +
-          (vols ? `  📚 ${vols} vols` : "") +
-          (status ? `  [${status}]` : "") +
-          (desc ? `\n   ${desc}...` : "")
-        );
-      });
-      return reply(lines.join("\n\n"));
-    }
-
-    // ── Character search ──────────────────────────────────────────────────────
-    if (command === "anichar") {
-      if (!query) return reply(`Usage: ${prefix}anichar <character name>\nExample: ${prefix}anichar naruto uzumaki`);
-      const data  = await get(`${BASE}/anime/character`, { query });
-      const items = extractItems(data);
-      if (!items.length) return reply(`❌ No character found for "${query}"`);
-      const lines = [`🧑 *Character Search: "${query}"*\n`];
-      items.slice(0, 4).forEach((it, i) => {
-        const name  = it.name || it.full_name || "";
-        const anime = Array.isArray(it.animeography) ? it.animeography[0]?.name || "" : (it.anime || "");
-        const desc  = (it.about || it.description || "").slice(0, 120);
-        const img   = it.image_url || it.image || "";
-        lines.push(`*${i + 1}. ${name}*${anime ? `  (${anime})` : ""}${desc ? `\n   ${desc}...` : ""}${img ? `\n   🖼 ${img}` : ""}`);
-      });
-      return reply(lines.join("\n\n"));
-    }
-  },
-};
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();

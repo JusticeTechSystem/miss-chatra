@@ -1,63 +1,30 @@
-// @marketplace habit-tracker v1.0.0 by JusticeTech
-"use strict";
-const fs=require("fs"),path=require("path");
-const DB=path.join(__dirname,"../../..","database","habits.json");
-const load=()=>{try{return JSON.parse(fs.readFileSync(DB,"utf8"));}catch{return {};}};
-const save=d=>{try{fs.writeFileSync(DB,JSON.stringify(d,null,2));}catch{}};
-module.exports={name:"HabitTracker",category:"productivity",desc:"Build and track daily habits with streaks",
-  command:["habit","addhabit","done","habits","habitstreak","delhabit"],
-  run:async({args,command,userId,reply,prefix})=>{
-    const pfx=prefix||"/",all=load();
-    if(!all[userId])all[userId]={habits:{}};
-    const d=all[userId];
-    const today=new Date().toDateString();
-    if(command==="addhabit"){
-      const name=args.join(" ").trim();
-      if(!name) return reply("Usage: "+pfx+"addhabit <habit name>\nExample: "+pfx+"addhabit Drink 8 glasses of water");
-      const key=name.toLowerCase().replace(/\s+/g,"-");
-      d.habits[key]={name,streak:0,lastDone:null,totalDone:0,created:new Date().toLocaleDateString()};
-      save(all);
-      return reply("✅ *Habit Added!*\n\n🎯 "+name+"\n\nMark as done daily: "+pfx+"done "+name);
-    }
-    if(command==="done"){
-      const name=args.join(" ").trim();
-      const key=name.toLowerCase().replace(/\s+/g,"-");
-      const habit=d.habits[key]||Object.values(d.habits).find(h=>h.name.toLowerCase().includes(name.toLowerCase()));
-      if(!habit) return reply("Habit not found.\n"+pfx+"habits to see your habits.");
-      if(habit.lastDone===today) return reply("✅ Already done today! Keep it up!\n🔥 Streak: "+habit.streak+" days");
-      const yesterday=new Date(Date.now()-86400000).toDateString();
-      if(habit.lastDone===yesterday) habit.streak++;
-      else if(habit.lastDone&&habit.lastDone!==today) habit.streak=1;
-      else habit.streak=(habit.streak||0)+1;
-      habit.lastDone=today;habit.totalDone=(habit.totalDone||0)+1;
-      save(all);
-      const milestones=[7,14,21,30,60,90,100,365];
-      const milestone=milestones.find(m=>habit.streak===m);
-      return reply("✅ *Habit Done!*\n\n🎯 "+habit.name+"\n🔥 Streak: "+habit.streak+" day(s)\n✨ Total: "+habit.totalDone+" times"+(milestone?"\n\n🏆 *"+milestone+" day milestone reached!*":""));
-    }
-    if(command==="habits"){
-      const habits=Object.values(d.habits);
-      if(!habits.length) return reply("No habits yet.\n"+pfx+"addhabit <name> to start tracking.");
-      const lines=["🎯 *Your Habits*\n"];
-      habits.forEach(h=>{
-        const doneToday=h.lastDone===today?"✅":"⬜";
-        lines.push(doneToday+" *"+h.name+"* — 🔥 "+h.streak+"d streak");
-      });
-      lines.push("\n_"+pfx+"done <habit> to mark complete_");
-      return reply(lines.join("\n"));
-    }
-    if(command==="habitstreak"){
-      const habits=Object.values(d.habits).sort((a,b)=>b.streak-a.streak);
-      if(!habits.length) return reply("No habits tracked yet.");
-      const lines=["🏆 *Habit Streaks*\n"];
-      habits.forEach((h,i)=>lines.push((i+1)+". *"+h.name+"* — 🔥 "+h.streak+" days"));
-      return reply(lines.join("\n"));
-    }
-    if(command==="delhabit"){
-      const name=args.join(" ").trim();
-      const key=name.toLowerCase().replace(/\s+/g,"-");
-      if(d.habits[key]){delete d.habits[key];save(all);return reply("🗑️ Habit *"+name+"* deleted.");}
-      return reply("Habit not found.");
-    }
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.3                                     ║
+// ║  Encrypted: 2026-06-03 12:28:31 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
+
+// Encrypted by Obfuscationary by JusticeTech v4.0.3
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='8965adb7147a8c136a00797614dafcbcf1218d731d2224dd82b0e7a514d33e71';let _src;
+
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-};
+  _src=_d.toString('utf8');
+
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
+})();
