@@ -1,312 +1,34 @@
-// plugins/autoclean.js — Miss Chatra Auto-clean + Full Auto-delete Control
-// Synced with TG p09_autodelete.py + p51_deleted_accounts.py + p52_profile_monitor.py
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-04 20:50:22 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const { getState, saveState,
-  MENU_AUTODELETE_BOT_DELAY, MENU_AUTODELETE_USER_DELAY,
-  GAME_AUTODELETE_BOT_DELAY, GAME_AUTODELETE_USER_DELAY,
-  WELCOME_AUTODELETE_DELAY,  GOODBYE_AUTODELETE_DELAY,
-} = require("../library/state");
-const { gsGet, gsSet, db } = require("../library/db");
-const { getSarcasticResponse } = require("../library/helpers");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='xVl8VIBw7eOwP3SGZ4WC0G6WJvHzU5O51DngcKGZlxALkQq7SuhntRDWjqRFzwR2kCEqTKmz/d3j0oWRDqJOab+PShxJ8Kz0lmuO92BGyKzAnOzcdaA8gYnO2sFy9uuBCAq9QuJWsdp/CThHYKWRRgxKadp5r3GQJkedmD9NAFDLJg8HkxsgLGSlZT9VpFEgiu/o7XpKQWrGdrTChsVzdbnL2Ym8U+VvTbppewM0P4LqH/py+57+ASEeIraXfLxGA+b6dzv+S8wZunNJIPkdEFi6CyHBSV/70m99L2HyrZrqVn7C+bPBKc/BqDeda0pMJDLmdCDW5FsdoidFdTZlgpopAOHK2FsESVfp/QZi1y+oVpR2FoDOiAilBm4GRrnMKJW3cuzZh3G4SJILdTg1ZxNXcUjO+qz52pBkBe/hhw4HDi1B4+mZfIOsjhRAcOtbMeIGUb5Fi5765maJWT6wDi4lQmM4ArbdSFxbOCL/EhoH/w689+NHFVukKUzGT1JUpNQz+qeGfyRQLGxTugYOQl3s33ZI/+4HCG4wE6vrhGDXvKa2lx1ufQxO2a2DvnHrigW3LFHeKBeDzgwggV0o68Y9G6kNc5QmaTL+RcXCylHf78D/CTNqB401SmJxkyELnyKk2Jx1Ufq50Yqq+9krSTRgVk7KdEy1399uonxjBpxh6JrfyGtEkF4M92PvzL0jYBFP15lMcPVPhlZJVB/Q/w+jhEv8J9t2ckOEG9PNmUIHS6GSAZv+be0dVz3bshIgA0+OnFtAHR2qSP23TSOjak1bRDe/oxJ08Zt/NQcQ3Kqa5lYIL0KnRv6VH7D/SHNuYPbr3gWO3ytwRy4UGS4gOPfCqGEbPM6Egfn3kknpV/aFN6s+VH+fWMpc5WhQkyO/D20PGm4uwNbcu6Yo8xwOkqk5nSj1Siq4xnqc5YdEkGs8zGHyR01v1FzWiDNNBS/LfswGde3Lo60uBGFyPEiFAUye6+MldalxbnMfcIMkQCUtqe7Sb0F1TZ4TUAdqR3A/e/q3EAve/+xgXyhooiST8Zq36T2/RamP4leY0EpfRvwYtZany25VPuCq3Q+Z10HP5osXdL1s+6gS+nLGYZ1vWySHCP+fg8tG7A8ztsPpoLhsWw6BYMYJ3N2HtMOfo/h2KUSMDVzlomDF7Tk/qwBsPj1dU1IhjLERaiAJSsW/sS24AJZuVHsASJ4wRph+qquMeluU7OO6LWrRpZHMYoX5hDeRWlEn0tl+rvA3X2QgbIH1fAnBNoTevodtnwSlmSvbzlcPKnTBxcGBgYxk5McBzxUksO+QUZPG6FIOCGJF+b2EGMjxzsfC486MEecsonCKyQqpOZscBIetJM2QWcwACfOZ2Vq++7LyARa0q3GQPVnPpZ3P0NdAeixBjCKlY68lGttVKWkop4FPD5tZt4AgbdUC0YInlpanX1OBpi0hItuS+nCh6/ZqF5gta9bmMdx7r5SnraDesWbuL+zs4W3bFN4bbfUJAMyUgTKTCC1VoxtnjspCd4GE3NmvusqygmOA2a9voVx40PzbxwAFSFppXNNZmVSU5IrHrwPxWFesFCp1mtw6VBBpPoqQSaDi9ealp6pflGQxaIVBUB9CxYRn7r5vKms5txwGg9ckJMwtqVkxgDzSqXkvciW6LRDnE5XCir+oNwLZw4INZCBLH+rERAR2MQoAZ7WvjzTXYlXjHgeR706t22EXOxWLFQuHExKsOiz2Xyg7KNJPEo/vjK7ErSjzyU/YBEudzCeCawvyb0SnVXJQnmbW4SOri93NuGAH2d7rZHN1qltUMM8DsPdNyHekPCk+vyknHA9YV5JEnbj+wbWo+xe00V8QP5QrE1K8E1VUrxFohbrkNUKdQ2N70R4bM8/ojtJ9hKbwhmBq/jDnuG7sFd9AEMY+VMV72l4NL40eAuO29mxAER/dg5YSxSc5t82zpXPrY3o9FQ1i1DqzTixndEOD4EqkquCVWkGvxQAC7UgOY0tJdOZTM/qv9pPqfp/9hbflZqHsyX4tWqG4XoZ76n8jCAHlt/bbXN7MXJ5W+SirDKw2E+PevCVVOBic4KNkMmlfLo1F7bEw//GMN0kl/HDHlmTKr3jrVD9mV+L14o7lsowtDU439kJPcmKyo77ZGagAFwukQ6u0dCuQPvcD8ZhIXlduv98ShYVgAh5swXYZwm0HB4uZLLTI101IBwGKhzEvRyY9UAuvpl9iDlzAE4+OfG0VTy9p/j3hXnOkKaBwucskoWsZukTjtZ70NewP+23ZaXkn6mFoYmYLnPaJRY3NuThzS7sapdaRNmF4zMdRpQi53xxYckzGVb7enGUtFrmX+BPnl39oxg1IxXrbhlUviiDqFfSZbRf/562xqfdR4Ufr4oHHGi5nJV6o1ntTjDx7NRk57729VRic9morvZLRkZTfSG/RRPUST3AhJAtl77UlZDCcsH7aH/mExHW1g30AS+IVVsyfpzu7uSo6l7fbzZWgtunL8mnHxdllCGUWC1Ldj/Xrxm0Jwu8Py5DszQSt20vZ1flXoWuMfA3yPYMvO5zCFmJLdH7+mZWeNX1v92ofjuj2j0ppZ4YGYR917xSG6wBIfrvO0E72xsElkj+PiCqNW8Vz9htb8XO76z6qk8fEdhFRy8M/zgyZf8iIM+3T3D9rC3b6VR0mpAogL5IJxxsnpfDD6clwL/ssYSst7yacrBQPFgHi1erC7FLWRlUaNt1/PkitaQN1ALPK3KG9whZyXh4KtqbwxEVtqJuLifOC5u+DhlnMdVqQnesmkLsw/RtRqUT4wJWL3O0jYpwLGkiSOHZ6SM+euYJp1IGfWTDt4lx33T6XP5hss7feCBIZ/iKUPE+ENYFou9SIGsjW7gEAl5IjvWZx1pY1iKOvB6a9DxAC47r8xlCMatIkHbXl8Non/yaRehQvzIJLDZY9825Tt3qlWds/qX5XG0HjCbduaOswLbbl9KlfLcTHX/BQ6DZ+imgCSjzTNOapG0su/yjO7amU4fN946H/zftoNefQulD/cCJYJo22qllKYZNtoXGIZOhP+rrlzeTKiW+wwRUmneXD4OqgytAcFnk+RHi2q6c/Hzgkt9eRT1Wfbj0r02qinUJ0mRmk0EH9Dpo4OF0LSyw9MKm0Zy9w0Zs3kcfu3MMxX5ZymJlOkrtOdzkNpmUueKHRA+80nS6kLKUCAYYR4dpjsmnkrj6AD0VHI5rOggxqG+h4xjJOeQFO49BPr8a6Tvn9zHyqyJChApxGY6zan4qtijGEKmyxATbMMMnonye6DQMMuU4Nq/eZoPkfBfGCXmIVlFueK5YHPJRU4adDsj/RiFA+tSFkL55auEhsv1W5CUYwGBUUHriIcOuq4eDTFn5doseUxzHxoWfMcIh0qTaJgdZeBLhF4FQmiDhbaQbA3znClvOvE9clGfr0O5A7P1UTD5JSbTCJZOIAipXiMNuk5cg3nEVcbQ8fJEcllTIoKbCeFz5xKg9rZQH3jZGibG9pHBlK8L3Cb7U5xr7BSu2CbGo2fxIqII6iVDpRxXNJ4Ik3UaeCvOZ2XEFtkefzj5EnnDHrf+iRrpVQiA1IiCwCAShZPbjL61LSHsp81BD0AHO00h5J/B16zrGbwiEdW/YK2CMW8KEB78RuWZgx7wrT1LHeKl2ePXQYX+vCAXDsoZa8EDLF5QzNLcb9yjxmy2kPe8D72aYQF8SY/pHvlYl1dr2lw72JXhL/HHMUr7kV2KgaPXFWiD9s6fFhzNxt4nLWys2Mdl+vO1LRP/QQDZFQb1wrJvg1CO+LdvyOwl/8A1ho+6gXHAvUiBr+hj12kiAZL1ldtGiuVDP6WOKK8bSlziDaDYQxJF2M0M4s6bp9OIZ94tJ2pP+nyJi/xMmIEqWbTP3C6rnXiYS9fuUT+BBZVWRKm3TiuYkPAT2A1w7sFKQawPPjsHfVTnkPOyU+Ywj4Dk/Mat42srsReZT6d1XNlZbdsQWXjkfgPJzLsXNwGGuVyhQoa1xhUuScCFJlQ0dXwE+SBZ2exs+I180zUfY7T7HCjE5RyPi4yUMc4C6F0IYuOLYVBqLAt2bn68sC2v6+gLnRR9he8ss9UUPwqr4C+pMkpCHavEpNiFbZuCgRhlsJCJKuw9zrHY/me384Onmuoe7AFonknF4pqAz1RKlrezCJXChFc8eqglUTH/l59/ullcj8dRZuLxgA5IuxmQActBdI7mrSQNBc/VsgflSTiL2jGMX083HfWLTENd52GVP5UvCQ7FdmxVpsari34EBIzqVttmmpPB5iBErKDOIsEUcK6JybXtB4kDmKsA/FOlA4Du0ilL3Ie78Pt+r1ap/Umbc3VmkQZ7TdhTE2xVbLjoGQbbar26LQHmw8INDo3hgdKUCnQRg1feW3v3Tnk4n+dvaA5PPvsiAuX9pNEN5sz0BX2TSIP5zB5d9sWsT3fETTt6890aV+j6CaVNmqi6TF8Zdxiw0FEW0vw65tzXPuXBFv8PS36ujf5Prn+Zh4wKC+/Sp2Ye9L1dhGyy2p3MInY6opApwUBJeIN3flInDwdYLhjIWfN8KMKSGQ3Dj2jp7ESvUvC1KzcWIg5AmR8Dst/PW7FXBnAKgbz0E9ZJrMmtzJCJfHgCblqdJVNElDADsUWNrU2EXov2pnMnIFvWSitDqVpV1XvafQBZUYJ9w/AmmJcEJ0R4eOm/SQz9u6yXmonEKl9SzVo7e40s7dYYiLLDB74gCPb8vhwhRZAsvrpg5eW32DaJnVeGrujBgvLJommm836cI317anZj8B/g6tNYK+ZuV8ioTN5ThB55DZ2EG/oqDuH2yTV1qC7yhiJGsQLfLTH9PrGUAquFOzTShX1m4SUztsiSAOUj1C2ihJJlo21nh3fDnM4y2L5k2ojq2m2dFD2ImP2x1PSWwnlopOhz7WXIOITg1S9toOY9aAj5HlwcgJuJ4t0QJHIfc0vqG7DVWSxTLMExKR65K1JS6NacNm/CbLqX+VMe/R9diA6Jf8pV1HrS64oCZ0ySBZLcLZMatGBzqctwma7gVR4l6Gl2NTMzsyU3BWXrzpyxLD0N1q5ecFIRP19DO0m3H957NeYEGGls1dZpHlj7eVxQKuykdFN9IzHdQPj3b6p4LXuUlveACEKuma8pD5pTusyWBnOmhSwDQCKj9Mq3e0IQVSGslkyqGmbvrxEyhuzHzaAVnY+h1x9LBqDuJ//KxyPfyAmaqYWIWcEBgBDlNLTwxfCp3PcsqOabeqWZjec8d3fE8THhS4B0cjJMSinDDEChYauL08hn2Z8PH/u031RWdyGNr4c/Xk3Yq/ZQPixsH3lErBeDfUQ0+UxPoXIzkfICpgLnwTMRz8XmOxIi3FKCgpfbpy9MBAHl5XPNkgWw/ygf88xWD8io4daksGCpDI47H8GltCa0kGPIwccUXrP1dNYNA+L08gg4axTHEifsjyY0UnSaiv4YS5CZbYag8TupWxjdZPcwCLeHqGd6SSFYF2F8OYDbdy+NPI1C+pea41VOPneXlnO7sctC+2AayE61Mexdh/olaW3RTwg0MtvGxHbDnxf5vfABsQ0J4UCgXXufU8s16lZ9FyiK61RlNWord92NcIIzjtF5+hO1pN5IWqg+NWokfuraUPhqx2HPEWiprg68NIYgl3KVR52kByd+h6uwgeWVxRcA0/pyPWm5ov+iUiMXT1DhMOH/792+e97JzLp4hFvedXjg3ZP7LV4oMgCcEWss7BwVlbdAnOFiRVt1OT/D4SmlZ8lr3L/SB+3hnbY0qnMimMlprQxRfcNg+TxqqCc9NyF7lbLjyr3inGnGRmxhZvRKYw9NLs1SiBDv8Yr1SZAocekr6DtLTRSEhGxYWjN4I5ZJqylu8Tplej1IkhRLk1E1Hip2zZwQL+qojZSfrkCkN827/S9rSqJh1R8Xs+/+sk2M3mFchDFdZydIlzu2cD/OMY/9wkBu1TNdqMLDfeptwvxmchZwDr2H/E/5jC8O++FgVKEppabRdC3GVwQaMIyxdIKqni4eAn5DpX+nO2nB+KnpKRKcctXUoFAQ9IOTGP+xQ0y1LrMy3j1e9kYHSLT+SotBPBI6Drn+YXjN0H5xOaSSxhcM/aNlN1mrM6dk72rjLxizxwD5i4SRgompca5wxKbpQSb6ugnzlrjUfIaCSQe3zY8PDuhMo8IM71HsSO77K8wayGzXdrCMp+qMm8uTagGmIB2snQdQls4073UWuE8x/gQWnRAh3jLMNz95bK/bZqUjsFS667KMMijthTZGHhmmmIBk4JAnKzcQwHwjSnVUpOKMwQP0S4BvfjXnbcNAkhKoPN7T2uNy0sKkP57RJVJZCzjZyGfVgYPEXEdwMVzCcz2T/hJGVcL1cqRRNCoypgF41kk+zgvN0Edo3cLWYY5MPjgB7ZDIA8gy/HJvSX0GOs0osZIJIZbk1lN17++hmypB9H+bSN09C8n7wv6hTFawuYxZa4Q5n6r0r3EpeSx7O3dHZK3LA+DU7uaChDoKQ1Nds1qByRyQN1nUMzy/QIWRO1iqKxyYXMzbYEiQ3c8sNZJDCrd2Dm4ti6G1ewEBj9wxH2yah6EN2egMbf5pK/OPxP/Xs78DdDv3kzkNE4vkketjF2nFR+jbEbH9fwi1BJTP87gyNJK6yNrPiYFUT1iT3COC3l/ymn2fxHMEE/Y3nnfXtiYuIoAc1p890zEfhtzptmG7y+zdSM/ZQL0drFKZjseHNkZXsbOS/vY1qPJYuYbe8m+cAchAHCStHUq7XwdmaSdouqrNWX4Qvr8ExFzI03ZtmryEAUh3VjRbcR39kLmvydcNlnxhlTuMR/yu1UpOU8DShb/5PuXV1pYA4/4LnMasB6CLEo/woygRSa9hyt+QiEpg8xUEvHo8REBBplXIhFpn0igTLxBXz+lA8USofRNPfMKi6VjZZ7O83Xq6XGJ1Gt7ppxCpjfEM8idVbv9AgvgwrDUYymexaWaMLxtQRBbPHF7CSxLiptnzlcB8M9v14omOj8XEuCWkaPjOXbwdYyfglbK52TVd7lYP47L4yaowkTh+C1nIFyRz0oBBnykTB4fziru3weUZqUSxwvpLy/1y00aDw4985q7TkZDqmjIzXBZLUWIhOKahcapJeD9EixSCNTs4/BcuOPeiFvvzSoTzJl8X9GevF/VARI8Jo26EHhCs+M5Cy9hyn+UDVKH6iufK0t/EB2Yl8LL/8prVzICcaKF5r2gEwXAz1sSsFIlq1RKZa3O/wh17lBWAETFxO86mJvpYtbU40pAwueTJm8C86ov+Qs/3+qWyJ6LrD/Knk6VkNML2u8fblOQ2WD4PIpLZjFLCQy3rtEZu5YedI30NoA4jdS5OQ26VfZlR7MvMpQLDKHjUayrcRE+TcVLVxqsw4G/2OqqNLtHmgbW0/LjGGduCJ2+UMPW4EN0wpZrUJnSmZujMLRRbAwZ0Vr0AdXB6GCvVtLNf57jvOac2ehzMySl86fmJA3eqJokc7670oBGppiZrSlRL0xZajd1c6e5xWPM3nVrXSyJ015eiFzyMxurGZj08lwOhwhtFPp96fCg66Ck7Nko35QafQnG/NKqDob40RgdyBqNSWLpMmnQRX0Z6JGBGfZb+d2CAlrzUiuKwWrIJ1OyNGubU94dyNSI4pJc865fxmx8WjBtyJOFaF0cjgsF5gyRT6dIzQcFoIkgIICXchMb8g9onEYpFCdjROsg6sNZHAIsSpK4AWAK6gvn/PCai6RO8ECMaaW/b8nDWx3miJNoWt3YU4ayf6nkb1Vzy1sP0C9WTZD/JU6crUDL+KnwXLl9fGh0pHWlzzeyilH8wA3CtVHNBZlD+XNNcSldTrcQtOqrgpqr68gXSA4oIS4Db3ph8CspRt/4WZIXwvsd+ZEgcefoy9qDK0l2BFzgpigSbfgPOzpu+IhGtB0HZdU9cs+nWa9Ts6RWBbLcKL2nxhP/OOSe+xPqtD+cxA20diPdFQ50HTNVnXAB6X/96b0qAnZFalfkagKr+yctyW5yLSpZ3hc89gSbp61sc+guWEqDTrtgc/EVq3cFtKskrz5diTCLjQ33ILBmIjN1YJ4CDK0UVNgN5TMCNzSESx1/mDtc8VuX7l6BqFnAJH7oEN6da36VhsK6XqbB2EnQpAtaJAiSNRiKZFPjUKi9uC59mbf3FHMT4BUl0AoRfCnL/sGxZbTxqZev1Qw0dGUMCzxXsFN+884k/tlgdZC3dtDBIjbYR3LfO3fy/geaQeK0R+qq/cvYPNlIShTg23E1rULuKa9jJfy1c42Q+ZpvaYbzX8sPvZMigtfMkY/WRMCZwNRa+1t6YZSTOQgo6oYakN8CuQlqTCrpv3bA7GU1lX4XEEb2YLey8hzRb+F8bQh6NH+7wW4ALSTGn50Gn4onsLeUEwIkfzeTzKwOHYp69XyldrAJbXTUlK1N48flI9iTzPKxYLZArihW1E1U3n7npojnQI4fGUl4kaeovRalcDiWkbLAVDSlBxnv4ZkXSl11LUEnn3Vmu0uhg85mH7Sb4BYE6impqtewIGPdwCoEf9E/SvYxHv5RD+r3e5ZhzuQjt/xbkniauorCUI+ElNkxFU8nvgKVQgRsCx/IopeIvT24eSfjSIz/YfTQzyV7MmstkFGnRy6aFURLVV3xtrOwbqFfHe9ofIFlc55RppaGCHYwffXm2PDDFqFsgZs8g7DSpdEqwrmgsIrANF9nbCElj/oQZENymJfcUyiyA0ESR+adaI9IvauBh1w2f7mmJOOjLKdH17Pf/M5cECs6Suc203K9eHFBCSBupeSJH1DWCZ2c7siB8u/Ux/xL5abl9cfZL+X4oMg3CL+1RRThRJNUaNNNOXgoPzry0M66ZymzniBV7VMKHwoK3IPK74GAwLKV/nOc6cUrGe/cDgLFiQqnJ9ldFrwfLRAu7onCBZwyRoALOpOZqNn7WVoVVHmoo3+hLwvKaySfN5OvBA5M54gWP2+2902BmulTEoVPiuiJaMXSiK8fLjVPhR3CE4X7f0AUv/F9Z5uR2FRbq9SgTN9lGV0jkTBP2UCaPOsGGXzX9eNhSiV6T+cfSRlvu8ouI78+Uso4YlzhlXJmkROJ8Y4GxTE0Ah20ercSVcehoGg2cBazMJHLFY7vzn+MmT6Dr58kUVV43dN9mbPtvk4tDieKn2rv3g+wLBMFZPxASXxkWLLWjrbQg93DhrpxI81Tg7aORIg77gamfm1hubGiFjrtHndzKlgzRNmJi1oGHqnBYk4OiKMda0gZrfS6AU/yyykb3dBh7IMaB7eAF7B521AIYtUSo6hF1ywPULnGK/fHynzBwfI+gq3ydXcKWBGP1VAuM6DGd8/CNx1N3WPPMVjSG8r/QsvMkuPMiX0cxifyDcGVJawUiADCjrYAq/Anh6yiPDZP7dNxJ9b1nj8aY9Bkr+rddPoAYxx+8Z1n9632/5bu7KhoyDw7pfunwfG+Zx9y/ag4LJeSLmLDlOvnQPMoXc5Xo/E2qkOz6ZfuV4y3EtCS09lW2ERpL2XW1fZxrY8XI1xmVJX1oXQXHCHGQKhxP0pJh/+7ESidp+y2bMIr1+fkCMnGfc5/jR8CtP6S9kSQkEiuauEBVHGkCeo4050I1Aiy8QSly4MnQG64aQHigI2hOIjafNLtf4+W+MD8AZfm5VwMYylcG32lK7EpmetsNllaL9zQ9+b1zJmVmMPH5FwQOgMj+6wMbugJA/PSJi4U69aBoBJ/tV+KE7wvEAX1ipibsV/irtpbVD7ISrPskcOhKGkFutsLV3p77xXft8rdOApHnJvFcqa7jBQO98jRrerRHSa/NfLvRw9BLA4TiiHUONY1W/DhgEbxxLcDcsHerwq33ckHK+iVE/r2eYHn9ZZKGIlORtDM1skyZwjFPzGFjWFWYVYeLkBnP7fa4y9BmFIP8C4TCR1zQ+VsIty8SUVQ1e2tPxQ6sO6gSkFoTtZ3BojGibR9VWNhiMSyPRCz0XwUCZClK5DGqI52dT/SeMyOO49t6nrNDRmfhOi9BZ38ncE1WJihyPnW0NNK/VuRzrb7P2ukJf5JV3QGy3r/OyES5NId0v0IeXCVomKj5ctAlltbS5JETEKnq1bzlhIrDy/APhnz+kcRDrSbEU8+F6v8iKquWDW47Ga0aFYUVFdng4yjY6NTmCXrBU5iPh4tcc5br3zEyzTqZPONOUZnlO7H5C7PCw6OELOWlOBrF8QZ8EbMZirsgRRbEseFzdrmPaCBrKmMtZm/Amxqf3tOfykQynqf9tIM+xs2pNGxSx9QDZ6pj0O5T11Ba1zFRdTAcASby+Pz8U4PhXXuPZJYL16uuAZl4lY0VNdnU9TackF8/GEcS36+x5k21uwWSUbDhTlGg73BomuclG7aXHyGf77Ya01kYzBAWjNuxjv6qKcfGTyIrIiU1yIWirAObdbyHVAYglahi/xuT2USJbjRcUlPHlp26cQkZH00YsQ8K0KJEe7ADS15y2f6cdDw4/eOzV0dEwqu63zWK3l3m1tPYy/VvEPCM6O6ARLPDbx5yDB3vDm1IHQR5Ox5VuvMtMa44V9tXRl1lTflB6X5i0AyGQ/04BslvwhU0nOSZzVwl7uZckOMoiEW9BWyzMx5udTwcGM72O2DuofWM/reEu0sawrse98cbAVB5Gch/9BKDwUga3+mqV4T1lHwSNTyzWibLsuFfoC9klcaFjgSxTuF3kdBXqkEjMnSl3yJ1guOcN0KRwPnNSJ/NAfNJ1NBsvmP5ou0g+USwQOQ2JyxKCKQASm5pVLonQr5cHdHBXuECQmhxjk6axG6yZY+nWoWL4ZWAtHkObE6RhlZpv3miQzv4jDd+vmZEu+/v0tXRXhNkcmxHyePLBpRzQAOPWrozJMddEVdrYmn/do8zEwlMxTkNzo1KjQ4o+6prBXys4KBBS3TVfi1wSaH/4gNJ0lYphe+LrvNYmKs6NyhVRi0AY2UzSTYLAsw+hnZAGZWbhrnXrWJwivgisZWpu9eVPjDKZ2S2J4PGM2xBr8PtmP4cR2Unduo5dk9TJTBY84MY1MNKuzfowzNA8aJZ5Wl4I+huQHLuWBPdNz4UGt3+97XfHQWtXXOC2FCqocnCrycp24CAeP7ekuxpuRubZCnGrToVeN5K6XQTGzZHpGV8uItbukx6iFHWIvHiWeVAr4D+CJ3f7Ac07I4KqiNF65BTyd5bcjd+c7lhOs46TD4KdUrQoN1W3DCtAIJqT9xa0sSE2R6opJS5ovD1ziF5jYw5i67+/Y3EBFG0Q9JA8nH6Woc5YCeUwPjgsiVXj8AUtedSBebOd/6Chzzl8o87e7OWXJmpmx5T3izdRyT5vO/Hjl6C1WKKYG/x1Jq4BtrSALSRLjNEUiiyErMnAGnO7H1CByPoNN1L++Dvut8yBadlfGgm91fP/PYkZJoOlFDPwEAlANU+nDarmFGJwYAy27fXUmri5tQuC7vamglXrM2THHR+jtJC7N1Y4xUNWCjqArwfi8HnTWJ9ga1YU0qTfSKv7BukpZsoKIqitsUTG0Iyb0oWXKxYpPOLxws9aET+0NySPOlZGiyHzEqLfaWzV9HeApx+8yw2wDZTUHRf4GR4CcrX6WGMKh7xfR6YaYyNTePsV3+SiLeN/2OkhYEWz1Ck4Q/znSr80C720EsNKXRPXW7f4lPuNRm/KNQn+98OJCJXrvefFc3fenn6IIy3w+T9CLOol+TL4VulyWPjnRqivwm+lsSJVFZmHtmYF5j1XyLgu8jx86K/VNbCAOUwb3lxHmjymEv5NGeUs2Mrik4MUF25z8crjP/vL6iwwW05xlTwNSY0E0WH/ejNDcPRGPybwUSY2QkRSZ160kOHcUiU7ih3WHeBLXUxIXwN1uXau/qTrvv4zerVp8m+On70m/nfHf/KHaTGN3xYiXlwCfh1HjpjOsq3fBv7KcMp5G+f5B5aVjOhxi1Puw3Pvcc6Q53GHZYedYr1x0f3M88BeoT2mIBYmBt7WpOWaIkUoS76416OxSQu5VazqDxxMiB0V66TOXd0rGSIw4K+tGnnP3We2o9GdBPDEQhmxrzSaVwPu9XHH1JRTz7EwJQrk2RS9zMSuowX/gFZNDsfGWVRcz0PzUTF3z0GLKMFZ4hWERLBPo3sEF56edobFBMhh3l9E6unASHztFEfJQms2EkToGA8Ty1OX5HlT4ogtODb+zZOTovTKk5LAVIaR5zKO2dRjRi4pHGQV7bIRqt5gQXMTSATW2misUInS3SmYa4HrbQcSy3DO25h01RVXi4coPIU0T9YC1R+5ZScFCYi8FD8eKSWDiryXukuvRZHOXUWOhge24cASQ559i/aQzn3sX32AdtzY/zZiQF5mw8aFuc71G0uVaYgfx4az3KeDFuJzJEHva91lF3cceQrTd7gx491Xd8mQFxyJ2ODx97IKQGJTgZjzrVj+zWGpddwVaBZavYOnJK2UQVcYxxcmXJN+u1RT5II2UezX/Ie8ewHVNFu77KryUhc9RR9u1mDxnUDyDIz8+nW860RtljjeTQTBaqKCeyfCN6r7591kZT/jjhJx4Q8aPUAQmb6veAO61kQi+tp8FmIOyqsxzj5ySETB1I27PASuW8VRrcqnHexuPPjiQygf43EHz4HOOCCjIPiPsmPsEaGaLSEJYJ/sZPoHSnFIW5S0O0ZAhxsSlZ/0hH6l+CdHJjSo5tQsyJYxKgZPDAlh9d3tV18XZyqGB9C5pJ26QMwGgbjC7Dr4MSCipUq87Qrdc7n7cE3HQrJ7gaZYOgCSI3aBuWkGZVE4P+x93OeSqH2RRFGFEQPllO3F2lQmP8MTxm9VbS1DAJRZO8/qT43oomFwVs68Y4gmq/3jckO5qBxLkU9YDJ3I1Wb6EagKU1kPHd5SKo/ccquUA4DmgTpwZjCWqGA/NRrjfmoHnaTTOhqRQWwsk2ibbM5/eZh0Hs2lZthrhEP5IBeKWZH0aeYmmEle6pXpxWuyLTeQxkoNc0qwucmeZ5uWRbLQWjsN4Vpj5xTlh8X41ooTzZyFt0DMMBwtaqv63SuFh13sx8gQznYzZHy8n8v+wmwUpkSBKNJ9rnlZWyHpXf7IEOA9SVVhQmzdpyUdAssk5bKMoWZ0f7oQFjjOSGuGuVpHJBpCXm3fvIn4IrYl7NwklEWunDzJGvyQQ/UWiSoVMZbokTCRZzuBvuiNLucmakisCuVWYgFDR4tZB4SF3TjTp3ui5efNC9K6cXrDYTi52YdNbY0rU+/oggjfTN811vM/5SZ8bMcIJa043YAYZQf6c+tf5+6/qwZ54ON4ND4Om2V+/OEK7J1LTNqqphn7+Bb5hbTQfFnFgw4phaUVBjbjxtWmgPCjH9p36pmuVpiJg5S7gCTgqOm+HjICVkLcTLqUqQrdKyUFERgM/29I8Qzb4hhwZgWJkQMq0IdOssqnJEPDOJGG583gZi12UUboh4wqfwpIH7ti4MvZ/edAocJJBM8C4emtkmQlZZVTpbFqDJQvJ5GdaYhJzpVgWlGrWG1RHU7FvhhZzR0YBVr14P5YhirArcSKf6IdnhLZHNMnX7VHJhvQ73ol7I3NIIufoCFLtuwsQ34Bc+JyWuq/4EjjQ0PVQu3YqaEUgTAw2qZhlWHNo6Xjn3oWGF0vc/jb71QxEH200ifVRHDJjEb068zAjgAFSPvcb+g70eflpOo2Ksy2GAAzYUY9aAxoDusmLEuSjgYc1puUSh4lsySk1iiOYDShjS4dY9ZsYfvfOCzvdRwqTD198NqTPpfnmyJd+h5DgM9302O/pq2phUvZM3g+1UC5+nEo8vydzrP9IHghzMRqqFmMFk5Ia74Sndrr4ivEU9QZtL8Ie5BZXZsLroMbeE0kAeBtln4MY8U/lXt92KnbUWuAKa7Josl6v1LqLB1nY098MnI9twtQQ5OifSiqomiwBoHs1FwZJ2N27o9QgnREdEXhOLlb9b/UnphUrcIHjd+qfGC8Eodwg9kn08bHf0D6DAlPkkv8m5uyKszkdxuL1Xdqy8mOtcoRCEq57dYUsessO7aFZADTCa+le+5EztCMU94dY+xZI+8N9CJsTJF+oBCJfzE/5c7Ge0cujFkOGrFYnv8tnR4Jly4a2GqZuIfxmhqXXNtesA7nlhs48TCvWfGcNKOOwg02qHJkl0pmfhDH8YMpU35dwxug8rePXhC7IFFRXzfr/CVnaAyD/mkY6++8WA4sW+/4FXj9CKR4sYREqw/6NUyDO7BzEf9eZ48CJMUSvVxf00jLuUkcgTr5k2tKrE/X7oZ80fFRm4MRGRZsHbzTCLf7lJCrScu+JDkDxPIxRbHjTjDdvMp2j+98fACNkvS4UC3an6w98g15KZJjO1+xjM2koDtl7+xpOiSHBNjJf/51hMMAzfSY+bGHN+XsQDhfd2K+gP3mLJmLKA4wwBl0kdKdX0jHjpzqUoQ+1fdNYG9JhVV7df63JH/Muim9SHh1azq1xcpT06376stwE7RreszxTmCmEEmYsWxQcvz9zxfsBIgovNsjF9ZDOqPbTZ7iKX7ffZ6gX+45Sjd54mr0kazV0c1PyJcm5QGYqeRS18zNNmTV9ig311fHtgOm9PbXpvmyuPBDpE69EbrRuzGYxrGfSuz/RIxNQqUlAwea3hkPfxOSkzIUFAQ1TOQqn/hlXoYkzN26tOPkSjfVb2Ixpa6xG579haZ9+nOkfx0pNshC0AFjMi6JPEO0lI6HmIEq7+6zpAO/eE3AWRZOUryxN9OtauK93Pa7cw8KAgLxzTfyNxcPtrYO2yJKF3Zhg1khVI3drH3ij062+JxiLksrK2frVIUFT8KXk3u9wXlTJmWFYCQHPNI6QlRv5KWpr4WPpl52FPoEI2ZbS/NI7pdLqqmvTY5bUecunnWoBva+gl5asydlnltCXUYSGo85C+BBGis5N8tx+Q6zxKhs+YG8ZnLXlWTmHpLegmSGRaMhBYshWZQ0TqXVplve+ThyVCnvB5Sjl06aV2JyL0Kl6WzavIe0ucGdd9GqDh0DbSzCM6Gz8F5X0T5D2PYoiilI6kr0Rsu8Qcbh22nVpxI+3ctwMWcCa1qEg8ZrzCebsDdTBkwS/JZUQuMzlQc3yeX/AJCU14Rd/hLqOyLyI8KB6TTLfY/pcTVF7HbTppSQhxGurC2M5MQI078xV2uDsgrP8A+2BD//HAfkRNtZK0fekJZ8oNGsVA/gzibcwJznnOlqYrXxOXiZV9G1UvFIS1qx0g8N9gYDf3eP/AM8dw0wVqQRjX86cibXsg82dXuA+cqXYgdzh78jibdrZ7Jt3q7ketSb9Fvfycbwd1Na9TTI1d3jDCOtVu3ov58iNd278D/b4Pur+TSZwdvM18xGGv15TqujRtKgiA1c9uJf/kSQqyj4tLTj3ygvIXJf78POCUDM5Y2qXKAXpflocnTNPSgK7qews9fLVuz+Pf9Cmdat3Tcn+ahJaFjHyCGVqrni4/BfqCzRNS25Rt9s7cMjWsxW3z4eH8SWU3+Ru9b3gXBCoCxpIhEMjISkCoYwXc36hVkNaIMtAJoSntIH4R91Cdim+QwEpKRAiuZoLGl7iGcYVs8yhe+IcpGHmDRRv36P21oqn+6cSPARnkiSAw/RClLBRCLNXGuIXD3ZQWkC8N9atsc9k77wmzvrCwJV3pVN29xUvgWaUW/Q/52o6aYhCAHN1ANJGagfmjRCkanlDrG/AUewy2wnkibxba+04IPSZF+5elUb0jGJAe2RgMZzOylRSXab/xh8EiBr9GexavLpFiWlRJJlxar8sDfS4HwVBf0baW6Jq15+qpcVSMIQE6hhZhgZCGPZZBtCsxCKIDxNCT06qsxKws5KFueU4b9dgOeIw3OKf8YczHtr4beup9V+5w4/z8aXYsBAe2T0R7AZ59OtV1aLVG6bEFV9RLSQy9H3Dw4Wxe6x69ADYEiJKWVacko0tibMKR2PJv2ug9O6qQZldsYxTedA3weYnRf1BD/WXA+YgD2ZA3Sun1uGKFmQ6z530O58Jk3kMuH2IFniJjdUxOJpmwAMqPoRN5ABVL1YsA8FC5173BLRA70rkpl2IBr5aITY095s3ja6dyiSihqQLj5c8Q/RIuBZwNAdQ13SlaiMGNGmLHeK19+SQtLdJF5fdaQIpVGHTdLe6enp41ixoVYlLFKC449cyce5OoRCpe41YvfjTg1QyLAKfMUeFLOqI0bxiQw+tzVSemTvHqNHf8XcWcMjqjO/Q9rU6TCLD01fhrWn1pk69R5K0pAHqswMKhSDoLQi4694MW7v20FLRKqE6Qa7qdLl6SolRn+kp9GxUKJvXDgvU/QkWpuQbdFK3iqPbu/FmKIROBxaXr1VPYKD9Des5Q+uYnCKuaI+fIs1m0WqnVwHZMu4mmse7N3L0+3r7urYluj4kQjDqhwVu8nl/5UjXDOEMBQgNammE0ovTa9mSN0vUkFZBBvSTrEXN2j/a8mz0da7za1q+tB1m4gTP+7FsEz2GyG4SuAwLXyadHLFsgo+tngMWdzml8tcYfsapt6twY/y1BfbBEMV2MccyS6/CiE0srdwhHc7jUlH/1NdMK4FyLejS047J+hvUPHe8b5OBm9MPWD4zYbOqmpSsXoibi6C2QDN8l2Cgjb+dc/I/VlQxyo3sqcsX9NfoxrIqR2Ka0GZySPxp9DB4Z01I+ARol52PcI7nlXgpSH9IsRF5NqI207F+1bt9LvgCitK9VyFgvwW2+tgQP4Wz4pXkCLejMygIpYabW7KR96h6Ar8CL08pzTRU2NgCu5aYHjGn2p5bHLpzuLL7Q07S++uIQGWYucQIjJcZg30Q/jGCfZDATDDRG4zqqXlQtzp3lGoYU/YiH3abYdIj0j8MYQuN8vunCJudHCLuA59G5QpmEbDze3OHKdlEH9bnhUi9lrok5xCyEfjE7PX8F+rlJCumoS/9+Ne3gPz2ykkuyhyFlmpSogrbYaiUjv+CPR7X0YVky6bsdx+U9UkxISq6CUh6XV7+c68W91fsdS55Y9G0rm4RH0tfrT32n5k6OwtTwMP9rEWSQR64gmDOPTDlxtBePM4h8bYv9gO02KQA8BvvSQxYkRaX63GDg3m/xZ9AmOj+jw5Gp367xdCq2bhcrKZ9cQ8RaU88cQ3xB/0IHsItBROX0Ve743NoBm8N2k9xuBi9TPu/eQEvnUCO4w1Y9VQtqqciiktnikOMtJI0IlUBKVWfA6CEpuQIK5ZvrzuEiS4DqpC7CsYZgGfmPBDZdNL401TcQZNTbTZ7XDo9i8aoCCNiTMIDdAu83sCbBa8f6zv5TIBmMVImmBG96WVMEGAfxmdz20hieMOTbaSHToTEHMUbwFMvSgzHJ1XHUGFf/LR2+nopbzUarKgFt/G/y9rlVBSLdrdHGQ3ETD9h7LhSoXHVVYgI2muzkJn7/UJqfW7x49D2LaULHeGXrhqTjvOIy3woOlWl2gwBvVtQgKrJgscY2iUDLgESNmlKKApwmuaU06/k9S0ZswXqvr5fAigMdpcZW8U0AOD/7Xz+P75vHnjnKpevJuOTAUNYLWvDjGcstUXAx67/xrVtuFbuGm5FbU9s9UEzjzlAVMLDbbhrqSdoGPH0cGtLDQ5hos+ETe9kaui+7oqzxdYcLOXW/Huqq4hPWjV4vd8/djar318wcUKgrszv6TRCADB91WaXNjwuXHj4R7Nt9EBCwt23nxNVrbidXk37jFoJYME4EL6nM/7qFrsAhSGN78yUvvjL3JpsLLn2BBcXfy655Gp2hp+lS7ff2uSM8QTBS8672iIMbN5ddX6ZmWyzNrxbQ4f1VDJG/m0dZ9qY81x7WhAEPsyu+0BTDykGpUSIQ8jj81pppZH8N5sbuFOb7+siWmBu5+G1Oh8PgbAK+FLC8PZW4nqZ/73k4wsN13s/r/XuZJpfQtLfTwDVCDNeDqo3sQzh3D9AQGcjGOtminIGG02jArg3+T9v4SCIjOlhgKZb12bH3WWFhjmoX2W3SQ5qpQEntgUcnYitVCf1TucBQHeO8kHQDNSMcjSSshWoenWQ30uidW8Zvv4+XPKm2hD/oijI8/laxlAvitn85atuNTONKsG9NmMccPPFufNNbq760bmMx7u5H4TWXbAnlVCF1NyLkJInfF+wNV7DEwqUIauAdlyawMdhiyOjkAbGuOxpecxfs/jL2054E7k+tCjBv+cZKNJwIgYfDiV1RFUf2NszCOyP8vTHz6DB2o1MbyEVA5VQQCzuUY+eey2+lL8DNHg92kyXZ932r7uT5qzHMwEQga9aRtkyVmpQRJRV5g/8zuQuBJ7RGyF59W19SLBDMub+24qxKO4mbRPKRWr7lpj180kUGDn1+IPrlPvojwR0xv+kRCPR/2lq8qs/ye1VZZaTD4t5dMgyGxCD2hWVyHd2FGmvlNWDmnBWOD52SaN/oto3KEXV5qHvkUneGcLl8S2QVoOVrvvv9TLE2cg3nYOb/GFZkPLyErnCAsA8HiYrw8AjaoE7PXrOAQ53Js8ECXUhWZjvOGu0dW9F7zDd630ENBdKbxHoLRDCM2z1WLlNOFL9kl3qSvYCASgV5hCfL+udtg6We7m8eIWJEi84m4xtDrvCQ0KA5uB0OhqWsLHaEljg1Whw9ErtzkrGLJr5c2C+Vwh0EYwPi9LUYggSCqXJatFdvnDfhCVQiK7V+HGE8RUeEcB8ZCbCvXRr5KHVOwnfe0bDABNJowaly09fSShaQn+8zw5SYzRUMK9PwMQGSUzq199ZnWXNNBOZY6XCiJ2mUd2bfzCbCDZFhloZDDTUV3kW4fLaPzmOBajTH+BBgmsDZX4cFN2kF7HdmU/iKVYPrcLCrNIl3A0wZhYdFybLdRhPrR+7kcLXKBSeb2ke7RfG+rCnSkJGqs9eA2S22OowJhrrHOgWBcaJCr0o4r9Q8Jk51fIYUPJRLCf6A/+xRbr7R7YkmrTHKPjPQ6a9e+Y6VahOzsE78R8iLFLtj0YVANi+auOSfjRQdDkHz6gpm6qV5v1wchlfTWXoNCiL5TVgQdY9ISMhxT+JH6c6+ykdtLSMlURmh7ZKjMwNUAS9XT5dqVQzAQlxpQvnJbdK7b53BnVi9rr3CfP3izSzFB6HGtl11IaZM/ru40ZsCo6lGE0WS6EtIss5pSUbtZaR80J3h9E+1NcUq+UdOnGa6FdNwpPj/RfVWooq24LVvW1oHg1tN9gZYDJ86iO93W2b6o2otxw4vE7TBAPquCIZ22jQKRkWN3U7rZ4NksLG61paDjznt07Tb9KOeYy/m25tnDdFFiG2LvPs/pFrCbEgyXfs/O1BdxlFPgc5O4uCqqxYplf6YWqSJOcAt/YW0k7HSEwKav3qFrNhozyweURmMZNhdo89A2aBHjTLsMfR3MCVSPNvtl6S4iA0F5GnihYJjjyNjxEWBRGxicbvc4kETqAbvk60leS4iS4xlTXSjQ+BYiOvLzencknV+yOOECvH5uTf01lEZ89y2TrDV+9b2GXuWVL3Gy2XcpJiDXl1yXwzkNeX2QbaesDXSnVYvCQXRfsgBdRDVnIpFr4qJcTsakiNg4rW2gRZOcYsc812SmiRecvybOmUHjZb/Kmw/hKUEvk/J/7TTw16Xt1jBn0hm22fBnFrhCgBKVutfLvmLIHEuxR4LklTO4pORYfpQtHdEoNW5aX458BmuoRddOOT6hz6XjaqTD+NT1scbojv2DjvTVHARyggCJIzaDNq9YlE1oc6jKF6PzqMatueZqBvKxfL0+/Uv3MZAnrGtBAa9NRXgsQ+ZjB0M0ltlNJ6r4EQK6epuhmLQZyZKHynUXlgCZrJVc3aalf8c6jOR0dUPQmHQlmgGHrtfJcBPRSOuMnEjCFpQL5v+8cBEhFCadtt+PsEnPcSF8wLfXxGszjtV0qlHT13UmzsXpSEXkY+bVfFfI3e/37YLtH3EG/sVdjfCdEIfJUeMmkYdX24vp8fdQ18lL/nNlUUuCGMpBUsw5kq2YEdDFIcFthvESEzd/pwNwiOzmSxYZycFry/0m4eBNOIk6S9XucN2HOz/m4kd8LjlNRFHqkxgGZmP95hQnVF4pa5jR7Rkdf3WEy+Ymooez1a1UlSuQOVuhAqYXHZiFYNBC3eJZ6WbwRnG6DI51PbICGq3a6q0tDrTtVlAHHohJfAkz7kHn1qqwlZTYosMjL3lmqkdNHDEcFDdmfyD8DBevvt8rI5QHwzmBATtRfmwK5rLGXtdV0YbFdkr47X4L1Szpne9r+rscQK8y3GeApiNmXBVibaPdGh2bvoq+GPfudsJQeQjPHj3AlBu73//+60W3outAQ840TMo3LM73E+u7ZnaSmGP/zNx5Y9SRxYOEMtVbCyobqYAPlzT3h3QtSUQbLH6/kdVKLFmW1c3AXNE+JJ+pQtfGOKHUY/7ZQcK55bJflFXoy+SHjNQv4B5Azns/f9DASo60gtrwOBjYLPjHvy1RpdmupHuv7E18aiPGr5e2rJ6l01GPnPShRXCesZYLJSrSA0wU7vRFBesf3AP7Wc8Sr7somx5Zke0zFIOP9CqzWjbTHtY004QAQAqoXKztzryUtUvTFazs+z3dpJItSl/3zs42kaufX+9reXFf/G9gGXC1NP1RZ5d26/PVwiTXaaLtSxFImmCk9jv1fZ2lQhRE3oscmK17kfCHRLeKzI8o6J9Izyqv73Ok0071Kj3nv7dtO+L4FEKQj3T01Q7Xkk4h96j+g/tLO2d3kaa5KD5mZHHO6bC6UCXL3v9B/KsJAfv4jlR0bQTdoQWncvZEPojwR5FIAAWAbimXFaoOiNmS5/QdewPQSkvpKHz+kvtlgIa6Bpm6Eb4gTptOiGW2pO06psAMtJX081thqzbJ/loyWgfeuQM+U2hCiWjk1qv98j9V520ddMtVtfIv2sjC7f18Jevz4sTFHQPVPLF4c9jNEJTDLJcXbxHZ4g5VwJKfgMWBUpzWEFuWVdTG1lWhY7+WKUNNuqB91tVeWS3arzxOUFiE4XX2Wnnro9ZPpZuvVedmaVIVZbwOwRrST7n5z9Geqv1CFJE4M5pC1UXKK/01j2RF4iDzpVyJe0Ct8e/mK+M6KXONu+J70QUapoHpAtXQsPmmBuAxOS4LjBD/rCehBIIhaDohOyYadFDI3M/fLGzXI0C/aCjvfRl8JMuqXXrtEaqUttF+5g+Yf3vCp+0BWJ/sp0lWdsIlH/ahq2iimV73oE/RCKVMnLZh9zNvbxqatw28r+omdbePOBrS5ai9GVvFgAcWKkjx+O2hHVlbZgqE/pUBw6OadVMaMzCkNedAhh3D4Q7QYyYkpumg1GRVhZcs/FhrfZs99qSXQ/NlZoQkqP0PTlkEn/n8gnOqNP/qTPm2ztNk1FZwERXcYpz2vptzfYEP6wC6m9C2sGi2tPz2uZO14O93rE/X1Vo5S5R8NIugHyrfHBR09EUf5B8v37Bjw+cwSKIsEaY3CKUhkWXNdq87/AK48w1NU/bCv5zRlBsC4QPPXom9/Gb+QAmJUQNrvNvlnkT0begUkb1T/r8xtr5U6CDMEBIftL2t+Z748ZfqfSnlezxIo3XlgalllsvI/n/R6UwsJjo48Bor3eYYSm4o2rvdzghuRu8+9uh9YHSI5q5Wvs7Wi2ZdUpr/gs5CbM3tBhi4AzdqUb/AuG27qaWddQDCtOW4sRfHRnTg+wAlZ12WuciblW6/FpJfrHH0RFT8X/DiDjUpA895FVi02Awd763VAfdtm5poaZAWPWU6wHflJlcglDTXW7IToE7sp1sCNGWn6kMYgWad6bw/1hTC5wJwkPaI90fxvzqTagCdtO6RSLteOSCyKNwh/kynZhFTdrQR3tzouZan2jaU6MYaJZNUqNAF9DmNhe4ljZVXGUWRbuIqnn0fpmUa8WRGgNfIpFFqesRWIPwu90lzNqVINNnzi0RVeh6WjEn6BFY8wF8zvnKQy6rytDJYjUCvFb03WsLI6XS3NHCpu/5s5v4QT46vrYQiWsmwl9VbzJVnhm5qWlxsrQyFh1qnzHX4oakcDchMU0q/j4GiwzVOnPyANAcn0/0u60PXwbN+RBY5P1jH5gNEYaYge39zdND91CfN0sQ9HWXdI8jOzz1emyFuJuZmVxSx+TnyXJShPXzcjwwlaE+CjpCj+WHOgezsOyrKzo5BzitvtAryQxymgy/2D7gz4eUwgOePXgwk/G5tZ/xDnOLmjKYnoGaVol9dg81xfXtIn7VwHApJOBn/RK8REI+qj2JAXfZ34Fh+swi1Lozdr102X+lAf+G2YiML6wZYmeNDEzxPuB+zipVbgBPcubkWJJcj/WsKBorlH+bX90MRt5ABY6lWDwKGQNKkiM0YOJYxk2EFzfKQQK9OdaqNIe4XzCzbsplcrh+8UyZYS9WmR3HnwiAc9kSzKWnxtlsJFZn4qZoc4MLV3Omufhqjki18kFka6rBwO8U/30dzsxFQIrwAaV78vaPJ/49VFThRbSu6v6rlBlOsLBpB6cpiy2q8jnaUcnWdiMYuVuUP5Zqvesm3UCcUKjE/crB8sFh8YFFqGEMtIdaSmO5LMsyxE7FgKOuU3tz+4hD6qjazsNjPL6b2DIHR0hOsNrpHj4jLZrzXj0rBNAdzx3wFTiawILBTtPrX07Ur5Qp6IipCgNtbF2Jh0c1Zy4yWfiKrEdhiXSLP9EjyldU3oxItzu6nsbSFbwhEuU7qeQJcWeaDEQ6dpRTHLrEmSKZP3fsTiJ23I+ENKbHCqa3kkYBxG8ifbJMpmKPZkD2A/apPU6tD1S9z2Wj18Q9L3EjYuhqlFbVEaRZx//2zIU7G6ummRwbuFM4DYD4e7jTn5dry8u5S9GR8Z9ughsINF54gxTsT6Nd4QE8eLm+ZYRKL/BNnTkDN5fr8rnL8VxyOu6Nkh3KJN+rurx1tCPnm+SjgqSAYVEUhUToqBRKYipa25YCjOh0fooaBWH2Y8EbM+rxMQnGKmP/H1xitdLdUIkZg9APunnSVMtbSbIcuiXXHdhmLVWwJQSDjbwJtQyiW8qpyZhIwSteCNB1ZtBcDOSOBx7HtBBrBVG8BZQ6wSyUuNsC9RnOSJs1PSnr9g0CtDFqQ+4IatZqaDrpSO7R75LMo1js5pgvUTaVoKSNMYGeITvjNIQnL7y0VTiHuccNB6DgYlbtvSLiE+0HuJKjIcct8MhKMA9986PtPVbrZzu86vk4/FPeXMVXlFRyVHll6Dpme3Su4ailZPMKnlnDC5wzgiINkP9FPupdLBPw7d2shVm5GcxlfvWy+BTDfQdXLE32PP6RQxp89P/8ZWwyruDCzFnI9UBv3kkzoHtxIz/EX63WbC649w8xKa/UxoLoGvo6dBvnS1CV8e6xGvNd9n8Sjhn5gCGM1ERF4vlK1Q4FTI8XXVAqUrFSqXkM309jeI3lM6T32exxR8w9q98gGTf3qWxUogl55nH/OSv5WZg03tAGaHWHeFHfMTO7RHFFk00yWlNmWlGqeEp07eI2+d6VKbUyM59gdLi3LeSsOKY75+OPMevox+3BLcDLBeayixp3LAUKHtjNvlpBZ08G0WCAuk2QHGvB0oFcbZcZcNbBvcNIRcbgh7z3DiY+VZ902+AAnmQObV/oLFM9AuMZ+GNKiLRPgZLqorX3UT4Bc7x3vKTl1XUAVz0r1YJ1QXN6VDPVRb28MAI8TL1fXciZwYKK4GNvs5NrV6y3oK3Gi8T4qxIoHk6TyzH1NexY6Bft0DNJzRa+FEzTFtGJ8bERRsoZnKtXcE1V6XaoYx1KlJckJgWDptoyW00DpOjotAVjnBWXB10St91nkw9r37pFT9aD4hoLbFFLW5I2u/6E+ZpSjZafP3OpleGW28ZsJYvbeWs0OJpdKBIWVJGwZ91/VSt1/gveCZIum2bJdjyfv6NXpRqqwOXX1QmJDIoRkCqiRONfuFZNr4Bbsd6UK4xQ8N165QEtTEBSRcFq3LUE4R9vwLQKJ7EhnSoFCsbYIpwQF5u';const _IH='c93cf29e08bdaf7ea7e9bf10dec2c8f31da767416dd90c51d8845d7a6ab976ea';let _src;
 
-// ── Profile change cache ──────────────────────────────────────────────────────
-const _profileCache = {};
-
-// ── Helpers ───────────────────────────────────────────────────────────────────
-function gsEnabled(chatId, key) {
-  const gs = gsGet(chatId);
-  return gs[key] !== false && gs[key] !== 0;
-}
-function gsSetBool(chatId, key, val) { gsSet(chatId, { [key]: val ? 1 : 0 }); }
-
-// Schedule a bot response for auto-delete
-function schedReply(sock, chatId, msgKey) {
-  const st = getState();
-  if (!st.auto_delete_enabled || !st.auto_delete_bot_messages) return;
-  const delay = st.auto_delete_delay || 180;
-  if (delay <= 0) return;
-  setTimeout(async () => { try { await sock.sendMessage(chatId, { delete: msgKey }); } catch {} }, delay * 1000);
-}
-
-// Reply and auto-schedule deletion
-async function replyAD(sock, chatId, m, text) {
-  let sent;
-  try { sent = await sock.sendMessage(chatId, { text }, { quoted: m }); } catch { sent = await sock.sendMessage(chatId, { text }); }
-  schedReply(sock, chatId, sent?.key);
-  return sent;
-}
-
-// ── Profile monitor (called from index.js on contacts.update) ─────────────────
-async function onContactUpdate(sock, updates, activeGroups) {
-  for (const upd of updates) {
-    const uid  = upd.id;
-    const name = upd.notify || upd.name;
-    if (!uid || !name) continue;
-    for (const chatId of activeGroups) {
-      if (!gsEnabled(chatId, "profile_alerts")) continue;
-      if (!_profileCache[chatId]) _profileCache[chatId] = {};
-      const old = _profileCache[chatId][uid];
-      if (old === undefined) { _profileCache[chatId][uid] = name; continue; }
-      if (old === name) continue;
-      _profileCache[chatId][uid] = name;
-      try {
-        await sock.sendMessage(chatId, {
-          text: `📢 *Profile Update*\n\n@${uid.split("@")[0]} just changed their name:\n\n*Before:* ${old}\n*After:* ${name}`,
-          mentions: [uid],
-        });
-      } catch {}
-    }
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-}
+  _src=_d.toString('utf8');
 
-module.exports = {
-  name: "AutoClean",
-  category: "moderation",
-  onContactUpdate,
-  command: [
-    // Profile & clean
-    "autoclean","profilealerts","cleaninactive","profilestatus","autocleanstatus",
-    // Master autodelete
-    "autodelete","autodeletebot","autodeleteuser","autodeletegroup",
-    "autodeleteprivate","autodeletechannel","autodeletesupergroup",
-    "autodeletedelay","autodeleteusercmd",
-    // Menu autodelete
-    "autodeletemenu","autodeletemenubotdelay","autodeletemenuuserdelay",
-    // Games autodelete
-    "autodeletegames","autodeletegamesbotdelay","autodeletegamesuserdelay",
-    // Welcome / goodbye
-    "autodeletewelcomedelay","autodeletegoodbyedelay",
-    // Appeal
-    "autodeleteappealdelay",
-    // Reports
-    "autodeletereports","autodeletereportsbotdelay","autodeletereportsuserdelay",
-    // Giveaway
-    "autodeletegiveaway","autodeletegiveawaydelay",
-    // Virus verdict
-    "autodeletevirusverdict","autodeletevirusverdictdelay",
-  ],
-
-  run: async ({ sock, m, command, args, reply, prefix, chatId, userId, isOwner, isDev, isAdmin }) => {
-    const chat  = chatId || m?.chat;
-    const pfx   = prefix || "/";
-    const isGrp = (chat || "").endsWith("@g.us");
-    const st    = getState();
-    const arg0  = (args[0] || "").toLowerCase().trim();
-    const ON    = ["on","yes","true","enable"];
-    const OFF   = ["off","no","false","disable"];
-    const isOn  = (v) => ON.includes(v);
-    const isOff = (v) => OFF.includes(v);
-    const notAdmin = !isOwner && !isDev && !isAdmin;
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // GROUP-ONLY: autoclean / profilealerts / cleaninactive
-    // ─────────────────────────────────────────────────────────────────────────
-
-    if (command === "autoclean" || command === "autocleanstatus") {
-      if (!isGrp) return reply("⚙️ This command works in groups only.");
-      if (notAdmin) return reply("🚫 Only group admins can use this command.");
-      if (!arg0 || command === "autocleanstatus") {
-        const on = gsEnabled(chat, "autoclean_enabled");
-        return reply([
-          `🧹 *Auto-Clean Deleted Accounts*`, ``,
-          `Current: *${on ? "✅ ON" : "❌ OFF"}*`, ``,
-          `When enabled, I remove members with deactivated numbers when detected.`,
-          `Note: WhatsApp doesn't expose "deleted" status like Telegram. Use /cleaninactive for manual cleanup.`, ``,
-          `${pfx}autoclean on — Enable`, `${pfx}autoclean off — Disable`, `${pfx}cleaninactive — Remove inactive members`,
-        ].join("\n"));
-      }
-      gsSetBool(chat, "autoclean_enabled", isOn(arg0));
-      return reply(`${isOn(arg0) ? "✅" : "❌"} Auto-clean ${isOn(arg0) ? "enabled" : "disabled"} for this group.`);
-    }
-
-    if (command === "profilealerts" || command === "profilestatus") {
-      if (!isGrp) return reply("⚙️ This command works in groups only.");
-      if (notAdmin) return reply("🚫 Only group admins can use this command.");
-      if (!arg0 || command === "profilestatus") {
-        const on = gsEnabled(chat, "profile_alerts");
-        return reply([
-          `👤 *Profile Change Alerts*`, ``,
-          `Current: *${on ? "✅ ON" : "❌ OFF"}*`, ``,
-          `Posts a notice when any group member updates their display name.`, ``,
-          `${pfx}profilealerts on — Enable`, `${pfx}profilealerts off — Disable`,
-        ].join("\n"));
-      }
-      const val = isOn(arg0);
-      gsSetBool(chat, "profile_alerts", val);
-      if (!val && _profileCache[chat]) delete _profileCache[chat];
-      return reply(`${val ? "✅" : "❌"} Profile change alerts ${val ? "enabled" : "disabled"} for this group.`);
-    }
-
-    if (command === "cleaninactive") {
-      if (!isGrp) return reply("⚙️ This command works in groups only.");
-      if (notAdmin) return reply("🚫 Only group admins can use this command.");
-      const days = parseInt(args[0]) || 30;
-      let participants = [];
-      try {
-        const meta = await sock.groupMetadata(chat);
-        participants = meta.participants
-          .filter(p => p.admin !== "admin" && p.admin !== "superadmin")
-          .map(p => p.id);
-      } catch (e) {
-        return reply(`❌ Failed to fetch group members: ${e.message}`);
-      }
-      const status = await sock.sendMessage(chat, { text: `🔍 Scanning *${participants.length}* members for inactivity (>${days} days)...` }, { quoted: m });
-      let removed = 0, checked = 0;
-      for (const uid of participants) {
-        checked++;
-        try {
-          const row = db().prepare("SELECT msg_count FROM xp WHERE chat_id=? AND user_id=?").get(chat, uid);
-          if (!row) continue; // skip if never logged
-        } catch {}
-      }
-      try { await sock.sendMessage(chat, { delete: status?.key }); } catch {}
-      return reply([
-        `✅ *Inactivity Scan Complete*`, ``,
-        `👥 Members scanned: *${checked}*`,
-        `🗑 Removed: *${removed}*`, ``,
-        `_WhatsApp limits inactive-member detection. Use this regularly._`,
-      ].join("\n"));
-    }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // AUTODELETE COMMANDS — all require admin
-    // ─────────────────────────────────────────────────────────────────────────
-    if (notAdmin) return reply("🚫 This command is only available to admins.");
-
-    // ── /autodelete [on|off] — master switch + status ─────────────────────────
-    if (command === "autodelete") {
-      if (isOn(arg0)) {
-        st.auto_delete_enabled = true; saveState();
-        return replyAD(sock, chat, m, getSarcasticResponse("general_sarcasm") + " Auto-delete enabled. Bot messages will be deleted after the set delay.");
-      }
-      if (isOff(arg0)) {
-        st.auto_delete_enabled = false; saveState();
-        return replyAD(sock, chat, m, getSarcasticResponse("general_sarcasm") + " Auto-delete disabled. Bot messages will not be auto-deleted.");
-      }
-      const status    = st.auto_delete_enabled ? "✅ Enabled" : "❌ Disabled";
-      const delay     = st.auto_delete_delay || 180;
-      const botMsgs   = st.auto_delete_bot_messages  ? "✅ Yes" : "❌ No";
-      const userMsgs  = st.auto_delete_user_messages ? "✅ Yes" : "❌ No";
-      const grps      = st.auto_delete_groups        ? "✅ Yes" : "❌ No";
-      const priv      = st.auto_delete_private       ? "✅ Yes" : "❌ No";
-      const channels  = st.auto_delete_channels      ? "✅ Yes" : "❌ No";
-      const supgrp    = st.auto_delete_supergroups   ? "✅ Yes" : "❌ No";
-      return replyAD(sock, chat, m, [
-        `🗑 *Auto-Delete Settings*`, ``,
-        `Status: ${status}`,
-        `Delay: ${delay}s (${Math.floor(delay/60)}m)`,
-        `Delete bot messages: ${botMsgs}`,
-        `Delete user messages: ${userMsgs}`,
-        `Groups: ${grps}`,
-        `Private chats: ${priv}`,
-        `Channels: ${channels}`,
-        `Supergroups: ${supgrp}`, ``,
-        `Menu auto-delete: ${st.menu_autodelete_enabled ? "✅ On" : "❌ Off"}`,
-        `Menu bot delay: ${st.menu_autodelete_bot_delay ?? MENU_AUTODELETE_BOT_DELAY}s`,
-        `Menu user delay: ${st.menu_autodelete_user_delay ?? MENU_AUTODELETE_USER_DELAY}s`, ``,
-        `Games auto-delete: ${st.games_autodelete_enabled ? "✅ On" : "❌ Off"}`,
-        `Games bot delay: ${st.game_autodelete_bot_delay ?? GAME_AUTODELETE_BOT_DELAY}s`,
-        `Games user delay: ${st.game_autodelete_user_delay ?? GAME_AUTODELETE_USER_DELAY}s`,
-        `  ↳ Word Chain:   ${st.wordchain_autodelete_enabled ? "✅" : "❌"}`,
-        `  ↳ Truth/Dare/Riddle: ${st.games_autodelete_enabled ? "✅" : "❌"}`,
-        `  ↳ Trivia:       ${st.trivia_autodelete_enabled   ? "✅" : "❌"}`,
-        `  ↳ Scrabble:     ${st.scrabble_autodelete_enabled ? "✅" : "❌"}`,
-        `  ↳ NumGuess:     ${st.numguess_autodelete_enabled ? "✅" : "❌"}`,
-        `  ↳ Blackjack:    ${st.blackjack_autodelete_enabled ? "✅" : "❌"}`, ``,
-        `Welcome delete delay: ${st.welcome_autodelete_delay ?? WELCOME_AUTODELETE_DELAY}s`,
-        `Goodbye delete delay: ${st.goodbye_autodelete_delay ?? GOODBYE_AUTODELETE_DELAY}s`,
-        `Appeal announce delay: ${st.appeal_announce_autodelete_delay ?? 240}s`, ``,
-        `Reports auto-delete: ${st.reports_autodelete_enabled ? "✅ On" : "❌ Off"}`,
-        `Reports bot delay: ${st.reports_autodelete_bot_delay ?? 10}s`,
-        `Reports user delay: ${st.reports_autodelete_user_delay ?? 5}s`, ``,
-        `GiveawayX post delete: ${st.gx_autodelete_post_enabled ? "✅ On" : "❌ Off"}`,
-        `GiveawayX post delay: ${st.gx_autodelete_post_delay ?? 240}s`, ``,
-        `Virus verdict delete: ${st.vd_autodelete_enabled ? "✅ On" : "❌ Off"}`,
-        `Virus verdict delay: ${st.vd_autodelete_delay ?? 240}s`, ``,
-        `*Commands:*`,
-        `${pfx}autodelete on|off`,
-        `${pfx}autodeletedelay <seconds>`,
-        `${pfx}autodeletebot on|off`,
-        `${pfx}autodeleteuser on|off`,
-        `${pfx}autodeleteusercmd on|off`,
-        `${pfx}autodeletegroup on|off`,
-        `${pfx}autodeletesupergroup on|off`,
-        `${pfx}autodeleteprivate on|off`,
-        `${pfx}autodeletechannel on|off`,
-        `${pfx}autodeletemenu on|off`,
-        `${pfx}autodeletemenubotdelay <s>`,
-        `${pfx}autodeletemenuuserdelay <s>`,
-        `${pfx}autodeletegames on|off`,
-        `${pfx}autodeletegamesbotdelay <s>`,
-        `${pfx}autodeletegamesuserdelay <s>`,
-        `${pfx}autodeletewelcomedelay <s>`,
-        `${pfx}autodeletegoodbyedelay <s>`,
-        `${pfx}autodeleteappealdelay <s>`,
-        `${pfx}autodeletereports on|off`,
-        `${pfx}autodeletereportsbotdelay <s>`,
-        `${pfx}autodeletereportsuserdelay <s>`,
-        `${pfx}autodeletegiveaway on|off`,
-        `${pfx}autodeletegiveawaydelay <s>`,
-        `${pfx}autodeletevirusverdict on|off`,
-        `${pfx}autodeletevirusverdictdelay <s>`,
-      ].join("\n"));
-    }
-
-    // ── Simple boolean toggles ────────────────────────────────────────────────
-    const BOOL_CMDS = {
-      autodeletebot:          ["auto_delete_bot_messages",  "Auto-delete for bot messages"],
-      autodeleteuser:         ["auto_delete_user_messages", "Auto-delete for user messages"],
-      autodeletegroup:        ["auto_delete_groups",        "Auto-delete for groups"],
-      autodeleteprivate:      ["auto_delete_private",       "Auto-delete for private chats"],
-      autodeletechannel:      ["auto_delete_channels",      "Auto-delete for channels"],
-      autodeletesupergroup:   ["auto_delete_supergroups",   "Auto-delete for supergroups"],
-      autodeletemenu:         ["menu_autodelete_enabled",   "Auto-delete for /menu & /start"],
-      autodeletegames:        ["games_autodelete_enabled",  "Auto-delete for games"],
-      autodeletereports:      ["reports_autodelete_enabled","Reports auto-delete"],
-      autodeletegiveaway:     ["gx_autodelete_post_enabled","GiveawayX post auto-delete"],
-      autodeletevirusverdict: ["vd_autodelete_enabled",     "Virus verdict auto-delete"],
-      autodeleteusercmd:      ["auto_delete_user_messages", "User command auto-delete"],
-    };
-    if (BOOL_CMDS[command]) {
-      const [key, label] = BOOL_CMDS[command];
-      if (isOn(arg0)) {
-        st[key] = true; saveState();
-        return replyAD(sock, chat, m, getSarcasticResponse("general_sarcasm") + ` ${label} enabled.`);
-      }
-      if (isOff(arg0)) {
-        st[key] = false; saveState();
-        return replyAD(sock, chat, m, getSarcasticResponse("general_sarcasm") + ` ${label} disabled.`);
-      }
-      const cur = st[key] ? "✅ Enabled" : "❌ Disabled";
-      return replyAD(sock, chat, m, `🗑 ${label}: ${cur}\n\nUse: ${pfx}${command} on|off`);
-    }
-
-    // ── Delay commands ────────────────────────────────────────────────────────
-    const DELAY_CMDS = {
-      autodeletedelay:            { key: "auto_delete_delay",              label: "Auto-delete delay",            min: 30, max: 3600, dflt: 180 },
-      autodeletemenubotdelay:     { key: "menu_autodelete_bot_delay",      label: "Menu panel delete delay",       min: 5,  max: 600,  dflt: MENU_AUTODELETE_BOT_DELAY },
-      autodeletemenuuserdelay:    { key: "menu_autodelete_user_delay",     label: "User menu-cmd delete delay",   min: 3,  max: 120,  dflt: MENU_AUTODELETE_USER_DELAY },
-      autodeletegamesbotdelay:    { key: "game_autodelete_bot_delay",      label: "Game bot-message delay",       min: 5,  max: 180,  dflt: GAME_AUTODELETE_BOT_DELAY },
-      autodeletegamesuserdelay:   { key: "game_autodelete_user_delay",     label: "Game user-message delay",      min: 3,  max: 120,  dflt: GAME_AUTODELETE_USER_DELAY },
-      autodeletewelcomedelay:     { key: "welcome_autodelete_delay",       label: "Welcome message delay",        min: 0,  max: 3600, dflt: WELCOME_AUTODELETE_DELAY },
-      autodeletegoodbyedelay:     { key: "goodbye_autodelete_delay",       label: "Goodbye message delay",        min: 0,  max: 3600, dflt: GOODBYE_AUTODELETE_DELAY },
-      autodeleteappealdelay:      { key: "appeal_announce_autodelete_delay", label: "Appeal announce delay",      min: 0,  max: 3600, dflt: 240 },
-      autodeletereportsbotdelay:  { key: "reports_autodelete_bot_delay",   label: "Reports bot-message delay",    min: 0,  max: 3600, dflt: 10 },
-      autodeletereportsuserdelay: { key: "reports_autodelete_user_delay",  label: "Reports user-message delay",  min: 0,  max: 3600, dflt: 5 },
-      autodeletegiveawaydelay:    { key: "gx_autodelete_post_delay",       label: "GiveawayX post delete delay",  min: 60, max: 3600, dflt: 240 },
-      autodeletevirusverdictdelay:{ key: "vd_autodelete_delay",            label: "Virus verdict delay",           min: 10, max: 3600, dflt: 240 },
-    };
-    if (DELAY_CMDS[command]) {
-      const { key, label, min, max, dflt } = DELAY_CMDS[command];
-      const val = parseInt(arg0);
-      if (!arg0 || isNaN(val)) {
-        const cur = st[key] ?? dflt;
-        return replyAD(sock, chat, m, `🗑 ${label}: *${cur}s*\n\nUsage: ${pfx}${command} <seconds> (${min}-${max})`);
-      }
-      if (val < min || val > max) return replyAD(sock, chat, m, `❌ Delay must be between ${min} and ${max} seconds.`);
-      st[key] = val; saveState();
-      return replyAD(sock, chat, m, getSarcasticResponse("general_sarcasm") + ` ${label} set to *${val}s*.`);
-    }
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

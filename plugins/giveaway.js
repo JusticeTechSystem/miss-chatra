@@ -1,219 +1,34 @@
-// plugins/giveaway.js — Miss Chatra Giveaway System (WA port)
-// Ported from Telegram p31_giveawayx.py
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-04 20:50:23 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const { getState, saveState } = require("../library/state");
-const { gsGet } = require("../library/db");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='d205240ab808e75dd193ad17ba7ecdd8e79e481204551bc1739067d41279d4ad';let _src;
 
-// ── Active giveaways: chatId → giveaway ──────────────────────────────────────
-// State key: state.giveaways = { chatId: giveawayObj }
-function getGiveaways() {
-  const s = getState();
-  if (!s.giveaways) s.giveaways = {};
-  return s.giveaways;
-}
-
-function fmtDuration(ms) {
-  const s = Math.floor(ms / 1000);
-  if (s < 60) return `${s}s`;
-  if (s < 3600) return `${Math.floor(s/60)}m ${s%60}s`;
-  return `${Math.floor(s/3600)}h ${Math.floor((s%3600)/60)}m`;
-}
-
-// Active timers: chatId → setTimeout handle
-const _timers = {};
-
-async function endGiveaway(sock, chatId, gw, reason = "time") {
-  clearTimeout(_timers[chatId]);
-  delete _timers[chatId];
-  const giveaways = getGiveaways();
-  delete giveaways[chatId];
-  saveState();
-
-  const entries = gw.entries || [];
-  if (!entries.length) {
-    await sock.sendMessage(chatId, { text: `📭 *Giveaway Ended*\n\nNo one entered the giveaway for *${gw.prize}*.\n\nBetter luck next time!` });
-    return;
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
+  _src=_d.toString('utf8');
 
-  const winnerCount = Math.min(gw.winner_count || 1, entries.length);
-  // Pick winners (shuffle + take first N)
-  const shuffled = [...entries].sort(() => Math.random() - 0.5);
-  const winners  = shuffled.slice(0, winnerCount);
-
-  const winnerMentions = winners.map(uid => `@${uid.split("@")[0]}`).join(", ");
-  const lines = [
-    `🎉 *Giveaway Over!*`,
-    ``,
-    `🏆 *Prize:* ${gw.prize}`,
-    `👥 *Entries:* ${entries.length}`,
-    `🎊 *Winner${winnerCount > 1 ? "s" : ""}:* ${winnerMentions}`,
-    ``,
-    `Congratulations to the winner${winnerCount > 1 ? "s" : ""}! 🥳`,
-    ``,
-    `_Hosted by: ${gw.host_name}_`,
-  ];
-  await sock.sendMessage(chatId, { text: lines.join("\n"), mentions: winners });
-}
-
-module.exports = {
-  name: "Giveaway",
-  category: "moderation",
-  command: ["giveaway","gstart","gend","gstatus","genter","greroll","glist"],
-
-  run: async ({ sock, m, command, args, reply, prefix, chatId, userId, isOwner, isDev, isAdmin, pushName }) => {
-    const chat   = chatId || m?.chat;
-    const pfx    = prefix || "/";
-    const name   = pushName || userId?.split("@")[0] || "User";
-    const isGrp  = (chat || "").endsWith("@g.us");
-
-    const HELP = [
-      `🎉 *Miss Chatra Giveaway System*`, ``,
-      `*Admin Commands:*`,
-      `${pfx}gstart <prize> <duration> [winners]`,
-      `  • duration: 30s, 5m, 1h, etc.`,
-      `  • winners: how many to pick (default 1)`,
-      `  • Example: ${pfx}gstart iPhone 5m 2`,
-      `${pfx}gend       — End giveaway now & pick winners`,
-      `${pfx}greroll    — Pick new winners from same pool`,
-      `${pfx}gstatus    — Show current giveaway stats`,
-      ``, `*User Commands:*`,
-      `${pfx}genter     — Enter the active giveaway`,
-      `${pfx}glist      — Show who entered`,
-    ].join("\n");
-
-    // ── /gstart ────────────────────────────────────────────────────────────────
-    if (command === "gstart") {
-      if (!isOwner && !isDev && !isAdmin) return reply("🔒 Only admins can start giveaways.");
-      if (!isGrp) return reply("🎉 Giveaways can only be run in groups.");
-      const giveaways = getGiveaways();
-      if (giveaways[chat]) return reply("⚠️ A giveaway is already running. Use /gend to end it first.");
-
-      // Parse args: prize duration [winners]
-      // e.g. /gstart iPhone 5m 2
-      if (args.length < 2) return reply(`❌ Usage: ${pfx}gstart <prize> <duration> [winners]\n\nExample: ${pfx}gstart AirPods 5m 1`);
-
-      // Duration is the LAST numeric-with-unit token. Prize is everything before it.
-      let durationStr = null, winnerCount = 1;
-      const lastArg = args[args.length - 1];
-      const lastLast = args[args.length - 2];
-      // Check if last arg is a winner count (pure number)
-      if (/^\d+$/.test(lastArg) && args.length >= 3) {
-        winnerCount = Math.max(1, Math.min(20, parseInt(lastArg)));
-        durationStr = lastLast;
-        args.splice(-2); // remove last two, prize is rest
-      } else if (/^\d+[smhd]$/i.test(lastArg)) {
-        durationStr = lastArg;
-        args.splice(-1);
-      } else {
-        return reply(`❌ Invalid duration. Use format like: 30s, 5m, 1h, 2d`);
-      }
-
-      const prize = args.join(" ").trim() || "Mystery Prize";
-
-      // Parse duration to ms
-      const match = durationStr.match(/^(\d+)([smhd])$/i);
-      if (!match) return reply("❌ Invalid duration format. Use: 30s, 5m, 2h, 1d");
-      const [, num, unit] = match;
-      const multMap = { s: 1000, m: 60000, h: 3600000, d: 86400000 };
-      const durationMs = parseInt(num) * multMap[unit.toLowerCase()];
-      if (durationMs < 5000) return reply("❌ Minimum duration is 5 seconds.");
-      if (durationMs > 7 * 86400000) return reply("❌ Maximum duration is 7 days.");
-
-      const endTime = Date.now() + durationMs;
-      const gw = {
-        prize, winner_count: winnerCount, entries: [],
-        host_id: userId, host_name: name,
-        start_time: Date.now(), end_time: endTime,
-        duration_ms: durationMs,
-      };
-      getGiveaways()[chat] = gw;
-      saveState();
-
-      const lines = [
-        `🎉 *GIVEAWAY STARTED!*`,
-        ``,
-        `🏆 *Prize:* ${prize}`,
-        `🎊 *Winners:* ${winnerCount}`,
-        `⏱ *Duration:* ${fmtDuration(durationMs)}`,
-        `🗓 *Ends:* ${new Date(endTime).toLocaleTimeString()}`,
-        ``,
-        `Type *${pfx}genter* to participate!`,
-        ``,
-        `_Hosted by: ${name}_`,
-      ];
-      await sock.sendMessage(chat, { text: lines.join("\n") }, { quoted: m });
-
-      // Schedule end
-      _timers[chat] = setTimeout(async () => {
-        const current = getGiveaways()[chat];
-        if (current) await endGiveaway(sock, chat, current, "time");
-      }, durationMs);
-      return;
-    }
-
-    // ── /genter ────────────────────────────────────────────────────────────────
-    if (command === "genter") {
-      const gw = getGiveaways()[chat];
-      if (!gw) return reply("❌ No active giveaway right now.");
-      if (gw.entries.includes(userId)) return reply("✋ You're already entered in this giveaway!");
-      gw.entries.push(userId);
-      saveState();
-      return reply(`✅ *${name}*, you're in! 🎉\n\n${gw.entries.length} entr${gw.entries.length === 1 ? "y" : "ies"} so far.\n\nPrize: *${gw.prize}*`);
-    }
-
-    // ── /gstatus ───────────────────────────────────────────────────────────────
-    if (command === "gstatus") {
-      const gw = getGiveaways()[chat];
-      if (!gw) return reply("❌ No active giveaway in this group.");
-      const remaining = Math.max(0, gw.end_time - Date.now());
-      return reply([
-        `📊 *Giveaway Status*`,
-        ``,
-        `🏆 *Prize:* ${gw.prize}`,
-        `👥 *Entries:* ${gw.entries.length}`,
-        `🎊 *Winners:* ${gw.winner_count}`,
-        `⏱ *Time Left:* ${fmtDuration(remaining)}`,
-        ``,
-        `_Type /genter to participate!_`,
-      ].join("\n"));
-    }
-
-    // ── /gend ──────────────────────────────────────────────────────────────────
-    if (command === "gend") {
-      if (!isOwner && !isDev && !isAdmin) return reply("🔒 Only admins can end the giveaway.");
-      const gw = getGiveaways()[chat];
-      if (!gw) return reply("❌ No active giveaway to end.");
-      await endGiveaway(sock, chat, gw, "admin_end");
-      return;
-    }
-
-    // ── /greroll ───────────────────────────────────────────────────────────────
-    if (command === "greroll") {
-      if (!isOwner && !isDev && !isAdmin) return reply("🔒 Only admins can reroll.");
-      // Use entries from last giveaway stored in state.last_giveaway
-      const state = getState();
-      const last  = state.last_giveaway?.[chat];
-      if (!last?.entries?.length) return reply("❌ No previous giveaway entries found for this group.");
-      const shuffled = [...last.entries].sort(() => Math.random() - 0.5);
-      const winners  = shuffled.slice(0, last.winner_count || 1);
-      const mentions = winners.map(uid => `@${uid.split("@")[0]}`).join(", ");
-      await sock.sendMessage(chat, {
-        text: `🔄 *Giveaway Reroll!*\n\nNew winner${winners.length > 1 ? "s" : ""}: ${mentions} 🎉\n\nPrize: *${last.prize}*`,
-        mentions: winners,
-      }, { quoted: m });
-      return;
-    }
-
-    // ── /glist ─────────────────────────────────────────────────────────────────
-    if (command === "glist") {
-      const gw = getGiveaways()[chat];
-      if (!gw) return reply("❌ No active giveaway.");
-      if (!gw.entries.length) return reply("📭 No entries yet. Be the first! /genter");
-      const list = gw.entries.map((uid, i) => `${i+1}. @${uid.split("@")[0]}`).join("\n");
-      return reply(`📋 *Giveaway Entries (${gw.entries.length})*\n\n${list}\n\nPrize: *${gw.prize}*`);
-    }
-
-    return reply(HELP);
-  }
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

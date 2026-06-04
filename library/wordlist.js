@@ -1,239 +1,34 @@
-// library/wordlist.js — Miss Chatra Word Validator
-// Two-stage: local set (fast) → Free Dictionary API (online fallback)
-// Mirrors TG p53_wordchain.py _check_word_valid() exactly.
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-04 20:50:14 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-// ── Expanded local word set (common English words 4+ letters) ────────────────
-const WORDS_RAW = [
-// 4-letter
-"able","aced","ache","acid","acre","acts","aged","aide","aims","akin","aloe","also","alto",
-"amok","amps","ante","apex","arch","area","army","arts","ashy","atom","atop","aunt","auto",
-"avid","away","axle","babe","back","bail","bait","bale","ball","band","bane","bang","bank",
-"bare","bark","barn","base","bath","bead","beam","bean","bear","beat","been","beer","bell",
-"belt","bend","best","bile","bill","bind","bird","bite","blob","blow","blue","blur","body",
-"bold","bolt","bomb","bond","bone","book","boom","bore","boss","both","bout","brag","brew",
-"brow","bulk","bull","bump","bunk","burn","busy","byte","cage","cake","call","calm","came",
-"camp","cane","cape","card","care","cart","case","cash","cast","cave","cell","chef","chip",
-"chop","cite","city","clam","clap","clay","clip","club","clue","coat","code","coil","coin",
-"cold","come","cone","cook","cope","copy","cord","core","cork","corn","cost","cozy","cram",
-"crew","crib","crop","cuff","cult","curb","curl","damp","dare","dark","dart","dash","date",
-"dawn","daze","dead","deal","dear","deck","deep","deft","deli","deny","desk","dial","dice",
-"dime","dire","dirt","dish","disk","dome","done","door","dose","dove","down","drag","drip",
-"drop","drum","dual","dull","dump","dusk","dust","duty","each","earl","earn","ease","east",
-"edge","edit","emit","epic","even","evil","exam","exit","face","fact","fade","fail","fair",
-"fake","fall","fame","fang","farm","fast","fate","feat","fern","file","fill","film","find",
-"fine","fire","fish","fist","flag","flat","flaw","flea","flex","flip","flop","flow","foam",
-"fold","folk","fond","font","ford","fore","fork","form","fort","foul","four","fray","free",
-"frog","full","fund","fury","fuse","gain","gale","gall","game","gang","gape","gate","gave",
-"gaze","gear","gene","germ","gift","gill","girl","give","glad","glow","glue","goal","goat",
-"gold","golf","gone","gore","grab","gray","grew","grid","grin","grip","grit","grow","gulf",
-"gull","gust","hack","hail","hair","half","hall","halt","hand","hang","hard","harm","harp",
-"hate","have","hawk","haze","heal","heap","hear","heat","heel","held","helm","help","hemp",
-"herd","here","hero","hide","high","hike","hill","hint","hire","hold","hole","home","hook",
-"hoop","hope","horn","host","hour","huge","hull","hump","hung","hunt","hurl","hurt","icon",
-"idea","idle","inch","into","iron","isle","item","jerk","jive","join","joke","jolt","jump",
-"keen","keep","kept","kick","kind","king","knew","knit","knob","lack","lace","lake","lamp",
-"land","lane","lark","last","late","lawn","lean","leap","left","lend","lens","levy","lift",
-"like","limb","lime","link","lion","list","live","load","loan","lobe","lock","loft","lone",
-"loop","lore","lose","loss","lost","loud","love","luck","lure","lurk","lust","mace","made",
-"mail","main","make","mall","malt","mark","mask","mass","mate","math","maze","meal","mean",
-"meat","meet","meld","melt","memo","mesh","mess","mind","mine","mint","miss","mock","mode",
-"mold","mole","monk","moon","moot","more","moss","most","move","much","mule","muse","must",
-"myth","nail","name","nano","neon","news","next","nice","node","none","noon","norm","nose",
-"note","null","oath","obey","odor","once","only","onto","open","oral","oven","over","pace",
-"pack","page","paid","pain","pair","palm","pane","park","part","pass","past","pave","pawn",
-"peak","peel","pelt","perk","pest","pick","pile","pill","pine","pink","pipe","pity","plan",
-"play","plea","plod","plot","plow","plug","plum","plus","poem","poet","poll","polo","pond",
-"pony","poor","pork","port","post","pour","pray","prey","prod","prop","pull","pump","pure",
-"push","rack","rage","raid","rail","rain","rake","ramp","rang","rank","rare","rash","rate",
-"rave","read","real","reap","reel","rein","rely","rend","rent","rest","rice","rich","ride",
-"rife","rift","ring","riot","rise","risk","road","roam","roar","robe","rock","rode","role",
-"roll","roof","room","rope","rose","rote","rude","ruin","rule","rump","ruse","rush","rust",
-"sage","said","sail","sake","sale","salt","same","save","scan","scar","seat","seed","self",
-"sell","send","sewn","shed","shin","ship","shop","shot","show","shut","side","sigh","sign",
-"silk","silo","silt","sink","site","size","skip","slab","slap","slat","slim","slip","slit",
-"slob","slop","slow","slug","slum","snag","snap","snob","snow","snub","soft","soil","sold",
-"sole","some","song","sort","soul","soup","sour","span","spin","spit","spot","stem","step",
-"stew","stop","stub","such","suit","sulk","sung","sunk","surf","swam","swap","swim","tale",
-"talk","tall","tame","tang","tape","task","teen","tell","tend","tent","term","test","till",
-"tilt","time","tire","toll","tomb","tone","took","tool","torn","toss","tour","town","toil",
-"tuck","tune","turf","turn","twig","twin","type","ugly","undo","unit","upon","used","vain",
-"vale","vane","vary","vast","vein","very","vest","veto","view","vine","vote","wade","wail",
-"wait","wake","walk","wall","wand","ward","wary","wave","wear","weed","week","weld","well",
-"went","were","whim","whom","wide","wile","will","wilt","wind","wing","wink","wire","wise",
-"wish","wisp","wolf","word","wore","work","worn","wrap","wren","yank","yard","yarn","year",
-"yell","your","zone",
-// 5-letter
-"abhor","abide","abort","above","abyss","acorn","acted","actor","adapt","adept","admit",
-"adopt","adore","adult","after","again","agape","agate","agile","aglow","agree","ahead",
-"aimed","aisle","alarm","album","alert","algae","alibi","alien","align","alike","allow",
-"aloft","alone","along","aloof","altar","amaze","amber","amble","ample","amuse","angel",
-"anger","angle","angry","anime","annex","annoy","antic","anvil","aorta","apple","apply",
-"arbor","ardor","argue","arise","armor","aroma","array","arson","artsy","audio","avast",
-"avian","avoid","awake","award","aware","awful","bacon","badge","badly","bagel","baggy",
-"barge","basic","basin","basis","batch","bawdy","beach","began","beige","below","bench",
-"berry","birth","bison","blaze","blend","bless","bliss","blimp","bloat","bloke","blood",
-"bloom","blown","blunt","blurb","blurt","blush","boost","bound","brace","braid","brain",
-"brand","brash","brass","brave","bread","break","breed","bribe","brine","bring","brisk",
-"broad","broke","brood","broth","brown","brute","buddy","build","built","bully","bunny",
-"burly","burnt","bushy","cadet","camel","candy","canoe","cargo","carol","cause","cedar",
-"chalk","champ","chaos","charm","chase","chasm","cheap","cheer","chess","chest","chill",
-"china","chose","civic","civil","claim","clash","clasp","clean","clear","cliff","climb",
-"cloak","clock","close","cloud","clout","comet","comic","comma","condo","coral","count",
-"crane","crash","crave","cream","creek","crisp","croak","cross","crowd","crown","cruel",
-"curly","daily","dance","dated","decay","decoy","defer","deity","delay","delta","dense",
-"depot","derby","detox","digit","dirty","disco","diver","dolly","donut","dotty","doubt",
-"dough","dowry","draft","drain","drape","drawl","drool","duchy","dusky","dusty","eagle",
-"early","eaten","edify","eight","elder","elite","emote","empty","enemy","enact","ensue",
-"entry","epoxy","erode","error","evade","event","every","exact","exert","exile","extra",
-"fable","faith","fancy","farce","fatal","favor","feast","fence","feral","ferry","fetch",
-"fetid","fiend","fiery","fifth","fifty","filth","finch","first","fixed","fizzy","fjord",
-"focal","foggy","folly","foray","force","forge","forte","forum","foyer","franc","fraud",
-"fresh","fritz","froze","fryer","fully","funny","gaily","gamut","gaudy","gauze","ghoul",
-"given","gland","glare","glint","gloat","gloom","gnome","godly","graft","grand","grant",
-"grasp","graze","greed","greet","grief","grime","grimy","groom","grope","gross","grout",
-"growl","gruel","gruff","guard","guile","guise","gulch","gusto","gusty","hasty","haunt",
-"haste","haven","havoc","heavy","hence","heron","hoist","holly","honey","honor","hotel",
-"house","hover","human","hurry","hyena","hyper","icing","idiom","image","impel","inane",
-"incur","index","inept","inert","infer","inner","input","inter","intro","irony","issue",
-"ivory","jaunt","jelly","jewel","joust","juice","juicy","jumpy","karma","kayak","knack",
-"knave","kneel","knife","knoll","known","kudos","label","lance","lanky","lapel","laser",
-"latch","later","latte","laugh","layer","leapt","leech","legal","lemur","level","light",
-"lingo","liver","livid","lodge","logic","loopy","loose","lofty","lotus","lousy","lover",
-"lower","lowly","loyal","lucid","lyric","magic","major","maker","manor","maple","march",
-"mason","match","mauve","mealy","melee","mercy","merry","metal","midst","might","mimic",
-"minor","minus","mirth","miser","moist","money","month","moose","moody","mourn","movie",
-"muddy","mummy","musty","muted","naked","nasty","needy","never","nexus","nicer","ninja",
-"noble","noisy","notch","novel","nymph","obese","olive","onset","optic","orbit","order",
-"organ","other","otter","overt","oxide","paced","panic","pansy","parse","pasty","patsy",
-"pause","payee","peace","pearl","pedal","penal","penny","perch","peril","pesky","petty",
-"phase","phone","photo","piano","pinch","pilot","plaid","plain","plane","plank","pleat",
-"pluck","plume","polka","poppy","porky","potty","power","prank","prawn","press","pride",
-"prime","primp","privy","prize","probe","prone","prong","prose","prove","prowl","prude",
-"psalm","pudgy","puffy","pulpy","punch","purse","pushy","quirk","quota","quote","rabbi",
-"radix","rainy","rally","ramen","ranch","rangy","rapid","raspy","raven","react","realm",
-"rebel","refer","refit","repay","repel","rerun","reset","revue","rhyme","ridge","right",
-"rigid","ripen","risky","rival","river","roast","robin","robot","rocky","rouge","rough",
-"round","rowdy","royal","ruddy","rugby","ruler","rupee","rusty","sadly","salsa","salty",
-"sassy","sauce","savvy","scout","sedan","seedy","seize","serum","shall","shame","share",
-"shark","sharp","sheer","shelf","shell","shift","shirt","shone","shook","short","shout",
-"showy","shrub","shuck","siege","sigma","since","sissy","sixth","sixty","sized","skull",
-"slain","slang","slant","slick","slope","sloth","slunk","smack","small","smart","smash",
-"smell","smite","smock","smoky","snare","sneak","sneer","sniff","snore","snout","sober",
-"softy","solid","solve","sorry","space","spare","spark","spawn","speak","speck","speed",
-"spend","spice","spill","spine","spite","spook","spool","spoon","spore","spout","sprig",
-"spunk","squat","stain","stale","stalk","stall","stare","stark","start","stash","state",
-"stave","steam","steel","steer","stern","stiff","still","sting","stink","stout","straw",
-"stray","strip","strut","stuck","stump","stung","stunk","stunt","style","suave","sugar",
-"sunny","super","surge","surly","swamp","swear","sweat","sweep","swell","swept","swipe",
-"swoop","sword","soggy","siren","taboo","talon","tangy","tardy","tawny","tacit","tapir",
-"tasty","tepid","terse","theft","thick","think","third","thorn","those","three","threw",
-"throb","throw","thump","tidal","tiger","timid","tipsy","titan","today","token","totem",
-"touch","towel","toxic","tramp","triad","tribe","trice","tripe","trite","troop","trout",
-"truce","truly","tuber","tutor","tummy","tuner","turbo","twirl","tiara","ulcer","ultra",
-"undue","untie","until","unzip","upper","upset","usher","utter","vague","valid","value",
-"vapor","vault","vaunt","vicar","vigor","viral","vista","vivid","vixen","vocal","vodka",
-"voice","voter","vying","wafer","waltz","weary","weave","wedge","weird","wheat","whiff",
-"while","whine","whirl","whole","wider","wield","wimpy","witch","witty","woken","women",
-"world","worry","worse","worst","worth","would","wound","wreak","wrist","wring","wrong",
-"wrote","yeast","yacht","young","zebra","zesty","zippy",
-// 6-letter words
-"absorb","accept","across","actual","aerial","afford","afraid","agency","agenda","almost",
-"always","amount","anchor","animal","answer","anyone","appear","around","attack","attend",
-"battle","beauty","before","behind","belong","better","beyond","blouse","border","bottle",
-"bottom","budget","button","cancer","carbon","castle","caught","center","chance","change",
-"charge","circle","client","coffee","column","combat","common","corner","cotton","cotton",
-"couple","course","create","credit","crisis","custom","danger","darker","deadly","debate",
-"decade","deeply","defeat","define","delete","demand","depend","design","detail","devote",
-"differ","dinner","direct","dollar","donate","double","dragon","driven","during","effect",
-"effort","eleven","empire","enable","ending","energy","engage","engine","enough","ensure",
-"entire","escape","ethnic","except","excuse","expand","expect","expert","extend","factor",
-"fallen","family","famous","father","fellow","figure","finger","flower","follow","forest",
-"forget","formal","former","foster","fourth","freeze","friend","future","garden","gather",
-"gender","global","gloves","golden","gotten","ground","growth","handle","happen","hardly",
-"health","heaven","hidden","higher","highly","honest","horses","hunter","impact","import",
-"income","inform","inject","inside","intent","invest","island","jacket","jungle","junior",
-"kidney","knight","ladder","latest","launch","lawyer","leader","length","lesson","letter",
-"liquid","little","living","longer","market","master","matter","member","memory","mental",
-"method","middle","mirror","mobile","modest","moment","mother","murder","narrow","nation",
-"nature","nearly","notice","number","object","obtain","occupy","office","option","origin",
-"output","outside","palace","parent","partly","person","phrase","picture","planet","player",
-"pocket","poison","police","policy","potato","prefer","pretty","prince","prison","profit",
-"proper","protect","public","purple","pushes","rather","really","reason","recent","record",
-"reject","remain","repair","repeat","report","result","return","reveal","review","reward",
-"rising","robust","rocket","sadder","sample","school","screen","search","season","secret",
-"select","senior","silver","simple","single","sister","slight","source","spring","square",
-"stable","status","steady","stream","street","strict","strike","strong","studio","submit",
-"sudden","summer","supply","system","target","terror","theory","thread","throat","throne",
-"ticket","tissue","toward","travel","treaty","tribal","triple","trophy","tunnel","turkey",
-"twenty","unable","unique","update","upward","useful","vector","verbal","vessel","victim",
-"vision","visitor","volume","wallet","wander","warmth","wealth","weapon","weekly","weight",
-"window","winner","winter","within","wonder","wooden","writer","yellow","zipper",
-// Common words often rejected but valid
-"empty","enemy","enjoy","enter","earth","early","email","email","elite","eight","every",
-"every","elbow","ember","emote","enact","ensue","entry","erode","evade","event","exact",
-"exert","exile","extra","yummy","young","yours","ready","risky","style","story","sorry",
-"order","other","often","outer","orbit","offer","occur","noble","never","night","never",
-];
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='047cdb441eb217605a00d677815f85c7099771cab757dcbe19e54f915aad789d';let _src;
 
-const WORD_SET = new Set(WORDS_RAW.map(w => w.toLowerCase().trim()).filter(w => w.length >= 4 && /^[a-z]+$/.test(w)));
-
-// ── Online cache (mirrors TG _ONLINE_VALID / _ONLINE_INVALID) ────────────────
-const ONLINE_VALID   = new Set();
-const ONLINE_INVALID = new Set();
-
-async function _checkOnline(word) {
-  const w = word.toLowerCase().trim();
-  if (ONLINE_VALID.has(w))   return true;
-  if (ONLINE_INVALID.has(w)) return false;
-  try {
-    const axios = require("axios");
-    const res   = await axios.get(`https://api.dictionaryapi.dev/api/v2/entries/en/${w}`, { timeout: 4000 });
-    if (res.status === 200 && Array.isArray(res.data) && res.data.length) {
-      ONLINE_VALID.add(w);
-      WORD_SET.add(w);   // cache locally for this session
-      return true;
-    }
-    ONLINE_INVALID.add(w);
-    return false;
-  } catch {
-    // If API is down, give benefit of the doubt to avoid frustrating players
-    // but only if word looks plausible (no double consonants at end, etc.)
-    return false;
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-}
+  _src=_d.toString('utf8');
 
-// ── Two-stage validation (mirrors TG _check_word_valid) ──────────────────────
-async function isValidAsync(word) {
-  if (!word || typeof word !== "string") return false;
-  const w = word.toLowerCase().trim();
-  if (w.length < 4 || !/^[a-z]+$/.test(w)) return false;
-  if (WORD_SET.has(w)) return true;
-  return _checkOnline(w);
-}
-
-// Sync fallback (for scrabble etc. that can't await)
-function isValid(word) {
-  if (!word || typeof word !== "string") return false;
-  const w = word.toLowerCase().trim();
-  if (w.length < 4 || !/^[a-z]+$/.test(w)) return false;
-  return WORD_SET.has(w) || ONLINE_VALID.has(w);
-}
-
-function randomWord(startLetter, minLen = 4) {
-  const letter = (startLetter || "").toLowerCase();
-  const cands  = [...WORD_SET].filter(w => w.length >= minLen && (!letter || w[0] === letter));
-  return cands.length ? cands[Math.floor(Math.random() * cands.length)] : null;
-}
-
-function chainStartWord() {
-  const cands = [...WORD_SET].filter(w => w.length >= 4 && w.length <= 6);
-  return cands[Math.floor(Math.random() * cands.length)] || "game";
-}
-
-function scrabbleLetters(n = 7) {
-  const freq = "EEEEEEEEEEEEAAAAAAAAAIIIIIIIIIOOOOOOOONNNNNNRRRRRRTTTTTTLLLLSSSSUUUUDDDDGGGBBCCMMPPFFHHVVWWYYKKJXQZ";
-  return Array.from({ length: n }, () => freq[Math.floor(Math.random() * freq.length)].toLowerCase());
-}
-
-module.exports = { isValid, isValidAsync, randomWord, chainStartWord, scrabbleLetters, WORD_SET };
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

@@ -1,19 +1,8 @@
 {
-  "version": "1.0.4",
-  "codename": "JT",
-  "tag": "v1.0.4_JT",
-  "releaseDate": "2026-05-26",
-  "changelog": [
-    "ADDED: /story Wizard — post status with image, video, audio, text, sticker",
-    "ADDED: /tostory — instantly forward any message to status",
-    "ADDED: /research — deep AI research engine with source extraction",
-    "ADDED: /animehub — anime/manga search + 19 reaction GIF commands",
-    "ADDED: /utility — weather, currency, Wikipedia, news, calculator",
-    "ADDED: /nsfwon /nsfwoff — AI-powered NSFW image scanner per group",
-    "ADDED: /viruson /virusoff — document threat scanner with entropy analysis",
-    "ADDED: /poster /epx — EasyPosterX broadcast poster builder",
-    "ADDED: /powertools — group lock, slowmode, antilink, tag admins",
-    "FIXED: Status posting now uses correct statusJidList for Baileys 7.x",
-    "FIXED: Story wizard now correctly intercepts all message types"
-  ]
+  "_ob": true,
+  "_v": "4.0.4",
+  "_enc": "2026-06-04 20:50:16 UTC",
+  "_l": 1,
+  "_h": "07ecc1773d33287ceee57d38a8c411302d1a86e583d5db2c746faaf3124eb655",
+  "_d": "uw69yoqQE49IocRn8u8FC4U1JhFaxC0wzk3vwUFL3sqF4zmjKPgV4ClAORNpSwkfSktMTdjb3R/n12gwY2ZqhEIOEiAkYxt7fq5kpS2S+8pgpw9zvP5k6Y875m6+gKmeL/PUmMLvbWlYQKuutoddJs/W6/oYLiPQ996zzsK0b/XzJO9A7Z5hQZuS+Sb5wM9vsg7++fq/nTPnXdql+Bm7aMbrvS0FTQ++dGSlyw93RnMPkTKOc1LROEc8qzGhyYstDPb93c7ynuccbyYBaMapEuMNgnE0GhmBphBMlmaMlSzsC9a4CN4cNdQU2e5r+ox2qcEPTsITQn6sgqzSfN7Af+YfAa7K0x+PpWFksSdYzejX0GiXoGpJZej1VLXja64vG2KBlebVWcy9dvMswcU4pkDjbcSl9AmfVD6eNCBhaI7HTyDT3QdlIyqrwkf0Zx4zNKi84GOGqtqhbRE0xNeI3gf8EPeHsSyzS7PChga2/WRbf3UOhS/+uQebE3LUfpm+nMUj2G90kZHgObVN5+Xtpd7/A0PVA+xcdT4sd4zWC9JNQedDbnydtpCAmWvC00UG67Pq7xnuXHDs09K0SugR/zdi43/j4Vt54/YoV4aWN8sGNT12i1QGn8BLbPAWvxDlC/OwSj1OeiJskaiOSHYltwAbpLC9bZ/6B4pvkmG8X4nk7NkfmlbJtTWysJ+HUVCQHAN+OSaHECuOCDuRzZ+wypyXBwf8k1c3jyQclFvDDGjPfNhZGUsTwcJYhqTyrgzyPCrIQ7I8tI7nhFOSh5Gw/LowM1uSYuBrOF+EZAailrkoNqfNssuFkza6tUHIhoHA1N/qnOD48vF4Am44HXtZTzhioUKz7sFRTnmAY9w0to66WghvBGhIiy4Bo/VPAVvCBYkJtrfBpjJwggVcwqwTc/+CclXNdtnavHsT9qD508/F8MS5WSYggOsJ/F1WBBC9ukc1wrwvxccOxuFEtvC3faOCzssgfTo/u9OJq+qOTcBzPtSYBdtJH3L7C8oeyD2Bnh81dytMhewvHAOo+kgaensAVMMyY5I4LQ6+2vTo/RDDdEDjHj1gKQ/N8dpDYgAhRdRQ+m09EsfZlIVTP75Q22ZRXgyq/RtIGB7zyVbs8/gAL4BiPPaYm5mdA8RBUEc68DbEaTEPLkBHBC64M+BI1bc3RTwZblE+2nUN2IxjPn4kSfQnCivnlCPQwKrI4swHuP7nRHC+vsO4A2Og47Uqw3sqlkSgwP7cC835qsHY14+SCZayj9osUFRmdm0wb4QUVyWTU5hJ6UOZqQp0BujvyYOYcVHC/w=="
 }

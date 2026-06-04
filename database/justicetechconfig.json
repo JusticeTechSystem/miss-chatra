@@ -1,21 +1,8 @@
 {
-  "dev_numbers": [
-    "2349032578690",
-    "2348166337692"
-  ],
-  "communities": {
-    "tools_group": "https://chat.whatsapp.com/GL6GUJL5QNJEuBy9fWIssu?mode=gi_t",
-    "support_group": "https://chat.whatsapp.com/Gyt75qFHoul3wp53IKi25v?mode=gi_t",
-    "channel_id": "120363421368625350@newsletter",
-    "channel_invite": "https://whatsapp.com/channel/0029VaoLagu3hRFKWlqk9W2T"
-  },
-  "auto_channel_add": true,
-  "marketplace_approval_required": true,
-  "suspended_bots": [],
-  "restricted_bots": [],
-  "frozen_bots": [],
-  "banned_bots": [],
-  "approved_installs": {},
-  "global_plugins_disabled": [],
-  "global_plugins_added": []
+  "_ob": true,
+  "_v": "4.0.4",
+  "_enc": "2026-06-04 20:46:50 UTC",
+  "_l": 1,
+  "_h": "13c58d1e0787902364a2c84e97f47e415cc3acd9a71cb02bd3c9b5b7be9f6a42",
+  "_d": "XxMtodE6U3db640HEuF+jHxDMvdbEdXWskAGJEMmNXZbzkMKhZRitTBPrlwCf/dPYkFW1YR00nAL7AgyQshCIlAsk31IGgxR7gmWP/vAs32Kvf+Es9k1RNtt3KSFL2Kf8H+KeHNYubERkdSY5QeNVXiYVrdpriw/cspRLJ5Q+JZvhssdidxjcQTdbwyFXjiU1vCRquFLWABQYN1MoxXVLnI70/4B+pPIhGUcI0847rf8VbcLtLCNIOpSMOedv89JuLkBCgG4fbvu8CwGd+vWn0xs21viKU8G/BlV/MGj97yK/PM55g1m5h8rf356J4w7G4Tab/GqAdBE5JiuxEZBZl3pvfqKtbCqy1lTpIOT8blubb9W0WPaisQo4B9PhSrx0h/r9C9faCc4SSqhxC51Mt/xfGORmfiV2KSq7YjswLkXwSsQrTxIEQCPdHOM6AMUiml24M/EAnnCMGamwE4Y77einUuozCuRyRLtNIVrM86R8egBxXThcqrq5gOCZ0C8QjYqxt6dlkcHKb20SqKPpxPCUAWVD4B2RmvKzjyhfWMKPr5d2IDWqIBN3hkhIKc5S+wVTnRBxoGex21xJ1Mx2jsp5cOx1z5/TGFtC9HT0w1QejrRlcYJW0GPSTZu4dr+W9q40H+jURiJePwpuNtUvyxn6+pPFEZ3VvWjF+AaWuHLQnb+blPQNBqrgcfH3YB46z6AclVLRQGoapOevu9uo0jxd42D2/ZEJqfPmbMf6NoQLOO6wIzIGraq6wAIPPipN1h3G1SJh2yjWCuZRsT5gsF6L/iv8ggZzARjvdvFC+K9dAgZjUFF5UK/ZwryuO7X5KaiF0n9IZ4NaQn1qqC6ubEunYp0dap7h5UkX6nrbGtedqsa47JOKgMoLpaR/LXVzE3JKdsD"
 }

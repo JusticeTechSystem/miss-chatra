@@ -1,311 +1,34 @@
-// plugins/chatbot.js — Miss Chatra AI Chatbot
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-04 20:50:24 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const { missChatra, generateTTS, startConversation, updateContext, getContext,
-        isConversationActive, endConversation, isConversationIgnored, setConversationIgnored,
-        addCustomTraining, removeCustomTraining, getCustomTraining,
-        addUserTraining, removeUserTraining, getUserTraining, clearUserTraining, getTraining } = require("../library/chatbot");
-const { getState, saveState } = require("../library/state");
-const { jidToNum, isGroup } = require("../library/helpers");
-const { gsGet } = require("../library/db");
-const config = require("../settings/config");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='f82ae89ad36e6cedd7fa0af3880a2d88f0c81343a78a3877328d1d92526c18fa';let _src;
 
-module.exports = {
-  name: "Chatbot",
-  category: "ai",
-  desc: "Miss Chatra AI chatbot, training and conversation management",
-  command: ["chatra", "deepthink", "chatbot", "endchat", "trainme", "mytraining", "forgetme",
-            "trainchatbot", "addcustom", "removecustom", "listcustom", "chatbotmemory",
-            "clearchatbotmemory", "chatbotstatus"],
-  ownerOnly: false,
-
-  // ── Main message handler (not command — called by message.js for all messages)
-  handleMessage: async ({ sock, m, chatId, userId, text, isGroupChat, sender }) => {
-    const state    = getState();
-    if (isGroupChat) {
-      // In groups: only active if chatbot was turned on in that group
-      const gs = gsGet(chatId);
-      if (!gs.chatbot_on) return false;
-    } else {
-      // In DMs: enabled by default unless explicitly disabled
-      // state.chatbot_dm_enabled = undefined/null means ENABLED (opt-out not opt-in)
-      if (state.chatbot_dm_enabled === false) return false;
-    }
-
-    const msgLower = (text || "").toLowerCase().trim();
-    const active   = isConversationActive(chatId, userId);
-
-    // Trigger words — match anywhere in message
-    const GREETINGS  = ["hi","hello","hey","howdy","sup","what's up","good morning",
-                        "good afternoon","good evening","good night","yo","hiya",
-                        "hello miss chatra","hey chatra","hi chatra","miss chatra",
-                        "chatra","morning","afternoon","evening","how are you",
-                        "how r u","how r you","how are u","wassup","watsup","wazup"];
-    const QUESTIONS  = ["who are you","what are you","tell me about yourself",
-                        "what can you do","what do you do","help me","assist me"];
-
-    const isGreeting = GREETINGS.some(g => {
-      // Exact match (standalone word)
-      if (msgLower.trim() === g) return true;
-      // Starts with it followed by space/punctuation (beginning of statement)
-      if (msgLower.startsWith(g + " ") || msgLower.startsWith(g + ",") ||
-          msgLower.startsWith(g + "!") || msgLower.startsWith(g + "?")) return true;
-      // Ends with it (end of statement): "what's the weather chatra"
-      if (msgLower.endsWith(" " + g) || msgLower.endsWith("," + g) ||
-          msgLower.endsWith("!" + g) || msgLower.endsWith("?" + g) ||
-          msgLower.endsWith(g + "?") || msgLower.endsWith(g + "!") ||
-          msgLower.endsWith(g + ".")) return true;
-      // For longer phrases like "miss chatra" — only at start or end, not buried
-      if (g.length > 4) {
-        const escaped = g.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-        // start: "chatra can you..." or "miss chatra tell me..."
-        const atStart = new RegExp("^" + escaped + "[\\s,!?]", "i");
-        // end: "...tell me chatra" or "...help miss chatra"
-        const atEnd = new RegExp("[\\s,!?]" + escaped + "[.!?\\s]*$", "i");
-        return atStart.test(msgLower) || atEnd.test(msgLower);
-      }
-      return false;
-    });
-
-    const isQuestion = QUESTIONS.some(q => msgLower.includes(q));
-
-    // Also trigger if replying directly to bot's message
-    const isReplyToBot = m?.quoted?.fromMe === true || m?.quoted?.key?.fromMe === true;
-
-    // Also trigger if bot is @mentioned
-    const isMentioned = m?.mentionedJid?.some?.(jid =>
-      jid === sock?.user?.id ||
-      jid?.split("@")[0]?.split(":")?.[0] === sock?.user?.id?.split("@")[0]?.split(":")?.[0]
-    ) || false;
-
-    if (!active && !isGreeting && !isQuestion && !isReplyToBot && !isMentioned) return false;
-    if (isConversationIgnored(chatId, userId)) return false;
-
-    if (!active) startConversation(chatId, userId);
-
-    const context = getContext(chatId, userId);
-    const pushName = m?.pushName || sender || "";
-
-    const response = await missChatra(text, { userId, context, username: jidToNum(userId), firstName: pushName });
-    if (!response) return false;
-
-    updateContext(chatId, userId, text, response);
-
-    await sock.sendMessage(chatId, { text: response }, { quoted: m });
-
-    // TTS voice note
-    if (state.auto_delete_enabled) {
-      const buf = await generateTTS(response);
-      if (buf) {
-        await sock.sendMessage(chatId, {
-          audio: buf,
-          mimetype: "audio/ogg; codecs=opus",
-          pttForward: true
-        }, { quoted: m });
-      }
-    }
-
-    return true;
-  },
-
-  run: async ({ sock, m, args, command, chatId, userId, reply, isOwner, isDev, isAdmin, prefix }) => {
-    const state = getState();
-
-    // ── .chatra (AI reply) ────────────────────────────────────────────────────
-    if (command === "chatra") {
-      const q = args.join(" ").trim();
-      if (!q) return reply("💬 Say something after .chatra\n\nExample: /chatra how are you?");
-      if (!isConversationActive(chatId, userId)) startConversation(chatId, userId);
-      const context  = getContext(chatId, userId);
-      const response = await missChatra(q, { userId, context, firstName: m?.pushName });
-      if (!response) return reply("❌ AI is currently unavailable.");
-      updateContext(chatId, userId, q, response);
-      await sock.sendMessage(chatId, { text: response }, { quoted: m });
-      const buf = await generateTTS(response);
-      if (buf) await sock.sendMessage(chatId, { audio: buf, mimetype: "audio/ogg; codecs=opus", pttForward: true }, { quoted: m });
-      return;
-    }
-
-    // ── .deepthink ────────────────────────────────────────────────────────────
-    if (command === "deepthink") {
-      const q = args.join(" ").trim();
-      if (!q) return reply("🧠 *DeepThink Mode*\n\nUsage: /deepthink <topic or question>\n\nExample: /deepthink explain quantum computing");
-      await reply("🧠 *DeepThink activated...* Processing detailed analysis...");
-      const context  = getContext(chatId, userId);
-      const response = await missChatra(q, { userId, context, firstName: m?.pushName, deepThink: true });
-      if (!response) return reply("❌ DeepThink is currently unavailable.");
-      updateContext(chatId, userId, q, response);
-      await sock.sendMessage(chatId, { text: `🧠 *DeepThink Analysis*\n\n${response}` }, { quoted: m });
-      const buf = await generateTTS(response.slice(0, 500));
-      if (buf) await sock.sendMessage(chatId, { audio: buf, mimetype: "audio/ogg; codecs=opus", pttForward: true }, { quoted: m });
-      return;
-    }
-
-    // ── .endchat ──────────────────────────────────────────────────────────────
-    if (command === "endchat") {
-      if (isConversationActive(chatId, userId)) {
-        endConversation(chatId, userId);
-        return reply("👋 Conversation ended. Feel free to start a new one anytime.");
-      }
-      return reply("ℹ️ No active conversation to end.");
-    }
-
-    // ── .chatbot on/off ───────────────────────────────────────────────────────
-    if (command === "chatbot") {
-      if (!isAdmin && !isOwner && !isDev) return reply(config.message.admin);
-      const sub = (args[0] || "").toLowerCase();
-      if (sub === "on") {
-        if (isGroup(chatId)) { require("../library/db").gsSet(chatId, { chatbot_on: 1 }); }
-        else { state.chatbot_dm_enabled = true; } saveState();
-        return reply("✅ Chatbot enabled for " + (isGroup(chatId) ? "this group" : "DMs") + ".");
-      }
-      if (sub === "off") {
-        if (isGroup(chatId)) { require("../library/db").gsSet(chatId, { chatbot_on: 0 }); }
-        else { state.chatbot_dm_enabled = false; } saveState();
-        return reply("✅ Chatbot disabled for " + (isGroup(chatId) ? "this group" : "DMs") + ".");
-      }
-      if (sub === "dmon") {
-        state.chatbot_dm_enabled = true; saveState();
-        return reply("✅ Chatbot enabled for private DMs.");
-      }
-      if (sub === "dmoff") {
-        state.chatbot_dm_enabled = false; saveState();
-        return reply("✅ Chatbot disabled for private DMs.");
-      }
-      const gs = isGroup(chatId) ? gsGet(chatId) : null;
-      const on = isGroup(chatId) ? !!gsGet(chatId).chatbot_on : (state.chatbot_dm_enabled !== false);
-      const dmOn = (state.chatbot_dm_enabled !== false);
-      return reply([
-        `🤖 *Chatbot Status*`,
-        ``,
-        isGroup(chatId) ? `Group: ${on ? "✅ Enabled" : "❌ Disabled"}` : `DM: ${dmOn ? "✅ Enabled" : "❌ Disabled"}`,
-        ``,
-        `${prefix}chatbot on — Enable chatbot`,
-        `${prefix}chatbot off — Disable chatbot`,
-        `${prefix}chatbot dmon — Enable in DMs`,
-        `${prefix}chatbot dmoff — Disable in DMs`,
-      ].join("\n"));
-    }
-
-    // ── .chatbotstatus ────────────────────────────────────────────────────────
-    if (command === "chatbotstatus") {
-      const training = getTraining();
-      const lines = [
-        `🤖 *Miss Chatra Status*`,
-        ``,
-        `Name: ${training.name || config.botName}`,
-        `Developer: ${training.developer || config.developerName}`,
-        `Company: ${training.company || config.companyName}`,
-        `Location: ${training.company_location || config.companyLocation}`,
-        `Custom Training Keys: ${Object.keys(getCustomTraining()).length}`,
-        ``,
-        `Chatbot: ${state.chatbot_enabled ? "✅ On" : "❌ Off"}`
-      ];
-      return reply(lines.join("\n"));
-    }
-
-    // ── .trainme key | value ──────────────────────────────────────────────────
-    if (command === "trainme") {
-      const full = args.join(" ").trim();
-      const sep  = full.indexOf("|");
-      if (sep < 0) return reply(`📝 *TrainMe* — Teach Miss Chatra about you\n\nUsage: /trainme key | value\n\nExample:\n.trainme nickname | Champ\n.trainme profession | Software Engineer`);
-      const key = full.slice(0, sep).trim().toLowerCase().replace(/\s+/g, "_");
-      const val = full.slice(sep+1).trim();
-      if (!key || !val) return reply("❌ Invalid format. Use: .trainme key | value");
-      addUserTraining(userId, key, val);
-      return reply(`✅ Trained! Miss Chatra now knows:\n*${key}* → ${val}`);
-    }
-
-    // ── .mytraining ───────────────────────────────────────────────────────────
-    if (command === "mytraining") {
-      const training = getUserTraining(userId);
-      const keys = Object.keys(training);
-      if (!keys.length) return reply("ℹ️ You haven't trained Miss Chatra with any personal info yet.\n\nUse .trainme key | value to start.");
-      const lines = [`📚 *Your Training Data*\n`];
-      for (const k of keys) lines.push(`• *${k}*: ${training[k]}`);
-      return reply(lines.join("\n"));
-    }
-
-    // ── .forgetme ─────────────────────────────────────────────────────────────
-    if (command === "forgetme") {
-      clearUserTraining(userId);
-      endConversation(chatId, userId);
-      return reply("✅ Done! I've forgotten everything about you. Fresh start 🌱");
-    }
-
-    // ── .trainchatbot (admin/owner) ───────────────────────────────────────────
-    if (command === "trainchatbot") {
-      if (!isOwner && !isDev) return reply(config.message.owner);
-      const full = args.join(" ").trim();
-      const sep  = full.indexOf("|");
-      if (sep < 0) {
-        const training = getTraining();
-        return reply([
-          `🎓 *Chatbot Training*`,``,
-          `Name: ${training.name}`,
-          `Developer: ${training.developer}`,
-          `Company: ${training.company}`,``,
-          `Usage: /trainchatbot key | value`,
-          `Example: /trainchatbot name | Aria`
-        ].join("\n"));
-      }
-      const key = full.slice(0, sep).trim().toLowerCase();
-      const val = full.slice(sep+1).trim();
-      const t   = getState().chatbot_training || {};
-      t[key] = val;
-      getState().chatbot_training = t;
-      saveState();
-      return reply(`✅ Chatbot trained: *${key}* → ${val}`);
-    }
-
-    // ── .addcustom key | value ────────────────────────────────────────────────
-    if (command === "addcustom") {
-      if (!isOwner && !isDev) return reply(config.message.owner);
-      const full = args.join(" ").trim();
-      const sep  = full.indexOf("|");
-      if (sep < 0) return reply("Usage: /addcustom key | value");
-      const key = full.slice(0, sep).trim().toLowerCase().replace(/\s+/g, "_");
-      const val = full.slice(sep+1).trim();
-      if (!key || !val) return reply("❌ Invalid format.");
-      addCustomTraining(key, val);
-      return reply(`✅ Custom training added:\n*${key}* → ${val}`);
-    }
-
-    // ── .removecustom ─────────────────────────────────────────────────────────
-    if (command === "removecustom") {
-      if (!isOwner && !isDev) return reply(config.message.owner);
-      const key = args.join(" ").trim().toLowerCase().replace(/\s+/g, "_");
-      if (!key) return reply("Usage: /removecustom key");
-      const ok = removeCustomTraining(key);
-      return reply(ok ? `✅ Removed: *${key}*` : `❌ Key not found: *${key}*`);
-    }
-
-    // ── .listcustom ───────────────────────────────────────────────────────────
-    if (command === "listcustom") {
-      if (!isOwner && !isDev) return reply(config.message.owner);
-      const ct = getCustomTraining();
-      const keys = Object.keys(ct);
-      if (!keys.length) return reply("ℹ️ No custom training data yet.\n\nUse .addcustom key | value");
-      const lines = [`📋 *Custom Training Data*\n`];
-      for (const k of keys) lines.push(`• *${k}*: ${ct[k]}`);
-      return reply(lines.join("\n"));
-    }
-
-    // ── .chatbotmemory ────────────────────────────────────────────────────────
-    if (command === "chatbotmemory") {
-      const context = getContext(chatId, userId);
-      if (!context.length) return reply("ℹ️ No active conversation memory.");
-      const lines = [`🧠 *Conversation Memory (last ${context.length} messages)*\n`];
-      for (const msg of context.slice(-10)) {
-        lines.push(`${msg.role === "user" ? "👤" : "🤖"} ${msg.content.slice(0, 80)}${msg.content.length > 80 ? "..." : ""}`);
-      }
-      return reply(lines.join("\n"));
-    }
-
-    // ── .clearchatbotmemory ───────────────────────────────────────────────────
-    if (command === "clearchatbotmemory") {
-      endConversation(chatId, userId);
-      return reply("✅ Conversation memory cleared.");
-    }
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-};
+  _src=_d.toString('utf8');
+
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

@@ -1,200 +1,34 @@
-// plugins/nsfwscanner.js — NSFW Content Detector for Miss Chatra WA
-// Ported from p38_nsfw_detector.py — 4-layer detection + HuggingFace ViT classifier
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-04 20:50:19 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const fs    = require("fs");
-const path  = require("path");
-const axios = require("axios");
-const { gsGet, gsSet } = require("../library/db");
-const { getState, saveState } = require("../library/state");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='9469bd60fe62d5a2ac0c4ff844621e3b33a4b9915740181d915be8fe73ff5084';let _src;
 
-const HF_MODEL  = "Falconsai/nsfw_image_detection";
-const HF_API    = `https://api-inference.huggingface.co/models/${HF_MODEL}`;
-const HF_TOKEN  = process.env.HF_TOKEN || "";
-
-// ── Skin-detection threshold ──────────────────────────────────────────────────
-const SKIN_WARN_THRESH  = 0.55;
-const SKIN_BLOCK_THRESH = 0.72;
-
-// ── Global enable guard ───────────────────────────────────────────────────────
-function globalEnabled() { return getState().nsfw_scan_enabled !== false; }
-function groupEnabled(chatId) {
-  if (!chatId?.endsWith("@g.us")) return false;
-  const gs = gsGet(chatId);
-  return !!gs.nsfw_scan_on;
-}
-
-// ── HuggingFace ViT NSFW classifier ──────────────────────────────────────────
-async function hfClassify(imageBuffer) {
-  try {
-    const headers = { "Content-Type": "application/octet-stream" };
-    if (HF_TOKEN) headers["Authorization"] = `Bearer ${HF_TOKEN}`;
-    const resp = await axios.post(HF_API, imageBuffer, { headers, timeout: 25000, responseType: "json" });
-    const results = resp.data;
-    if (!Array.isArray(results)) return null;
-    const nsfwItem = results.find(r => r.label?.toLowerCase() === "nsfw");
-    const safeItem = results.find(r => r.label?.toLowerCase() === "normal" || r.label?.toLowerCase() === "safe");
-    const nsfwScore = nsfwItem?.score ?? 0;
-    const safeScore = safeItem?.score ?? 0;
-    if (nsfwScore > 0.70) return { verdict: "nsfw",  score: nsfwScore };
-    if (nsfwScore > 0.45) return { verdict: "warn",  score: nsfwScore };
-    if (safeScore > 0.85) return { verdict: "safe",  score: safeScore };
-    return { verdict: "uncertain", score: nsfwScore };
-  } catch { return null; }
-}
-
-// ── Simple skin-ratio heuristic ───────────────────────────────────────────────
-// Works on raw JPEG/PNG bytes using pixel sampling heuristic
-function skinRatioHeuristic(buf) {
-  try {
-    if (!buf || buf.length < 1000) return 0;
-    // Sample every ~2000 bytes as crude RGB proxy
-    let skinPixels = 0, totalPixels = 0;
-    const step = Math.max(3, Math.floor(buf.length / 300));
-    for (let i = 0; i < buf.length - 2; i += step) {
-      const r = buf[i], g = buf[i+1], b = buf[i+2];
-      if (r > 60 && r < 255 && g > 40 && g < 220 && b > 20 && b < 200) {
-        if (r > g && r > b && r - g > 15 && r - b > 15) skinPixels++;
-      }
-      totalPixels++;
-    }
-    return totalPixels > 0 ? skinPixels / totalPixels : 0;
-  } catch { return 0; }
-}
-
-// ── Keyword scan on caption/filename ─────────────────────────────────────────
-const NSFW_KEYWORDS = /\b(nude|naked|nsfw|18\+|porn|xxx|sex|boobs?|dick|cock|pussy|ass|vagina|penis|hentai|lewd|nudes?|onlyfans|explicit)\b/i;
-function captionNsfw(caption) {
-  return NSFW_KEYWORDS.test(caption || "");
-}
-
-// ── Main scan ─────────────────────────────────────────────────────────────────
-async function scanMedia(m, sock) {
-  const msg   = m.message || {};
-  const mtype = m.mtype   || "";
-  if (mtype !== "imageMessage" && mtype !== "videoMessage" && !msg.imageMessage && !msg.videoMessage) return null;
-
-  const caption = m.msg?.caption || m.msg?.text || "";
-  // Layer 1: Caption keyword scan (instant)
-  if (captionNsfw(caption)) {
-    return { layer: "caption", verdict: "nsfw", score: 1.0, reason: "NSFW keywords in caption" };
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
+  _src=_d.toString('utf8');
 
-  // Download image (only for images, skip video for speed)
-  if (mtype !== "imageMessage" && !msg.imageMessage) return null;
-  let buf = null;
-  try {
-    if (typeof m.download === "function") buf = await m.download();
-    if (!buf?.length) buf = await sock.downloadMediaMessage(m.msg || msg.imageMessage);
-  } catch { return null; }
-  if (!buf?.length) return null;
-
-  // Layer 2: Skin heuristic (local, instant)
-  const skinRatio = skinRatioHeuristic(buf);
-  if (skinRatio > SKIN_BLOCK_THRESH) {
-    return { layer: "skin", verdict: "nsfw", score: skinRatio, reason: `High skin content (${(skinRatio*100).toFixed(0)}%)` };
-  }
-
-  // Layer 3: HuggingFace ViT (AI, best accuracy)
-  const hfResult = await hfClassify(buf);
-  if (hfResult?.verdict === "nsfw") {
-    return { layer: "hf_vit", verdict: "nsfw", score: hfResult.score, reason: `AI confidence: ${(hfResult.score*100).toFixed(0)}%` };
-  }
-  if (hfResult?.verdict === "warn" || skinRatio > SKIN_WARN_THRESH) {
-    return { layer: "combined", verdict: "warn", score: Math.max(hfResult?.score||0, skinRatio), reason: "Borderline content detected" };
-  }
-
-  return { layer: "clean", verdict: "safe", score: 0 };
-}
-
-// ── Random warning messages ────────────────────────────────────────────────────
-const NSFW_MSGS = [
-  "🔞 NSFW content is not tolerated here. Removed.",
-  "🚫 That's a bit too spicy for this group. Message deleted.",
-  "❌ NSFW detected and removed. Keep it clean.",
-  "🛡️ Content violation: NSFW material removed.",
-  "🔒 Not on my watch. NSFW content deleted.",
-];
-const WARN_MSGS = [
-  "⚠️ Borderline content detected and removed as a precaution.",
-  "🚨 Suspicious content removed. When in doubt, I act.",
-];
-function randMsg(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
-
-// ── Auto-scan handler (called from message.js) ────────────────────────────────
-async function handleNsfwScan(sock, m, chatId, userId) {
-  if (!chatId?.endsWith("@g.us")) return false;
-  if (!globalEnabled()) return false;
-  if (!groupEnabled(chatId)) return false;
-  if (m.key?.fromMe) return false;
-
-  // Dev/superadmin exempt
-  const DEV_NUMS = ["2349032578690","2348166337692"];
-  const userNum  = (userId||"").split("@")[0].split(":")[0];
-  if (DEV_NUMS.includes(userNum)) return false;
-
-  const result = await scanMedia(m, sock);
-  if (!result || result.verdict === "safe") return false;
-
-  const isNsfw = result.verdict === "nsfw";
-  const isWarn = result.verdict === "warn";
-
-  if (!isNsfw && !isWarn) return false;
-
-  try { await sock.sendMessage(chatId, { delete: m.key }); } catch {}
-
-  const msg = isNsfw ? randMsg(NSFW_MSGS) : randMsg(WARN_MSGS);
-  const detail = result.reason ? ` _(${result.reason})_` : "";
-  try {
-    await sock.sendMessage(chatId, { text: `${msg}${detail}` });
-  } catch {}
-  return true;
-}
-
-module.exports = {
-  name:     "NSFWScanner",
-  category: "moderation",
-  desc:     "Auto-detect and remove NSFW images in groups",
-  command:  ["nsfwon","nsfwoff","nsfwstatus","nsfwglobal"],
-
-  handleNsfwScan,
-
-  run: async ({ sock, m, args, command, chatId, userId, reply, isOwner, isDev, isAdmin, prefix }) => {
-    const isGroup = chatId?.endsWith("@g.us");
-
-    // ── Dev-only global toggle ──────────────────────────────────────────────
-    if (command === "nsfwglobal") {
-      if (!isOwner && !isDev) return reply("🔒 Developer only.");
-      const sub = (args[0]||"").toLowerCase();
-      const state = getState();
-      if (sub === "on")  { state.nsfw_scan_enabled = true;  saveState(); return reply("✅ NSFW scanner globally enabled."); }
-      if (sub === "off") { state.nsfw_scan_enabled = false; saveState(); return reply("✅ NSFW scanner globally disabled."); }
-      return reply(`🔞 *NSFW Scanner — Global Status*\n\nStatus: ${globalEnabled() ? "✅ Enabled" : "❌ Disabled"}\n\n${prefix}nsfwglobal on/off`);
-    }
-
-    // Group commands
-    if (!isGroup) return reply("⚠️ NSFW scanning commands only work in groups.");
-    if (!isAdmin && !isOwner && !isDev) return reply("🔒 Admin only.");
-
-    if (command === "nsfwon") {
-      gsSet(chatId, { nsfw_scan_on: 1 });
-      return reply("✅ *NSFW Scanner enabled* for this group.\n\nAll images will be automatically scanned. NSFW content will be deleted.");
-    }
-    if (command === "nsfwoff") {
-      gsSet(chatId, { nsfw_scan_on: 0 });
-      return reply("✅ *NSFW Scanner disabled* for this group.");
-    }
-    if (command === "nsfwstatus") {
-      const on = groupEnabled(chatId);
-      const gl = globalEnabled();
-      return reply(
-        `🔞 *NSFW Scanner Status*\n\n` +
-        `Global: ${gl ? "✅ Active" : "❌ Disabled"}\n` +
-        `This Group: ${on ? "✅ Enabled" : "❌ Disabled"}\n\n` +
-        `${prefix}nsfwon — Enable in this group\n` +
-        `${prefix}nsfwoff — Disable in this group\n\n` +
-        `_Detection layers: Caption scan · Skin heuristic · HuggingFace ViT AI_`
-      );
-    }
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();
