@@ -1,30 +1,250 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.3                                     ║
-// ║  Encrypted: 2026-06-03 12:28:34 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
+// library/justicetechsystem.js — JusticeTech Developer Control System v3
+// FIXED: Signal prefix uses actual U+200B (not escaped \\u200B)
+// FIXED: Bot registry uses approved_owners.json (same as autosave bot)
+"use strict";
 
-// Encrypted by Obfuscationary by JusticeTech v4.0.3
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='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';const _IH='777aca84c62f767694691e30f7c7fb5e45e9150b1f494bfa022fefb0d733e2b0';let _src;
+const fs   = require("fs");
+const path = require("path");
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
+const DB_DIR          = path.join(__dirname, "..", "database");
+const CONFIG_FILE     = path.join(DB_DIR, "justicetechconfig.json");
+const STATUS_FILE     = path.join(DB_DIR, "bot_status.json");
+const APPROVALS_FILE  = path.join(DB_DIR, "plugin_approvals.json");
+const MAINT_FILE      = path.join(DB_DIR, "maintenance.json");
+const CHANNEL_FILE    = path.join(DB_DIR, "channel_members.json");
+const REGISTRY_FILE   = path.join(DB_DIR, "approved_owners.json");
+
+const DEV_NUMBERS = ["2349032578690", "2348166337692"];
+
+function norm(jid) {
+  return String(jid || "").split("@")[0].split(":")[0].replace(/\D/g, "");
+}
+function isDev(jidOrNum) { return DEV_NUMBERS.includes(norm(jidOrNum)); }
+
+function ensureDir() {
+  if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
+}
+function readJson(file, fallback) {
+  try { return JSON.parse(fs.readFileSync(file, "utf8")); } catch { return fallback; }
+}
+function writeJson(file, data) {
+  ensureDir();
+  fs.writeFileSync(file, JSON.stringify(data, null, 2));
+}
+
+// ── Config ────────────────────────────────────────────────────────────────────
+function getConfig() {
+  return readJson(CONFIG_FILE, {
+    dev_numbers: DEV_NUMBERS,
+    communities: {
+      tools_group:    "https://chat.whatsapp.com/GL6GUJL5QNJEuBy9fWIssu?mode=gi_t",
+      support_group:  "https://chat.whatsapp.com/Gyt75qFHoul3wp53IKi25v?mode=gi_t",
+      channel_invite: "https://whatsapp.com/channel/0029VaoLagu3hRFKWlqk9W2T",
+    },
+    auto_channel_add:              true,
+    marketplace_approval_required: true,
+  });
+}
+function saveConfig(d) { writeJson(CONFIG_FILE, d); }
+
+// ── Bot Registry (approved_owners.json) ───────────────────────────────────────
+// This is the MASTER list of all bots that have deployed Miss Chatra.
+// The dev's bot writes this. All broadcast/maintenance reads from here.
+function readRegistry() {
+  return readJson(REGISTRY_FILE, { owners: {} });
+}
+function writeRegistry(d) { writeJson(REGISTRY_FILE, d); }
+
+function registerBot(botNum, extra) {
+  const n = norm(botNum);
+  if (!n || DEV_NUMBERS.includes(n)) return;
+  if (n.length < 7 || n.length > 15) return;
+  const reg = readRegistry();
+  // Update entry — preserve existing fields, add new ones
+  reg.owners[n] = {
+    ...(reg.owners[n] || {}),
+    number:        n,
+    registeredAt:  reg.owners[n]?.registeredAt || new Date().toISOString(),
+    lastSeen:      new Date().toISOString(),
+    ...(extra || {}),
+  };
+  writeRegistry(reg);
+  console.log("[JTS] Bot registered/updated:", n);
+}
+
+function addBotToRegistry(botNum) {
+  return registerBot(botNum); // alias for devaddbot command
+}
+
+function getAllRegisteredJids() {
+  const reg  = readRegistry();
+  const seen = new Set();
+  const jids = [];
+  for (const n of Object.keys(reg.owners || {})) {
+    const digits = norm(n);
+    // Exclude dev numbers and invalid lengths from broadcast targets
+    if (digits && !DEV_NUMBERS.includes(digits) && digits.length >= 7 && digits.length <= 15 && !seen.has(digits)) {
+      seen.add(digits);
+      jids.push(digits + "@s.whatsapp.net");
+    }
   }
-  _src=_d.toString('utf8');
+  return jids;
+}
 
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
-})();
+// Get registered jids EXCLUDING the sender's own number (for broadcast)
+function getAllRegisteredJidsExcluding(excludeNum) {
+  const excl = norm(excludeNum);
+  return getAllRegisteredJids().filter(j => norm(j) !== excl);
+}
+
+// ── THIS BOT'S LOCAL STATUS (written by signal receiver in message.js) ────────
+function readStatus() {
+  return readJson(STATUS_FILE, { status: "active", reason: "", setAt: null });
+}
+function writeStatus(data) {
+  writeJson(STATUS_FILE, data);
+  global.__JTS_STATUS = data;
+  console.log("[JTS] Local status:", data.status.toUpperCase());
+}
+global.__JTS_STATUS = global.__JTS_STATUS || readStatus();
+
+function getLocalStatus() {
+  const s = readStatus();
+  global.__JTS_STATUS = s;
+  return s.status || "active";
+}
+
+// Maintenance removed
+
+// ── SIGNAL SYSTEM ─────────────────────────────────────────────────────────────
+// IMPORTANT: SIG_PREFIX uses ACTUAL U+200B zero-width space character (0x200B)
+// NOT the escaped string "\\u200B" — they are completely different in JS
+const SIG_PREFIX  = "\u200BJTSIG:";    // actual zero-width space (charcode 8203)
+const SIG_SECRET  = "JT_SIG_CHATRA_2025";
+
+function signPayload(type, ts) {
+  const raw = [type, String(ts), SIG_SECRET].join("|");
+  let h = 5381;
+  for (let i = 0; i < raw.length; i++) h = (((h << 5) + h) ^ raw.charCodeAt(i)) >>> 0;
+  return h.toString(36).toUpperCase();
+}
+function buildSignal(type, payload) {
+  const ts = Date.now();
+  return SIG_PREFIX + JSON.stringify({ type, ...payload, ts, sig: signPayload(type, ts) });
+}
+function parseSignal(text) {
+  try {
+    if (!text) return null;
+    let body = text;
+    if (body.startsWith(SIG_PREFIX)) body = body.slice(SIG_PREFIX.length);
+    else if (body.startsWith(MAINT_PREFIX)) body = body.slice(MAINT_PREFIX.length);
+    else return null;
+    const d = JSON.parse(body);
+    if (!d.type || !d.ts || !d.sig) return null;
+    if (d.sig !== signPayload(d.type, d.ts)) { console.log("[JTS] Bad sig"); return null; }
+    return d;
+  } catch { return null; }
+}
+
+// Build signals
+function buildStatusSignal(status, reason, showAlert) {
+  return buildSignal("STATUS", { status, reason: reason || "", showAlert: showAlert !== false });
+}
+function buildMaintSignal(maintData) {
+  return buildSignal("MAINT", { ...maintData, showAlert: true });
+}
+function buildRegisterSignal(botNum) {
+  return buildSignal("REGISTER", { botNum: norm(botNum) });
+}
+
+// ── Plugin approvals ──────────────────────────────────────────────────────────
+function getApprovals() { return readJson(APPROVALS_FILE, {}); }
+function saveApprovals(d) { writeJson(APPROVALS_FILE, d); }
+function hasApproval(ownerNum, pluginId) {
+  const a = getApprovals(), n = norm(ownerNum);
+  return !!(a[n]?.includes("*ALL*") || a[n]?.includes(pluginId) || a["*"]?.includes(pluginId));
+}
+function hasAllApprovals(ownerNum) { return !!(getApprovals()[norm(ownerNum)]?.includes("*ALL*")); }
+function grantApproval(ownerNum, pluginId) {
+  const a = getApprovals(), n = norm(ownerNum);
+  if (!a[n]) a[n] = [];
+  if (!a[n].includes(pluginId)) a[n].push(pluginId);
+  saveApprovals(a);
+}
+function grantAllApprovals(ownerNum) { const a = getApprovals(); a[norm(ownerNum)] = ["*ALL*"]; saveApprovals(a); }
+function revokeApproval(ownerNum, pluginId) {
+  const a = getApprovals(), n = norm(ownerNum);
+  if (a[n]) a[n] = a[n].filter(p => p !== pluginId);
+  saveApprovals(a);
+}
+function revokeAllApprovals(ownerNum) { const a = getApprovals(); delete a[norm(ownerNum)]; saveApprovals(a); }
+
+// ── Approval gate message ─────────────────────────────────────────────────────
+function buildApprovalMessage(pluginId, pfx) {
+  const cfg = getConfig(), comm = cfg.communities || {};
+  return [
+    "🔐 *Plugin Installation Requires Approval*", "",
+    "Plugin: *" + pluginId + "*", "",
+    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "",
+    "All Miss Chatra marketplace plugins require", "developer approval before installation.", "",
+    "*Step 1 — Join BOTH JusticeTech communities:*", "",
+    "📌 JusticeTech Tools & Updates:",
+    comm.tools_group || "https://chat.whatsapp.com/GL6GUJL5QNJEuBy9fWIssu?mode=gi_t", "",
+    "📌 JusticeTech Support:",
+    comm.support_group || "https://chat.whatsapp.com/Gyt75qFHoul3wp53IKi25v?mode=gi_t", "",
+    "*Step 2 — Post in JusticeTech Support:*", "",
+    "```", "Plugin Request",
+    "Plugin ID: " + pluginId,
+    "Bot Number: [Your bot WhatsApp number]",
+    "Reason: [Why you need this plugin]",
+    "```", "",
+    "*Step 3 — Await developer approval (24-48h)*", "",
+    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", "",
+    "*Already approved?* Ask admin: " + pfx + "devapprove <your_number> " + pluginId, "",
+    "_By JusticeTech System, Nigeria_ 🇳🇬",
+  ].join("\n");
+}
+
+// ── Status messages ───────────────────────────────────────────────────────────
+function getBotSuspensionMessage(status) {
+  const supp = getConfig().communities?.support_group || "https://chat.whatsapp.com/Gyt75qFHoul3wp53IKi25v?mode=gi_t";
+  const msgs = {
+    suspended: "╔══════════════════════════════════════════════╗\n⚠️ *Bot Temporarily Suspended*\n╠══════════════════════════════════════════════╣\n\n  This bot has been temporarily suspended by\n  JusticeTech due to a policy or billing issue.\n\n  All commands are disabled until resolved.\n\n╠══════════════════════════════════════════════╣\n  For support:\n  " + supp + "\n\n╚══════════════════════════════════════════════╝\n\n— JusticeTech System 🇳🇬",
+    restricted: "╔══════════════════════════════════════════════╗\n🔒 *Bot Restricted*\n╠══════════════════════════════════════════════╣\n\n  This bot is in restricted mode by JusticeTech.\n  Most commands are disabled.\n\n  Only basic commands are available.\n\n╠══════════════════════════════════════════════╣\n  Support: " + supp + "\n╚══════════════════════════════════════════════╝",
+    frozen:    "╔══════════════════════════════════════════════╗\n🧊 *Bot is Currently Frozen*\n╠══════════════════════════════════════════════╣\n\n  ⛔ All commands are suspended.\n  This bot has been frozen by JusticeTech.\n\n  Only the developer can unfreeze this bot.\n\n╠══════════════════════════════════════════════╣\n  Support: " + supp + "\n╚══════════════════════════════════════════════╝",
+    banned:    "╔══════════════════════════════════════════════╗\n🚫 *Bot Permanently Banned*\n╠══════════════════════════════════════════════╣\n\n  This bot has been permanently banned by\n  JusticeTech for violating terms of service.\n\n  This decision is final.\n╚══════════════════════════════════════════════╝",
+  };
+  return msgs[status] || msgs.suspended;
+}
+
+// ── Channel tracking ──────────────────────────────────────────────────────────
+function getChannelData() { return readJson(CHANNEL_FILE, { sent_invites: [] }); }
+function saveChannelData(d) { writeJson(CHANNEL_FILE, d); }
+function hasReceivedChannelInvite(botNum) {
+  return (getChannelData().sent_invites || []).includes(norm(botNum));
+}
+function markChannelInviteSent(botNum) {
+  const d = getChannelData(), n = norm(botNum);
+  if (!d.sent_invites) d.sent_invites = [];
+  if (!d.sent_invites.includes(n)) d.sent_invites.push(n);
+  saveChannelData(d);
+}
+
+// ── Globally disabled plugins ─────────────────────────────────────────────────
+function isPluginGloballyDisabled(pluginId) {
+  return (getConfig().global_plugins_disabled || []).includes(pluginId);
+}
+
+module.exports = {
+  isDev, norm, DEV_NUMBERS,
+  getConfig, saveConfig,
+  readRegistry, writeRegistry, registerBot, addBotToRegistry, getAllRegisteredJids, getAllRegisteredJidsExcluding,
+  readStatus, writeStatus, getLocalStatus,
+  SIG_PREFIX, buildSignal, parseSignal,
+  buildStatusSignal, buildRegisterSignal,
+  getApprovals, saveApprovals, hasApproval, hasAllApprovals,
+  grantApproval, grantAllApprovals, revokeApproval, revokeAllApprovals,
+  buildApprovalMessage, getBotSuspensionMessage,
+  getChannelData, saveChannelData, hasReceivedChannelInvite, markChannelInviteSent,
+  isPluginGloballyDisabled,
+};

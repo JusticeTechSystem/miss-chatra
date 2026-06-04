@@ -1,30 +1,145 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.3                                     ║
-// ║  Encrypted: 2026-06-03 12:28:35 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
+// plugins/pluginrequest.js — Plugin Request System v2
+// RULE: Only the DEV's bot handles requests in JusticeTech Support group
+// Other bots in the group stay completely silent — no interference
+"use strict";
 
-// Encrypted by Obfuscationary by JusticeTech v4.0.3
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='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';const _IH='caceb616d6cfb2115bde8102a686784f3a63ccdbed5eca9de0610ec611a3b4c8';let _src;
+const fs   = require("fs");
+const path = require("path");
+const jts  = require("../library/justicetechsystem");
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
-  }
-  _src=_d.toString('utf8');
+const DB = path.join(__dirname, "..", "database", "plugin_requests.json");
 
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname',_src)(module,exports,require,__filename,__dirname);
-})();
+function getRequests() {
+  try { return JSON.parse(fs.readFileSync(DB, "utf8")); } catch { return []; }
+}
+function saveRequests(d) {
+  try {
+    if (!fs.existsSync(path.dirname(DB))) fs.mkdirSync(path.dirname(DB), {recursive:true});
+    fs.writeFileSync(DB, JSON.stringify(d, null, 2));
+  } catch {}
+}
+
+module.exports = {
+  name: "PluginRequest", category: "marketplace",
+  desc: "Request a marketplace plugin — only works in JusticeTech Support group",
+  command: ["pluginrequest", "requestplugin"],
+
+  run: async ({ sock, m, args, reply, prefix, chatId, userId, botNumber, isDev: callerIsDev }) => {
+    const pfx      = prefix || "/";
+    const cfg      = jts.getConfig();
+    const comm     = cfg.communities || {};
+    const supportLink = comm.support_group || "https://chat.whatsapp.com/Gyt75qFHoul3wp53IKi25v?mode=gi_t";
+    const supportJid  = comm.support_group_jid || "";
+    const isGroup     = chatId?.endsWith("@g.us");
+    const inSupportGroup = supportJid && chatId === supportJid;
+
+    const botSelfNum = jts.norm(botNumber || "");
+    const isDevBot   = jts.isDev(botSelfNum);
+
+    // ── NOT in JusticeTech Support group ────────────────────────────────────
+    if (!inSupportGroup) {
+      if (isGroup) {
+        // Any group that is NOT the support group: ALL bots completely silent
+        return;
+      }
+      // In DM: redirect to support group
+      return reply(
+        "📦 Plugin requests only work in *JusticeTech Support group*.\n\n" +
+        "Join here: " + supportLink + "\n\n" +
+        "Then type: `" + pfx + "plugin request <plugin_id> <reason>`"
+      );
+    }
+
+    // ── IN JusticeTech Support group ─────────────────────────────────────────
+    // Only dev's bot responds. All other bots completely silent.
+    if (!isDevBot) return;
+
+    // From here: only the dev's bot executes
+    // Format: /plugin request <plugin_id> <bot_number> <reason>
+    // bot_number is the WhatsApp number of the bot that needs the plugin
+    const pluginId  = (args[0] || "").trim();
+    const secondArg = (args[1] || "").replace(/\D/g, "");
+    // If second arg looks like a phone number (7+ digits), treat as bot number
+    const hasBotNum = secondArg.length >= 7;
+    const botOwnerNum = hasBotNum ? secondArg : jts.norm(userId);
+    const reason    = hasBotNum ? args.slice(2).join(" ").trim() || "No reason provided"
+                                : args.slice(1).join(" ").trim() || "No reason provided";
+    const userNum   = jts.norm(userId);
+    const userName  = m?.pushName || ("+" + userNum);
+
+    if (!pluginId) {
+      return reply([
+        "Usage: `" + pfx + "plugin request <plugin_id> <bot_number> <reason>`",
+        "",
+        "• *plugin_id* — the plugin you want (e.g. expense-tracker)",
+        "• *bot_number* — your bot's WhatsApp number (the number running Miss Chatra)",
+        "• *reason* — why you need this plugin",
+        "",
+        "Example:",
+        "`" + pfx + "plugin request expense-tracker 2348012345678 I need it for group finances`",
+        "",
+        pfx + "plugin list — browse available plugins",
+      ].join("\n"));
+    }
+
+    if (!hasBotNum) {
+      return sock.sendMessage(chatId, {
+        text: "@" + userNum + " ⚠️ Please include your *bot number* in the request:\n\n" +
+          "`" + pfx + "plugin request " + pluginId + " <your_bot_number> <reason>`\n\n" +
+          "Your bot number is the WhatsApp number running Miss Chatra.\n" +
+          "Example: `" + pfx + "plugin request " + pluginId + " 2348012345678 I need this for my group`",
+        mentions: [userId],
+      });
+    }
+
+    // Check duplicate pending request
+    const reqs  = getRequests();
+    const exist = reqs.find(r => r.pluginId === pluginId && r.botOwnerNum === botOwnerNum && r.status === "pending");
+    if (exist) {
+      return sock.sendMessage(chatId, {
+        text: "@" + userNum + " ⏳ Bot +" + botOwnerNum + " already has a pending request for *" + pluginId + "* (Ref: " + exist.id + ").\n\nWait for developer review.",
+        mentions: [userId],
+      });
+    }
+
+    // Save request with REAL bot number
+    const reqId = "REQ-" + Date.now().toString(36).toUpperCase().slice(-6);
+    reqs.push({
+      id: reqId, pluginId,
+      botOwnerNum,          // the ACTUAL BOT number to approve
+      requestedBy: userNum, // who made the request (their phone in support group)
+      requesterId: userId,
+      name: userName,
+      reason, status: "pending",
+      date: new Date().toISOString(),
+      chatId,
+    });
+    saveRequests(reqs);
+
+    // Register the bot in registry so maintenance reaches it
+    jts.registerBot(botOwnerNum);
+
+    // Tag user in group
+    await sock.sendMessage(chatId, {
+      text: "@" + userNum + " ✅ Request received for *" + pluginId + "*\nBot: +" + botOwnerNum + "\nRef: *" + reqId + "*\nYou'll be notified here once approved.",
+      mentions: [userId],
+    });
+
+    // Notify devs with CORRECT bot number for devapprove
+    for (const devNum of jts.DEV_NUMBERS) {
+      try {
+        await sock.sendMessage(devNum + "@s.whatsapp.net", {
+          text:
+            "🔔 *Plugin Request*\n\n" +
+            "Ref: *" + reqId + "*\n" +
+            "Plugin: *" + pluginId + "*\n" +
+            "Requested by: " + userName + " (+" + userNum + ")\n" +
+            "Bot number: +" + botOwnerNum + "\n" +
+            "Reason: " + reason + "\n\n" +
+            "Approve (copy & run):\n" +
+            pfx + "devapprove " + botOwnerNum + " " + pluginId,
+        });
+      } catch {}
+    }
+  },
+};
