@@ -1,296 +1,34 @@
-// plugins/easyposterx.js — EasyPosterX: Broadcast Builder for Miss Chatra WA
-// Supports long content with Next/Prev pagination, image attachment, multi-group broadcast
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:25 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const fs   = require("fs");
-const path = require("path");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='cdf2dbf812be7b7713be5dd7ddd26e8a1824a55b3145bc0d3f1fc5eb2a93c3d5';let _src;
 
-const TMP_DIR  = path.join(__dirname, "..", "database", "epx_tmp");
-const PAGE_LEN = 1000; // chars per page for long content preview
-if (!fs.existsSync(TMP_DIR)) fs.mkdirSync(TMP_DIR, { recursive: true });
-
-// ── Session store ─────────────────────────────────────────────────────────────
-if (!global._epxSessions) global._epxSessions = {};
-
-const SESSION_TTL = 600000;
-
-function getSession(userId) {
-  const s = global._epxSessions[userId];
-  if (s && Date.now() - s.created < SESSION_TTL) return s;
-  delete global._epxSessions[userId];
-  return null;
-}
-function newSession(userId, chatId) {
-  const s = {
-    step: "text", text: "", image: null, chatId,
-    created: Date.now(), page: 0, previewMsgKey: null,
-  };
-  global._epxSessions[userId] = s;
-  return s;
-}
-function clearSession(userId) { delete global._epxSessions[userId]; }
-
-// ── Paginate long text ────────────────────────────────────────────────────────
-function getPages(text, pageLen = PAGE_LEN) {
-  if (!text || text.length <= pageLen) return [text];
-  const pages = [];
-  let i = 0;
-  while (i < text.length) {
-    // Try to break at a newline near the boundary
-    let end = i + pageLen;
-    if (end < text.length) {
-      const nl = text.lastIndexOf("\n", end);
-      if (nl > i + pageLen * 0.5) end = nl + 1;
-    }
-    pages.push(text.slice(i, Math.min(end, text.length)));
-    i = Math.min(end, text.length);
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-  return pages;
-}
+  _src=_d.toString('utf8');
 
-// ── Send the preview with page navigation ────────────────────────────────────
-async function sendPreview(sock, chatId, m, sess, userId) {
-  const pages   = getPages(sess.text);
-  const page    = Math.min(sess.page, pages.length - 1);
-  const content = pages[page];
-  const totalPg = pages.length;
-  const isLong  = totalPg > 1;
-
-  const header = [
-    `👁 *EasyPosterX — Preview*`,
-    sess.image ? `📸 Image: Attached` : `📄 Text only`,
-    isLong ? `📄 Page ${page + 1}/${totalPg}` : ``,
-    ``,
-    `📝 *Content:*`,
-  ].filter(Boolean).join("\n");
-
-  const footer = [
-    ``,
-    isLong ? `_Reply *next* / *prev* to navigate pages_` : ``,
-    `Reply *send* to post · *edit* to redo · *cancel* to abort`,
-  ].filter(Boolean).join("\n");
-
-  const msgText = `${header}\n${content}${footer}`;
-
-  try {
-    if (sess.image && fs.existsSync(sess.image)) {
-      await sock.sendMessage(chatId, { image: { url: sess.image }, caption: msgText }, { quoted: m });
-    } else {
-      await sock.sendMessage(chatId, { text: msgText }, { quoted: m });
-    }
-  } catch {
-    await sock.sendMessage(chatId, { text: msgText }, { quoted: m });
-  }
-}
-
-// ── Post the content (split if too long for WA single message) ───────────────
-async function sendPoster(sock, chatId, sess) {
-  const text  = sess.text || "";
-  const image = sess.image && fs.existsSync(sess.image) ? sess.image : null;
-
-  if (!text && !image) return false;
-
-  try {
-    if (image) {
-      // WA caption limit is 1024 chars — if text > 1024, send image first then text chunks
-      if (text.length <= 1024) {
-        await sock.sendMessage(chatId, { image: { url: image }, caption: text });
-      } else {
-        await sock.sendMessage(chatId, { image: { url: image }, caption: text.slice(0, 1020) + "…" });
-        await new Promise(r => setTimeout(r, 500));
-        const remainder = text.slice(1020);
-        const chunks = getPages(remainder, 4000);
-        for (const chunk of chunks) {
-          await sock.sendMessage(chatId, { text: chunk });
-          await new Promise(r => setTimeout(r, 400));
-        }
-      }
-      setTimeout(() => { try { fs.unlinkSync(image); } catch {} }, 30000);
-    } else {
-      // Pure text — split into chunks if > 4000 chars (WA limit)
-      const chunks = getPages(text, 4000);
-      for (let i = 0; i < chunks.length; i++) {
-        await sock.sendMessage(chatId, { text: chunks[i] });
-        if (chunks.length > 1) await new Promise(r => setTimeout(r, 500));
-      }
-    }
-    return true;
-  } catch (e) {
-    console.error("[EPX] sendPoster error:", e.message);
-    return false;
-  }
-}
-
-// ── Broadcast to all active groups ───────────────────────────────────────────
-async function broadcastToGroups(sock, sess, reply) {
-  const groups = [...(global.__activeGroups || new Set())].filter(j => j.endsWith("@g.us"));
-  if (!groups.length) return reply("⚠️ No active groups found to broadcast to.");
-
-  reply(`📡 Broadcasting to ${groups.length} group(s)...`);
-  let ok = 0, fail = 0;
-  for (const gid of groups) {
-    const sent = await sendPoster(sock, gid, sess);
-    if (sent) ok++; else fail++;
-    await new Promise(r => setTimeout(r, 700));
-  }
-  return `✅ Broadcast complete: ${ok} sent, ${fail} failed out of ${groups.length} group(s).`;
-}
-
-// ── Wizard reply handler ──────────────────────────────────────────────────────
-async function handleEpxWizard(sock, m, userId, chatId, body) {
-  const sess = getSession(userId);
-  if (!sess) return false;
-
-  const txt = (body || "").trim().toLowerCase();
-  const raw = (body || "").trim();
-  const pfx = "/";
-
-  if (txt === "cancel") {
-    clearSession(userId);
-    await sock.sendMessage(chatId, { text: "❌ EasyPosterX cancelled." }, { quoted: m });
-    return true;
-  }
-
-  // ── STEP: text ─────────────────────────────────────────────────────────────
-  if (sess.step === "text") {
-    if (!raw || raw.startsWith(pfx)) {
-      await sock.sendMessage(chatId, { text: "⚠️ Please send your poster text (or *cancel*)." }, { quoted: m });
-      return true;
-    }
-    sess.text = raw;
-    sess.step = "image";
-    await sock.sendMessage(chatId, {
-      text: `✅ Text saved! (${raw.length} chars)\n\n📸 Now send an *image* to attach, or type *skip* to post text only.`
-    }, { quoted: m });
-    return true;
-  }
-
-  // ── STEP: image ─────────────────────────────────────────────────────────────
-  if (sess.step === "image") {
-    if (txt === "skip") {
-      sess.step = "preview";
-      sess.page = 0;
-      await sendPreview(sock, chatId, m, sess, userId);
-      return true;
-    }
-    const mtype = m.mtype || "";
-    if (mtype === "imageMessage" || (m.message || {}).imageMessage) {
-      let buf = null;
-      try {
-        if (typeof m.download === "function") buf = await m.download();
-        if (!buf?.length) buf = await sock.downloadMediaMessage(m.msg || (m.message||{}).imageMessage);
-      } catch {}
-      if (buf?.length) {
-        const tmpFile = path.join(TMP_DIR, `epx_${userId}_${Date.now()}.jpg`);
-        fs.writeFileSync(tmpFile, buf);
-        sess.image = tmpFile;
-        sess.step  = "preview";
-        sess.page  = 0;
-        await sendPreview(sock, chatId, m, sess, userId);
-        return true;
-      }
-    }
-    await sock.sendMessage(chatId, { text: "⚠️ Please send an *image* or type *skip*." }, { quoted: m });
-    return true;
-  }
-
-  // ── STEP: preview (paginated) ──────────────────────────────────────────────
-  if (sess.step === "preview") {
-    const pages = getPages(sess.text);
-
-    if (txt === "next") {
-      if (sess.page < pages.length - 1) { sess.page++; await sendPreview(sock, chatId, m, sess, userId); }
-      else await sock.sendMessage(chatId, { text: `ℹ️ Already on last page (${pages.length}/${pages.length}).` }, { quoted: m });
-      return true;
-    }
-    if (txt === "prev" || txt === "previous") {
-      if (sess.page > 0) { sess.page--; await sendPreview(sock, chatId, m, sess, userId); }
-      else await sock.sendMessage(chatId, { text: `ℹ️ Already on first page.` }, { quoted: m });
-      return true;
-    }
-    if (txt === "edit") {
-      sess.step = "text"; sess.text = ""; sess.image = null; sess.page = 0;
-      await sock.sendMessage(chatId, { text: "✏️ Restarting... Send your new poster text:" }, { quoted: m });
-      return true;
-    }
-
-    // send — ask destination
-    if (txt === "send" || txt === "post") {
-      sess.step = "destination";
-      await sock.sendMessage(chatId, {
-        text: `📍 *Where to send?*\n\n1️⃣ This chat only\n2️⃣ Broadcast to all active groups\n\nReply *1* or *2*. Type *cancel* to abort.`
-      }, { quoted: m });
-      return true;
-    }
-
-    await sock.sendMessage(chatId, {
-      text: `ℹ️ Reply:\n• *send* — choose destination\n• *next* / *prev* — navigate pages\n• *edit* — redo content\n• *cancel* — discard`
-    }, { quoted: m });
-    return true;
-  }
-
-  // ── STEP: destination ──────────────────────────────────────────────────────
-  if (sess.step === "destination") {
-    if (txt === "1" || txt === "here" || txt === "this") {
-      await sock.sendMessage(chatId, { text: "⏳ Posting..." }, { quoted: m });
-      const ok = await sendPoster(sock, chatId, sess);
-      clearSession(userId);
-      await sock.sendMessage(chatId, { text: ok ? "✅ *Poster sent!*" : "❌ Failed to send. Check content and try again." });
-      return true;
-    }
-    if (txt === "2" || txt === "all" || txt === "broadcast" || txt === "groups") {
-      const result = await broadcastToGroups(sock, sess, (t) => sock.sendMessage(chatId, { text: t }, { quoted: m }));
-      clearSession(userId);
-      await sock.sendMessage(chatId, { text: result });
-      return true;
-    }
-    await sock.sendMessage(chatId, { text: "Reply *1* (this chat) or *2* (all groups). Type *cancel* to abort." }, { quoted: m });
-    return true;
-  }
-
-  return false;
-}
-
-module.exports = {
-  name:     "EasyPosterX",
-  category: "media",
-  desc:     "Build and broadcast styled posters with full long-text support",
-  command:  ["poster","epx","easyposter","epxbroadcast"],
-
-  handleEpxWizard,
-
-  run: async ({ sock, m, args, command, chatId, userId, reply, isOwner, isDev, isAdmin, prefix }) => {
-    if (!isOwner && !isDev && !isAdmin) return reply("🔒 Admin only.");
-
-    if (command === "epxbroadcast") {
-      const text = args.join(" ").trim();
-      if (!text) return reply(`Usage: ${prefix}epxbroadcast <message>\n\nBroadcasts directly to all active groups.`);
-      const groups = [...(global.__activeGroups || new Set())].filter(j => j.endsWith("@g.us"));
-      if (!groups.length) return reply("⚠️ No active groups found.");
-      reply(`📡 Broadcasting to ${groups.length} groups...`);
-      let ok = 0, fail = 0;
-      for (const gid of groups) {
-        try { await sock.sendMessage(gid, { text }); ok++; } catch { fail++; }
-        await new Promise(r => setTimeout(r, 700));
-      }
-      return reply(`✅ Done: ${ok} sent, ${fail} failed.`);
-    }
-
-    // /poster or /epx — start wizard
-    if (global._epxSessions[userId]) delete global._epxSessions[userId];
-    newSession(userId, chatId);
-    setTimeout(() => { if (getSession(userId)) clearSession(userId); }, 600000);
-
-    return reply([
-      `🎨 *EasyPosterX — Poster Builder*`,
-      ``,
-      `Create a styled broadcast poster.`,
-      `Supports long content — navigate with *next* / *prev*.`,
-      ``,
-      `*Step 1:* Send your poster text`,
-      `_(Supports *bold*, _italic_, ~strikethrough~, any length)_`,
-      ``,
-      `Type *cancel* to abort at any time.`,
-    ].join("\n"));
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

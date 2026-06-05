@@ -1,139 +1,34 @@
-// library/helpers.js — Miss Chatra Shared Utilities
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:23 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const crypto = require("crypto");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='0e122173c1d4f9066d5b5591cd8bf404f204ac78caf52f4e3e8a2fb114be4e9a';let _src;
 
-// ── Sarcastic Responses ───────────────────────────────────────────────────────
-const SARCASTIC_RESPONSES = {
-  errors: ["🤡 Oops! I tripped over my own code there!","🎭 My circuits are feeling dramatic today!","🤪 My brain.exe stopped responding!","🦄 Unicorns ate my error handler!","🎪 Welcome to the error circus!"],
-  warnings: ["⚠️ Warning: This user is approaching 'needs coffee' levels!","🚧 User is being warned!","📢 PSA: This user might need a timeout!","🎯 Target acquired for warning deployment!","⚡️ Warning issued!"],
-  bans: ["🚫 Banned! User has left the building... permanently!","🔨 Ban hammer has spoken!","🎭 Exit stage left... banned!","🗑️ Taking out the trash! User banned!","⚰️ RIP user's chat privileges!"],
-  kicks: ["👢 Boot to the head! User kicked!","⚽ Goal! User kicked successfully!","🎯 Perfect kick! User is out!","🚪 Shown the door with style!","🚀 User launched into orbit!"],
-  mutes: ["🔇 Shhh... user is now on mute!","🤫 Silence is golden! User muted!","🎤 Microphone snatched!","👄 Lips are sealed!","🤐 Zip it, lock it, put it in your pocket!"],
-  unmutes: ["🔊 Sound on! User unmuted!","🎤 Microphone returned!","🗣️ User can speak again!","🔓 Voice unlocked!","💬 Chat privileges restored!"],
-  promotions: ["👑 Crown installed! User promoted!","🎖️ Medal of honor awarded!","🏆 Trophy for new admin!","⭐ New admin in the spotlight!","🔧 Admin tools unlocked!"],
-  demotions: ["👑 Crown removed! User demoted!","📉 Demotion served cold!","🎭 Back to regular performer!","🔧 Admin tools revoked!","🎪 Demoted to clown!"],
-  unknown_commands: ["🤔 Did you just speak in alien language?","🎭 That command doesn't exist in this theater!","🤪 My brain doesn't compute that gibberish!","🦄 Unicorns don't recognize that command!","🎪 That's not a circus trick I know!"],
-  general_sarcasm: ["Oh look, someone discovered buttons!","Wow, such command, much wow!","My circuits are tingling with that request!","Beep boop... sarcasm mode activated!","That command deserves a participation trophy!"]
-};
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
 
-function getSarcasticResponse(type = "general_sarcasm") {
-  const arr = SARCASTIC_RESPONSES[type] || SARCASTIC_RESPONSES.general_sarcasm;
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-const HUMANLIKE_RESPONSES = [
-  "That's an interesting point you've made.",
-  "I see what you mean, that's quite insightful.",
-  "That's a thoughtful observation.",
-  "Interesting perspective you've shared.",
-  "I appreciate you sharing that with me.",
-  "You raise a good point there.",
-  "That's worth considering indeed.",
-  "I understand where you're coming from.",
-  "That's a valid observation.",
-  "Good point, I agree with that."
-];
-
-function getHumanlikeResponse() {
-  return HUMANLIKE_RESPONSES[Math.floor(Math.random() * HUMANLIKE_RESPONSES.length)];
-}
-
-// ── Time helpers ──────────────────────────────────────────────────────────────
-function getTimeGreeting() {
-  const h = new Date().getHours();
-  if (h >= 5 && h < 12)  return "Good Morning";
-  if (h >= 12 && h < 17) return "Good Afternoon";
-  if (h >= 17 && h < 21) return "Good Evening";
-  return "";
-}
-
-function formatDuration(secs) {
-  if (secs < 60)   return `${secs}s`;
-  if (secs < 3600) return `${Math.floor(secs/60)}m`;
-  return `${Math.floor(secs/3600)}h`;
-}
-
-function humanUptime(startMs) {
-  let diff = Math.floor((Date.now() - startMs) / 1000);
-  const d = Math.floor(diff / 86400); diff %= 86400;
-  const h = Math.floor(diff / 3600);  diff %= 3600;
-  const m = Math.floor(diff / 60);
-  const s = diff % 60;
-  return `${d}d ${h}h ${m}m ${s}s`;
-}
-
-// ── JID helpers ───────────────────────────────────────────────────────────────
-function numToJid(number) {
-  const digits = String(number).replace(/\D/g, "");
-  return `${digits}@s.whatsapp.net`;
-}
-
-function jidToNum(jid) {
-  // Baileys 7.x can pass participant objects { id, lid } instead of plain strings
-  const j = (jid && typeof jid === "object") ? (jid.id || jid.lid || "") : (jid || "");
-  return String(j).split("@")[0].split(":")[0];
-}
-
-function normalizeJid(jid) {
-  const j = (jid && typeof jid === "object") ? (jid.id || jid.lid || "") : (jid || "");
-  if (!j) return "";
-  const s = String(j);
-  if (s.includes("@g.us")) return s;
-  return s.split("@")[0].split(":")[0] + "@s.whatsapp.net";
-}
-
-function isGroup(jid) {
-  return (jid || "").endsWith("@g.us");
-}
-
-// ── Ticket helpers ────────────────────────────────────────────────────────────
-function buildTicket(prefix, ...parts) {
-  const base = parts.join(":") + ":" + Date.now() + ":" + Math.floor(Math.random()*9999);
-  const h    = crypto.createHash("sha1").update(base).digest("hex").slice(0,10).toUpperCase();
-  return `${prefix}-${h}`;
-}
-
-// ── Captcha ───────────────────────────────────────────────────────────────────
-function newCaptcha() {
-  const a  = Math.floor(Math.random()*8)+2;
-  const b  = Math.floor(Math.random()*8)+2;
-  const op = ["+","-","x"][Math.floor(Math.random()*3)];
-  if (op === "+") return { q: `${a} + ${b}`, a: String(a+b) };
-  if (op === "-") return { q: `${Math.max(a,b)} - ${Math.min(a,b)}`, a: String(Math.abs(a-b)) };
-  return { q: `${a} × ${b}`, a: String(a*b) };
-}
-
-// ── Template formatter ────────────────────────────────────────────────────────
-function fmtTemplate(text, user) {
-  const name   = user?.name || user?.pushName || "User";
-  const number = user?.jid ? jidToNum(user.jid) : (user?.number || "");
-  return (text || "")
-    .replace(/\{name\}/g, name)
-    .replace(/\{first\}/g, name.split(" ")[0])
-    .replace(/\{number\}/g, number)
-    .replace(/\{username\}/g, number);
-}
-
-// ── Link / badword detection ──────────────────────────────────────────────────
-function containsLinks(text) {
-  return /https?:\/\/|t\.me\/|www\./i.test(text || "");
-}
-
-function containsGroupMention(text) {
-  return /\@everyone|\@all|\@here/i.test(text || "");
-}
-
-// ── XP / Level bar ────────────────────────────────────────────────────────────
-function buildProgressBar(pct, width = 10) {
-  const filled = Math.round((pct / 100) * width);
-  return "█".repeat(filled) + "░".repeat(width - filled);
-}
-
-module.exports = {
-  getSarcasticResponse, getHumanlikeResponse,
-  getTimeGreeting, formatDuration, humanUptime,
-  numToJid, jidToNum, normalizeJid, isGroup,
-  buildTicket, newCaptcha, fmtTemplate,
-  containsLinks, containsGroupMention, buildProgressBar
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

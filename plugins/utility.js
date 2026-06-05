@@ -1,222 +1,34 @@
-// plugins/utility.js — Utility Tools: Weather · Currency · News · Wikipedia · QR · Calculator
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:23 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const axios = require("axios");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='00aabd483c31ceb73dcf9ecb7ae3f2569fc79f581ef728856a6bca06025a8d30';let _src;
 
-async function httpGet(url, params, timeout = 15000) {
-  try {
-    const r = await axios.get(url, { params, timeout, headers: { "User-Agent": "MissChatra/1.0" } });
-    return r.data;
-  } catch { return null; }
-}
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
 
-// WMO weather codes
-const WMO = {
-  0:"☀️ Clear", 1:"🌤 Mainly clear", 2:"⛅ Partly cloudy", 3:"☁️ Overcast",
-  45:"🌫 Foggy", 48:"🌫 Icy fog", 51:"🌦 Light drizzle", 53:"🌧 Drizzle",
-  55:"🌧 Heavy drizzle", 61:"🌧 Light rain", 63:"🌧 Rain", 65:"🌧 Heavy rain",
-  71:"🌨 Light snow", 73:"❄️ Snow", 75:"❄️ Heavy snow",
-  80:"🌦 Showers", 81:"🌧 Heavy showers", 95:"⛈ Thunderstorm", 99:"⛈ Severe storm",
-};
-
-module.exports = {
-  name:     "Utility",
-  category: "tools",
-  desc:     "Weather, currency conversion, Wikipedia, news, and more",
-  command:  ["weather","convert","currency","wiki","wikipedia","news","calc","calculate",
-             "timezone","timein","ip","define","utilitymenu"],
-
-  run: async ({ sock, m, args, command, chatId, reply, prefix }) => {
-    const query = args.join(" ").trim();
-
-    // ── /utilitymenu ──────────────────────────────────────────────────────────
-    if (command === "utilitymenu") {
-      return reply(
-        `🔧 *UTILITY TOOLS*\n\n` +
-        `• *${prefix}weather <city>* — Current weather + 3-day forecast\n` +
-        `• *${prefix}convert 100 USD NGN* — Currency conversion\n` +
-        `• *${prefix}wiki <topic>* — Wikipedia summary\n` +
-        `• *${prefix}news <topic>* — Latest news headlines\n` +
-        `• *${prefix}calc <expression>* — Calculator\n` +
-        `• *${prefix}define <word>* — Dictionary definition\n` +
-        `• *${prefix}ip <address>* — IP address info\n` +
-        `• *${prefix}timein <city>* — Current time in a city`
-      );
-    }
-
-    // ── /weather ──────────────────────────────────────────────────────────────
-    if (command === "weather") {
-      if (!query) return reply(`Usage: ${prefix}weather <city>\nExample: ${prefix}weather Lagos`);
-      const data = await httpGet(`https://wttr.in/${encodeURIComponent(query)}?format=j1`);
-      if (!data) return reply("❌ Location not found. Check the city name.");
-      try {
-        const cur     = data.current_condition?.[0];
-        const area    = data.nearest_area?.[0];
-        if (!cur || !area) return reply("❌ Could not get weather data.");
-        const aname   = area.areaName?.[0]?.value || query;
-        const country = area.country?.[0]?.value || "";
-        const wco     = parseInt(cur.weatherCode);
-        const desc    = WMO[wco] || cur.weatherDesc?.[0]?.value || "";
-        const lines = [
-          `🌤 *${aname}, ${country}*\n${desc}`,
-          `🌡 Temp: *${cur.temp_C}°C / ${cur.temp_F}°F* (feels ${cur.FeelsLikeC}°C)`,
-          `💧 Humidity: *${cur.humidity}%*`,
-          `💨 Wind: *${cur.windspeedKmph} km/h ${cur.winddir16Point}*`,
-          `🔆 UV: ${cur.uvIndex || "?"}  👁 Visibility: ${cur.visibility || "?"} km`,
-        ];
-        const fcast = data.weather || [];
-        if (fcast.length) {
-          lines.push(`\n📅 *3-Day Forecast:*`);
-          for (const day of fcast.slice(0, 3)) {
-            const wc2 = parseInt(day.hourly?.[4]?.weatherCode || 0);
-            lines.push(`  ${day.date}: ${WMO[wc2] || ""} ↑${day.maxtempC}° ↓${day.mintempC}°`);
-          }
-        }
-        return reply(lines.join("\n"));
-      } catch { return reply("❌ Weather data parsing failed. Try again."); }
-    }
-
-    // ── /convert / /currency ──────────────────────────────────────────────────
-    if (command === "convert" || command === "currency") {
-      // Usage: /convert 100 USD NGN
-      if (args.length < 3) return reply(`Usage: ${prefix}convert <amount> <from> <to>\nExample: ${prefix}convert 100 USD NGN`);
-      const amt  = parseFloat(args[0].replace(/,/g, ""));
-      const from = args[1].toUpperCase();
-      const to   = args[2].toUpperCase();
-      if (isNaN(amt)) return reply("❌ Invalid amount.");
-      const data = await httpGet(`https://open.er-api.com/v6/latest/${from}`);
-      if (!data || data.result !== "success") return reply(`❌ Invalid currency code: ${from}`);
-      const rate = data.rates?.[to];
-      if (!rate) return reply(`❌ Invalid currency code: ${to}`);
-      const result = (amt * rate).toFixed(4);
-      const inv    = (1 / rate).toFixed(6);
-      return reply(
-        `💱 *Currency Conversion*\n\n` +
-        `*${amt.toLocaleString()} ${from}* = *${parseFloat(result).toLocaleString()} ${to}*\n\n` +
-        `📊 Rate: 1 ${from} = ${rate.toFixed(6)} ${to}\n` +
-        `📊 Rate: 1 ${to} = ${inv} ${from}\n\n` +
-        `_Source: open.er-api.com_`
-      );
-    }
-
-    // ── /wiki / /wikipedia ────────────────────────────────────────────────────
-    if (command === "wiki" || command === "wikipedia") {
-      if (!query) return reply(`Usage: ${prefix}wiki <topic>\nExample: ${prefix}wiki artificial intelligence`);
-      const enc  = encodeURIComponent(query.replace(/ /g, "_"));
-      const data = await httpGet(`https://en.wikipedia.org/api/rest_v1/page/summary/${enc}`);
-      if (!data || data.type === "https://mediawiki.org/wiki/HyperSwitch/errors/not_found") {
-        // Try search
-        const search = await httpGet("https://en.wikipedia.org/w/api.php", {
-          action: "opensearch", search: query, limit: 1, format: "json"
-        });
-        if (!search || !search[1]?.[0]) return reply(`❌ No Wikipedia article found for "${query}"`);
-        const title = search[1][0];
-        const enc2  = encodeURIComponent(title.replace(/ /g, "_"));
-        const data2 = await httpGet(`https://en.wikipedia.org/api/rest_v1/page/summary/${enc2}`);
-        if (!data2) return reply(`❌ Could not fetch article for "${title}"`);
-        return reply(
-          `📖 *${data2.title}*\n\n${data2.extract?.slice(0, 800) || "No summary available."}\n\n` +
-          `🔗 ${data2.content_urls?.mobile?.page || `https://en.wikipedia.org/wiki/${enc2}`}`
-        );
-      }
-      return reply(
-        `📖 *${data.title}*\n\n${data.extract?.slice(0, 800) || "No summary."}\n\n` +
-        `🔗 ${data.content_urls?.mobile?.page || `https://en.wikipedia.org/wiki/${enc}`}`
-      );
-    }
-
-    // ── /news ─────────────────────────────────────────────────────────────────
-    if (command === "news") {
-      const topic   = query || "Nigeria";
-      const rssUrl  = `https://news.google.com/rss/search?q=${encodeURIComponent(topic)}&hl=en-US&gl=US&ceid=US:en`;
-      const xml     = await httpGet(rssUrl, {}, 12000);
-      if (!xml || typeof xml !== "string") return reply(`❌ Could not fetch news for "${topic}"`);
-      const items   = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, 6);
-      if (!items.length) return reply(`❌ No news found for "${topic}"`);
-      const lines   = [`📰 *News: ${topic}*\n`];
-      items.forEach((m2, i) => {
-        const raw  = m2[1];
-        const ttl  = (raw.match(/<title><!\[CDATA\[(.*?)\]\]>/)?.[1] || raw.match(/<title>(.*?)<\/title>/)?.[1] || "").trim();
-        const src  = raw.match(/<source[^>]*>(.*?)<\/source>/)?.[1] || "";
-        const link = (raw.match(/<link>(.*?)<\/link>/)?.[1] || "").trim();
-        if (ttl) lines.push(`*${i + 1}.* ${ttl}${src ? ` — _${src}_` : ""}${link ? `\n   ${link}` : ""}`);
-      });
-      return reply(lines.join("\n\n"));
-    }
-
-    // ── /calc / /calculate ────────────────────────────────────────────────────
-    if (command === "calc" || command === "calculate") {
-      if (!query) return reply(`Usage: ${prefix}calc <expression>\nExample: ${prefix}calc 15% of 4500`);
-      try {
-        // Safe eval via mathjs-style replacements
-        let expr = query
-          .replace(/×/g, "*").replace(/÷/g, "/").replace(/\^/g, "**")
-          .replace(/(\d+(?:\.\d+)?)\s*%\s*of\s*(\d+(?:\.\d+)?)/gi, "($1/100)*$2")
-          .replace(/(\d+(?:\.\d+)?)\s*%/g, "($1/100)");
-        // Only allow safe chars
-        if (!/^[\d\s\+\-\*\/\.\(\)\%\^]+$/.test(expr.replace(/\*\*/g, ""))) {
-          return reply("❌ Invalid expression. Use numbers and operators only.");
-        }
-        // eslint-disable-next-line no-eval
-        const result = Function('"use strict"; return (' + expr + ')')();
-        if (!isFinite(result)) return reply("❌ Result is undefined (division by zero?)");
-        return reply(`🧮 *Calculator*\n\n*${query}*\n= *${Number(result.toFixed(10)).toString()}*`);
-      } catch { return reply("❌ Invalid expression."); }
-    }
-
-    // ── /define ───────────────────────────────────────────────────────────────
-    if (command === "define") {
-      if (!query) return reply(`Usage: ${prefix}define <word>\nExample: ${prefix}define serendipity`);
-      const data = await httpGet(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(query)}`);
-      if (!data || !Array.isArray(data) || !data[0]) return reply(`❌ No definition found for "${query}"`);
-      const entry    = data[0];
-      const phonetic = entry.phonetic || entry.phonetics?.[0]?.text || "";
-      const lines    = [`📚 *${entry.word}*${phonetic ? ` /${phonetic}/` : ""}\n`];
-      for (const meaning of entry.meanings?.slice(0, 2) || []) {
-        lines.push(`*${meaning.partOfSpeech}*`);
-        for (const def of meaning.definitions?.slice(0, 2) || []) {
-          lines.push(`• ${def.definition}`);
-          if (def.example) lines.push(`  _"${def.example}"_`);
-        }
-      }
-      return reply(lines.join("\n"));
-    }
-
-    // ── /ip ───────────────────────────────────────────────────────────────────
-    if (command === "ip") {
-      const ip   = query || "";
-      const url  = ip ? `https://ipapi.co/${ip}/json/` : "https://ipapi.co/json/";
-      const data = await httpGet(url);
-      if (!data || data.error) return reply(`❌ Could not find info for IP: ${ip || "your IP"}`);
-      return reply(
-        `🌐 *IP Information*\n\n` +
-        `🔢 IP: *${data.ip}*\n` +
-        `📍 Location: *${data.city}, ${data.region}, ${data.country_name}*\n` +
-        `🗺 Coords: ${data.latitude}, ${data.longitude}\n` +
-        `🏢 ISP: ${data.org || "Unknown"}\n` +
-        `📡 ASN: ${data.asn || "Unknown"}\n` +
-        `🕐 Timezone: ${data.timezone || "Unknown"}`
-      );
-    }
-
-    // ── /timein ───────────────────────────────────────────────────────────────
-    if (command === "timezone" || command === "timein") {
-      if (!query) return reply(`Usage: ${prefix}timein <city/timezone>\nExample: ${prefix}timein Lagos`);
-      const data = await httpGet(`https://worldtimeapi.org/api/timezone`, {}, 10000);
-      // Find closest matching timezone
-      const matches = (Array.isArray(data) ? data : []).filter(t =>
-        t.toLowerCase().includes(query.toLowerCase().replace(/ /g, "_"))
-      );
-      if (!matches.length) return reply(`❌ Timezone not found for "${query}". Try: "Africa/Lagos" or "Europe/London"`);
-      const tzData = await httpGet(`https://worldtimeapi.org/api/timezone/${matches[0]}`);
-      if (!tzData) return reply("❌ Could not fetch time data.");
-      const dt = new Date(tzData.datetime);
-      return reply(
-        `🕐 *Time in ${matches[0]}*\n\n` +
-        `📅 Date: *${dt.toDateString()}*\n` +
-        `⏰ Time: *${dt.toLocaleTimeString("en-GB", { hour12: true, timeZone: matches[0] })}*\n` +
-        `🗓 UTC Offset: ${tzData.utc_offset}`
-      );
-    }
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

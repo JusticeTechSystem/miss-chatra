@@ -1,177 +1,34 @@
-// plugins/economy.js — Miss Chatra Economy System (WA port)
-// Ported from Telegram p45_economy.py
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:25 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const { db } = require("../library/db");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='742e267e6224b97dc2227bf25b51703ac8a1578eabf02f00cb6cdb6418bf1b58';let _src;
 
-// ── DB setup ──────────────────────────────────────────────────────────────────
-function ensureTables() {
-  try {
-    const d = db();
-    d.prepare(`CREATE TABLE IF NOT EXISTS economy (
-      chat_id TEXT, user_id TEXT, balance INTEGER DEFAULT 0,
-      bank INTEGER DEFAULT 0, last_daily INTEGER DEFAULT 0,
-      last_work INTEGER DEFAULT 0,
-      PRIMARY KEY (chat_id, user_id)
-    )`).run();
-    d.prepare(`CREATE TABLE IF NOT EXISTS eco_transactions (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      chat_id TEXT, from_id TEXT, to_id TEXT,
-      amount INTEGER, note TEXT, ts INTEGER
-    )`).run();
-  } catch {}
-}
-ensureTables();
-
-function getBalance(chatId, userId) {
-  try {
-    const d = db();
-    d.prepare("INSERT OR IGNORE INTO economy(chat_id,user_id) VALUES(?,?)").run(chatId, userId);
-    return d.prepare("SELECT balance, bank, last_daily, last_work FROM economy WHERE chat_id=? AND user_id=?").get(chatId, userId) || { balance: 0, bank: 0, last_daily: 0, last_work: 0 };
-  } catch { return { balance: 0, bank: 0, last_daily: 0, last_work: 0 }; }
-}
-function addBalance(chatId, userId, amount) {
-  try { db().prepare("UPDATE economy SET balance=balance+? WHERE chat_id=? AND user_id=?").run(amount, chatId, userId); } catch {}
-}
-function setBalance(chatId, userId, field, val) {
-  try { db().prepare(`UPDATE economy SET ${field}=? WHERE chat_id=? AND user_id=?`).run(val, chatId, userId); } catch {}
-}
-function getTop(chatId, limit = 10) {
-  try {
-    return db().prepare("SELECT user_id, balance+bank AS total FROM economy WHERE chat_id=? ORDER BY total DESC LIMIT ?").all(chatId, limit);
-  } catch { return []; }
-}
-
-const DAILY_AMOUNT = 500;
-const WORK_MIN = 50, WORK_MAX = 250;
-const DAILY_CD = 86400; // 24h in seconds
-const WORK_CD  = 3600;  // 1h in seconds
-
-const WORK_MSGS = [
-  "delivered packages 📦",
-  "fixed a computer 💻",
-  "sold merch 🛍️",
-  "drove Uber 🚗",
-  "wrote an article ✍️",
-  "did some coding 👨‍💻",
-  "helped at the market 🛒",
-  "gave tutoring lessons 📚",
-  "freelanced a logo design 🎨",
-  "repaired phones 📱",
-];
-
-const CURRENCY = "💰";
-
-module.exports = {
-  name: "Economy",
-  category: "fun",
-  command: ["balance","bal","daily","work","pay","transfer","give","ecorich","ecotop","bank","deposit","withdraw","robstats"],
-
-  run: async ({ sock, m, command, args, reply, prefix, chatId, userId, isOwner, isDev, isAdmin, pushName, mentionedJid }) => {
-    const chat   = chatId || m?.chat;
-    const pfx    = prefix || "/";
-    const name   = pushName || userId?.split("@")[0] || "User";
-    const now    = Math.floor(Date.now() / 1000);
-
-    ensureTables();
-
-    // ── /balance ──────────────────────────────────────────────────────────────
-    if (command === "balance" || command === "bal") {
-      const target = mentionedJid?.[0] || userId;
-      const tName  = target === userId ? name : target.split("@")[0];
-      const row    = getBalance(chat, target);
-      return reply(`${CURRENCY} *${tName}'s Balance*\n\n💵 Wallet: ${row.balance.toLocaleString()} coins\n🏦 Bank: ${row.bank.toLocaleString()} coins\n━━━━━━━━\n💰 Total: ${(row.balance + row.bank).toLocaleString()} coins`);
-    }
-
-    // ── /daily ────────────────────────────────────────────────────────────────
-    if (command === "daily") {
-      const row = getBalance(chat, userId);
-      const diff = now - (row.last_daily || 0);
-      if (diff < DAILY_CD) {
-        const remaining = DAILY_CD - diff;
-        const h = Math.floor(remaining / 3600), mn = Math.floor((remaining % 3600) / 60);
-        return reply(`⏳ Daily already claimed!\n\nCome back in *${h}h ${mn}m*.`);
-      }
-      addBalance(chat, userId, DAILY_AMOUNT);
-      setBalance(chat, userId, "last_daily", now);
-      return reply(`✅ *Daily Reward Claimed!*\n\n+${DAILY_AMOUNT} coins ${CURRENCY}\n\nYour wallet: ${(row.balance + DAILY_AMOUNT).toLocaleString()} coins`);
-    }
-
-    // ── /work ─────────────────────────────────────────────────────────────────
-    if (command === "work") {
-      const row = getBalance(chat, userId);
-      const diff = now - (row.last_work || 0);
-      if (diff < WORK_CD) {
-        const remaining = WORK_CD - diff;
-        const mn = Math.floor(remaining / 60);
-        return reply(`⏳ You're still tired from your last job!\n\nRest for *${mn} minutes* first.`);
-      }
-      const earned = Math.floor(Math.random() * (WORK_MAX - WORK_MIN + 1)) + WORK_MIN;
-      const task   = WORK_MSGS[Math.floor(Math.random() * WORK_MSGS.length)];
-      addBalance(chat, userId, earned);
-      setBalance(chat, userId, "last_work", now);
-      return reply(`💼 *${name}* ${task} and earned *${earned} coins!* ${CURRENCY}\n\nTotal wallet: ${(row.balance + earned).toLocaleString()} coins`);
-    }
-
-    // ── /pay | /transfer | /give ──────────────────────────────────────────────
-    if (["pay","transfer","give"].includes(command)) {
-      const target = mentionedJid?.[0] || null;
-      const amount = parseInt(args.find(a => /^\d+$/.test(a)));
-      if (!target || !amount || amount <= 0) return reply(`❌ Usage: ${pfx}pay @user <amount>`);
-      if (target === userId) return reply("❌ You can't pay yourself.");
-      const row = getBalance(chat, userId);
-      if (row.balance < amount) return reply(`❌ Insufficient funds! You have ${row.balance.toLocaleString()} coins.`);
-      addBalance(chat, userId, -amount);
-      addBalance(chat, target, amount);
-      try {
-        db().prepare("INSERT INTO eco_transactions(chat_id,from_id,to_id,amount,note,ts) VALUES(?,?,?,?,?,?)")
-          .run(chat, userId, target, amount, "transfer", now);
-      } catch {}
-      return reply(`✅ *Transfer Complete!*\n\nSent *${amount.toLocaleString()} coins* to @${target.split("@")[0]} ${CURRENCY}`);
-    }
-
-    // ── /deposit ──────────────────────────────────────────────────────────────
-    if (command === "deposit" || (command === "bank" && args[0] === "deposit")) {
-      const amount = parseInt(args.find(a => /^\d+$/.test(a)) || args[0]);
-      if (!amount || amount <= 0) return reply(`❌ Usage: ${pfx}deposit <amount>`);
-      const row = getBalance(chat, userId);
-      if (row.balance < amount) return reply(`❌ Not enough in wallet. Balance: ${row.balance.toLocaleString()} coins.`);
-      addBalance(chat, userId, -amount);
-      setBalance(chat, userId, "bank", row.bank + amount);
-      return reply(`🏦 Deposited *${amount.toLocaleString()} coins* to bank.\n\nBank: ${(row.bank + amount).toLocaleString()} | Wallet: ${(row.balance - amount).toLocaleString()}`);
-    }
-
-    // ── /withdraw ─────────────────────────────────────────────────────────────
-    if (command === "withdraw" || (command === "bank" && args[0] === "withdraw")) {
-      const amount = parseInt(args.find(a => /^\d+$/.test(a)) || args[0]);
-      if (!amount || amount <= 0) return reply(`❌ Usage: ${pfx}withdraw <amount>`);
-      const row = getBalance(chat, userId);
-      if (row.bank < amount) return reply(`❌ Not enough in bank. Bank: ${row.bank.toLocaleString()} coins.`);
-      addBalance(chat, userId, amount);
-      setBalance(chat, userId, "bank", row.bank - amount);
-      return reply(`🏦 Withdrew *${amount.toLocaleString()} coins* from bank.\n\nWallet: ${(row.balance + amount).toLocaleString()} | Bank: ${(row.bank - amount).toLocaleString()}`);
-    }
-
-    // ── /bank (show bank) ─────────────────────────────────────────────────────
-    if (command === "bank") {
-      const row = getBalance(chat, userId);
-      return reply(`🏦 *${name}'s Bank Account*\n\n💳 Bank Balance: ${row.bank.toLocaleString()} coins\n💵 Wallet: ${row.balance.toLocaleString()} coins\n\n${pfx}deposit <amount> — move to bank\n${pfx}withdraw <amount> — move to wallet`);
-    }
-
-    // ── /ecotop | /ecorich ────────────────────────────────────────────────────
-    if (command === "ecotop" || command === "ecorich") {
-      const top  = getTop(chat, 10);
-      if (!top.length) return reply("📊 No economy data yet. Use /daily to get started!");
-      const medals = ["🥇","🥈","🥉"];
-      const lines  = ["💰 *Economy Leaderboard*\n"];
-      for (let i = 0; i < top.length; i++) {
-        lines.push(`${medals[i] || `${i+1}.`} @${top[i].user_id.split("@")[0]} — ${top[i].total.toLocaleString()} coins`);
-      }
-      return reply(lines.join("\n"));
-    }
-
-    // Default: balance
-    const row = getBalance(chat, userId);
-    return reply(`${CURRENCY} *${name}'s Wallet*\n\n💵 ${row.balance.toLocaleString()} coins\n🏦 Bank: ${row.bank.toLocaleString()} coins\n\nCommands: ${pfx}daily • ${pfx}work • ${pfx}pay • ${pfx}deposit • ${pfx}withdraw • ${pfx}ecotop`);
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-};
+  _src=_d.toString('utf8');
+
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

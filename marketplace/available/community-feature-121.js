@@ -1,11 +1,34 @@
-// @marketplace community-feature-121 v1.0.0 by JusticeTech
-"use strict";
-module.exports={
-  name:"CommunityFeature121",category:"community",desc:"Community feature #121",
-  command:["community121"],
-  run:async({args,command,chatId:chat,userId:uid,reply,prefix,sock,m,isAdmin,isOwner,isDev,mentionedJid})=>{
-    const pfx=prefix||"/";
-    const canUse=isAdmin||isOwner||isDev;
-    return reply("🏘️ Community Feature #122\\n\\nEvery member matters here\\n\\nType /community121 help for usage.");
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:04 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
+
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='hT9bb+ktVeAVJMjBNw9rkFFG68nJd7EgrlELuyxEW87hhd7WcJ2vxCqLrgHh+qD4fLy7o0pR0hdPh1YPSB27ouTNZN4F4Pvv3uaX69BpobyRE8dtDzj1+MfqUlLx9+ZlLLuCjBKqA7Qo6IOm+CZf5IHeRwH1A34np41UHRl9pXiQooyib8akDizztc12FPcVv7VMlcLD8nrr+3Cu9jocU1zQfOjq/qHzwfKR0uRCbOZaJCU/alV5i31HMU0udw+dU8k+SmVxI7NFHBzEjLIkn3bA6WLb10YoScmXJqwbgINZoha6s/EUcm9NbPhKgKER9pR1nPl2w89A3gqNSut2atdYBDo6+KfxeNt4S9gkKl2GyfmD6OFYZdwZdEb72rifltAPJ2hKNzVe9McdS9OcuW5yyPpCukNuW2SdIf5MbQ2NuU4cF26F1zqo8NM5O4k0EBS3P5EOAYwmx1vLnb7yW/g9TOQG/ls97K6pUDcDXk3+9zH0lgv8R+rDAcL5usuJUXcOGnNxF/YkZ2KoLmP98dPi4Fu2thSWXLD6z5n3ESR+WH35YEoQ9lnZ4Xv0GbMKTkLreU/YNwybm4sRZWrhSX0oCyRpZNUuFbVY6xJ87Jz4R+TjpmceCDyvlCIYbYNx6k/hMqrO9zySdSRUQLs/7VQWsxZuTdk4Q7RDO51d4LVM52/S63Uk68B3rGHYGp8YwiG7HtoUk6YVPLdy+vFKsD7IRM636BbC';const _IH='be7e714b25a8e7719defa1454e0a279e25c3c31d69b7c7ae9ed48c6806e08d23';let _src;
+
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-};
+  _src=_d.toString('utf8');
+
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

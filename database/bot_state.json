@@ -1,40 +1,8 @@
 {
-  "chatbot_conversations": {},
-  "chatbot_training": {
-    "name": "Miss Chatra",
-    "developer": "JusticeTech",
-    "developer_username": "@justicetechie",
-    "company": "JusticeTech System",
-    "company_location": "JusticeTech City, Nigeria",
-    "company_focus": "Web Development, App Development, Bot Development and Automation",
-    "custom_training": {},
-    "special_instructions": {
-      "personality": "Respond like a mature adult having a natural conversation. No formal greetings. 1-3 sentences max.",
-      "language": "Use natural, everyday language. Sound like a real person.",
-      "developer_recognition": "Always recognize the developer JusticeTech and company JusticeTech System when asked.",
-      "company_location": "Company location: JusticeTech City, Nigeria."
-    }
-  },
-  "user_chatbot_training": {},
-  "auto_delete_enabled": true,
-  "auto_delete_delay": 180,
-  "auto_delete_bot_messages": false,
-  "auto_delete_user_messages": false,
-  "auto_delete_groups": true,
-  "auto_delete_private": false,
-  "last_triggered": {},
-  "update_log_text": "",
-  "report_max_per_user": 1,
-  "report_counts": {},
-  "review_sessions": {},
-  "game_settings": {},
-  "active_games": {},
-  "inactive_threshold": 3600,
-  "user_message_counts": {},
-  "command_users": {},
-  "welcome_autodelete_delay": 60,
-  "goodbye_autodelete_delay": 60,
-  "last_welcome": {},
-  "last_goodbye": {},
-  "chatbot_dm_enabled": false
+  "_ob": true,
+  "_v": "4.0.4",
+  "_enc": "2026-06-05 14:33:12 UTC",
+  "_l": 1,
+  "_h": "e5734166ba63377602de3a83e04a556e12dda2b78d449d06496fb9ac86500365",
+  "_d": "JTiKi6QhPirw5WXKjDDfc1Xiht9qF6XKviAXLKQue8yqPLeos3aNCeCUreyjjjXqtsrlBZJhfG+dn2Wpj8kY7iiQNTiJQuR5ntq510MNfYy7lGynTGkOdtKXUgVoW361/tkgNtLztpnQvAm4TSvIW9FOWt5R5hdbzEG8c4Vd8Zmr9ig+j8WL9uLCBko6YPFKXCm9Cdl9nS1KTSHBF40VrdYeNVx6/8vz/LoSAFgNiVCc9y8RStZlA/f6SwQ23kfPdgTZxjQDYh8HusD9YvomfpLg80Z59y1RwcYX0yfaFFfBJIdQzyRkrpOPvuAJiSj+/CerAxQnDYwwqgqn8m/oOoZySg36XeEUg3bO+s4sjS5ARDCfn0PB5F0hx00EkrpQwIspKUsOrgt4MYyHbAzBvu7qLpq5MgT4LVrDCFveQXIxjvgbLbYcs8yZhGLpLxDRtfLBhZLy4Geir/svohEA1XEs49SvKIMhHDDt03SVdt4WKZGbTu9Mb6Yrdfh8ZlxYzzdoLzQEPpFl6UepFi/my25mHfR82i04zu19NbMKD34ZoIqrGGxDhJs0rxnuS2pCX9I0PxRt8BelORfJb1VbEOImNQKvKo3UL2+0pDpyQ71gRCbqVoUcRn2+VbMVxLMDv13IE/TaZ4j1aRnUdw4DF3PhZiznLvEjtjTe5nFAqquVtq3poKuO73MEcA3sAywKRr6ovVtnb0vsNaiS+qNlDQaa9KqSrUAvczHUu991TLEyM6rr/t4fJKmccfCXcVixCFhAO0aOMNZkh1nFGn9pmClfYNxcvxgnINAjsZxvQi/UdzsBVflWyz4SiZSZ8cDqvZYx5dpBrf4Q22l197ogrhoPuA5C0fXVJfgMBoQN6ec5rpdeyPh0bPWjJ3TUqBX6fd8nCib0iosFU28gqaNZLaCQ0AQ6dy6GXTTfS61QyBxuSE/B6AemL2X1wh6SucWjcLLKfuJpBmbNLzFUXwx9s1gT8KXJ3F6pDGa7BORfP6cR2VIsOKq+K6BTww7bte8TWt2dsI9nGXht4ct3n+PEXNwKD7a+KCQNyE/Y85cApyex44Y53a0nsj+1VUh9us0Om8ZDGZij7k2AAJNU4o+LLgGW6YL5xVfGoc4afu1Lgqf7O/4ok5Nky3gYP/DK8LjsJDq4A7q/29aPopBJhFj5FebTngSRZHiHgbVZS7iMHQCUDU0sEvFKBZs85+0RVw2x+OVSs8MOZ4aIopmokffAwOs/13bac+3/N96JHQKQdwLRrKF6CiV4rnFvTViTR0ZO0JmQWsofoH8lSC1UlmVuRS1bF0usMuRLdm1tkG62HXIMBcFgJc9YMb7ZhjYmN4GyA7JLkrn+WlxUDoPxRGRLV1vin8KqormorDzglJYNXfLsJXf3GgRSq1g+u4SqWRYc9cH/onlhnpS8CQNBaqT26xvQPjlO3/UacOqUFR6zFxAfPMEBiWTzhGk+Sps2UU2kl7od6BZg4Wqdfea4feLStGJ7GFooQmjaVpGfcENQ2visONxWbdi4v2sBAcFluuvMQiRCcCzYWpIT2yjkT8ezecCLKRvJwCTtt67sOEL5EylDSqYmOoH/+22JZHRHlrEIs0Zj9wc2Ar31eFbYIND1sfVKxCsGI9fYrHWycc1Xh1NLiV4CTEFhQksAAucXu2kmufQUGYy2FK5kyb5G+a4P1qUjrbIInEs2QYsTFWA7XQVw5JN9pXJ/ppmozpgOwNw/RqZKBz7jJ9wEItibbe9K1xyk5AHcMfXyTO7mGoyt3G36cWhVIfrjhKLQd+0xeKwBDtk8Li1fxKUeSuu1bOFqTK9bM3irkG4/dWoznnByCTTOqnKChijnS4YQVgc9oBHcbJELoYfBJ+mnVN0Gn+xc9Mzekjl8GthyHarSC3f+FmYguESBiOeZT11Iu5xc+y7l01E1U0CpKpH5pjJCpBATMsHhEw2MxLFBscZ/0Q=="
 }

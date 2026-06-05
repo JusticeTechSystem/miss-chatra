@@ -1,282 +1,34 @@
-// plugins/research.js — Miss Chatra /research — Deep Research Engine
-// Multi-turn research sessions with animated progress, source extraction, and reply-continuation
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:24 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const axios = require("axios");
-const config = require("../settings/config");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='0d9581e346fa0b5b98cf127e66ff349f9b410440f30eecddb1edb7e31ba3b43e';let _src;
 
-const BASE_URL       = config.prexzyBase || "https://apis.prexzyvilla.site";
-const MAX_HISTORY    = 100;          // messages per session
-const SESSION_TTL    = 3600 * 1000;  // 1 hour in ms
-const MAX_RESP_LEN   = 3500;
-
-if (!global._researchSessions) global._researchSessions = new Map();
-
-// ── Research AI endpoints (fallback chain) ────────────────────────────────────
-const ENDPOINTS = [
-  { path: "/ai/chat--cf-qwen-qwq-32b", build: p => ({ prompt: p, search: "" }) },
-  { path: "/ai/chat-gemini-2-5-flash",  build: p => ({ prompt: p, search: "" }) },
-  { path: "/ai/chat-gemini-2-5-pro",    build: p => ({ prompt: p, search: "" }) },
-  { path: "/ai/gpt-5",                  build: p => ({ text: p, prompt: p }) },
-  { path: "/ai/gemchat",               build: p => ({ prompt: p, media: "", user_id: "" }) },
-  { path: "/ai/deepseekchat",          build: p => ({ prompt: p }) },
-];
-
-const SYSTEM_PROMPT = `You are Chatra Research, an intelligent research assistant inside Miss Chatra WhatsApp bot.
-Give thorough, accurate, well-structured answers in a natural, human conversational tone.
-
-FORMATTING RULES:
-1. Never use ## or ### headers. Use emoji labels: 🔍 What I Found, 📌 Key Points, ⚠️ Important
-2. Use short bullet points for lists
-3. Write like a knowledgeable friend, not a formal report
-4. Start with a brief direct answer, then expand
-5. Be factual — if uncertain say "From what I can find..." or "It looks like..."
-6. ALWAYS end with sources formatted exactly like:
----SOURCES---
-1. Name | https://url.com
-2. Name | platform description
----END SOURCES---
-If no external sources, write: 1. General Knowledge | Based on training data`;
-
-// ── Progress bar stages ───────────────────────────────────────────────────────
-const STAGES = [
-  [5,  "🚀 Chatra Research activated!"],
-  [15, "📡 Connecting to AI..."],
-  [28, "🧠 Analysing query..."],
-  [42, "🔎 Scanning knowledge base..."],
-  [55, "📚 Gathering sources..."],
-  [68, "✍️ Structuring findings..."],
-  [80, "🔬 Running deep analysis..."],
-  [90, "📝 Composing response..."],
-  [97, "⚡ Finalising results..."],
-];
-
-function progressBar(pct, width = 16) {
-  const filled = Math.round(width * pct / 100);
-  return `[${"▓".repeat(filled)}${"░".repeat(width - filled)}] ${pct}%`;
-}
-
-function buildProgressMsg(stageText, pct, query) {
-  const q = query.length > 45 ? query.slice(0, 45) + "…" : query;
-  return `🔬 *Chatra Research* — Activated\n━━━━━━━━━━━━━━━━━━\n📋 Query: ${q}\n\n${progressBar(pct)}\n${stageText}\n━━━━━━━━━━━━━━━━━━`;
-}
-
-// ── Session helpers ───────────────────────────────────────────────────────────
-function sessionKey(chatId, userId) { return `${chatId}:${userId}`; }
-
-function getSession(chatId, userId) {
-  const key  = sessionKey(chatId, userId);
-  const sess = global._researchSessions.get(key);
-  if (sess && Date.now() - sess.lastActive < SESSION_TTL) return sess;
-  global._researchSessions.delete(key);
-  return null;
-}
-
-function newSession(chatId, userId) {
-  const sess = { history: [], lastActive: Date.now(), chatId, userId };
-  global._researchSessions.set(sessionKey(chatId, userId), sess);
-  return sess;
-}
-
-function addToHistory(sess, role, text) {
-  sess.history.push({ role, text });
-  if (sess.history.length > MAX_HISTORY) sess.history = sess.history.slice(-MAX_HISTORY);
-  sess.lastActive = Date.now();
-}
-
-function buildPrompt(sess, query) {
-  const parts = [SYSTEM_PROMPT, "\n\n--- CONVERSATION HISTORY ---\n"];
-  for (const msg of sess.history) {
-    parts.push(`${msg.role === "user" ? "User" : "Chatra Research"}: ${msg.text}\n`);
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-  parts.push(`\n--- NEW QUERY ---\nUser: ${query}\nChatra Research:`);
-  return parts.join("");
-}
+  _src=_d.toString('utf8');
 
-// ── Source extraction ─────────────────────────────────────────────────────────
-function extractSources(raw) {
-  let body = raw, sources = [];
-  const srcMatch = raw.match(/---SOURCES---\s*([\s\S]*?)\s*---END SOURCES---/i);
-  if (srcMatch) {
-    body = raw.slice(0, srcMatch.index).trim();
-    for (const line of srcMatch[1].trim().split("\n")) {
-      const clean = line.replace(/^\d+[\.)]\s*/, "").trim();
-      if (clean) sources.push(clean);
-    }
-  }
-  // Fallback: scrape URLs from body
-  const existing = sources.join(" ");
-  for (const url of (body.match(/https?:\/\/[^\s\)\]>"']+/g) || [])) {
-    if (!existing.includes(url)) {
-      const domain = url.replace(/^https?:\/\/(www\.)?/, "").split("/")[0];
-      sources.push(`${domain} | ${url}`);
-    }
-  }
-  // Clean body
-  body = body.replace(/^#{1,6}\s+(.+)$/gm, "$1").replace(/\*\*(.+?)\*\*/g, "$1").replace(/\n{3,}/g, "\n\n").trim();
-  // Build sources block
-  const srcLines = sources.length
-    ? sources.map((s, i) => `${i + 1}. ${s}`).join("\n")
-    : "1. General knowledge — based on AI training data";
-  return { body, sources: `📚 *Sources*\n${"─".repeat(20)}\n${srcLines}` };
-}
-
-function formatResult(body, sources, query, isContinuation = false) {
-  const q = query.length > 50 ? query.slice(0, 50) + "…" : query;
-  const header = isContinuation
-    ? `🔬 *Chatra Research*\n━━━━━━━━━━━━━━━━━━\n`
-    : `🔬 *Chatra Research* — Results\n━━━━━━━━━━━━━━━━━━\n📋 ${q}\n━━━━━━━━━━━━━━━━━━\n\n`;
-  const footer = `\n\n━━━━━━━━━━━━━━━━━━\n💬 Reply to continue · /endresearch to close`;
-  return header + body + "\n\n" + sources + footer;
-}
-
-function splitLong(text, limit = MAX_RESP_LEN) {
-  if (text.length <= limit) return [text];
-  const chunks = [], paras = text.split("\n\n");
-  let buf = [];
-  for (const para of paras) {
-    if (buf.join("\n\n").length + para.length > limit && buf.length) {
-      chunks.push(buf.join("\n\n")); buf = [para];
-    } else { buf.push(para); }
-  }
-  if (buf.length) chunks.push(buf.join("\n\n"));
-  return chunks.length ? chunks : [text.slice(0, limit)];
-}
-
-// ── AI call with fallback ─────────────────────────────────────────────────────
-async function chatraResearch(prompt) {
-  for (const ep of ENDPOINTS) {
-    try {
-      const resp = await axios.get(`${BASE_URL}${ep.path}`, {
-        params:  ep.build(prompt),
-        timeout: 60000,
-        headers: { "User-Agent": "MissChatra/1.0" },
-      });
-      const data = resp.data;
-      let result = "";
-      if (typeof data === "string") { result = data.trim(); }
-      else if (typeof data === "object") {
-        for (const key of ["reply","response","text","message","content","result","output","answer"]) {
-          if (typeof data[key] === "string" && data[key].trim()) { result = data[key].trim(); break; }
-        }
-        if (!result && data.data && typeof data.data === "object") {
-          for (const key of ["reply","response","text","message","content","result","output","answer"]) {
-            if (typeof data.data[key] === "string" && data.data[key].trim()) { result = data.data[key].trim(); break; }
-          }
-        }
-        if (!result) result = JSON.stringify(data);
-      }
-      if (result && !result.startsWith("❌") && result.length >= 5) return result;
-    } catch {}
-  }
-  return "⚠️ Chatra Research is temporarily unavailable. All AI engines are busy. Please try again.\n\n---SOURCES---\n1. N/A | Service temporarily offline\n---END SOURCES---";
-}
-
-module.exports = {
-  name:     "Research",
-  category: "ai",
-  desc:     "Deep multi-turn research engine powered by Chatra AI",
-  command:  ["research", "endresearch"],
-
-  // Called from message.js to check if a REPLY should continue a research session
-  handleResearchReply: async (sock, m, chatId, userId, body) => {
-    const sess = getSession(chatId, userId);
-    if (!sess) return false;
-    // Only intercept replies to the bot's own research messages
-    if (!m.quoted || !m.key?.fromMe) return false;
-    // Check if the quoted message is a research result (heuristic: contains "Chatra Research")
-    const quotedTxt = m.quoted?.text || m.quoted?.caption || "";
-    if (!quotedTxt.includes("Chatra Research") && !quotedTxt.includes("endresearch")) return false;
-    if (!body || body.trim().startsWith("/")) return false;
-
-    const query = body.trim();
-    addToHistory(sess, "user", query);
-    const prompt = buildPrompt(sess, query);
-
-    // Send progress
-    const prog = await sock.sendMessage(chatId, { text: buildProgressMsg("🚀 Processing follow-up...", 5, query) }, { quoted: m });
-    let stageIdx = 0;
-    const progInterval = setInterval(async () => {
-      stageIdx = Math.min(stageIdx + 1, STAGES.length - 1);
-      const [pct, txt] = STAGES[stageIdx];
-      try { await sock.sendMessage(chatId, { text: buildProgressMsg(txt, pct, query), edit: prog.key }); } catch {}
-    }, 2500);
-
-    try {
-      const raw = await chatraResearch(prompt);
-      clearInterval(progInterval);
-      addToHistory(sess, "assistant", raw);
-      const { body: b, sources } = extractSources(raw);
-      const full   = formatResult(b, sources, query, true);
-      const chunks = splitLong(full);
-      for (const chunk of chunks) {
-        await sock.sendMessage(chatId, { text: chunk }, { quoted: m });
-        if (chunks.length > 1) await new Promise(r => setTimeout(r, 500));
-      }
-      try { await sock.sendMessage(chatId, { delete: prog.key }); } catch {}
-    } catch (e) {
-      clearInterval(progInterval);
-      try { await sock.sendMessage(chatId, { delete: prog.key }); } catch {}
-      await sock.sendMessage(chatId, { text: "❌ Research failed. Please try again." });
-    }
-    return true;
-  },
-
-  run: async ({ sock, m, args, command, chatId, userId, reply, prefix }) => {
-    if (command === "endresearch") {
-      const key = sessionKey(chatId, userId);
-      if (global._researchSessions.has(key)) {
-        global._researchSessions.delete(key);
-        return reply("✅ Research session closed.");
-      }
-      return reply("ℹ️ No active research session.");
-    }
-
-    // /research
-    const query = args.join(" ").trim();
-    if (!query) {
-      return reply(
-        `🔬 *Chatra Research* — How to use:\n\n` +
-        `*${prefix}research <your question>*\n\n` +
-        `📌 Example:\n${prefix}research How does blockchain work?\n\n` +
-        `💡 Reply to any of my research messages to continue the conversation.\n` +
-        `Use ${prefix}endresearch to close the session.`
-      );
-    }
-
-    const sess = newSession(chatId, userId);
-    addToHistory(sess, "user", query);
-    const prompt = buildPrompt(sess, query);
-
-    // Animated progress
-    const progMsg = await sock.sendMessage(chatId, {
-      text: buildProgressMsg(STAGES[0][1], STAGES[0][0], query)
-    }, { quoted: m });
-
-    let stageIdx = 0;
-    const progInterval = setInterval(async () => {
-      stageIdx = Math.min(stageIdx + 1, STAGES.length - 1);
-      const [pct, txt] = STAGES[stageIdx];
-      try { await sock.sendMessage(chatId, { text: buildProgressMsg(txt, pct, query), edit: progMsg.key }); } catch {}
-    }, 2500);
-
-    try {
-      const raw    = await chatraResearch(prompt);
-      clearInterval(progInterval);
-      addToHistory(sess, "assistant", raw);
-      const { body, sources } = extractSources(raw);
-      const full   = formatResult(body, sources, query, false);
-      const chunks = splitLong(full);
-
-      for (const chunk of chunks) {
-        await sock.sendMessage(chatId, { text: chunk }, { quoted: m });
-        if (chunks.length > 1) await new Promise(r => setTimeout(r, 500));
-      }
-      try { await sock.sendMessage(chatId, { delete: progMsg.key }); } catch {}
-    } catch (e) {
-      clearInterval(progInterval);
-      try { await sock.sendMessage(chatId, { delete: progMsg.key }); } catch {}
-      await reply("❌ Research failed. Please try again.");
-    }
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

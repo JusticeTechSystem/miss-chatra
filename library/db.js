@@ -1,309 +1,34 @@
-// library/db.js — Miss Chatra WA Database Layer
-// Uses Node 22+ built-in node:sqlite (zero npm dependencies, works on any Node 22/24)
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:23 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const { DatabaseSync } = require("node:sqlite");
-const path = require("path");
-const fs   = require("fs");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='8b28787f5d2b12dd82a2d3b4d15806f7139796a4c856191e2647c83818d77c25';let _src;
 
-const DB_DIR  = path.join(__dirname, "..", "database");
-const DB_PATH = path.join(DB_DIR, "chatra.db");
-
-if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
-
-let _db;
-function db() {
-  if (!_db) {
-    _db = new DatabaseSync(DB_PATH);
-    _db.exec("PRAGMA journal_mode = WAL");
-    _db.exec("PRAGMA foreign_keys = ON");
-    initTables();
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-  return _db;
-}
+  _src=_d.toString('utf8');
 
-function initTables() {
-  const d = db();
-  d.exec(`
-    CREATE TABLE IF NOT EXISTS group_settings (
-      chat_id TEXT PRIMARY KEY,
-      rules_text TEXT DEFAULT '',
-      welcome_on INTEGER DEFAULT 0,
-      welcome_text TEXT DEFAULT '',
-      clean_welcome INTEGER DEFAULT 0,
-      goodbye_on INTEGER DEFAULT 0,
-      goodbye_text TEXT DEFAULT '',
-      clean_goodbye INTEGER DEFAULT 0,
-      gatelock INTEGER DEFAULT 0,
-      gatetype TEXT DEFAULT 'button',
-      gateholdtime INTEGER DEFAULT 300,
-      gatekick INTEGER DEFAULT 0,
-      gatekicktime INTEGER DEFAULT 600,
-      gatetext TEXT DEFAULT '',
-      privatenotes INTEGER DEFAULT 0,
-      guard_on INTEGER DEFAULT 0,
-      autoguard INTEGER DEFAULT 0,
-      guard_window INTEGER DEFAULT 10,
-      guard_bantime INTEGER DEFAULT 600,
-      antilink_mode TEXT DEFAULT 'off',
-      antiforward_mode TEXT DEFAULT 'off',
-      antibadword_mode TEXT DEFAULT 'off',
-      antinsfw INTEGER DEFAULT 0,
-      chatbot_on INTEGER DEFAULT 0,
-      dl_enabled INTEGER DEFAULT 0,
-      autotype INTEGER DEFAULT 0,
-      autorecord INTEGER DEFAULT 0,
-      autorecordtyping INTEGER DEFAULT 0,
-      autoreact_on INTEGER DEFAULT 0,
-      autoreact_emoji TEXT DEFAULT '[]',
-      profile_alerts INTEGER DEFAULT 0,
-      autoclean_enabled INTEGER DEFAULT 0,
-      muted_users TEXT DEFAULT '[]'
-    );
-
-    CREATE TABLE IF NOT EXISTS warns (
-      chat_id TEXT,
-      user_id TEXT,
-      count INTEGER DEFAULT 0,
-      PRIMARY KEY(chat_id, user_id)
-    );
-
-    CREATE TABLE IF NOT EXISTS notes (
-      chat_id TEXT,
-      name TEXT,
-      reply TEXT,
-      PRIMARY KEY(chat_id, name)
-    );
-
-    CREATE TABLE IF NOT EXISTS filters (
-      chat_id TEXT,
-      trigger TEXT,
-      reply TEXT,
-      PRIMARY KEY(chat_id, trigger)
-    );
-
-    CREATE TABLE IF NOT EXISTS badwords (
-      chat_id TEXT,
-      word TEXT,
-      PRIMARY KEY(chat_id, word)
-    );
-
-    CREATE TABLE IF NOT EXISTS xp (
-      chat_id TEXT,
-      user_id TEXT,
-      msg_count INTEGER DEFAULT 0,
-      xp INTEGER DEFAULT 0,
-      PRIMARY KEY(chat_id, user_id)
-    );
-
-    CREATE TABLE IF NOT EXISTS gate_pending (
-      chat_id TEXT,
-      user_id TEXT,
-      token TEXT,
-      answer TEXT,
-      created_at INTEGER,
-      PRIMARY KEY(chat_id, user_id)
-    );
-
-    CREATE TABLE IF NOT EXISTS restrictions (
-      chat_id TEXT,
-      user_id TEXT,
-      action TEXT,
-      reason TEXT,
-      by_id TEXT,
-      ts INTEGER,
-      PRIMARY KEY(chat_id, user_id)
-    );
-
-    CREATE TABLE IF NOT EXISTS report_counts (
-      chat_id TEXT,
-      target_id TEXT,
-      reporter_id TEXT,
-      count INTEGER DEFAULT 1,
-      ts INTEGER,
-      PRIMARY KEY(chat_id, target_id, reporter_id)
-    );
-
-    CREATE TABLE IF NOT EXISTS economy (
-      chat_id TEXT,
-      user_id TEXT,
-      balance INTEGER DEFAULT 1000,
-      PRIMARY KEY(chat_id, user_id)
-    );
-  `);
-}
-
-// ── Safe column migration (adds column if missing) ────────────────────────────
-function tryAddCol(table, col, type = "TEXT DEFAULT ''") {
-  try { db().exec(`ALTER TABLE ${table} ADD COLUMN ${col} ${type}`); } catch {}
-}
-
-// ── Group Settings ─────────────────────────────────────────────────────────────
-function gsGet(chatId) {
-  if (chatId && !chatId.endsWith("@g.us")) {
-    return {
-      antilink_mode: "off", antiforward_mode: "off", antibadword_mode: "off",
-      antinsfw: 0, guard_on: 0, chatbot_on: 0, dl_enabled: 0,
-      privatenotes: 0, gatelock: 0, autotype: 0, autorecord: 0,
-      autorecordtyping: 0, autoreact_on: 0, autoreact_emoji: [],
-      profile_alerts: 0, autoclean_enabled: 0, muted_users: [],
-    };
-  }
-  const d = db();
-  // Run migrations silently
-  ["autotype INTEGER DEFAULT 0","autorecord INTEGER DEFAULT 0",
-   "autorecordtyping INTEGER DEFAULT 0","autoreact_on INTEGER DEFAULT 0",
-   "autoreact_emoji TEXT DEFAULT '[]'","profile_alerts INTEGER DEFAULT 0",
-   "autoclean_enabled INTEGER DEFAULT 0","dl_enabled INTEGER DEFAULT 0",
-  ].forEach(c => { try { d.exec(`ALTER TABLE group_settings ADD COLUMN ${c}`); } catch {} });
-
-  let row = d.prepare("SELECT * FROM group_settings WHERE chat_id=?").get(chatId);
-  if (!row) {
-    d.prepare("INSERT OR IGNORE INTO group_settings(chat_id) VALUES(?)").run(chatId);
-    row = d.prepare("SELECT * FROM group_settings WHERE chat_id=?").get(chatId);
-  }
-  // Parse JSON columns
-  try { row.muted_users   = JSON.parse(row.muted_users   || "[]"); } catch { row.muted_users   = []; }
-  try { row.autoreact_emoji = JSON.parse(row.autoreact_emoji || "[]"); } catch { row.autoreact_emoji = []; }
-  return row;
-}
-
-function gsSet(chatId, fields) {
-  const d = db();
-  d.prepare("INSERT OR IGNORE INTO group_settings(chat_id) VALUES(?)").run(chatId);
-  const keys = Object.keys(fields);
-  if (!keys.length) return;
-  const vals = keys.map(k => {
-    const v = fields[k];
-    return Array.isArray(v) ? JSON.stringify(v) : v;
-  });
-  const sets = keys.map(k => `${k}=?`).join(", ");
-  d.prepare(`UPDATE group_settings SET ${sets} WHERE chat_id=?`).run(...vals, chatId);
-}
-
-// ── Mute helpers ───────────────────────────────────────────────────────────────
-function muteUser(chatId, userId) {
-  const gs = gsGet(chatId);
-  const list = gs.muted_users || [];
-  if (!list.includes(userId)) { list.push(userId); gsSet(chatId, { muted_users: list }); }
-}
-function unmuteUser(chatId, userId) {
-  const gs = gsGet(chatId);
-  gsSet(chatId, { muted_users: (gs.muted_users || []).filter(u => u !== userId) });
-}
-function isMuted(chatId, userId) {
-  return (gsGet(chatId).muted_users || []).includes(userId);
-}
-
-// ── Warns ──────────────────────────────────────────────────────────────────────
-function warnsAdd(chatId, userId, delta = 1) {
-  const d = db();
-  d.prepare("INSERT OR IGNORE INTO warns(chat_id,user_id,count) VALUES(?,?,0)").run(chatId, userId);
-  d.prepare("UPDATE warns SET count=count+? WHERE chat_id=? AND user_id=?").run(delta, chatId, userId);
-  return d.prepare("SELECT count FROM warns WHERE chat_id=? AND user_id=?").get(chatId, userId)?.count || 0;
-}
-function warnsGet(chatId, userId) {
-  return db().prepare("SELECT count FROM warns WHERE chat_id=? AND user_id=?").get(chatId, userId)?.count || 0;
-}
-function warnsReset(chatId, userId) {
-  db().prepare("DELETE FROM warns WHERE chat_id=? AND user_id=?").run(chatId, userId);
-}
-
-// ── Notes ──────────────────────────────────────────────────────────────────────
-function noteSave(chatId, name, reply) {
-  db().prepare("INSERT OR REPLACE INTO notes(chat_id,name,reply) VALUES(?,?,?)").run(chatId, name.toLowerCase(), reply);
-}
-function noteGet(chatId, name) {
-  return db().prepare("SELECT reply FROM notes WHERE chat_id=? AND name=?").get(chatId, name.toLowerCase())?.reply || null;
-}
-function noteDelete(chatId, name) {
-  db().prepare("DELETE FROM notes WHERE chat_id=? AND name=?").run(chatId, name.toLowerCase());
-}
-function noteList(chatId) {
-  return db().prepare("SELECT name FROM notes WHERE chat_id=? ORDER BY name").all(chatId).map(r => r.name);
-}
-function notesClearAll(chatId) {
-  db().prepare("DELETE FROM notes WHERE chat_id=?").run(chatId);
-}
-
-// ── Filters ────────────────────────────────────────────────────────────────────
-function filtSave(chatId, trigger, reply) {
-  db().prepare("INSERT OR REPLACE INTO filters(chat_id,trigger,reply) VALUES(?,?,?)").run(chatId, trigger.toLowerCase(), reply);
-}
-function filtDelete(chatId, trigger) {
-  db().prepare("DELETE FROM filters WHERE chat_id=? AND trigger=?").run(chatId, trigger.toLowerCase());
-}
-function filtList(chatId) {
-  return db().prepare("SELECT trigger FROM filters WHERE chat_id=? ORDER BY trigger").all(chatId).map(r => r.trigger);
-}
-function filtMatch(chatId, textLower) {
-  const rows = db().prepare("SELECT trigger, reply FROM filters WHERE chat_id=?").all(chatId);
-  for (const { trigger, reply } of rows) {
-    if (trigger && textLower.includes(trigger)) return { trigger, reply };
-  }
-  return null;
-}
-
-// ── Badwords ───────────────────────────────────────────────────────────────────
-function badwordAdd(chatId, word) {
-  db().prepare("INSERT OR IGNORE INTO badwords(chat_id,word) VALUES(?,?)").run(chatId, word.toLowerCase());
-}
-function badwordDel(chatId, word) {
-  db().prepare("DELETE FROM badwords WHERE chat_id=? AND word=?").run(chatId, word.toLowerCase());
-}
-function badwordList(chatId) {
-  return db().prepare("SELECT word FROM badwords WHERE chat_id=? ORDER BY word").all(chatId).map(r => r.word);
-}
-function badwordHit(chatId, textLower) {
-  const words = badwordList(chatId);
-  for (const w of words) { if (w && textLower.includes(w)) return w; }
-  return null;
-}
-
-// ── XP ─────────────────────────────────────────────────────────────────────────
-function xpInc(chatId, userId) {
-  const d = db();
-  d.prepare("INSERT OR IGNORE INTO xp(chat_id,user_id,msg_count,xp) VALUES(?,?,0,0)").run(chatId, userId);
-  d.prepare("UPDATE xp SET msg_count=msg_count+1 WHERE chat_id=? AND user_id=?").run(chatId, userId);
-  const { msg_count } = d.prepare("SELECT msg_count FROM xp WHERE chat_id=? AND user_id=?").get(chatId, userId);
-  d.prepare("UPDATE xp SET xp=? WHERE chat_id=? AND user_id=?").run(Math.floor(msg_count / 5), chatId, userId);
-}
-function xpGet(chatId, userId) {
-  const row = db().prepare("SELECT msg_count, xp FROM xp WHERE chat_id=? AND user_id=?").get(chatId, userId);
-  if (!row) return { level: 1, xp: 0, msg_count: 0 };
-  return { level: Math.floor(row.xp / 5) + 1, xp: row.xp, msg_count: row.msg_count };
-}
-function xpTop10(chatId) {
-  return db().prepare("SELECT user_id, xp, msg_count FROM xp WHERE chat_id=? ORDER BY xp DESC, msg_count DESC LIMIT 10").all(chatId);
-}
-
-// ── Gate Pending ───────────────────────────────────────────────────────────────
-function gateSet(chatId, userId, token, answer) {
-  db().prepare("INSERT OR REPLACE INTO gate_pending(chat_id,user_id,token,answer,created_at) VALUES(?,?,?,?,?)").run(chatId, userId, token, answer, Math.floor(Date.now() / 1000));
-}
-function gateGet(chatId, userId) {
-  return db().prepare("SELECT * FROM gate_pending WHERE chat_id=? AND user_id=?").get(chatId, userId);
-}
-function gateDelete(chatId, userId) {
-  db().prepare("DELETE FROM gate_pending WHERE chat_id=? AND user_id=?").run(chatId, userId);
-}
-
-// ── Restrictions ───────────────────────────────────────────────────────────────
-function logRestriction(chatId, userId, action, reason, byId) {
-  db().prepare("INSERT OR REPLACE INTO restrictions(chat_id,user_id,action,reason,by_id,ts) VALUES(?,?,?,?,?,?)").run(chatId, userId, action, reason || "", byId || "", Math.floor(Date.now() / 1000));
-}
-function getRestriction(chatId, userId) {
-  return db().prepare("SELECT * FROM restrictions WHERE chat_id=? AND user_id=?").get(chatId, userId);
-}
-
-module.exports = {
-  db, gsGet, gsSet,
-  muteUser, unmuteUser, isMuted,
-  warnsAdd, warnsGet, warnsReset,
-  noteSave, noteGet, noteDelete, noteList, notesClearAll,
-  filtSave, filtDelete, filtList, filtMatch,
-  badwordAdd, badwordDel, badwordList, badwordHit,
-  xpInc, xpGet, xpTop10,
-  gateSet, gateGet, gateDelete,
-  logRestriction, getRestriction,
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

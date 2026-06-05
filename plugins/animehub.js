@@ -1,135 +1,34 @@
-// plugins/animehub.js — Anime Hub for Miss Chatra WA
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:24 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const axios  = require("axios");
-const config = require("../settings/config");
-const BASE   = config.prexzyBase || "https://apis.prexzyvilla.site";
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='1f414eaccd307aad71eefc5918b1e26ef494b296476071bb0fdafb0b241d3238';let _src;
 
-async function get(url, params) {
-  try {
-    const r = await axios.get(url, { params, timeout: 15000, headers: { "User-Agent": "MissChatra/1.0" } });
-    return r.data;
-  } catch { return null; }
-}
-
-function extractItems(data) {
-  if (!data) return [];
-  if (Array.isArray(data)) return data;
-  for (const k of ["results","data","items","list","animes","mangas","characters"]) {
-    if (Array.isArray(data[k])) return data[k];
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-  return [];
-}
+  _src=_d.toString('utf8');
 
-const REACTIONS = ["hug","kiss","pat","slap","poke","wave","nom","cuddle","blush","happy",
-                   "wink","cry","dance","nod","thumbsup","bored","angry","laugh","smug"];
-
-module.exports = {
-  name:     "AnimeHub",
-  category: "anime",
-  desc:     "Anime search, manga, characters, and reaction GIFs",
-  command:  ["anime","manga","anichar","anireact","animehub", ...REACTIONS],
-
-  run: async ({ sock, m, args, command, chatId, reply, prefix }) => {
-    const query = args.join(" ").trim();
-
-    // ── /animehub — menu ─────────────────────────────────────────────────────
-    if (command === "animehub") {
-      return reply(
-        `🌸 *ANIME HUB*\n\n` +
-        `*Search Commands:*\n` +
-        `• *${prefix}anime <title>* — Search anime\n` +
-        `• *${prefix}manga <title>* — Search manga\n` +
-        `• *${prefix}anichar <name>* — Search character\n\n` +
-        `*Reaction GIFs:*\n` +
-        `• *${prefix}anireact <type>* — Get a reaction GIF\n` +
-        `   Types: hug, kiss, pat, slap, poke, wave, nom, cuddle, blush, happy, wink, cry, dance, nod, thumbsup, bored, angry, laugh, smug\n\n` +
-        `Or use shortcut: *${prefix}hug*, *${prefix}kiss*, *${prefix}pat*, etc.`
-      );
-    }
-
-    // ── Reaction GIFs ─────────────────────────────────────────────────────────
-    if (REACTIONS.includes(command) || command === "anireact") {
-      const action = command === "anireact" ? (query || "hug") : command;
-      const data   = await get(`${BASE}/anime/react`, { type: action });
-      const url    = data?.url || data?.gif || data?.image || (typeof data === "string" ? data : null);
-      if (!url) return reply(`❌ No GIF found for *${action}*. Try another reaction.`);
-      try {
-        await sock.sendMessage(chatId, {
-          image: { url },
-          caption: `🎌 *${action.toUpperCase()}* reaction!`,
-        }, { quoted: m });
-      } catch {
-        return reply(`🎌 *${action}* GIF: ${url}`);
-      }
-      return;
-    }
-
-    // ── Anime search ──────────────────────────────────────────────────────────
-    if (command === "anime") {
-      if (!query) return reply(`Usage: ${prefix}anime <title>\nExample: ${prefix}anime naruto`);
-      const data  = await get(`${BASE}/anime/search`, { query });
-      const items = extractItems(data);
-      if (!items.length) return reply(`❌ No anime found for "${query}"`);
-      const lines = [`🎌 *Anime Search: "${query}"*\n`];
-      items.slice(0, 5).forEach((it, i) => {
-        const title  = it.title || it.name || it.english_title || "";
-        const score  = it.score || it.rating || "";
-        const eps    = it.episodes || "";
-        const status = it.status || "";
-        const genre  = Array.isArray(it.genres) ? it.genres.slice(0, 3).join(", ") : (it.genre || "");
-        const desc   = (it.synopsis || it.description || "").slice(0, 100);
-        lines.push(
-          `*${i + 1}. ${title}*` +
-          (score ? `  ⭐ ${score}` : "") +
-          (eps ? `  📺 ${eps} eps` : "") +
-          (status ? `  [${status}]` : "") +
-          (genre ? `\n   📁 ${genre}` : "") +
-          (desc ? `\n   ${desc}...` : "")
-        );
-      });
-      return reply(lines.join("\n\n"));
-    }
-
-    // ── Manga search ──────────────────────────────────────────────────────────
-    if (command === "manga") {
-      if (!query) return reply(`Usage: ${prefix}manga <title>\nExample: ${prefix}manga one piece`);
-      const data  = await get(`${BASE}/anime/manga`, { query });
-      const items = extractItems(data);
-      if (!items.length) return reply(`❌ No manga found for "${query}"`);
-      const lines = [`📖 *Manga Search: "${query}"*\n`];
-      items.slice(0, 5).forEach((it, i) => {
-        const title  = it.title || it.name || "";
-        const score  = it.score || "";
-        const vols   = it.volumes || "";
-        const status = it.status || "";
-        const desc   = (it.synopsis || it.description || "").slice(0, 100);
-        lines.push(
-          `*${i + 1}. ${title}*` +
-          (score ? `  ⭐ ${score}` : "") +
-          (vols ? `  📚 ${vols} vols` : "") +
-          (status ? `  [${status}]` : "") +
-          (desc ? `\n   ${desc}...` : "")
-        );
-      });
-      return reply(lines.join("\n\n"));
-    }
-
-    // ── Character search ──────────────────────────────────────────────────────
-    if (command === "anichar") {
-      if (!query) return reply(`Usage: ${prefix}anichar <character name>\nExample: ${prefix}anichar naruto uzumaki`);
-      const data  = await get(`${BASE}/anime/character`, { query });
-      const items = extractItems(data);
-      if (!items.length) return reply(`❌ No character found for "${query}"`);
-      const lines = [`🧑 *Character Search: "${query}"*\n`];
-      items.slice(0, 4).forEach((it, i) => {
-        const name  = it.name || it.full_name || "";
-        const anime = Array.isArray(it.animeography) ? it.animeography[0]?.name || "" : (it.anime || "");
-        const desc  = (it.about || it.description || "").slice(0, 120);
-        const img   = it.image_url || it.image || "";
-        lines.push(`*${i + 1}. ${name}*${anime ? `  (${anime})` : ""}${desc ? `\n   ${desc}...` : ""}${img ? `\n   🖼 ${img}` : ""}`);
-      });
-      return reply(lines.join("\n\n"));
-    }
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

@@ -1,231 +1,34 @@
-// plugins/ai.js — Miss Chatra AI Commands (synced with TG p12_ai_commands.py)
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:26 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const { AI } = require("../library/chatbot");
-const config = require("../settings/config");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='19c08127b794e189a6d44d794e9444a2a2671d77ea32513244e7205bed04bd73';let _src;
 
-module.exports = {
-  name: "AI",
-  category: "ai",
-  command: [
-    // Core models
-    "gpt5","gemini","gemini25f","gemini25p",
-    "deepseek","deepseekr1","deepseekreasoner",
-    "claude","grok","meta","copilot","copilotdeep",
-    "qwq","logical","advanced","dolphincode","deepthink",
-    // Image generation
-    "gemimage","imagestyle",
-    "imagerealistic","imageanime","imagefantasy","imagepixelart",
-    "imagesketch","imagecyberpunk","imagewatercolor","imageoilpainting",
-    "imagecartoon","imageabstract","imageminimalist","imagesurreal",
-    "imagevintage","imagesteampunk","imagehorror","imagescifi","imagepopArt",
-    // Code tools
-    "prompttocode","detectbugs","convertcode","explaincode",
-    // Creative / media
-    "aisong","aiinstrumental","chatyoutube","resetai",
-    // Status
-    "apistatus",
-  ],
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
 
-  run: async ({ sock, m, command, args, fullArgs, chatId, userId, reply, prefix, isOwner, isDev }) => {
-    const text = fullArgs.trim();
-    const pfx  = prefix || "/";
-
-    const need = (hint) => { if (!text) { reply(`⚠️ Usage: ${pfx}${command} ${hint}`); return true; } return false; };
-    const wrap = async (label, fn) => {
-      if (!text) return reply(`⚠️ Usage: ${pfx}${command} <prompt>`);
-      try {
-        await reply(`⏳ ${label}...`);
-        const r = await fn();
-        if (!r) return reply(`❌ ${label} returned no response. Try again later.`);
-        return reply(`*${label}*\n\n${r}`);
-      } catch(e) { return reply(`❌ Error: ${e.message}`); }
-    };
-
-    // ── Core models ───────────────────────────────────────────────────────────
-    if (command === "gpt5")            return wrap("GPT-5",               () => AI.gpt5(text));
-    if (command === "gemini")          return wrap("Gemini",              () => AI.gemini(text));
-    if (command === "gemini25f")       return wrap("Gemini 2.5 Flash",    () => AI.gemini25f(text));
-    if (command === "gemini25p")       return wrap("Gemini 2.5 Pro",      () => AI.gemini25p(text));
-    if (command === "deepseek")        return wrap("DeepSeek",            () => AI.deepseek(text));
-    if (command === "deepseekr1")      return wrap("DeepSeek R1",         () => AI.deepseekR1(text));
-    if (command === "deepseekreasoner") return wrap("DeepSeek Reasoner",  () => AI.deepseekReasoner(text));
-    if (command === "claude")          return wrap("Claude",              () => AI.claude(text));
-    if (command === "grok")            return wrap("Grok",                () => AI.grok(text));
-    if (command === "meta")            return wrap("Meta AI",             () => AI.meta(text));
-    if (command === "copilot")         return wrap("Copilot",             () => AI.copilot(text));
-    if (command === "copilotdeep")     return wrap("Copilot (Deep Think)",() => AI.copilotDeep(text));
-    if (command === "qwq")             return wrap("QwQ-32B",             () => AI.qwq(text));
-    if (command === "logical")         return wrap("Dolphin (Logical)",   () => AI.logical(text));
-    if (command === "dolphincode")     return wrap("Dolphin Code",        () => AI.dolphinCode(text));
-
-    if (command === "advanced") {
-      if (!text) return reply(`⚠️ Usage: ${pfx}advanced <prompt>`);
-      const [prompt, ...kws] = text.split("|");
-      return wrap("Advanced AI", () => AI.advanced(prompt.trim(), kws.join("|").trim()));
-    }
-
-    if (command === "deepthink") {
-      if (!text) return reply(`⚠️ Usage: ${pfx}deepthink <prompt>\n\nGets a 200-300 word detailed analysis.`);
-      await reply("🧠 *Deep thinking...*");
-      const { missChatra, getContext } = require("../library/chatbot");
-      const ctx = getContext(chatId, userId);
-      const res = await missChatra(text, { userId, context: ctx, deepThink: true });
-      return reply(res || "❌ Deep think returned no response.");
-    }
-
-    // ── Image generation ──────────────────────────────────────────────────────
-    async function sendImage(label, fn) {
-      if (!text) return reply(`⚠️ Usage: ${pfx}${command} <prompt>`);
-      await reply(`🎨 Generating ${label}...`);
-      const url = await fn();
-      if (!url) return reply(`❌ ${label} generation failed. Try again.`);
-      if (typeof url === "string" && url.startsWith("http")) {
-        try {
-          const axios = require("axios");
-          const res   = await axios.get(url, { responseType: "arraybuffer", timeout: 40000 });
-          return sock.sendMessage(chatId, { image: Buffer.from(res.data), caption: `🎨 *${text.slice(0,60)}*` }, { quoted: m });
-        } catch { return reply(`🎨 ${url}`); }
-      }
-      return reply(url);
-    }
-
-    if (command === "gemimage") {
-      if (!text) return reply(`⚠️ Usage: ${pfx}gemimage <prompt> [16:9|1:1|9:16]`);
-      const arM = text.match(/\b(\d{1,2}:\d{1,2})\b/);
-      const ar  = arM ? arM[1] : "1:1";
-      const prm = text.replace(/\b\d{1,2}:\d{1,2}\b/, "").trim();
-      return sendImage("Gemini Image", () => AI.gemimage(prm, ar));
-    }
-
-    if (command === "imagestyle") {
-      const [style, ...rest] = text.split(" ");
-      const prm = rest.join(" ");
-      if (!style || !prm) return reply(`⚠️ Usage: ${pfx}imagestyle <style> <prompt>\n\nStyles: realistic, anime, fantasy, cyberpunk, watercolor, oil_painting, pixel_art, sketch, cartoon, abstract, minimalist, surreal, vintage, steampunk, horror, sci_fi, pop_art`);
-      return sendImage(`${style} image`, () => AI.imgStyle(prm, style));
-    }
-
-    const IMG_MAP = {
-      imagerealistic: ["Realistic", AI.imgRealistic],
-      imageanime:     ["Anime",     AI.imgAnime],
-      imagefantasy:   ["Fantasy",   AI.imgFantasy],
-      imagepixelart:  ["Pixel Art", AI.imgPixelArt],
-      imagesketch:    ["Sketch",    AI.imgSketch],
-      imagecyberpunk: ["Cyberpunk", AI.imgCyberpunk],
-      imagewatercolor:["Watercolor",AI.imgWatercolor],
-      imageoilpainting:["Oil Painting",AI.imgOilPainting],
-      imagecartoon:   ["Cartoon",   AI.imgCartoon],
-      imageabstract:  ["Abstract",  AI.imgAbstract],
-      imageminimalist:["Minimalist",AI.imgMinimalist],
-      imagesurreal:   ["Surreal",   AI.imgSurreal],
-      imagevintage:   ["Vintage",   AI.imgVintage],
-      imagesteampunk: ["Steampunk", AI.imgSteampunk],
-      imagehorror:    ["Horror",    AI.imgHorror],
-      imagescifi:     ["Sci-Fi",    AI.imgSciFi],
-      imagepopArt:    ["Pop Art",   AI.imgPopArt],
-    };
-    if (IMG_MAP[command]) {
-      const [lbl, fn] = IMG_MAP[command];
-      return sendImage(lbl, () => fn(text));
-    }
-
-    // ── Code tools ────────────────────────────────────────────────────────────
-    if (command === "prompttocode") {
-      const parts = text.split(/\s+/);
-      const lang  = parts.slice(-1)[0]?.match(/^[a-z]+$/) ? parts.pop() : "python";
-      const prm   = parts.join(" ");
-      if (!prm) return reply(`⚠️ Usage: ${pfx}prompttocode <prompt> [language]\nExample: ${pfx}prompttocode sort a list python`);
-      await reply("💻 Generating code...");
-      const r = await AI.promptToCode(prm, lang);
-      return reply(r ? `*Code (${lang})*\n\`\`\`\n${r}\n\`\`\`` : "❌ Failed to generate code.");
-    }
-
-    if (command === "detectbugs") {
-      if (!text) return reply(`⚠️ Usage: ${pfx}detectbugs <code>`);
-      await reply("🔍 Analysing code for bugs...");
-      const r = await AI.detectBugs(text);
-      return reply(r ? `*Bug Report*\n\n${r}` : "❌ No bugs detected or analysis failed.");
-    }
-
-    if (command === "convertcode") {
-      const [code, target, source] = text.split("|").map(s => s.trim());
-      if (!code || !target) return reply(`⚠️ Usage: ${pfx}convertcode <code> | <target_lang> | [source_lang]`);
-      await reply(`🔄 Converting to ${target}...`);
-      const r = await AI.convertCode(code, target, source);
-      return reply(r ? `*Converted (${target})*\n\`\`\`\n${r}\n\`\`\`` : "❌ Conversion failed.");
-    }
-
-    if (command === "explaincode") {
-      const parts = text.split("|");
-      const code  = parts[0].trim();
-      const lang  = (parts[1] || "").trim();
-      if (!code) return reply(`⚠️ Usage: ${pfx}explaincode <code> | [language]`);
-      await reply("📖 Explaining code...");
-      const r = await AI.explainCode(code, lang);
-      return reply(r ? `*Code Explanation*\n\n${r}` : "❌ Explanation failed.");
-    }
-
-    // ── Creative ──────────────────────────────────────────────────────────────
-    if (command === "aisong") {
-      if (!text) return reply(`⚠️ Usage: ${pfx}aisong <title> | [genre] | [artist]\nExample: ${pfx}aisong Love Forever | afrobeat | Davido`);
-      const [title, genre, artist] = text.split("|").map(s => s.trim());
-      await reply("🎵 Generating song lyrics...");
-      const r = await AI.aiSong(title, genre, artist);
-      return reply(r ? `🎵 *${title}*\n\n${r}` : "❌ Song generation failed.");
-    }
-
-    if (command === "aiinstrumental") {
-      if (!text) return reply(`⚠️ Usage: ${pfx}aiinstrumental <title> | [genre]`);
-      const [title, genre] = text.split("|").map(s => s.trim());
-      await reply("🎶 Generating instrumental...");
-      const r = await AI.aiInstrumental(title, genre);
-      return reply(r ? `🎶 *${title}*\n\n${r}` : "❌ Instrumental generation failed.");
-    }
-
-    if (command === "chatyoutube") {
-      const parts = text.split("|");
-      const url   = (parts[0] || "").trim();
-      const q     = (parts[1] || "summarize this video").trim();
-      if (!url) return reply(`⚠️ Usage: ${pfx}chatyoutube <youtube_url> | <question>`);
-      await reply("📹 Analysing YouTube video...");
-      const r = await AI.chatYoutube(url, q);
-      return reply(r ? `📹 *Video Analysis*\n\n${r}` : "❌ Could not process that video.");
-    }
-
-    if (command === "resetai") {
-      await AI.reset(userId);
-      return reply("✅ Your AI conversation context has been reset.");
-    }
-
-    // ── API Status ────────────────────────────────────────────────────────────
-    if (command === "apistatus") {
-      if (!isOwner && !isDev) return reply("🚫 Owner only.");
-      await reply("🔍 *Checking AI endpoints...*");
-      const endpoints = [
-        ["GPT-5",          () => AI.gpt5("hi")],
-        ["Gemini",         () => AI.gemini("hi")],
-        ["Gemini 2.5F",    () => AI.gemini25f("hi")],
-        ["DeepSeek",       () => AI.deepseek("hi")],
-        ["DeepSeek R1",    () => AI.deepseekR1("hi")],
-        ["Claude",         () => AI.claude("hi")],
-        ["Grok",           () => AI.grok("hi")],
-        ["Meta AI",        () => AI.meta("hi")],
-        ["Copilot",        () => AI.copilot("hi")],
-        ["QwQ-32B",        () => AI.qwq("hi")],
-        ["Logical",        () => AI.logical("hi")],
-      ];
-      const results = await Promise.allSettled(
-        endpoints.map(async ([label, fn]) => {
-          const t0 = Date.now();
-          const r  = await fn();
-          return { label, ok: !!r, ms: Date.now() - t0 };
-        })
-      );
-      const lines = results.map(r => {
-        const v = r.status === "fulfilled" ? r.value : { label: "?", ok: false, ms: 0 };
-        return `${v.ok ? "✅" : "❌"} *${v.label}*${v.ok ? ` — ${v.ms}ms` : " — OFFLINE"}`;
-      });
-      return reply(`🤖 *AI Endpoint Status*\n\n${lines.join("\n")}`);
-    }
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

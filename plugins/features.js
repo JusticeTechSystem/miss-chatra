@@ -1,99 +1,34 @@
-// plugins/features.js — Miss Chatra Features Overview
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:25 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const fs   = require("fs");
-const path = require("path");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='d03bafe61680036fa0b85ecfa1afc786cc5723bf5529cda9167d73d1a684d259';let _src;
 
-const THUMB = path.join(__dirname, "..", "thumbnail", "image.jpg");
-function getThumb() { try { return fs.existsSync(THUMB) ? fs.readFileSync(THUMB) : null; } catch { return null; } }
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
+  }
+  _src=_d.toString('utf8');
 
-const CAT_ICONS = {
-  core:"⚙️", moderation:"🛡️", admin:"👑", sports:"⚽", bible:"📖",
-  games:"🎮", tools:"🔧", downloader:"📥", search:"🔎", ai:"🤖",
-  info:"ℹ️", settings:"⚙️", personalization:"🧠", integrations:"🔗",
-  welcome:"👋", notes:"📝", "anti-features":"🚫", "auto-features":"🤖",
-};
-
-module.exports = {
-  name: "Features",
-  category: "core",
-  desc: "Browse all bot features by category: /features [category]",
-  command: ["features"],
-
-  run: async ({ reply, args, m, sock, prefix, isOwner, isDev }) => {
-    const pfx  = prefix || "/";
-    const all  = Array.isArray(global.PLUGINS) ? global.PLUGINS : [];
-    const sub  = (args[0] || "").toLowerCase();
-    const ver  = global.BOT_VERSION || "v1.0 Miss Chatra";
-    const thumb = getThumb();
-
-    async function send(text) {
-      if (thumb && sock && m?.chat) {
-        try { return await sock.sendMessage(m.chat, { image: thumb, caption: text }, { quoted: m }); } catch {}
-      }
-      return reply(text);
-    }
-
-    // Group plugins by category
-    const catMap = new Map();
-    for (const pl of all) {
-      if (pl.hidden) continue;
-      const cat  = String(pl.category || "misc").toLowerCase();
-      const cmds = (pl.command || []).filter(c => c && !String(c).startsWith("_"));
-      if (!cmds.length) continue;
-      if (!catMap.has(cat)) catMap.set(cat, []);
-      catMap.get(cat).push({ name: pl.name, desc: pl.desc || "", cmds });
-    }
-
-    const cats = [...catMap.keys()].sort((a,b) => a==="core"?-1:b==="core"?1:a.localeCompare(b));
-    const totalCmds = all.reduce((n,p) => n + (p.command||[]).filter(c=>c&&!String(c).startsWith("_")).length, 0);
-
-    // Show specific category
-    if (sub && catMap.has(sub)) {
-      const items = catMap.get(sub);
-      const icon  = CAT_ICONS[sub] || "📦";
-      const lines = [`${icon} *${sub.toUpperCase()} Features*\n${"═".repeat(32)}\n`];
-      for (const it of items) {
-        lines.push(`📌 *${it.name}*`);
-        if (it.desc) lines.push(`   ${it.desc.slice(0,80)}`);
-        for (const cmd of it.cmds.slice(0,6)) lines.push(`   └ ${pfx}${cmd}`);
-        if (it.cmds.length > 6) lines.push(`   └ ...+${it.cmds.length-6} more`);
-        lines.push("");
-      }
-      lines.push(`${"═".repeat(32)}\n📊 Commands in this category: ${items.reduce((n,i)=>n+i.cmds.length,0)}`);
-      return send(lines.join("\n"));
-    }
-
-    // Show all categories overview
-    if (!sub || sub === "all") {
-      const lines = [
-        `🤖 *Miss Chatra — Features Overview*`,
-        `${"═".repeat(32)}`,
-        ``,
-        `📊 Total: ${totalCmds} commands across ${cats.length} categories`,
-        ``,
-        `*Categories:*`,
-      ];
-      for (const cat of cats) {
-        const icon  = CAT_ICONS[cat] || "📦";
-        const items = catMap.get(cat);
-        const cmdCount = items.reduce((n,i)=>n+i.cmds.length,0);
-        lines.push(`  ${icon} *${cat.toUpperCase()}* — ${cmdCount} commands`);
-      }
-      lines.push(``);
-      lines.push(`*To browse a category:*`);
-      lines.push(`  ${pfx}features moderation`);
-      lines.push(`  ${pfx}features sports`);
-      lines.push(`  ${pfx}features games`);
-      lines.push(`  ${pfx}features ai`);
-      lines.push(``);
-      lines.push(`🤖 ${ver}`);
-      return send(lines.join("\n"));
-    }
-
-    // Category not found — show list
-    const line = [`❓ Category *"${sub}"* not found.\n\nAvailable categories:`];
-    for (const cat of cats) line.push(`  • ${pfx}features ${cat}`);
-    return reply(line.join("\n"));
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

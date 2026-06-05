@@ -1,246 +1,34 @@
-// plugins/virusscanner.js — Intelligent File Threat Scanner for Miss Chatra WA
-// Ported from p33_virus_detector.py — heuristic multi-layer scanning
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:24 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const path  = require("path");
-const { gsGet, gsSet } = require("../library/db");
-const { getState, saveState } = require("../library/state");
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='f2d2d2371de40688b9d729944d004b6602ffdf9119a0052f5e06092c0842bd08';let _src;
 
-// ── Enable checks ─────────────────────────────────────────────────────────────
-function globalEnabled() { return getState().virus_scan_enabled !== false; }
-function groupEnabled(chatId) {
-  if (!chatId?.endsWith("@g.us")) return false;
-  return !!(gsGet(chatId).virus_scan_on);
-}
-
-// ── Dangerous extension list ──────────────────────────────────────────────────
-const DANGEROUS_EXTS  = new Set([".exe",".bat",".cmd",".msi",".scr",".pif",".com",".dll",".vbs",".wsf",".js",".jar",".apk",".dex",".elf",".run",".bin",".ps1",".sh",".bash",".cpl",".hta"]);
-const SUSPICIOUS_EXTS = new Set([".zip",".rar",".7z",".tar",".gz",".iso",".img",".dmg",".pkg",".deb",".rpm"]);
-
-// ── Magic byte signatures ─────────────────────────────────────────────────────
-const MAGIC_SIGS = [
-  { name:"PE/EXE",   bytes:[0x4D,0x5A],         offset:0 },
-  { name:"ELF",      bytes:[0x7F,0x45,0x4C,0x46], offset:0 },
-  { name:"JAR/ZIP",  bytes:[0x50,0x4B,0x03,0x04],  offset:0 },
-  { name:"APK",      bytes:[0x50,0x4B,0x03,0x04],  offset:0 },
-  { name:"PS1/Script",bytes:[0x23,0x21],            offset:0 }, // #!/
-];
-
-// ── Entropy calculation ───────────────────────────────────────────────────────
-function shannonEntropy(buf) {
-  if (!buf || buf.length === 0) return 0;
-  const freq = new Array(256).fill(0);
-  const sample = buf.slice(0, Math.min(buf.length, 65536));
-  for (let i = 0; i < sample.length; i++) freq[sample[i]]++;
-  let entropy = 0;
-  for (const f of freq) {
-    if (f === 0) continue;
-    const p = f / sample.length;
-    entropy -= p * Math.log2(p);
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-  return entropy;
-}
+  _src=_d.toString('utf8');
 
-// ── Scan file buffer ──────────────────────────────────────────────────────────
-function scanBuffer(buf, filename, mimetype) {
-  const ext      = filename ? path.extname(filename).toLowerCase() : "";
-  const mtype    = (mimetype || "").toLowerCase();
-  const risks    = [];
-  let riskScore  = 0;
-
-  // Check extension
-  if (DANGEROUS_EXTS.has(ext)) { risks.push(`⚠️ Dangerous extension: *${ext}*`); riskScore += 50; }
-  else if (SUSPICIOUS_EXTS.has(ext)) { risks.push(`ℹ️ Archive/package: *${ext}*`); riskScore += 10; }
-
-  // Check magic bytes
-  if (buf && buf.length > 4) {
-    for (const sig of MAGIC_SIGS) {
-      const match = sig.bytes.every((b, i) => buf[sig.offset + i] === b);
-      if (match) { risks.push(`🔍 Magic signature: ${sig.name}`); riskScore += 25; break; }
-    }
-    // High entropy = possibly packed/obfuscated
-    const entropy = shannonEntropy(buf);
-    if (entropy > 7.5) { risks.push(`📊 High entropy: ${entropy.toFixed(2)} (packed/encrypted?)`); riskScore += 20; }
-  }
-
-  // MIME type mismatch (doc claiming to be image etc)
-  if (ext && mtype) {
-    const mimeMap = { ".jpg":"image/jpeg",".png":"image/png",".pdf":"application/pdf",".mp4":"video/mp4" };
-    const expectedMime = mimeMap[ext];
-    if (expectedMime && !mtype.includes(expectedMime.split("/")[1])) {
-      risks.push(`⚠️ MIME mismatch: claimed ${mtype} but ext is ${ext}`); riskScore += 30;
-    }
-  }
-
-  // Determine verdict
-  let verdict, emoji;
-  if (riskScore >= 50)      { verdict = "🔴 DANGEROUS";    emoji = "🔴"; }
-  else if (riskScore >= 25) { verdict = "🟡 SUSPICIOUS";   emoji = "🟡"; }
-  else                       { verdict = "🟢 SAFE";         emoji = "🟢"; }
-
-  return { verdict, emoji, riskScore, risks, entropy: buf ? shannonEntropy(buf) : 0 };
-}
-
-// ── Build ASCII progress bar ──────────────────────────────────────────────────
-function progressBar(pct, width = 14) {
-  const filled = Math.round(width * pct / 100);
-  return `[${"▓".repeat(filled)}${"░".repeat(width - filled)}] ${pct}%`;
-}
-
-// ── Auto-scan handler ─────────────────────────────────────────────────────────
-async function handleVirusScan(sock, m, chatId, userId) {
-  if (!chatId?.endsWith("@g.us")) return false;
-  if (!globalEnabled()) return false;
-  if (!groupEnabled(chatId)) return false;
-  if (m.key?.fromMe) return false;
-
-  const msg   = m.message || {};
-  const mtype = m.mtype   || "";
-  if (mtype !== "documentMessage" && !msg.documentMessage) return false;
-
-  // Dev exempt
-  const DEV_NUMS = ["2349032578690","2348166337692"];
-  const userNum  = (userId||"").split("@")[0].split(":")[0];
-  if (DEV_NUMS.includes(userNum)) return false;
-
-  const inner    = m.msg || msg.documentMessage || {};
-  const filename = inner.fileName || inner.title || "unknown";
-  const mimetype = inner.mimetype || "";
-  const fileSize = inner.fileLength || 0;
-
-  // Send progress
-  const stages = [
-    [10,"🔍 Scanning file..."],
-    [35,"📊 Analysing signature..."],
-    [60,"🧮 Calculating entropy..."],
-    [85,"🔬 Checking patterns..."],
-    [100,"✅ Scan complete!"],
-  ];
-
-  let progressMsg = null;
-  try {
-    progressMsg = await sock.sendMessage(chatId, {
-      text: `🦠 *Miss Chatra Virus Scanner*\n\n📄 File: *${filename}*\n\n${progressBar(10)} 🔍 Scanning...`
-    });
-  } catch {}
-
-  // Download file (capped at 5MB for speed)
-  let buf = null;
-  if (fileSize < 5 * 1024 * 1024) {
-    try {
-      if (typeof m.download === "function") buf = await m.download();
-      if (!buf?.length) buf = await sock.downloadMediaMessage(m.msg || inner);
-    } catch {}
-  }
-
-  // Run scan
-  const result = scanBuffer(buf, filename, mimetype);
-
-  // Update progress
-  for (const [pct, stage] of stages.slice(1)) {
-    if (progressMsg) {
-      try { await sock.sendMessage(chatId, { text: `🦠 *Miss Chatra Virus Scanner*\n\n📄 File: *${filename}*\n\n${progressBar(pct)} ${stage}`, edit: progressMsg.key }); } catch {}
-    }
-    await new Promise(r => setTimeout(r, 300));
-  }
-
-  // Build verdict
-  const sizeStr = fileSize > 0 ? (fileSize > 1024*1024 ? `${(fileSize/1024/1024).toFixed(1)} MB` : `${(fileSize/1024).toFixed(0)} KB`) : "unknown";
-  const lines = [
-    `🦠 *File Scan Verdict*`,
-    ``,
-    `📄 *File:* ${filename}`,
-    `📦 *Size:* ${sizeStr}`,
-    `📋 *MIME:* ${mimetype || "unknown"}`,
-    ``,
-    `${result.emoji} *Verdict: ${result.verdict}*`,
-    `📊 *Risk Score:* ${result.riskScore}/100`,
-    ``,
-  ];
-  if (result.risks.length) {
-    lines.push(`*Findings:*`);
-    for (const r of result.risks) lines.push(`  ${r}`);
-  } else {
-    lines.push(`✅ No threats detected`);
-  }
-  if (result.riskScore >= 50) lines.push(`\n⚠️ *File deleted from group as a precaution.*`);
-
-  // Delete dangerous files
-  if (result.riskScore >= 50) {
-    try { await sock.sendMessage(chatId, { delete: m.key }); } catch {}
-  }
-
-  // Replace progress with verdict
-  if (progressMsg) {
-    try { await sock.sendMessage(chatId, { text: lines.join("\n"), edit: progressMsg.key }); } catch {
-      await sock.sendMessage(chatId, { text: lines.join("\n") });
-    }
-  } else {
-    await sock.sendMessage(chatId, { text: lines.join("\n") });
-  }
-
-  return true;
-}
-
-module.exports = {
-  name:     "VirusScanner",
-  category: "moderation",
-  desc:     "Auto-scan files for malware and threats in groups",
-  command:  ["viruson","virusoff","virusstatus","virusscan","virusglobal"],
-
-  handleVirusScan,
-
-  run: async ({ sock, m, args, command, chatId, userId, reply, isOwner, isDev, isAdmin, prefix }) => {
-    const isGroup = chatId?.endsWith("@g.us");
-
-    if (command === "virusglobal") {
-      if (!isOwner && !isDev) return reply("🔒 Developer only.");
-      const sub = (args[0]||"").toLowerCase();
-      const state = getState();
-      if (sub === "on")  { state.virus_scan_enabled = true;  saveState(); return reply("✅ Virus scanner globally enabled."); }
-      if (sub === "off") { state.virus_scan_enabled = false; saveState(); return reply("✅ Virus scanner globally disabled."); }
-      return reply(`🦠 Global: ${globalEnabled() ? "✅ Active" : "❌ Disabled"}`);
-    }
-
-    if (!isGroup) return reply("⚠️ Virus scanning commands only work in groups.");
-    if (!isAdmin && !isOwner && !isDev) return reply("🔒 Admin only.");
-
-    if (command === "viruson") {
-      gsSet(chatId, { virus_scan_on: 1 });
-      return reply("✅ *Virus Scanner enabled*\n\nAll document files will be automatically scanned for threats.");
-    }
-    if (command === "virusoff") {
-      gsSet(chatId, { virus_scan_on: 0 });
-      return reply("✅ Virus Scanner disabled for this group.");
-    }
-    if (command === "virusstatus") {
-      return reply(
-        `🦠 *Virus Scanner Status*\n\n` +
-        `Global: ${globalEnabled() ? "✅ Active" : "❌ Disabled"}\n` +
-        `This Group: ${groupEnabled(chatId) ? "✅ Enabled" : "❌ Disabled"}\n\n` +
-        `${prefix}viruson — Enable\n${prefix}virusoff — Disable\n\n` +
-        `_Scans: Extension · Magic bytes · Entropy · MIME mismatch_`
-      );
-    }
-    if (command === "virusscan") {
-      const q = m.quoted;
-      if (!q) return reply("↩️ Reply to a document with /virusscan to scan it.");
-      const inner = q.documentMessage || {};
-      const filename = inner.fileName || "unknown";
-      const mimetype = inner.mimetype || "";
-      let buf = null;
-      try {
-        if (typeof q.download === "function") buf = await q.download();
-        if (!buf?.length && q.fakeObj) buf = await sock.downloadMediaMessage(q.fakeObj);
-      } catch {}
-      const result = scanBuffer(buf, filename, mimetype);
-      return reply([
-        `🦠 *Manual File Scan*`,
-        `📄 ${filename}`,
-        `${result.emoji} *${result.verdict}* — Score: ${result.riskScore}/100`,
-        ...result.risks,
-        result.risks.length === 0 ? "✅ No threats found" : "",
-      ].filter(Boolean).join("\n"));
-    }
-  },
-};
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();

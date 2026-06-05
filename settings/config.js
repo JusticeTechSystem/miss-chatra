@@ -1,86 +1,34 @@
-// settings/config.js — Miss Chatra Configuration
-const config = {
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.4                                     ║
+// ║  Encrypted: 2026-06-05 14:34:23 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-  // ── Owner / Pairing ────────────────────────────────────────────────────────
-  // ⚠️  IMPORTANT: Set your WhatsApp number here BEFORE starting the bot.
-  //    Digits only — include country code — NO + sign.
-  //    Nigeria +234 example:  "2349012345678"
-  //    UK      +44  example:  "447911123456"
-  //    USA     +1   example:  "12025551234"
-  //
-  //    On first run, the bot will print a PAIRING CODE in the console.
-  //    Enter it in WhatsApp → Linked Devices → Link with phone number.
-  ownerNumber: "2349032578690",      // ← Your own number (bot owner)
-  webPort: 3000,                     // ← Port for the pairing web UI
-  ownerNumbers: ["2349032578690"],   // Additional owner numbers if needed
-  ownerName: "JusticeTech",
+// Encrypted by Obfuscationary by JusticeTech v4.0.4
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='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';const _IH='5ea0b5fe61c410529502aeb8e203d56bff32271ad342bccd75f137af74e9094b';let _src;
 
-  // ── Report System ──────────────────────────────────────────────────────────
-  // How many reports on a user before auto-action (kick from group)
-  reportThreshold: 3,   // auto-kick after this many reports (change as needed)
-  // Max number of reports one user can submit against the same person
-  reportMaxPerUser: 3,
-
-  // ── Bot Identity ───────────────────────────────────────────────────────────
-  botName: "Miss Chatra",
-  setPair: "MissChatra",
-  session: "sessions",
-
-  // ── Developer / Company ────────────────────────────────────────────────────
-  developerNumber: "2349032578690",
-  developerUsername: "justicetechie",
-  developerName: "JusticeTech",
-  companyName: "JusticeTech System",
-  companyLocation: "JusticeTech City, Nigeria",
-  companyFocus: "Web Development, App Development, Bot Development and Automation",
-  developerLink: "https://wa.me/2349032578690",
-  channelLink: "https://whatsapp.com/channel/justicetechsystem",
-  supportLink: "https://wa.me/2349032578690",
-
-  // ── AI / API ───────────────────────────────────────────────────────────────
-  aiBaseUrl: "https://apis.prexzyvilla.site",
-  ttsEndpoint: "https://apis.prexzyvilla.site/tools/onyx",
-  prexzyBase: "https://apis.prexzyvilla.site",
-
-  // ── Command Prefix ─────────────────────────────────────────────────────────
-  prefix: "/",
-
-  // ── Status ─────────────────────────────────────────────────────────────────
-  status: {
-    public: true,
-    terminal: true,
-    reactsw: false
-  },
-
-  // ── Sticker meta ───────────────────────────────────────────────────────────
-  sticker: {
-    packname: "Miss Chatra",
-    author: "JusticeTech"
-  },
-
-  settings: {
-    title: "Miss Chatra",
-    packname: "JusticeTech",
-    description: "Your intelligent WhatsApp group manager",
-    footer: "Miss Chatra by JusticeTech"
-  },
-
-  // ── Chatbot ────────────────────────────────────────────────────────────────
-  conversationTimeout: 300,   // seconds before conversation times out
-  maxContextLength: 50,
-
-  // ── Auto-delete defaults ───────────────────────────────────────────────────
-  autoDeleteDelay: 180,       // seconds
-
-  // ── Messages ───────────────────────────────────────────────────────────────
-  message: {
-    owner: "🔒 This command is for the bot owner only.",
-    admin: "🔒 This command is for group admins only.",
-    group: "📢 This command only works in groups.",
-    private: "📩 This command only works in private chat.",
-    error: "❌ Something went wrong, please try again.",
-    wait: "⏳ Please wait..."
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-};
+  _src=_d.toString('utf8');
 
-module.exports = config;
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
+})();
