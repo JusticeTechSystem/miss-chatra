@@ -23,7 +23,7 @@ function getVersion() {
       return `v${v.version}${code}`;
     }
   } catch {}
-  return "v1.0.7_JT";  // fallback — never show "vundefined"
+  return "v1.0.0_JT";  // fallback — never show "vundefined"
 }
 function VERSION() { return getVersion(); }
 const DB_DIR       = path.join(__dirname, "..", "database");

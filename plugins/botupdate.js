@@ -240,7 +240,7 @@ function _srcIsObfuscated(root) {
   return false;
 }
 
-function applyUpdate(srcRoot) {
+function applyUpdate(srcRoot, remoteInfo) {
   // If ANY key file in the downloaded zip is obfuscated (pbkdf2 iterations=0 crash),
   // skip ALL affected dirs/files to prevent a crash-on-restart loop.
   const _skipObfuscated = _srcIsObfuscated(srcRoot);
@@ -268,11 +268,48 @@ function applyUpdate(srcRoot) {
   for (const file of UPDATABLE_FILES) {
     // Skip index.js and message.js if the downloaded package is obfuscated
     if (_skipObfuscated && (file === "index.js" || file === "message.js")) continue;
+    // version.json is handled explicitly below — skip here to avoid stale zipball content
+    if (file === "version.json") continue;
     const src = path.join(srcRoot, file);
     if (!fs.existsSync(src)) continue;
     safeCopyFile(src, path.join(BOT_ROOT, file));
     total++;
   }
+
+  // ── Guaranteed version.json write ──────────────────────────────────────────
+  // Always write version.json from the confirmed remote release metadata,
+  // NOT from the zipball (which may have a stale/wrong version inside).
+  // This is the single source of truth for what version is actually running.
+  if (remoteInfo && remoteInfo.tag) {
+    const rawTag   = String(remoteInfo.tag);                         // e.g. "v1.0.9_JT"
+    const semver   = rawTag.replace(/^v/i, "").replace(/_[A-Za-z].*$/, ""); // "1.0.9"
+    const codename = (rawTag.match(/_([A-Za-z]+)/) || [])[1] || "JT";       // "JT"
+    const versionPayload = {
+      version:     semver,
+      codename:    codename,
+      tag:         rawTag,
+      releaseDate: new Date().toISOString().slice(0, 10),
+      changelog:   remoteInfo.body
+        ? remoteInfo.body.split("\n").filter(Boolean).slice(0, 12)
+        : [],
+    };
+    // Try to preserve existing changelog entries if remote has none
+    if (!versionPayload.changelog.length) {
+      try {
+        const existing = readJson(VERSION_FILE, {});
+        if (Array.isArray(existing.changelog)) versionPayload.changelog = existing.changelog;
+      } catch {}
+    }
+    try {
+      fs.writeFileSync(VERSION_FILE, JSON.stringify(versionPayload, null, 2), "utf8");
+      console.log("[UPDATE] ✅ version.json written → " + rawTag);
+      total++;
+    } catch (e) {
+      console.error("[UPDATE] ❌ Failed to write version.json:", e.message);
+    }
+  }
+  // ───────────────────────────────────────────────────────────────────────────
+
   return total;
 }
 
@@ -454,7 +491,7 @@ module.exports = {
     await sleep(300);
     let totalFiles = 0;
     try {
-      totalFiles = applyUpdate(srcRoot);
+      totalFiles = applyUpdate(srcRoot, remote);
       await sendProgress(78, "Files applied!", remote.tag, totalFiles + " files updated");
       await sleep(400);
     } catch (e) {
