@@ -224,14 +224,17 @@ function _fileIsObfuscated(filePath) {
 }
 
 function _srcIsObfuscated(root) {
-  // Check root-level files first
+  // Scan root files
   if (_fileIsObfuscated(path.join(root, "index.js"))) return true;
   if (_fileIsObfuscated(path.join(root, "message.js"))) return true;
-  // Also scan library/ — pbkdf2 crash was traced to library/justicetechsystem.js:22
-  const libDir = path.join(root, "library");
-  if (fs.existsSync(libDir)) {
-    for (const f of fs.readdirSync(libDir)) {
-      if (f.endsWith(".js") && _fileIsObfuscated(path.join(libDir, f))) return true;
+  // Scan ALL .js files in library/ and plugins/ — obfuscated files have appeared
+  // in both dirs across different update releases (library/justicetechsystem.js,
+  // plugins/adminpowers.js, etc.) so we must check every file in both folders.
+  for (const dir of ["library", "plugins"]) {
+    const d = path.join(root, dir);
+    if (!fs.existsSync(d)) continue;
+    for (const f of fs.readdirSync(d)) {
+      if (f.endsWith(".js") && _fileIsObfuscated(path.join(d, f))) return true;
     }
   }
   return false;
@@ -242,7 +245,7 @@ function applyUpdate(srcRoot) {
   // skip ALL affected dirs/files to prevent a crash-on-restart loop.
   const _skipObfuscated = _srcIsObfuscated(srcRoot);
   if (_skipObfuscated) {
-    console.log("[UPDATE] ⚠️  Obfuscated files detected in update package — skipping index.js, message.js and library/ to avoid pbkdf2 crash. Push unobfuscated source.");
+    console.log("[UPDATE] ⚠️  Obfuscated files detected in update package — skipping index.js, message.js, library/ and plugins/ to avoid pbkdf2 crash. Push unobfuscated source.");
   }
   let total = 0;
   for (const dir of UPDATABLE_DIRS) {
@@ -250,7 +253,7 @@ function applyUpdate(srcRoot) {
     const dest = path.join(BOT_ROOT, dir);
     if (!fs.existsSync(src)) continue;
     // Skip library/ entirely if the downloaded package is obfuscated
-    if (_skipObfuscated && dir === "library") continue;
+    if (_skipObfuscated && (dir === "library" || dir === "plugins")) continue;
     if (dir === "settings") {
       if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
       for (const f of fs.readdirSync(src)) {
