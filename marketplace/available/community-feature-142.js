@@ -1,34 +1,11 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.4                                     ║
-// ║  Encrypted: 2026-06-05 06:51:32 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
-
-// Encrypted by Obfuscationary by JusticeTech v4.0.4
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='SkPCr3G2HXUnvQ+1Hns0LbRZFg0bCL6LbfbMlJVaPrFUJ9VjMIO7CqCf3vHh7WHxm/JjowcBvPZNDITcp7EKzyvM005zLddSgup+XF/GojWDQDRxYbdkM06ptKedDUAo1kBtG0dsn0v5qphGPhR1fPYJDDLWJoYVjEx7q4L1D9hmnzbS2nbpLeS44g1JZZh76lKyqnD+elPYuip6iNaGaMendwkG1f4lJf//V5d4ybEJ1Nqp8sE/BciJar2Mx6Uh+5K6Pi3HX9wUVYh1t7pnzGK4Y7PSUdnruj7puGEYKSJ24uRXcp58Iq677BQoXJCsb/kxj5s7yXpFaLiCivQ183Y5xXieNZqS/ao4AWqO0+vHKO6n/fdxYfWPv0dLz6TzcG8ffUTnBFUAugMbO+Qz2///76kAPJHQkQWFRAOGBxn+8PzUz9UXjljo/CsfjSfDzV7KiLhhuyY9RbvSFDiTsS7WtGKH3tsq35TBwuyPRQEBBsKHil0P3qt6YLjbbqsiQtCDWCpDPYqluR9QmyhIiT12rvAhICiaCnhNOGef6kxz2n99osdFGDUQ9V3XKq3C82fP2JJR0ADEPq5v5c1jT5mPRa2H7RPfZI/vTwup2Dzrb8z9P771UeOi8w9FwHGn2Rhpgw9l6WX6bGiNPrGEn/lQsgmtkLq0h/ciCdOYsxLs926GHpL0sakj9q9/oC1KuTmqBDSYdN2YdcCwX2ln/cED+jP0M+O/wx4NR1mKLQM0KXo=';const _IH='533ab32b8495c81fe6835e2952585c091dbfd4eef2197457ed8dc3aac300755d';let _src;
-
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
+// @marketplace community-feature-142 v1.0.0 by JusticeTech
+"use strict";
+module.exports={
+  name:"CommunityFeature142",category:"community",desc:"Community feature #142",
+  command:["community142"],
+  run:async({args,command,chatId:chat,userId:uid,reply,prefix,sock,m,isAdmin,isOwner,isDev,mentionedJid})=>{
+    const pfx=prefix||"/";
+    const canUse=isAdmin||isOwner||isDev;
+    return reply("🏘️ Community Feature #143\\n\\nShared purpose creates lasting bonds\\n\\nType /community142 help for usage.");
   }
-  _src=_d.toString('utf8');
-
-  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
-  // import() is a context-sensitive keyword unavailable inside new Function() —
-  // capturing it here as an arrow function restores it for the decrypted code.
-  const _import=(m)=>import(m);
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
-})();
+};

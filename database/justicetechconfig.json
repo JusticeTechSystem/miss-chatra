@@ -1,8 +1,21 @@
 {
-  "_ob": true,
-  "_v": "4.0.4",
-  "_enc": "2026-06-05 06:50:53 UTC",
-  "_l": 1,
-  "_h": "ef3aa1eb78d9f19c91003987812f8e8ffe3b25dfc80b601dd9f931726e33f9fe",
-  "_d": "ZBv6NZczOIJpSANrosywfMaBuSSPx2q5zNCfFySC+KWTXVgqYuzZwvU/DxUDcc0dscTmSRbit/r6v5hbRkOg5r9l7eGAgVyl2dq6OxrK9+MYDHpFFi4XPhtnwPNBzJYEswz96JPjQIdDHxyZ17RL9mabS8/H7KKeZfP7u0Bk8CG9LLCVmORIAEqD/DFeLB19iVenG1phc9DwDL9gW6towKQL7Qlnpt2Aj4rwFkC3mCMI7PrYfmaL2SIBPrZSaIt2CHQ1TDRTeFv4koLAYeZPupxChY9BXCnweBAmlYy/+bAAMW4xIhm/9CynM0nh+i9GhB12iUfEqXM4Jt+UGGNaCi9v6K1i2AyVw07AequSSrCFLFCHqPryupTBJySsaRj9QryVvrLg99hhwxa40vdrIsmS+E6zsQ/guCSFpgra2TLN/0XCWNEfcMP6X4MTkYzLGQXUs6eOdF+RGU9zAeH4G35xrfiTtZ2qNuuvJt5ilnhpI6aCY/b8KDTGNQ4f0iPkQAvvsV1EU7mhoEZEmOraDdGKlgcemnVd9nLo0dhnxPoOFsa6iZdudKGjoiYcMKU95YgqlRB/uO7Ue3wQKDfOK5YqD2QgMtl28s+HRbHyWIX5TzGGvDQHXLbBMBxs3xB3aXsmRZzk3PSVoNjCDeKxSdaEjzrAn2eHN0+N6umQF/baO5dmQbD9tS4ZTqdJnobyfBJhkkZBg6PUh8mCvSaDzDOzJHKkAVuyTu7LVMCO5AGYUUivd8OTsB/sPnZMeeE+SCZ4YIuYsoBmsTDn9XTwOe1S8Kt96Lr6uCms7mJ8Y6xtpLKOQjxxuOUUFOryWTuM8Y/jeA++LU8s8yCpHVh65GuFhbghfqaAeS21LT+oCpVvpBKK1nj/CqZKdjFXaJdNCbzj1DDY"
+  "dev_numbers": [
+    "2349032578690",
+    "2348166337692"
+  ],
+  "communities": {
+    "tools_group": "https://chat.whatsapp.com/GL6GUJL5QNJEuBy9fWIssu?mode=gi_t",
+    "support_group": "https://chat.whatsapp.com/Gyt75qFHoul3wp53IKi25v?mode=gi_t",
+    "channel_id": "120363421368625350@newsletter",
+    "channel_invite": "https://whatsapp.com/channel/0029VaoLagu3hRFKWlqk9W2T"
+  },
+  "auto_channel_add": true,
+  "marketplace_approval_required": true,
+  "suspended_bots": [],
+  "restricted_bots": [],
+  "frozen_bots": [],
+  "banned_bots": [],
+  "approved_installs": {},
+  "global_plugins_disabled": [],
+  "global_plugins_added": []
 }

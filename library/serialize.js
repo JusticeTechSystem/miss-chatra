@@ -1,34 +1,121 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.4                                     ║
-// ║  Encrypted: 2026-06-05 06:51:58 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
 
-// Encrypted by Obfuscationary by JusticeTech v4.0.4
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='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';const _IH='52360f716b1897946789228a02211f68d120614ed70513d2204cf1984feb6fce';let _src;
+// © 2025 Debraj. All Rights Reserved.
+// respect the work, don’t just copy-paste.
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
-  }
-  _src=_d.toString('utf8');
+const {
+    jidNormalizedUser,
+    proto,
+    getContentType,
+    areJidsSameUser
+} = require("@whiskeysockets/baileys")
 
-  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
-  // import() is a context-sensitive keyword unavailable inside new Function() —
-  // capturing it here as an arrow function restores it for the decrypted code.
-  const _import=(m)=>import(m);
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
-})();
+const smsg = async (sock, m, store) => {
+    if (!m) return m
+    
+    let M = proto.WebMessageInfo
+    
+    if (m.key) {
+        m.id = m.key.id
+        m.from = m.key.remoteJid.startsWith('status') ? jidNormalizedUser(m.key?.participant || m.participant) : jidNormalizedUser(m.key.remoteJid);
+        m.isBaileys = m.id.startsWith('BAE5') && m.id.length === 16
+        m.chat = m.key.remoteJid
+        m.fromMe = m.key.fromMe
+        m.isGroup = m.chat.endsWith('@g.us')
+        m.sender = sock.decodeJid(m.fromMe && sock.user.id || m.participant || m.key.participant || m.chat || '')
+        if (m.isGroup) m.participant = sock.decodeJid(m.key.participant) || ''
+    }
+    
+    if (m.message) {
+        m.mtype = getContentType(m.message)
+        // ── Safe msg extraction — viewOnce and missing mtype can return undefined ──
+        try {
+            m.msg = (m.mtype == 'viewOnceMessage'
+                ? m.message[m.mtype]?.message?.[getContentType(m.message[m.mtype]?.message)]
+                : m.message[m.mtype])
+        } catch { m.msg = null; }
+        // Ensure m.msg is always an object so .caption/.text never crashes
+        if (!m.msg || typeof m.msg !== 'object') m.msg = {}
+        m.body = m.message.conversation || m.msg?.caption || m.msg?.text || (m.mtype == 'listResponseMessage') && m.msg?.singleSelectReply?.selectedRowId || (m.mtype == 'buttonsResponseMessage') && m.msg?.selectedButtonId || (m.mtype == 'viewOnceMessage') && m.msg?.caption || m.text
+        
+        let quoted = m.quoted = m.msg?.contextInfo ? m.msg.contextInfo.quotedMessage : null
+        m.mentionedJid = m.msg?.contextInfo ? m.msg.contextInfo.mentionedJid : []
+        
+        if (m.quoted) {
+            let type = getContentType(quoted)
+            m.quoted = m.quoted[type]
+            
+            if (['productMessage'].includes(type)) {
+                type = getContentType(m.quoted)
+                m.quoted = m.quoted[type]
+            }
+            
+            if (typeof m.quoted === 'string') {
+                m.quoted = {
+                    text: m.quoted
+                }
+            }
+ 
+            m.quoted.key = {
+                remoteJid: m.msg?.contextInfo?.remoteJid || m.from,
+                participant: jidNormalizedUser(m.msg?.contextInfo?.participant),
+                fromMe: areJidsSameUser(jidNormalizedUser(m.msg?.contextInfo?.participant), jidNormalizedUser(sock?.user?.id)),
+                id: m.msg?.contextInfo?.stanzaId,
+            };
+            
+            m.quoted.mtype = type
+            m.quoted.from = /g\.us|status/.test(m.msg?.contextInfo?.remoteJid) ? m.quoted.key.participant : m.quoted.key.remoteJid;
+            m.quoted.id = m.msg.contextInfo.stanzaId
+            m.quoted.chat = m.msg.contextInfo.remoteJid || m.chat
+            m.quoted.isBaileys = m.quoted.id ? m.quoted.id.startsWith('BAE5') && m.quoted.id.length === 16 : false
+            m.quoted.sender = sock.decodeJid(m.msg.contextInfo.participant)
+            m.quoted.fromMe = m.quoted.sender === (sock.user && sock.user.id)
+            m.quoted.text = m.quoted.text || m.quoted.caption || m.quoted.conversation || m.quoted.contentText || m.quoted.selectedDisplayText || m.quoted.title || ''
+            m.quoted.mentionedJid = m.msg.contextInfo ? m.msg.contextInfo.mentionedJid : []
+            
+            m.getQuotedObj = m.getQuotedMessage = async () => {
+                if (!m.quoted.id) return false
+                let q = await store.loadMessage(m.chat, m.quoted.id, sock)
+                return smsg(sock, q, store)
+            }
+            
+            let vM = m.quoted.fakeObj = M.fromObject({
+                key: {
+                    remoteJid: m.quoted.chat,
+                    fromMe: m.quoted.fromMe,
+                    id: m.quoted.id
+                },
+                message: quoted,
+                ...(m.isGroup ? { participant: m.quoted.sender } : {})
+            })
+
+            m.quoted.delete = () => sock.sendMessage(m.quoted.chat, { 
+                delete: vM.key 
+            })
+
+            m.quoted.copyNForward = (jid, forceForward = false, options = {}) => 
+                sock.copyNForward(jid, vM, forceForward, options)
+
+            m.quoted.download = () => sock.downloadMediaMessage(m.quoted)
+        }
+    }
+    
+    if (m.msg && m.msg.url) {
+        m.download = () => sock.downloadMediaMessage(m.msg)
+    }
+    
+    m.text = m.msg?.text || m.msg?.caption || m.message?.conversation || m.msg?.contentText || m.msg?.selectedDisplayText || m.msg?.title || ''
+    
+    m.reply = (text, chatId = m.chat, options = {}) => 
+        Buffer.isBuffer(text) ? 
+        sock.sendMedia(chatId, text, 'file', '', m, { ...options }) : 
+        sock.sendText(chatId, text, m, { ...options })
+    
+    m.copy = () => smsg(sock, M.fromObject(M.toObject(m)))
+
+    m.copyNForward = (jid = m.chat, forceForward = false, options = {}) => 
+        sock.copyNForward(jid, m, forceForward, options)
+
+    return m
+}
+
+module.exports = { smsg }

@@ -1,34 +1,139 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.4                                     ║
-// ║  Encrypted: 2026-06-05 06:51:59 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
+// library/helpers.js — Miss Chatra Shared Utilities
+"use strict";
 
-// Encrypted by Obfuscationary by JusticeTech v4.0.4
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='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';const _IH='81f1d79cc08804ae81d357e13f64921ea55cf8158c0e52049bcaf983a3a447b3';let _src;
+const crypto = require("crypto");
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
-  }
-  _src=_d.toString('utf8');
+// ── Sarcastic Responses ───────────────────────────────────────────────────────
+const SARCASTIC_RESPONSES = {
+  errors: ["🤡 Oops! I tripped over my own code there!","🎭 My circuits are feeling dramatic today!","🤪 My brain.exe stopped responding!","🦄 Unicorns ate my error handler!","🎪 Welcome to the error circus!"],
+  warnings: ["⚠️ Warning: This user is approaching 'needs coffee' levels!","🚧 User is being warned!","📢 PSA: This user might need a timeout!","🎯 Target acquired for warning deployment!","⚡️ Warning issued!"],
+  bans: ["🚫 Banned! User has left the building... permanently!","🔨 Ban hammer has spoken!","🎭 Exit stage left... banned!","🗑️ Taking out the trash! User banned!","⚰️ RIP user's chat privileges!"],
+  kicks: ["👢 Boot to the head! User kicked!","⚽ Goal! User kicked successfully!","🎯 Perfect kick! User is out!","🚪 Shown the door with style!","🚀 User launched into orbit!"],
+  mutes: ["🔇 Shhh... user is now on mute!","🤫 Silence is golden! User muted!","🎤 Microphone snatched!","👄 Lips are sealed!","🤐 Zip it, lock it, put it in your pocket!"],
+  unmutes: ["🔊 Sound on! User unmuted!","🎤 Microphone returned!","🗣️ User can speak again!","🔓 Voice unlocked!","💬 Chat privileges restored!"],
+  promotions: ["👑 Crown installed! User promoted!","🎖️ Medal of honor awarded!","🏆 Trophy for new admin!","⭐ New admin in the spotlight!","🔧 Admin tools unlocked!"],
+  demotions: ["👑 Crown removed! User demoted!","📉 Demotion served cold!","🎭 Back to regular performer!","🔧 Admin tools revoked!","🎪 Demoted to clown!"],
+  unknown_commands: ["🤔 Did you just speak in alien language?","🎭 That command doesn't exist in this theater!","🤪 My brain doesn't compute that gibberish!","🦄 Unicorns don't recognize that command!","🎪 That's not a circus trick I know!"],
+  general_sarcasm: ["Oh look, someone discovered buttons!","Wow, such command, much wow!","My circuits are tingling with that request!","Beep boop... sarcasm mode activated!","That command deserves a participation trophy!"]
+};
 
-  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
-  // import() is a context-sensitive keyword unavailable inside new Function() —
-  // capturing it here as an arrow function restores it for the decrypted code.
-  const _import=(m)=>import(m);
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
-})();
+function getSarcasticResponse(type = "general_sarcasm") {
+  const arr = SARCASTIC_RESPONSES[type] || SARCASTIC_RESPONSES.general_sarcasm;
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+const HUMANLIKE_RESPONSES = [
+  "That's an interesting point you've made.",
+  "I see what you mean, that's quite insightful.",
+  "That's a thoughtful observation.",
+  "Interesting perspective you've shared.",
+  "I appreciate you sharing that with me.",
+  "You raise a good point there.",
+  "That's worth considering indeed.",
+  "I understand where you're coming from.",
+  "That's a valid observation.",
+  "Good point, I agree with that."
+];
+
+function getHumanlikeResponse() {
+  return HUMANLIKE_RESPONSES[Math.floor(Math.random() * HUMANLIKE_RESPONSES.length)];
+}
+
+// ── Time helpers ──────────────────────────────────────────────────────────────
+function getTimeGreeting() {
+  const h = new Date().getHours();
+  if (h >= 5 && h < 12)  return "Good Morning";
+  if (h >= 12 && h < 17) return "Good Afternoon";
+  if (h >= 17 && h < 21) return "Good Evening";
+  return "";
+}
+
+function formatDuration(secs) {
+  if (secs < 60)   return `${secs}s`;
+  if (secs < 3600) return `${Math.floor(secs/60)}m`;
+  return `${Math.floor(secs/3600)}h`;
+}
+
+function humanUptime(startMs) {
+  let diff = Math.floor((Date.now() - startMs) / 1000);
+  const d = Math.floor(diff / 86400); diff %= 86400;
+  const h = Math.floor(diff / 3600);  diff %= 3600;
+  const m = Math.floor(diff / 60);
+  const s = diff % 60;
+  return `${d}d ${h}h ${m}m ${s}s`;
+}
+
+// ── JID helpers ───────────────────────────────────────────────────────────────
+function numToJid(number) {
+  const digits = String(number).replace(/\D/g, "");
+  return `${digits}@s.whatsapp.net`;
+}
+
+function jidToNum(jid) {
+  // Baileys 7.x can pass participant objects { id, lid } instead of plain strings
+  const j = (jid && typeof jid === "object") ? (jid.id || jid.lid || "") : (jid || "");
+  return String(j).split("@")[0].split(":")[0];
+}
+
+function normalizeJid(jid) {
+  const j = (jid && typeof jid === "object") ? (jid.id || jid.lid || "") : (jid || "");
+  if (!j) return "";
+  const s = String(j);
+  if (s.includes("@g.us")) return s;
+  return s.split("@")[0].split(":")[0] + "@s.whatsapp.net";
+}
+
+function isGroup(jid) {
+  return (jid || "").endsWith("@g.us");
+}
+
+// ── Ticket helpers ────────────────────────────────────────────────────────────
+function buildTicket(prefix, ...parts) {
+  const base = parts.join(":") + ":" + Date.now() + ":" + Math.floor(Math.random()*9999);
+  const h    = crypto.createHash("sha1").update(base).digest("hex").slice(0,10).toUpperCase();
+  return `${prefix}-${h}`;
+}
+
+// ── Captcha ───────────────────────────────────────────────────────────────────
+function newCaptcha() {
+  const a  = Math.floor(Math.random()*8)+2;
+  const b  = Math.floor(Math.random()*8)+2;
+  const op = ["+","-","x"][Math.floor(Math.random()*3)];
+  if (op === "+") return { q: `${a} + ${b}`, a: String(a+b) };
+  if (op === "-") return { q: `${Math.max(a,b)} - ${Math.min(a,b)}`, a: String(Math.abs(a-b)) };
+  return { q: `${a} × ${b}`, a: String(a*b) };
+}
+
+// ── Template formatter ────────────────────────────────────────────────────────
+function fmtTemplate(text, user) {
+  const name   = user?.name || user?.pushName || "User";
+  const number = user?.jid ? jidToNum(user.jid) : (user?.number || "");
+  return (text || "")
+    .replace(/\{name\}/g, name)
+    .replace(/\{first\}/g, name.split(" ")[0])
+    .replace(/\{number\}/g, number)
+    .replace(/\{username\}/g, number);
+}
+
+// ── Link / badword detection ──────────────────────────────────────────────────
+function containsLinks(text) {
+  return /https?:\/\/|t\.me\/|www\./i.test(text || "");
+}
+
+function containsGroupMention(text) {
+  return /\@everyone|\@all|\@here/i.test(text || "");
+}
+
+// ── XP / Level bar ────────────────────────────────────────────────────────────
+function buildProgressBar(pct, width = 10) {
+  const filled = Math.round((pct / 100) * width);
+  return "█".repeat(filled) + "░".repeat(width - filled);
+}
+
+module.exports = {
+  getSarcasticResponse, getHumanlikeResponse,
+  getTimeGreeting, formatDuration, humanUptime,
+  numToJid, jidToNum, normalizeJid, isGroup,
+  buildTicket, newCaptcha, fmtTemplate,
+  containsLinks, containsGroupMention, buildProgressBar
+};

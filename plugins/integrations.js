@@ -1,34 +1,335 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.4                                     ║
-// ║  Encrypted: 2026-06-05 06:52:00 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
+// plugins/integrations.js — Miss Chatra Integrations
+// WhatsApp → Telegram Bridge + Instagram Auto-Post
+// All features are GROUP-ISOLATED — must be configured per group
+"use strict";
 
-// Encrypted by Obfuscationary by JusticeTech v4.0.4
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='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';const _IH='5f94f9ba93e44365ff527de322878d4e848841d9ced9ff80136f18ba24c6b0be';let _src;
+const axios = require("axios");
+const fs    = require("fs");
+const path  = require("path");
 
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
+const DB_DIR   = path.join(__dirname, "..", "database");
+const CFG_FILE = path.join(DB_DIR, "integrations.json");
+
+function loadCfg()   { try { return JSON.parse(fs.readFileSync(CFG_FILE,"utf8")); } catch { return {}; } }
+function saveCfg(d)  { try { if(!fs.existsSync(DB_DIR))fs.mkdirSync(DB_DIR,{recursive:true}); fs.writeFileSync(CFG_FILE,JSON.stringify(d,null,2)); } catch {} }
+function getGroup(chatId)   { const d = loadCfg(); return d[chatId] || {}; }
+function setGroup(chatId,g) { const d = loadCfg(); d[chatId]=g; saveCfg(d); }
+
+// ── Telegram Bridge ───────────────────────────────────────────────────────────
+async function sendToTelegram(botToken, chatIdTg, text, imageBuffer = null) {
+  const base = `https://api.telegram.org/bot${botToken}`;
+  if (imageBuffer) {
+    const FormData = require("form-data");
+    const form = new FormData();
+    form.append("chat_id", chatIdTg);
+    form.append("caption", text || "");
+    form.append("photo", imageBuffer, { filename: "photo.jpg", contentType: "image/jpeg" });
+    return axios.post(`${base}/sendPhoto`, form, { headers: form.getHeaders(), timeout: 20000 });
   }
-  _src=_d.toString('utf8');
+  return axios.post(`${base}/sendMessage`, { chat_id: chatIdTg, text, parse_mode: "HTML" }, { timeout: 10000 });
+}
 
-  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
-  // import() is a context-sensitive keyword unavailable inside new Function() —
-  // capturing it here as an arrow function restores it for the decrypted code.
-  const _import=(m)=>import(m);
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
-})();
+// ── Instagram Graph API ───────────────────────────────────────────────────────
+async function postToInstagram(accessToken, igUserId, imageUrl, caption) {
+  // Step 1: Create media container
+  const r1 = await axios.post(
+    `https://graph.facebook.com/v18.0/${igUserId}/media`,
+    { image_url: imageUrl, caption, access_token: accessToken },
+    { timeout: 20000 }
+  );
+  const containerId = r1.data?.id;
+  if (!containerId) throw new Error("Failed to create Instagram media container");
+
+  // Step 2: Wait for container to be ready
+  await new Promise(r => setTimeout(r, 3000));
+
+  // Step 3: Publish
+  const r2 = await axios.post(
+    `https://graph.facebook.com/v18.0/${igUserId}/media_publish`,
+    { creation_id: containerId, access_token: accessToken },
+    { timeout: 20000 }
+  );
+  return r2.data;
+}
+
+// Upload image to get a public URL (uses 0x0.st)
+async function uploadImageForInstagram(buffer) {
+  const FormData = require("form-data");
+  const form = new FormData();
+  form.append("file", buffer, { filename: "post.jpg", contentType: "image/jpeg" });
+  const r = await axios.post("https://0x0.st", form, { headers: form.getHeaders(), timeout: 30000 });
+  const url = (r.data || "").toString().trim();
+  if (!url.startsWith("http")) throw new Error("Failed to get public URL for image");
+  return url;
+}
+
+// ── Active bridges (in-memory list, set from message.js) ─────────────────────
+// This is read by message.js to forward messages
+function getActiveBridges() {
+  const cfg = loadCfg();
+  return Object.entries(cfg)
+    .filter(([, g]) => g.telegram_on)
+    .map(([chatId, g]) => ({ chatId, botToken: g.tg_token, tgChatId: g.tg_chatid, prefix: g.tg_prefix || "" }));
+}
+
+module.exports = {
+  name: "Integrations",
+  category: "integrations",
+  desc: "WhatsApp → Telegram bridge and Instagram auto-post",
+  command: [
+    // Telegram bridge
+    "tgsetup","tgon","tgoff","tgstatus","tgtest","tgprefix",
+    // Instagram
+    "igsetup","igpost","igon","igoff","igstatus","igtest",
+    // General
+    "integrationshelp","integrations",
+  ],
+  getActiveBridges,
+  sendToTelegram,
+
+  run: async ({ sock, m, args, command, chatId, userId, reply, isOwner, isDev, isAdmin, prefix }) => {
+    const pfx   = prefix || "/";
+    const chat  = chatId || m?.chat;
+    const canUse = isOwner || isDev || isAdmin;
+    const input  = args.join(" ").trim();
+    const grp    = getGroup(chat);
+
+    // ── INTEGRATIONS HELP ─────────────────────────────────────────────────────
+    if (["integrationshelp","integrations"].includes(command)) {
+      return reply([
+        `🔗 *Miss Chatra Integrations*`,``,
+        `Connect this group to external platforms.`,``,
+        `*📨 WhatsApp → Telegram Bridge:*`,
+        `  ${pfx}tgsetup <bot_token> <chat_id>`,
+        `  ${pfx}tgon / ${pfx}tgoff — Enable/disable`,
+        `  ${pfx}tgprefix <text> — Message prefix on Telegram`,
+        `  ${pfx}tgtest — Send a test message`,
+        `  ${pfx}tgstatus — View configuration`,``,
+        `*📸 Instagram Auto-Post:*`,
+        `  ${pfx}igsetup <access_token> <ig_user_id>`,
+        `  ${pfx}igon / ${pfx}igoff — Enable/disable`,
+        `  ${pfx}igpost — Post image (reply to image)`,
+        `  ${pfx}igtest — Test your connection`,
+        `  ${pfx}igstatus — View configuration`,``,
+        `*Setup guides:*`,
+        `Telegram: Create a bot at @BotFather, get the token, add bot to channel, get chat_id`,
+        `Instagram: Create a Meta Developer App, get Page Access Token and Instagram User ID`,
+      ].join("\n"));
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // TELEGRAM BRIDGE
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    if (command === "tgsetup") {
+      if (!canUse) return reply("🔒 Admin only.");
+      if (args.length < 2) {
+        return reply([
+          `📨 *Telegram Bridge Setup*`,``,
+          `Usage: ${pfx}tgsetup <bot_token> <telegram_chat_id>`,``,
+          `Steps:`,
+          `1. Open Telegram → search @BotFather`,
+          `2. Send /newbot → follow steps → copy the token`,
+          `3. Add your bot to your Telegram channel/group`,
+          `4. Get chat_id:`,
+          `   • For channel: @channelname or -100xxxxxxxxx`,
+          `   • For group: use @userinfobot to get ID`,
+          `5. Run: ${pfx}tgsetup <token> <chat_id>`,``,
+          `Example:`,
+          `  ${pfx}tgsetup 7123456789:AAFxxx... -1001234567890`,
+        ].join("\n"));
+      }
+      const [token, tgChatId] = args;
+      // Validate token by calling getMe
+      try {
+        const r = await axios.get(`https://api.telegram.org/bot${token}/getMe`, { timeout: 10000 });
+        if (!r.data?.ok) throw new Error("Invalid bot token");
+        const botInfo = r.data.result;
+        grp.tg_token  = token;
+        grp.tg_chatid = tgChatId;
+        grp.tg_botname = botInfo.first_name || "Bot";
+        grp.tg_botusername = botInfo.username || "";
+        grp.telegram_on = false;
+        setGroup(chat, grp);
+        return reply([
+          `✅ *Telegram Bot Verified!*`,``,
+          `🤖 Bot: ${botInfo.first_name} (@${botInfo.username})`,
+          `📨 Target: ${tgChatId}`,``,
+          `Now run *${pfx}tgon* to start bridging messages.`,
+          `Or set a prefix: *${pfx}tgprefix [WA]*`,
+        ].join("\n"));
+      } catch (e) {
+        return reply(`❌ Telegram setup failed: ${e.message?.includes("Invalid bot") ? "Invalid bot token. Check and try again." : e.message?.slice(0,100)}`);
+      }
+    }
+
+    if (command === "tgon") {
+      if (!canUse) return reply("🔒 Admin only.");
+      if (!grp.tg_token || !grp.tg_chatid) return reply(`❌ Not configured yet.\nRun ${pfx}tgsetup first.`);
+      grp.telegram_on = true;
+      setGroup(chat, grp);
+      return reply(`✅ *Telegram Bridge ENABLED*\n\nMessages sent in this group will be forwarded to Telegram.\nRun ${pfx}tgtest to verify.`);
+    }
+
+    if (command === "tgoff") {
+      if (!canUse) return reply("🔒 Admin only.");
+      grp.telegram_on = false;
+      setGroup(chat, grp);
+      return reply(`❌ *Telegram Bridge DISABLED*\n\nNo more messages will be forwarded.`);
+    }
+
+    if (command === "tgprefix") {
+      if (!canUse) return reply("🔒 Admin only.");
+      const pfxText = input || "";
+      grp.tg_prefix = pfxText;
+      setGroup(chat, grp);
+      if (!pfxText) return reply("✅ Telegram message prefix cleared.");
+      return reply(`✅ Telegram prefix set to: *${pfxText}*\n\nMessages will appear as:\n"${pfxText} [sender]: message"`);
+    }
+
+    if (command === "tgtest") {
+      if (!canUse) return reply("🔒 Admin only.");
+      if (!grp.tg_token || !grp.tg_chatid) return reply(`❌ Not configured. Run ${pfx}tgsetup first.`);
+      try {
+        const name = m?.pushName || "Test User";
+        await sendToTelegram(grp.tg_token, grp.tg_chatid,
+          `${grp.tg_prefix ? grp.tg_prefix+" " : ""}🔗 <b>Bridge Test</b>\n👤 Sent by: ${name}\n✅ WhatsApp → Telegram bridge is working!`
+        );
+        return reply("✅ Test message sent to Telegram successfully!");
+      } catch (e) {
+        return reply(`❌ Failed to send to Telegram: ${e.message?.slice(0,100)}\n\nCheck your bot token and chat ID.`);
+      }
+    }
+
+    if (command === "tgstatus") {
+      return reply([
+        `📨 *Telegram Bridge Status*`,``,
+        `Status: ${grp.telegram_on ? "✅ Active" : "❌ Inactive"}`,
+        grp.tg_botname ? `Bot: ${grp.tg_botname} (@${grp.tg_botusername||"?"})` : "Bot: Not configured",
+        grp.tg_chatid  ? `Target Chat: ${grp.tg_chatid}` : "Target: Not set",
+        grp.tg_prefix  ? `Prefix: "${grp.tg_prefix}"` : "Prefix: None",``,
+        grp.tg_token ? `_Token: ****${grp.tg_token.slice(-8)}_` : "_Not configured_",``,
+        `${pfx}tgon | ${pfx}tgoff | ${pfx}tgtest | ${pfx}tgprefix`,
+      ].join("\n"));
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    // INSTAGRAM AUTO-POST
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    if (command === "igsetup") {
+      if (!canUse) return reply("🔒 Admin only.");
+      if (args.length < 2) {
+        return reply([
+          `📸 *Instagram Auto-Post Setup*`,``,
+          `Usage: ${pfx}igsetup <access_token> <ig_user_id>`,``,
+          `Steps to get credentials:`,
+          `1. Go to developers.facebook.com`,
+          `2. Create an App → Add Instagram product`,
+          `3. Connect your Instagram Business/Creator account`,
+          `4. Generate a Page Access Token`,
+          `5. Get your Instagram User ID from the API Explorer`,``,
+          `Important: Your Instagram must be:`,
+          `  • A Business or Creator account`,
+          `  • Connected to a Facebook Page`,``,
+          `Example:`,
+          `  ${pfx}igsetup EAAxxxxxxx... 17841xxxxxxxxx`,
+        ].join("\n"));
+      }
+      const [token, igId] = args;
+      // Validate by fetching account info
+      try {
+        const r = await axios.get(`https://graph.facebook.com/v18.0/${igId}`, {
+          params: { fields: "name,username,followers_count", access_token: token },
+          timeout: 12000,
+        });
+        const account = r.data;
+        grp.ig_token    = token;
+        grp.ig_user_id  = igId;
+        grp.ig_username = account.username || account.name || "Instagram";
+        grp.ig_on       = false;
+        setGroup(chat, grp);
+        return reply([
+          `✅ *Instagram Account Connected!*`,``,
+          `👤 Account: @${account.username || account.name}`,
+          `👥 Followers: ${account.followers_count?.toLocaleString() || "N/A"}`,``,
+          `Run *${pfx}igon* to enable auto-posting.`,
+          `Or use *${pfx}igpost* to post manually.`,
+        ].join("\n"));
+      } catch (e) {
+        return reply(`❌ Instagram setup failed: ${e.response?.data?.error?.message || e.message?.slice(0,120)}\n\nCheck your access token and user ID.`);
+      }
+    }
+
+    if (command === "igon") {
+      if (!canUse) return reply("🔒 Admin only.");
+      if (!grp.ig_token || !grp.ig_user_id) return reply(`❌ Not configured. Run ${pfx}igsetup first.`);
+      grp.ig_on = true;
+      setGroup(chat, grp);
+      return reply(`✅ *Instagram Auto-Post ENABLED*\n\nImages sent with caption will be auto-posted to @${grp.ig_username||"Instagram"}.\n\nFormat: send image with caption as the Instagram post caption.`);
+    }
+
+    if (command === "igoff") {
+      if (!canUse) return reply("🔒 Admin only.");
+      grp.ig_on = false;
+      setGroup(chat, grp);
+      return reply(`❌ *Instagram Auto-Post DISABLED*`);
+    }
+
+    if (command === "igpost") {
+      if (!canUse) return reply("🔒 Admin only.");
+      if (!grp.ig_token || !grp.ig_user_id) return reply(`❌ Not configured. Run ${pfx}igsetup first.`);
+      const q = m.quoted;
+      const isImg = q && (q.mtype === "imageMessage" || (q.mimetype||"").includes("image"));
+      if (!isImg) return reply(`❌ Reply to an image with ${pfx}igpost [caption]\n\nExample: Reply to image → ${pfx}igpost Check out our latest update! 🔥`);
+
+      await reply("📸 Posting to Instagram...");
+      try {
+        const buf = await sock.downloadMediaMessage(q);
+        const caption = input || q.caption || "";
+        const imageUrl = await uploadImageForInstagram(buf);
+        await postToInstagram(grp.ig_token, grp.ig_user_id, imageUrl, caption);
+        return reply([
+          `✅ *Posted to Instagram!*`,``,
+          `📸 Account: @${grp.ig_username||"Instagram"}`,
+          caption ? `📝 Caption: "${caption.slice(0,60)}${caption.length>60?"...":""}"` : "",``,
+          `_View on your Instagram profile_`,
+        ].filter(Boolean).join("\n"));
+      } catch (e) {
+        return reply(`❌ Instagram post failed: ${e.message?.slice(0,150)}\n\nCommon issues:\n• Token expired — regenerate\n• Image too small (min 320px)\n• Account not Business/Creator type`);
+      }
+    }
+
+    if (command === "igtest") {
+      if (!canUse) return reply("🔒 Admin only.");
+      if (!grp.ig_token || !grp.ig_user_id) return reply(`❌ Not configured. Run ${pfx}igsetup first.`);
+      try {
+        const r = await axios.get(`https://graph.facebook.com/v18.0/${grp.ig_user_id}`, {
+          params: { fields: "name,username,followers_count,media_count", access_token: grp.ig_token },
+          timeout: 12000,
+        });
+        const a = r.data;
+        return reply([
+          `✅ *Instagram Connection Active!*`,``,
+          `👤 @${a.username || a.name}`,
+          `👥 Followers: ${(a.followers_count||0).toLocaleString()}`,
+          `📸 Posts: ${(a.media_count||0).toLocaleString()}`,``,
+          `_Token is valid and working._`,
+        ].join("\n"));
+      } catch (e) {
+        return reply(`❌ Instagram connection failed: ${e.response?.data?.error?.message || e.message?.slice(0,100)}`);
+      }
+    }
+
+    if (command === "igstatus") {
+      return reply([
+        `📸 *Instagram Status*`,``,
+        `Status: ${grp.ig_on ? "✅ Auto-post Active" : "❌ Inactive"}`,
+        grp.ig_username ? `Account: @${grp.ig_username}` : "Account: Not configured",
+        grp.ig_user_id  ? `User ID: ${grp.ig_user_id}` : "User ID: Not set",``,
+        grp.ig_token ? `_Token: ****${grp.ig_token.slice(-8)}_` : "_Not configured_",``,
+        `${pfx}igon | ${pfx}igoff | ${pfx}igpost | ${pfx}igtest`,
+      ].join("\n"));
+    }
+  }
+};

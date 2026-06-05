@@ -1,34 +1,15 @@
-// ╔══════════════════════════════════════════════════════╗
-// ║  Obfuscationary by JusticeTech                      ║
-// ║  Version  : 4.0.4                                     ║
-// ║  Encrypted: 2026-06-05 06:51:12 UTC                   ║
-// ║  Cipher   : AES-256-GCM                               ║
-// ║  Tamper   : Protected via SHA-256 integrity check    ║
-// ╚══════════════════════════════════════════════════════╝
-
-// Encrypted by Obfuscationary by JusticeTech v4.0.4
-(async()=>{
-  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='KMEgcWUZ96kSd5GRWiFPxdiVRHpuzds0K2k21n4E1MdA4tEGotWOToygSL3HfPocWBa1nKF4Ff4P7pdD2JiR9fxSnYA6To3GEYhlzl2lvZDXYVdJgViwNiT4a0voetoUM91cdvMVkgqx0Ox3fvL1AGIzFohKozIE4jj0MVzNALl+fHs4god2SLs48CBRa+tMoB6kUNe7febCSJWkNVcWYYs1vnQMSSXbyFeGV/jSQFp4dt5jOoZfWnEi4CoBYcZbeGEX1OFkxB2eoujHi96zwFlW3Z134PMKlg8WLfa2ya/YuY3HhqI3yJrC12kuNHPHDtgg+9yIrw/jnDOvNvxSpnEBZGGVtME9oLkOEQfoT6r3EaBQsuOblMSmmQZiQNo8aJUYT9KWgynghfP1YDwgD86pV52MfgmuNFPL8LWtznj6wFtuxRUI3jLDJ5CCGKRsUlZTyS+hRtmG1Q11AD577BogJZbC7pmGfkh4d96Ice55AKHjxrElvX3Axbl+fhVngX2s/YoDMvZhcB0h4TN67cbXPcxNI1cHsFxfIRS5IkP+JThghgb2hHk0F369zvQfDwQ5cEQiT0Bxnob9aH0Z131ZOhGXhLDJEzHnaEM8VNABg1010ueh+UvTdTqSOBsM191UALWa9vnAPXRR2XMaRjr9PgZSCKpBwVxa44G+r1PDEJt+qDxb8/yQGOzxFzRMAOMhpTfV9L8RWjX3DHs78ZgeivtqJp4daOHFOYCP/b3PmKyHobTSL0rinNVksM+1n++1QrYMKvnPemXIjoCnb8CQc9lBOd6IxDop9pdHoyt4sklh3ckH29Q4Q5DvRb6euVreLH2DXIMdlpsKEzmgkRN3xXMF3j52x58Q4XfFWB6Q9Sx9K1EDDs0N0iSyW6vYz83OJsLX6HYAhDdvArvbAS2mDFlIOOEHbbDiei8fRNfSxPLDNGuia0NuTPKa9m8c3dS2qcdUeZEZARGLfywV110EGwLsJCQy/sHWuBsknJLhKVHL4iYU89dzYSdz';const _IH='724fff541a4dd2826cc2dde8044ba688afae5953b873cfc999b815f84b452d93';let _src;
-
-  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
-  const _c2=require('crypto');
-  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
-  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
-  let _d=Buffer.from(_b64,'base64');
-  for(let i=_PWDS.length-1;i>=0;i--){
-    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
-    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
-    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
-    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
-    _d=Buffer.concat([dc.update(cd),dc.final()]);
+// @marketplace admin-enable-019 v1.0.0 by JusticeTech
+"use strict";
+module.exports={
+  name:"AdminEnable019",category:"admin",desc:"Admin enable tool #19",
+  command:["adminenable19"],
+  run:async({args,command,chatId:chat,userId:uid,reply,prefix,sock,m,isAdmin,isOwner,isDev,mentionedJid})=>{
+    const pfx=prefix||"/";
+    const canUse=isAdmin||isOwner||isDev;
+    if(!canUse)return reply("Admin only.");
+    const value=args.join(" ")||"default";
+    const fs=require("fs"),p=require("path");
+    try{fs.writeFileSync(p.join(__dirname,"../../..","database","mp_admin_enable_019.json"),JSON.stringify({[chat]:{["enable_19"]:value}},null,2));}catch{}
+    return reply("Admin enable #19\\n\\nValue set: "+value);
   }
-  _src=_d.toString('utf8');
-
-  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
-  // import() is a context-sensitive keyword unavailable inside new Function() —
-  // capturing it here as an arrow function restores it for the decrypted code.
-  const _import=(m)=>import(m);
-  const _F=Object.getPrototypeOf(async function(){}).constructor;
-  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
-})();
+};
