@@ -208,33 +208,49 @@ function copyDir(srcDir, destDir) {
   return count;
 }
 
-function _srcIsObfuscated(root) {
-  // Detect Obfuscationary-encrypted index.js by its unique runtime signatures
+const OBF_SIGNATURES = [
+  "// Encrypted by Obfuscationary",
+  "pbkdf2Sync(pw,sl,_ITS,",
+  "const _PWDS=",
+  "Buffer.from(_b64,",
+];
+
+function _fileIsObfuscated(filePath) {
   try {
-    const idxPath = path.join(root, "index.js");
-    if (!fs.existsSync(idxPath)) return false;
-    const head = fs.readFileSync(idxPath, "utf8").slice(0, 2048);
-    return [
-      "// Encrypted by Obfuscationary",
-      "pbkdf2Sync(pw,sl,_ITS,",
-      "const _PWDS=",
-      "Buffer.from(_b64,",
-    ].some(s => head.includes(s));
+    if (!fs.existsSync(filePath)) return false;
+    const head = fs.readFileSync(filePath, "utf8").slice(0, 2048);
+    return OBF_SIGNATURES.some(s => head.includes(s));
   } catch { return false; }
 }
 
+function _srcIsObfuscated(root) {
+  // Check root-level files first
+  if (_fileIsObfuscated(path.join(root, "index.js"))) return true;
+  if (_fileIsObfuscated(path.join(root, "message.js"))) return true;
+  // Also scan library/ — pbkdf2 crash was traced to library/justicetechsystem.js:22
+  const libDir = path.join(root, "library");
+  if (fs.existsSync(libDir)) {
+    for (const f of fs.readdirSync(libDir)) {
+      if (f.endsWith(".js") && _fileIsObfuscated(path.join(libDir, f))) return true;
+    }
+  }
+  return false;
+}
+
 function applyUpdate(srcRoot) {
-  // If the downloaded index.js is obfuscated (old Obfuscationary with iterations=0),
-  // skip it to avoid a crash-on-restart loop. All other files still apply normally.
-  const _skipIndexJs = _srcIsObfuscated(srcRoot);
-  if (_skipIndexJs) {
-    console.log("[UPDATE] ⚠️  Obfuscated index.js detected — skipping index.js to avoid crash. Push unobfuscated source or use Obfuscationary v4.0.4+.");
+  // If ANY key file in the downloaded zip is obfuscated (pbkdf2 iterations=0 crash),
+  // skip ALL affected dirs/files to prevent a crash-on-restart loop.
+  const _skipObfuscated = _srcIsObfuscated(srcRoot);
+  if (_skipObfuscated) {
+    console.log("[UPDATE] ⚠️  Obfuscated files detected in update package — skipping index.js, message.js and library/ to avoid pbkdf2 crash. Push unobfuscated source.");
   }
   let total = 0;
   for (const dir of UPDATABLE_DIRS) {
     const src  = path.join(srcRoot, dir);
     const dest = path.join(BOT_ROOT, dir);
     if (!fs.existsSync(src)) continue;
+    // Skip library/ entirely if the downloaded package is obfuscated
+    if (_skipObfuscated && dir === "library") continue;
     if (dir === "settings") {
       if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
       for (const f of fs.readdirSync(src)) {
@@ -247,8 +263,8 @@ function applyUpdate(srcRoot) {
     total += copyDir(src, dest);
   }
   for (const file of UPDATABLE_FILES) {
-    // Skip index.js and message.js if the downloaded copy is obfuscated
-    if (_skipIndexJs && (file === "index.js" || file === "message.js")) continue;
+    // Skip index.js and message.js if the downloaded package is obfuscated
+    if (_skipObfuscated && (file === "index.js" || file === "message.js")) continue;
     const src = path.join(srcRoot, file);
     if (!fs.existsSync(src)) continue;
     safeCopyFile(src, path.join(BOT_ROOT, file));

@@ -22,7 +22,7 @@ const GOODBYE_AUTODELETE_DELAY       = 60;
 function defaultState() {
   return {
     // Chatbot
-    chatbot_enabled: true,
+    chatbot_enabled: false,
     chatbot_conversations: {},
     chatbot_training: {
       name: config.botName,
