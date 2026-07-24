@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════════════════════╗
 // ║  Obfuscationary by JusticeTech                      ║
 // ║  Version  : 4.1.1                                     ║
-// ║  Encrypted: 2026-07-17 22:53:28 UTC                   ║
+// ║  Encrypted: 2026-07-24 21:47:50 UTC                   ║
 // ║  Cipher   : PBKDF2+AES-256-GCM                        ║
 // ║  Tamper   : Protected via SHA-256 integrity check    ║
 // ╚══════════════════════════════════════════════════════╝
@@ -9,7 +9,7 @@
 // Encrypted by Obfuscationary by JusticeTech v4.1.1
 (async()=>{
   if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='T0JGdjSjKJ2pNE8X3CYhqcvACWLOPlEbi11w3dQ7CNn0VSOifB6bCshcxJ9Fz5PEbexWchvyCNMePr68BfTbf1G4C870PxnPwdKhZ/uzNZxOYPJ+3UunyB/GKWIUxhucjGvLAULyjS52CVysAr3CW9PrUju5NY/EhIiftLnvwhX/LB/sSjv5EZVgG1F0ogawXyzCYeuEd6znL0PHa3dkYlVUWRGFW8Q/N+U9xyGjRfCWnFQ+6NGA/UepHW+p4Ig9pVScTs1+7vBhKOtraCyRNgE6gLX87HgPMQxnl3rldexiHCKNUNT+ULmqNmFmzS8Cnih5HqaEh8TtEbX6JJH4PhSZw3BMBimJEGA9OxI7ScpA4dk3JKC4d3qJ3YBn6dTkYONprp00AKILT5jfkc6vmufJqdSN/8N8qthENL7mIF2BS3RW4XsbzH3EKGfaKSfXTEbAruwv9gW4lMHadAHCZrnoL8Q/P9J8/Q6M98f50roYEglBoXzqTJlTe1AHkXk0Q1g2rWu2kGvMWLIDX8MmFmbC3Cxb3RJ+YAWGqMfgczu1b78KwWEmom00SCmpDvicI1+lfdMF+oco2FP/x8YYN4a71bUYzH+IkIuItOj9CBoxn/6Cc4IYHQYZDPmCn/lGTwkVA3xM2kmf/g9DV4jVdRzCueY=';const _IH='da16eb1b7cc65779294382ae8cc1b483342776979882e74c227d06ca994eb953';let _src;
+  const _b64='T0JGdjSTNh5g2Wz25RORDVv6aqZU9lJjPdNQyzENPQoN4otNfkEL1k32ixEStfFKAMLB8/k72ZVnE0owgm0xHuuMrI27DwssZnrXQNRRRBG3dAas9FGcn9zkKPlhDm2Swj9c3Fy5/EoVJSkZrs1cF4ySrwj6z4LFzFadc/EpErsWioWRJ1DlcGXuS7vnHbEKbeg6CkNy7W4KmtpnYu8ZtC9dnb08uyPSGvjQorX/cTOLl4gjEhMjBgLQWaEmS1VTNUUmk/UJYqEQfRxCvqoKRD9iBgZ3Hixcr13yAqZExBM4r+SkPVUIANPAwwuFa5zWQA48LjZZQrFavlxOpZ9WkbsFWSrjdBDTg63lYLmH7ZfLFnqEpOXiMVtuEW2p4ku+58E8Sw31nBxpnzywhWHnq/Q8QcT8ch5e4sgMI02SL94APyTmJxD6OrkzCfymPo4qkyzjuNjulfp+FDGRqdXexW5J2FqrcIvHTbfIWNG/WEtv+IRJKTYso8/+y71A8zZFF7wukUS9Y5nWZWPpW8h8MVovcj/kJtKYsjAcl3WxwOt3bq2tmI2UVD3rUqb7Co0RiCmEeBWMxUd/gFD3dXhwy9m26EsStg6f5ZZB5o0xjS3ZZxZPdK1m0gKfA2PVr18S9d+9D1Uy3A1l/899TMMJdn/ImuI=';const _IH='c8da18fea109abee8abe526c067a8e9d36f1e58702371e571a6a7cb72217e281';let _src;
 
   const _PWDS=["change_this_to_a_long_random_secret"];
   const _MAGIC="OBFv4";

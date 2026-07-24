@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════════════════════╗
 // ║  Obfuscationary by JusticeTech                      ║
 // ║  Version  : 4.1.1                                     ║
-// ║  Encrypted: 2026-07-17 22:53:42 UTC                   ║
+// ║  Encrypted: 2026-07-24 21:48:09 UTC                   ║
 // ║  Cipher   : PBKDF2+AES-256-GCM                        ║
 // ║  Tamper   : Protected via SHA-256 integrity check    ║
 // ╚══════════════════════════════════════════════════════╝
@@ -9,7 +9,7 @@
 // Encrypted by Obfuscationary by JusticeTech v4.1.1
 (async()=>{
   if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='T0JGdjThqHXotyp4af66sA5ZmgLESU7c7fV62cPSG/rHaPE2Vj9AqePkRLH6ul88wub51ljR9Fwv4nKlXzKXJXKhps9aEmfnm+4zdDfHe0RvVZgdfdDFV+5/sx0+Vi3bLmwqUNkl8qp0sd+r6HLomXqryYuwzklB4YOHLDdWTevgf1BIRwQHYmE0qq9WPmPX7whhU7oxslH0xLAneH0G/8poi6QYN1/CfAw3oJ/RMGkbxfZvGBVV84dA1RVsAS3WekdapPq9iRD4HxewsIcn2Y/iK1RLxyoehZiGE08IT0T4z/rMGAlfSy9Flz6YjYTk9A5LAxsBHJ+CghNzQeyvL06q/7dwfcz5dDtmnEfgYsCUJP0PZjbbwNLk48HKESiINiq9L8Eo3Xx55cEAPD0ESZRUZq9CMXcLlbGVNtUnTCKNb5244/K0/ba8PrASRo9PGdVsHw9H37l4awuFLqF7jNJVl9ZBmhNh9d3EAAuTXiF2uzD740GQyCw8yqixXoPbVtPlaOYThHtl2NzFB4g74Q5U/d2UFdRoOeo0yvIAr2RlzwTSHahhGoQEKIiiuQc0kM2l3O/EsWxBosGVFCDgQ3/m5iHLzIrQKqx2a6wpmRjsZD7U0T7K0AO5J1IaqCxy3M9YpFIZGnfe6TaHfIYa2ra/s0xDTsTFYtwl+BU=';const _IH='3a0ebb66d6d146f7a01d8a53c5c82124d6ee2b31fb7ea68f90e7ff8c7f414200';let _src;
+  const _b64='T0JGdjROrIQOnUrDRhlXGyw/3q5wpVzjclif3+e4TIw5fdjv+8Q+QBY6m7XL4BTQWh3CAGc7vTSpKJYwa83QrAk6L54hMwITFsF1p6QjagBVkXmPwM6OdMK431nm0Q+pp7wmaRXmIa8HpZxz0XZy1Pm4Ac85DFbVQw1X7i9keggdwG0cD0V+kBThJeK141riu5Ca3u1tBjNaHE3kqN1+KnKUqMxFdB7EJghIxA88BW85od0WUNlaYlJaAFTsFxWXnlRVJYhU5QdRrc0F1x3K4w1rwrv2Qnr5TGTvRJFPYUV8rXUqBuoBvHvt6oxDPQ2wdDwzbpFfAW4SnN3yr3As/e5g5iedEZTWE6YWjMEUyINvDnuOFbiE05PuGCHURSU2+SsZs3ZqaUotw8l52va+KbqtU7LAGNEHrSfDLbbRKdFR6wFb/ugXT6irR5eda8C/Uqa5NBt+oths99CEnb0LNa+yyxnp/QxvaNTON/TQnVE1vcR0vdjn+XGBdtp6IXHpXEfpUBAFndfNbC/ZimxNNmSCyltScqC0QILpjD7F/OTfgHiUuN0OP3fjQ+n4FlFWzOqY3y4357/d0am23rj74fE01BCGrPM4ETm6KaUmlPyVWod8SSgZbpyV7tsrhAooLO67jGTFUiePjj7UwUVZHEkuwlisAwEi/YTkcvg=';const _IH='a014805aa63690b73827779d6fd46f9bc5c4609c4a7fb2c91e56cdc7ba43ea22';let _src;
 
   const _PWDS=["change_this_to_a_long_random_secret"];
   const _MAGIC="OBFv4";

@@ -1,6 +1,6 @@
 {
   "name": "miss-chatra-wa-bot",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Miss Chatra \u2013 WhatsApp Group Management & AI Bot by JusticeTech",
   "main": "index.js",
   "type": "commonjs",
