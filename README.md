@@ -4,7 +4,7 @@
 
 # 🤖 Miss Chatra — WhatsApp Bot
 
-[![Version](https://img.shields.io/badge/version-v1.2.0%20JT-brightgreen?style=for-the-badge&logo=whatsapp&logoColor=white)](https://github.com)
+[![Version](https://img.shields.io/badge/version-v1.2.5%20JT-brightgreen?style=for-the-badge&logo=whatsapp&logoColor=white)](https://github.com)
 [![Node](https://img.shields.io/badge/node-22%2B-blue?style=for-the-badge&logo=node.js)](https://nodejs.org)
 [![Baileys](https://img.shields.io/badge/Baileys-7.0.0--rc13-orange?style=for-the-badge)](https://github.com/WhiskeySockets/Baileys)
 [![License](https://img.shields.io/badge/license-MIT-red?style=for-the-badge)](LICENSE)
@@ -222,6 +222,16 @@ It reinstalls a clean `node_modules`, and prints the recommended startup command
 | `/device` | See which linked-device slot sent a message |
 
 </details>
+
+---
+
+## 📝 What's New — v1.2.5_JT
+
+- **FIX:** chatbot conversations no longer die after a few turns. One of the upstream free AI endpoints occasionally returned the literal placeholder text `"No response received"` as a normal reply instead of a real answer or an error — the bot was treating that as a genuine response and skipping its own backup endpoints. Junk-reply detection now catches this, and the fallback chain was widened from 4 to 6 providers plus a final retry.
+- **FIX:** chatbot replies no longer address the person as `"User"` (e.g. *"Hey User—what's up"*). The prompt sent to the AI literally ended in `"User: <message>"`, and the model was just echoing that label back as if it were the person's name. Replaced with a neutral, non-address label and an explicit rule against name/placeholder-address openers.
+- **FIX:** `/setversion` now actually reaches every deployed bot, not just the one it's run on. It pushes a version-only release to GitHub (needs `config.githubToken` / `GITHUB_TOKEN` set — see `settings/config.js`), which every instance's existing background update-checker already polls. `/checkupdate` and `/update` can also apply a version-only release immediately on demand, instead of waiting for the 6-hour automatic check.
+
+Full history for every release: see the `changelog` array in [`version.json`](version.json).
 
 ---
 
