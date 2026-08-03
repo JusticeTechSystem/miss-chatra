@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════════════════════╗
 // ║  Obfuscationary by JusticeTech                      ║
 // ║  Version  : 4.1.1                                     ║
-// ║  Encrypted: 2026-07-27 21:34:32 UTC                   ║
+// ║  Encrypted: 2026-08-03 14:40:51 UTC                   ║
 // ║  Cipher   : PBKDF2+AES-256-GCM                        ║
 // ║  Tamper   : Protected via SHA-256 integrity check    ║
 // ╚══════════════════════════════════════════════════════╝
@@ -9,7 +9,7 @@
 // Encrypted by Obfuscationary by JusticeTech v4.1.1
 (async()=>{
   if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='T0JGdjTFrghPqb5aP4vIyBbMfEVoFOhXjOUofb1k8pVEdHcAN/toTmdKGpGnj4PZt8uu8jnHSPaeZ5p4jSe5jFUR7HiSvh/uwbP3ZmRouokxdzH1eTJWe92F4f3lhlEzw47vC3/wHoy4/mpTbXZV+aTB0fJc2Z6vB5lQo1GTRqQTp+62A3zUt6DKe9vngITw0qoYjvnqdye4kEHc5WG4ojwhWxqGnCXHeLTolcLeZluDYS2n9WHBFnSIqHYAbpjEfDE423c+OouWQJ4LRvJlkZAFs8+chBKKs39r2iMHZdqQeTGSzhakZ2yX6CdJkU0nYtYqqHVMlqWnlYUcb7XVnk6UR7It1IwXa41DNNVrchV/gI9Lg93GvW2oQniggTUiv8hvCft7hyHEXZ8AEYM8FOfvuWqMQ+ifpOkbB9/TvZBIDBn5smwAEAxy0QTV7UPgvkWHYmSG5i3hVQBld3e3CyAoueFRUEJKgf9lgHQ/dnYIfM3PMD7mRcq9PSxjhtoLqHtSxOQNszYIGsfN52SVnDdeA3odNXcDScccFXhCX0vjIedQkGDkwJ396uz/xRG9ZgVk+OZ1b4ZzEHVjxjpdNg==';const _IH='f48157d3f1650f2d6113a9771e5a5d44546e6c0b91ae445f586937353d8043a2';let _src;
+  const _b64='T0JGdjTQixDZLMdb80Gd2Gq+AJgD3j1Zjblg3xiJq4jXqEqb/8bQwNAMBXWPiYC2p8SbglJmdxcyoo0CoMD0tsnUngY1rVjrOn6sF+QYFAugEHba1N6LONoImNx2YdCw+kFP4rICSG2C4t7Kfen3Wl07cFEz5T2wu4lM4rLTyCIJXtg8qSW0ozYERlSA4zPUdMm8msMT/O/znOGisTKDO6t/J+sGTLpRauh6criuR2fPY+NRhgSPDEqkwDVQA5waF7giZh3MLO8m3LahmAJf+mYllTcNuXz+u9aNh1GdKokl+wkLnewFJqZbXdQ7ruxOEplFrz9iwmbq7czWNmIOiQnbyBMRyiJmNkfv4N/ZJe5EH830AzdN5E9CbOwqokDWwelZ8pya/uj4L0cKqwiRND/vIiH8l9Lq5DXEGPD4tTcz+vu6n/BNnTvv7iK4EgfsW9ZgGWhoAbTAL/mLohHnovM9UNjeiCFPXCKHchr6V1I7X9+Cgkgf+TSs9dveKfGwFfeUL3CpQygSr9KbpaG2yAISuDh8E/DTlRu6rlBV3LVbjYVmWsL3bN0TMDtpBCcuIELM+DGz+l5j4zGW/g7dfw==';const _IH='c15a322508afcaa6c027a28ad809af397dca891bbcfba73cc6bd9a661fee5d18';let _src;
 
   const _PWDS=["change_this_to_a_long_random_secret"];
   const _MAGIC="OBFv4";

@@ -539,3 +539,203 @@ The `/cvt` converter uses `pypdf` (pure Python) for text extraction which may no
 
 ### Rate limits
 WhatsApp enforces sending rate limits. Sending to many contacts quickly (e.g. `/broadcast`, carousel download) may trigger temporary blocks. The bot includes delays between carousel items (500ms).
+
+---
+
+## 19. Portable Deployment & Multi-Command Chaining (v1.4.2)
+
+### Portable per-server deployment
+`settings/config.js` no longer hardcodes any one server's hostname/port for
+the onboarding hub. `library/hub/detectServer.js` auto-detects the right
+port and public URL at every boot from whatever host/panel the instance is
+actually running on (checks `HUB_PORT`/`HUB_PUBLIC_URL` env vars first,
+then common platform env vars — Pterodactyl `SERVER_PORT`/`SERVER_HOSTNAME`,
+Railway, Render, Fly.io, Replit, Koyeb, or generic `PORT`). Deploying the
+same zip to a different server now just works without hand-editing
+`settings/config.js` — set `HUB_PUBLIC_URL` explicitly only if you want to
+pin the onboarding link to a specific domain (e.g. once you put a real
+domain in front of the hub).
+
+### Smart multi-command chaining
+Send more than one prefixed command in a single message and each one runs
+in order, exactly as if sent separately:
+
+```
+/warn @user spam && /mute @user 10
+```
+
+or stacked one per line:
+
+```
+/kick @user
+/tagall meeting starts in 5 minutes
+```
+
+Chaining only activates when **every** segment independently starts with
+the bot's prefix — a normal command whose own text happens to contain
+`&&` or line breaks (a broadcast, a note, an AI prompt, etc.) is left
+untouched and handled as a single command like before. Capped at 5
+chained commands per message.
+
+### Day / Date / Time on the menu
+The `/menu` header now shows `Day`, `Time`, and `Date`, using whatever
+timezone was set with `/settimezone <IANA timezone>` (e.g.
+`/settimezone Africa/Lagos`). If no timezone has been set yet, it falls
+back to the server's own local timezone.
+
+### One-time public-address confirmation (v1.4.3, reordered in v1.5.1)
+Some hosting panels map a friendly public domain (e.g. `app.brevo.host:2666`)
+to your server only inside their own routing layer — that mapping is
+invisible to the container itself, so no environment variable can reveal
+it and auto-detection can't always be certain. To close that gap without
+requiring anyone to edit a config file, the console wizard now asks
+**"Pair with phone number" or "Open Dashboard"** first, in its own boxed
+menu — and only if "Open Dashboard" is chosen does it show a boxed,
+numbered step-by-step guide (open your panel → find the Network/
+Allocations tab → copy the address → paste it) and ask you to confirm or
+correct its best guess. Someone who only ever wanted to pair by phone
+never sees this question at all. The answer is saved to
+`database/bot_settings.json` (`hub_public_url`) and used on every future
+restart without asking again.
+
+Use `/sethubaddress <url>` any time afterward to change it (e.g. if the
+server's address changes), or `/sethubaddress reset` to clear it and fall
+back to auto-detection.
+
+---
+
+## 20. Dashboard: Groups, Contacts, Status, and the Post-Status ban fix (v1.5.0)
+
+### Critical fix: Post Status no longer risks getting the account banned
+The dashboard's Post Status feature used to build its own `status@broadcast`
+call directly, and had two real bugs: it never set `broadcast:true` (which
+can make WhatsApp silently drop a status while the API call still looks
+successful), and it sent straight to a large, harvested list of every JID
+the bot has ever seen — including people who are only members of large
+groups, never actual 1:1 contacts — as its *first and only* attempt. That
+pattern looks nothing like how a real WhatsApp client posts a status, and
+is a plausible contributor to accounts getting flagged.
+
+It now reuses `postToStatus()` from `plugins/poststory.js` — the same
+send path `/story` and `/tostory` already relied on — which tries
+`broadcast:true` alone first (matching real client behavior most closely)
+and only falls back to an explicit contact list if that fails.
+
+One honest limit: no code change eliminates WhatsApp's own risk-based
+enforcement for an account that's already been flagged, or for very
+high-volume broadcasting from an unofficial client in general — that's
+the platform's abuse detection working as designed, not a bug.
+
+### Groups tab — now clickable
+Tap a group to open it: send it a message, tag everyone, rename it, edit
+its description, lock it to admins-only, and promote/demote/remove
+members. All of this requires the bot to actually be an admin in that
+group — the panel tells you up front if it isn't, rather than failing
+silently.
+
+### Contacts tab
+View everyone the bot has exchanged messages with, search by name or
+number, tap to message them directly.
+
+### View Status tab
+Browse recent statuses the bot has seen while online (text/image/video),
+tap one to preview it and send a reply — same as replying from the status
+viewer in the WhatsApp app itself.
+
+---
+
+## 21. Dashboard moderation: warnings, group photo, join requests (v1.6.0)
+
+Building on the Groups tab from v1.5.0, each group's detail view now also has:
+
+### Warnings
+Warn a member right from their row (a "Warn" button next to every member,
+regardless of whether the bot is a group admin — warning is tracked by the
+bot itself, not a WhatsApp permission). Shares the exact same limit and
+storage as the `/warn`, `/listwarn`, and `/resetwarn` chat commands, so a
+warning given from the dashboard and one given by chat command always
+agree. The group card shows every current warning with a Reset button, and
+an editable auto-remove threshold (1–20, default 3) — hitting the limit
+removes the member automatically, same as `/warn` does today (this part
+does need the bot to be an admin).
+
+### Group Photo
+View the current photo, upload a new one, or remove it — same
+`updateProfilePicture` / `profilePictureUrl` / `removeProfilePicture` calls
+already used by `/setppgroup`, `/getgrouppp`, `/delppgroup`.
+
+### Join Requests
+See everyone waiting to join, approve or reject one at a time, or
+approve/reject everyone pending in one tap — same
+`groupRequestParticipantsList` / `groupRequestParticipantsUpdate` calls
+already used by `/listrequests`, `/approve`, `/disapprove`, `/approveall`,
+`/disapproveall`.
+
+All of the above (except warning itself) requires the bot to actually be
+an admin in that group — the panel already surfaces this up front per
+group, from v1.5.0.
+
+---
+
+## 22. Status-posting diagnosis, contact-name fix, and Profile/Files/Forgot-password (v1.7.0)
+
+### Status posting — best-effort fix
+`postToStatus()`'s success check required WhatsApp's send result to carry a
+populated `key.id`. Sends to `status@broadcast` frequently resolve without
+one even on a genuine success — there's no single delivery receipt to
+attach it to, unlike a normal chat message. That mismatch could make a real
+post get read as a failure, triggering further attempts that risked
+duplicate posts, or ending on an attempt that "failed" the same check and
+reporting the whole thing as broken. Success is now "the call didn't
+throw," and the function stops at the first clean attempt. Detailed
+`[STORY]` console logging was added for every attempt's raw result/error —
+this couldn't be verified against a live WhatsApp session, so if it's still
+not posting, those log lines are the next real diagnostic step.
+
+### Contact names — root cause found
+Contacts showing with no name were never fake — they're real numbers from
+people who share groups with the bot. The bug: `contacts.set`/`upsert`/
+`update` only ever cached a person's name under their `@lid` (WhatsApp's
+privacy ID), never under the plain `@s.whatsapp.net` JID that
+`getAllContacts()` and the dashboard's Contacts tab actually look up by. Now
+cached under both, plus a fallback to Baileys' own contact store. A number
+WhatsApp has genuinely never given a name for will still show as bare —
+that part isn't fixable from here.
+
+### Group messages: media + documents
+The dashboard's group message compose box now has an attach button
+supporting images, video, and documents, not just text.
+
+### Onboarding: full country list + search
+Replaced the ~8-country dropdown with the full ~195-country list. Type to
+search; selection can be changed freely at any point before submitting.
+
+### Password minimum: 5 characters
+Lowered from 8, enforced both client-side (wizard) and server-side
+(`server.js`), so it can't be bypassed by skipping the client check.
+
+### Profile tab
+View and edit username, email, country, and WhatsApp number. A separate
+"Change Password" form requires the current password before accepting a
+new one.
+
+### Forgot password
+`/dashboard/forgot-password` requests a reset link (always responds the
+same way whether or not the email exists, so the endpoint can't be used to
+enumerate accounts); the emailed link is single-use and expires in 1 hour.
+`/dashboard/reset-password/:token` sets the new password. Backed by two new
+`owner_accounts` columns (`reset_token`, `reset_expires`) added through a
+safe, idempotent migration — checks for the columns and adds them if
+missing, a no-op on every boot after the first.
+
+### Files tab: edit, replace, delete
+Building on the existing read-only file browser, text files (`.js`,
+`.json`, `.md`, etc.) now open in an inline editor with a Save button; any
+file can be replaced (upload to overwrite) or deleted. All three go through
+the exact same allow-list boundary the read-only version always used —
+`sessions/`, `database/`, and `settings/` (WhatsApp credentials, password
+hashes, the email API key) remain permanently unreachable through this
+feature no matter what path is requested, because there's no path that
+resolves into them from the allow-list in the first place. Every
+edit/replace/delete requires an explicit confirmation dialog and is logged
+server-side.

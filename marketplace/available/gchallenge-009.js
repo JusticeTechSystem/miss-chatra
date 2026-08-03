@@ -1,7 +1,7 @@
 // ╔══════════════════════════════════════════════════════╗
 // ║  Obfuscationary by JusticeTech                      ║
 // ║  Version  : 4.1.1                                     ║
-// ║  Encrypted: 2026-07-27 21:34:45 UTC                   ║
+// ║  Encrypted: 2026-08-03 14:41:07 UTC                   ║
 // ║  Cipher   : PBKDF2+AES-256-GCM                        ║
 // ║  Tamper   : Protected via SHA-256 integrity check    ║
 // ╚══════════════════════════════════════════════════════╝
@@ -9,7 +9,7 @@
 // Encrypted by Obfuscationary by JusticeTech v4.1.1
 (async()=>{
   if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
-  const _b64='T0JGdjR2Bz5TDuS34a0qVj0smRxzJl6i90AUjUB2wTHIhTSDMAuSKQz85YhqgLIAwkXny0Ygf3f+aOKkALz0l6fwGK/qTHG4So5MAJyFTlOuZJcQ68PxjlJr3ocWKGj7ijAXWCZQ+VXmBexTTKM++UyfJvNtZ5TQh/QCHx5hnmBmPoaP9t1Yh05bncaB85GKYc+rMZbYS/joiwTZdzCLtogvlA6uoWScBHFW/cNjAYOE4Loe4o4nb265dRIdeSKkAqhLPqrkNoiDeQFujMURnn/dadbqZViJ0+KkCXzV+IJyYMpE6LHBOD3oJpJDKahm4D1s+aulx6kaoOVi2Ue9ZFAGpvS7x+zXKa1NFi1thxFyGAvrOZ9bBMax4u7DGz5jYMHcBJEk/Y3eXiIp8YpdH/nRGALgibOxjg2mqnNwJnyAppnayqsIRxBiW5NhtMAWTvwwJFRzPfDIflpo1QReFc8XqFesioSsVGYFirVuzHZW9skj8z52N7qpOqWf+UOxFSMJPcihTz4O/wJt2Bh059p2C339fuZKrM1+JZkOet/b+54y5g8jqBlzTBOiI4UrFCS5Iz91ZZ0qDarOHdr5hLWsYpocmOr6rgNMW16RcHs6DMo+xl+X5P8UleI8dtwBt6H3NzF1/Hs+mg==';const _IH='396d65643b6f161582351149b8dcdcd9fb120ab4b2985f6c420c0e62160d114d';let _src;
+  const _b64='T0JGdjT8DuKjemUCLwsv4laBtbTzd7a7RwXQnP8ZT7hdmdLpKxlXK1NLBAB2ECD/r7vvcgBgP7CZjkRJE5qxpHgm2MZggxZHfMQtIVlXHmW1om0pNwWnPE1nDwgxf2wrpXI1AsTzjg0vTsLgRvKgYkDNYV9Ffxv8dbb/duyNTvL0ZJdjrbArgQjgxYDBdaRmv0aRV5YeNp0dqI+aZZawA4A1hte1bYUKvGSTHjeS23sIYACh+nxiNN3h4Q9jeBNSwau1Jqa/OLCVBReFACuCWn3S/SRAdcKXv4GkqoY335pDQw+mGvYKrgD37heHDRbxjLrwnC7AG9elKEJ+ew95K5Jgg3yQLgOPfC9yugEFnTjto6hDxF4Gi97uJElXuitNBPlFqQbAMYTLznCPe0wKhAPhzryYp979HeoBU7VcsbfdI+8dmXivNbVERE/SgbbLhsfksPSt4h0hqzqFoR5fwxRDXrxw2g/ndaIi+oMiMvukCbLxNg8zQrcFwuFh68t3lmUubJu2aPyl+nR81elC9bATZvwkIJbD92Dbje2EoTUH7fWhVq8NzjQRFrE+2gZJss8N2UzjwRem8x7BQrPtbiaJY2Yanek2SaKzFLWSt6tBpOy0NGauLOJYxpzIWpAIkT0KYSB6';const _IH='70f4d8df70f26b645cf921effe4227153d29c38e839a8fc0b918288df04df278';let _src;
 
   const _PWDS=["change_this_to_a_long_random_secret"];
   const _MAGIC="OBFv4";
