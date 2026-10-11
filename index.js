@@ -1,317 +1,34 @@
-"use strict";
-// ─────────────────────────────────────────────────────────────────────────────
-// Miss Chatra launcher — the ONLY code that lives in the public repo.
-//
-// It asks the private code server for the latest bot, verifies it (SHA-256 +
-// Ed25519 signature), unpacks it into ./core, keeps user data OUTSIDE ./core
-// so updates never touch it, then runs core/main.js and keeps it running.
-//
-// Node built-ins only (runs before any npm install). Needs the `tar` binary,
-// which every Linux / Pterodactyl image has.
-//
-// Setup: none. On first start the launcher registers itself with the update
-// server, receives its own license key and stores it in ./.launcher/license.
-// (To use a key you were given by hand instead, put LICENSE_KEY=... in a .env
-// file next to this file, or set it as a startup variable.)
-//
-// Optional overrides (normally never needed):
-//   LICENSE_KEY      use this key instead of registering automatically
-//   SERVER_URL       code server address        (default: the one below)
-//   PUBLIC_KEY       base64 Ed25519 public key  (default: the one below)
-//   MAIN_FILE        entry inside the bot        (default: main.js)
-//   PERSIST          dirs kept across updates    (default below)
-//   PERSIST_FILES    files kept across updates   (default: .env)
-//   CHECK_EVERY_MIN  background update check     (default: 360)
-// ─────────────────────────────────────────────────────────────────────────────
-const fs = require("fs");
-const path = require("path");
-const https = require("https");
-const http = require("http");
-const crypto = require("crypto");
-const { spawn, spawnSync } = require("child_process");
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.5                                     ║
+// ║  Encrypted: 2026-10-11 01:26:06 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : Protected via SHA-256 integrity check    ║
+// ╚══════════════════════════════════════════════════════╝
 
-const ROOT = __dirname;
+// Encrypted by Obfuscationary by JusticeTech v4.0.5
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='pTlWI+2oCvlzxC2zhTjYEQ6Msg6Al5840o4HIaxfy6QtNl60jv/JszUeCvW1J284udn/+46MoPKvWQ+D55wosEwrJuSmcf31unI824A2FotF9miqIyDtzmKeX/q8wy5309rziF6r3EP9H4x5Bd9rNOzITg6DdQvEiMVfNUFCjeNEv/+bxA33NLP9ygAg61qdPtyN8bW5zNePahqhaoW94uSu387ww14B3lY2R+JyugcAkL0bxZQ5UYI3hce4XF6MUlfWHfecU4WUCQ5P/o7sD0x/u7JoVzHkmUKlhujSB3f+nQLAbhXE+Myk+Sd8O/pNIJVnMx2ynmTKzjqh4v8UHeV0YetnB/JS2vGO0vbpFW/G/NWmZ0VvifUmdiahnf6SPWhXpbQ47BLJresYIfnVHFl0S4AP1kN+9DOM3LpLECFx7S35IJt7lXTrkzS6vUPLW2zIBjx99YgcIEr6DX3SJfME3NvN+qDBndIV6FLNASC5STaledzUjUFyTib4hhtAALtpwzMkPUPQ1g+4/hW5JDhxDuXw1pqgHCNuSA1IrfSwBZ6YWFJ065RiWHXNqBT8lBGkyEvrKa1FV7u7pMJdGRYVia/z/95HaKLlDNlr1nWPAVZ2TDsoP1a/617MdYKFa9Y8Ug/nUnweU54T7gVX7Onghs8EiokPIxtGR7GcCgQ6ZeKWbYuBwz+FjlcYHet/6V+bIGpSzqqqy80IhK5vnL3m23w9/DI6L/xov4R/2X6b58coaNQeDl0z+c29u9fm3mDxqY0u4AGknNfnhN7G/dPDhsEOU6qUqdQb/4G0B1mxL/LYh6KV5nisZgaVWkFJlfkHunJKHAcMWVhEo21/MMVULkkmv3ZJEs9OV7EBzTbmH12mRH/G+AnQ1V9CD76AHPmbZXNSC8ZDzKsKDzvzpotpDsXq+zc8d/56fEMnZtx4ew8pydFvVYMSlymNsNVgoQRRB20qDEnaafQa1i3x75lWB3O9hfzBJQgEWpTQ1E4OSgQdhBSAxBcwuYFxaRn818a6yW9F+9hNl2TfP64EpitzuD3RbLUUtJWSpBVEraG5Wsfh29tuGj590WjzT17KMBfnQJ8c7/1487x7jCYeHavH16r2826SEsos+AdX7jEqZXhDHbupLCm0IlE5Sqp18fWtkjIlF1612ceT4LPQW1a23GkEQgxtDdea9/1EP7oaKnKxhqMpQNFp9WV/snE6ApwS0i6w1f9ezaXKwBESqvx8iU7lTjFdMhfVWOZRpi8SLD/SAvYIZCynZbYPsUVbavmmhKMIn6OF9dQfcM1eXpsnS+r4AhDkA/eLMm23zicAITeEm2dM7V4aCe/OHoViX2vlTRaOIOlUSTqchEx6Hq9mUJayXJut/yBiZQI216AjtdUVq0jDOGxdqc/rfzyKYd7tevHk4QzqCBnm/8+KNTrxYSRxCvMW4HN73LfwpjAYLSPPo2lVAmRAryVDJwK4RJLkXUJrpsIHT6r8eFgmtiJtMJ7xs0tmR7nlmDnGHvQDofznYHUP4jSctkSw62/OBZBXGQUjmzSxkZyvlchvmTwrO+kzrAtiLbfxUy4tnyBq2lChWdq4rjLFF04d5wOY45iqknD6oc7XpBIoZnLNaUnraSPPrKhLJ2kdqQgXkjHiKqiRyHaFr/RfGCHdw7c/vpUuPmXjICy5OCxM54BzffxsYYbJ2qTrqT/zNSqkSV3BIkp32qqfztoMc8vYkb441xAMxzrtvaRJHodsG+4FBiMeqWZYffOKlF/rsTsyf8mSbv10931SxW1JVbp5tLvIowcVHlOIj1iwExPgoagsH0acSZQkKigTu4wKtXpsmhnWd7ohx+hyWBkbPJkdBTUmom5QkHCVLnraB/6+Dd8dWnsplGgMbHFluKGJVtvDfd4gRadPKUrqFjYHQ8Gh50zrvGqW9sKFuphTLJYNKjnoHw+107S92bq56K/1CGgx3NltTmZ0wNMpzTcxHPuZ0IOzGK09kUCzVCuF+nLav6nBMBDQ7RRBtEnKaTZb0ziQwpuB9/uhm0zb0cMJUyDVh9OZx+DLR0vVNQPMJZpB2hkedko2HC4pcctbhHlUpdfLfJDBWZwD+q5e8aMyjxxcqHJcBhXEwP/p3kc0YQT7gFa+yfmjiJjKa9AgQUH8e6uFtz8eVoASCNo7CAQkp/BRxKla0Bi8M/vs1nFc1Y7f/SWF6g0Yv1M1q8rcWLYpcEoMQmo5lyvItMjvON0K0Z9/0tXbSBPOzrE1iodoJRSiN4bKunJ2Q4HrVmz2zjMhuoxWx4KJs3Q9iF95TjHa3yODrx5X0kmPZIq4eTRouJ3XBBd4tthdvN9nZWz1tZgcVDiaHDTi9GmsqS7VLDCxcnBFTFNQHEmCe4lYZFovZhIBNdaK3vnmz5NXhLrA3pDYXQAWjB+JiY+2UXuVtqT25h0dcoTU6/zPz+Mp0eo3Q6igKJj9IQNx2A/9nG0pOo/UfuX1StCNDUTCCCmJ21ceGcVeMOX+rgeyG8MZtsGYmxplvwdiyRqXYNgPt48aDEvWIIRYmN4XRkysO5I/9t4nMV3zYxcYdz8rcC456uHiLxVLSVTutrEQwkxTe4WCR1irqILGII+BEWsDvaug7CzRkkI55E8w+Xvz8qFxDhUm63F2Cuk0hzHX/O2ZcFAAj/WoT4JMuplGCTbQW9WHufCetOfmn1NgGw7jvc/4fLVJRsx36abiRGmDO2claEjiq9R4shSxqtjenEYKwx1ZnNgGr3VY8y8PRUnmC3gq8TkKb9moJfyw4kpCm9W6X35b31bem/CZm5AHP1KoFmRYxyEhB3/YH3NFqlkfNqJY0oIjBmlTMJ1gCtcCRQXeqDJhE+1UL/b0DeK/NvNMJuPWIX6LiG77YGm30OeKvEDrkspmSWXrKosmIqaCQ3TL0H9HN7QLs3n6oJwW/z6JR84wdQ+qMH67xWXlJi7DuhuoO0wrdYdfXa8X1CP+yW30OiXuwVSUn3DE8n4q+rJ05ZrZJSBemRPYcaHZFuh9OORRkIuketJQG+XHup9UxFtYrNlwF/Qj5X5bK0SCVRUlMCtToLJ4NikSWPVxC5hof/lFypntoQduy/QXQtL0d7ERC3kEMAD51aNyfnxYAxIFv4UMd7uQvWRPFw07qieY4DRpg4MEc3hXzEx4Xj1GnFPxa6IZNcyh38Kt2qR7S4JU4WXeAnj606JcnO5eogh4MSikNv4YW4T4SOEjbsYfKoakClKHfaJLRq7Lat2WIx2WXigtBrn+6cnfUxDdiZEFNIVuf2QgcLAKWWkCK/YO8iz2XXN4R9pVTMJfdUBhh8vtl27s83uEZqqFimt4t4KNdN0BUaz0n+55oevupOYGPXfiCFNw3jBQwaEaCbi9Ry5+eecLbtr4JLsIVuxwJE4PDarVZtdqcb84byQDJFymPDVqxwwb7uq/kyQJH6X9BiufzhL9IegjBg5R2NPDWHDmhh38cDr6BY2mbE7+QkudMASt2UAnGYP5Y8kQ2rsNzoPXuzVvi0r4V3aACOHM8m6hSZzfK9jMMLGcEET4/ds+9djPqKmG7p809qENAlIzVVqB/CtlVbmywuNRsmvJgw0pvVk+ear6eUTjAhr9u+FOrGvF2OSWLx+LRcX7M/uVfMOoPqnRP4V7WVSJgba/1bnM+uhpa0Y6eNK8hOV3XraVXlKTfqtjUQmzQfl39QLVeHLavnlUhVXz0bFkSZVL+KlrgINqXTy1/3IMWJFMmXXgHgjrb6e9gt+55epkUa4lphAMBTEhP1t2wcrjviFGC3/+vjLSthwzmZLJ8mvAQWte8lmeDMNUWcAhJoyifOBhOmG/apKjsvbkEtRUnH95KO3Vfo9bZbzvkYNw1xXvnfFP8ULCVKyc2aAFzFtlfPtzUJHsX+XqlsCnrwpj255hRXM1E9WZfg631eN6W3aejPZC5g9tNWmmIvtT3ATY0HM4PAPwCrG+SLv8Duk+wnbCA6CF5C69fTmb47QO15VMrZVmFfuN+wOybW1BfTe4daQ6lDDUZDIXQXgK0T4v8L7ToRNpLERDdlJQn2QM22ERRgOsnwnDkDxWuayhXZ8LLBz68dsuDmwllxcbT1HyPrdspo26LChpyHgstKsEoS29p672ZU5opk1daSyJZr60G9b9ILB4gXYGuVJBVR0OfmMUiZRJZ6fszCq5PcoLVnX6eX0ujm3YRHWlr2cWX1ulJhmu9KFEE4I90zEdYZypWMBRmuq0Fja6Cbaj/p938TTkK3a7JNF/Grqa7xc5rhWN8aM6Of6ejDmiSi4RLTBDJl1nkhEOTEOT2x2APAgIMgRqG6pEWVpzH9bzBUjS/J0L/r1p+v9zyNW+gIGzwKu9NtTW8peArVG4bUeZ9tGXPGKuEJwCX267IPNURrcsCettIatp0xkobasmBpuZtqTXxU0EUW77HEMy+JpwQvUgoomM31dhrZaC3GsvpWr1ngEiQhLm0la6DpcEdQbZDz2pNLXJ1MteLT5O/tRvbYxlr2+Z20Ub0AlYXi7IA0kaoS2Z74Jass6hmStGG2aTdXZ625xBaukZxF4JU63BJc137uYpZt2E0+qlGeK4G3mLInkbX3a+ERDH9b49v9c66FzpgLz6TyPOt6TGvYcXuoanOQ2vUrFXgG475qIsdoIHMgPDJEq7uCMzmF8whRgk5U1CYA2dBXXifVne/Dp+zc3Tuwl0UJ8jlrNgORf95qXb2OSSt79HPoQmcfCtA6kw5S6xubGrthqqxCi3zzEs65kRyeb+5tY1cFmCtMWNq7mN636UOEM+pNYu5WFl2kYOdZYSzesaShaGiIFLkBQwShSU9DzKcRitmsUQNN0lOiHXvls6KH/HV8B/VdmCWueOqs7BtFJHqen/HgEO1NN/1F8P5quDNQtFy5TYqmq+CkagAehKfAt9DKnyrunYfPwNQlPy+zWGOEa6xxVBt+VQdJd7QuiBP+vVoJTo6NctNjzRYT/QOHVO32mAg8Hdy/iopfCNtISWa25efrYN7/N41epjmiZhc2dMzBN/2V4LJqCuDG6kwuKxeWRf11XMhJZmOa4J/YfN2ZqQp4+ViXWCUaXizlofjO2+6hKF1woqNAxoCveWliOUYft3b8RxMGPNBeIY7L2RIgFkR251b4OfwUMY+eSI649sTDxmGgCCI+Ajnq1vmv8WCEs+uu1sxc80CS6Aeb+KszXuzQEjwG6gzoEUCCUNdpVhAp0m2HX2PElanxR5Lh7BT2XhCOiZFO9rpXLtlqzR4vw+e0t4BF1ENjoIgt7Ot2H5ePJ/bhrQph8tGq54iAc0GPb5TqC3WxbpsJCMxfbnzPwztxB8Pi6295hQrmsHIeeHT8C/KfvrpwpiyCUEM6fGBavcZcbT8D5I0fWfDnuQKoihh6ioMlJc94DNifByDd5ZircMNOVSc3iXzfgVsDIMdCab9d9eL6XdYskXSqWGlQ1FZLKWlJr2YbxbcurvjXAnNmYVPVgJzOeXrFTS33vObvlKZouQ/65e5SzgjnDwTjJwN41cRRfGl8mvswtB8pH6GYSijHF2aOsuoQiWNLkejFMEAW0nyJ5dTRe8hst3pISmty4kMeCmZRMvDay4+dmDlSupuF1Sxl4udchKU8mSJYCWzGicnPysyKlYIgNGO0a98buShYUTX2SNp+1sASKHlsN4xYfMnSO2cNAa8uqqkYTncaq6y4HrsPzBH9l3YFlTaXd7hob/bAeQ5/VJxQx08JKidIalKe130IWnqcrwjMFfqGzkNInKPlouCJi+33RrDxmSbYLgVYAV6X7g5ZzHn2NWwBj/7RkaVA1GKi93HFINgDJqNr7VxSNWQ8Q9JZa06eepa8W3IxB/J3+WakW4hO5y5JOZ55C6blkiISA/5E7caaBxoSMP/PcAvxjQ+fnPaEltC4RKbe8O3/J7n9m8IllxlJTDpVDvOCcJ/Axh5fXK9GxyNQ76YGXDZe/KsceyM3OBukNQbR4rHJEFSGr/0njn0ME5dBBSNIyzeY4SuhTr3wtXqSzVEH9znKpUPvL5N2m+x9FBTfCtgd+zo1W449nP+uYXa4JIWLfKolbLjbYyZIeGHqmyjES4QY4wsv8sNDcgaLDGrUV0OljXLQQsP6xjwP84lZWo5Cgzzr8PPWLDCc8oV1l0/bUIlE4m1kM57KpHb4GjDOYtTxy+2gd0XsoK/N7c7jZedru1/YfNBqxTVZ4TQ86MelH+IubTDTF4u5nB3TBUsMy1dlxIPIf2o1IWydh9Ifd2gE4CGRwN8+BQz6fmRCsh9Ve+WOne5t3BzfNTy+4RXJg4OoIxxHmAiBWHLlfo5FmbRdoOQMwFoUJ7FPURna+0Wv8pl5zZeNC+L5xDJLmjDPzPaeQkeUIOiqxNyujXjCF+Wtkrv9VnBQ9827lh0fXM1AvNMo4ZW1GGu533AMYgi42aclMcUzKiDkAjy/Cr3WzHY1hSAu20ixmOys5CEniEF0OmrQniEGAYge2xmIHpOuMUmMreifYhb9iPLIP4cUeQQB72G5vZJc0672A1D4go8cna6XCNHmGWYSMTf9iGXKlPwyOAGHS9uN5+6Oe2l9VoAhXfGK87k+U6BU9myW84H52jznoLWTgw9f2Mv8c/n00G+XlcnNuUzfrDiolWsgytKK/yiZuhSPGlUZhWLNVBkQVxG9U+XyX2Q/WQ7DwjrrP8RTkqn2DLvIQ6spspm8f7Og92BogN9O+B/xUX4wu4rRKv6UieB3X8D2Q+IH3JkAp/s957M68XaHycljUo5E+WGGcvtF8pkE9jsHDDkZyyGv8iUUNefXGaPirxi5lvt4DTeAdcaIz8OYp6Ynabd0M3qTahYD1vCplGlcF42SDRQ/5cuj8wSO4Un6NJtqnsm4kfLLJO/wSpJ1uAwybixLWpvgNKCCMzGC5eWGmi3ouPopzglUeZr6xsNcFjxp/7Vq+kN+1MAU3D1I5xNbnBQ+6g15+0UogQOxfNvjfC/ofeALPYJnRGEbZ8N3ku08MDN64EIwIWpAVT059qjiYzvYMiWIUvKeKjRs20ZvY2qg+dvylbLHb1ZUEFxPW+oaFq+plkiWozgdffk2sGrEF92sIVLOSSPega9mS9+516hZQii7Cd29o6nm5couFAt963Wz2r8XkZkZK2cMNk0zH/GSNS+LjubPPzivtl3MteMXr1oY+hNeij3BpZ9Mmi/gc7QqBo/X3gVuINJA3LSfCTW3ujwY/oU8vLu8xJjjeGkbabp2tiqyfHbvQKLP+XjlHSegBJhghls+8+YSG3sEvUBwNcqgJjm/Oh0mlHQafM8YHy76t5JaaacyF65um8AGUxT5Co5RkEprcWPGL1GSsvu7pA26xsg88etA/k02nz0zfMGHKCg85m/xmSNcK6GKvl+jzldL6YnfOThQfNed6bhdNvHuZE0gtL7rtJPZ7T49566x+kPH/SVJ6YOfGZF3zO3bQpS65Youm40AmKOILNhmmQif6DI1Vf3i2H5xUMabLQv4ClwcrTkJ0IQhZinkQVbNWJhplwBUQahd64xoQSVTxzF45mRJc+dnbqQx8g+JANnVsjxcb3UBONLFu0jnd44fDxqLJWcyiRjO4RuvUVA6GC7IVAixworDRezR8bWuyRmT9zw2JX9WtvC22ppRJyLYBVCgLTF+lGnL25VlPPFuUgM672Vwjtfsy5Psm1MPjEk3/jiSXHi4Qc8ZF/1n+9/eg0B520RO3lm99dtyyvig54wQYG5ehu2wmRyjt1x0Jf6M4dIArw2qKy/tZ4mj1nT3wOpqJACyy9ilI1b954lEgIbGnvarrBpIumRYm8nHyW/CjSh2DaRA74Z0vDeQYeY44veUvINmmn/c263yR97vPN5Qc8qLMAHqAV1ib4ex0c3dHaad4mfq3fsRTxiZH+HsGo9ea6rbXnw5l/WmDlOZqCXu4ULUdU4mBw7KjLgI1ziEQhCBo06wonM6fqQvuBf0P/uZggZAhPekxjACxE7Mpf5r+ywKcQ5c5uHwTlQ6gSSZ3jUGnGIn8C2BbEkxhTD0zdf4EKqBSNma7SyEjDGMOepv4X99k8ycesL+pLm3ko0YD8vTOmNSwvEPUO0yLZoxVf6BKQBJh4XlVsyzEtz/By1y2RqmB2yf4NrfRtCuZJ8eQTMKaeeYxswTTU2eWheFrfx+xGNdwppSXOo1ktWRJx9Q9fcdbjnBI7byb/60eKbhDOHOHwUyvnJ+iEQN7Af/5qR2/b6/9A/lEHdc/XKeTjW/H7dVsyzHC233B12o7HEthD0ZvjZoL3h4grK6foNkptQhrY9/m5+xHSpKe/zuYjq1JGZxVMowq0Z1MQn9Ge3BFjOtBDLGMHUu8tzE5WW/OymPWnf4GURp4SJnSyDuoFW3g9gI8YXqxchB8ISP7B23+NwhBfFwYCtVHoaD863P0UXluqCIfOpgUX3Fj6hfx8H/CW7SaNdQ1H8JcqCOi6cjYVhT7Tqm4aWwAinms3X648CKVxymBHLqjXOv5JcBt9VHJ149KDwzqJ6ruaTqIWu9QJoiB8IbgjoPfKdhFViX6gW/P5fZeROg/3d2NgYTlBOxjgWTCs32r65jqfvkF6bJ6MPrCoRcmDsgQ/8IaBmTPk3nH9tNQjfupNU6m+LbtlmVoveiuJUZCYqvDX6NKUveUv2EkuGrw5S3z7D+0Js55KpDI2Qu6mRlLeA6fv1nWNJxExjmqb4AVUAnv+DqjSMGJcSC9HdlFzqPTV0tzzarTuoVwbREC1R1ZzbsyQRdZbDRM03WzPHEYGiD/y7/IExiOBBFIpiNNx0KkP2gMLlzIaEH+hs1jd0335LIOqiT4heuiM17fU68H2y7gK74yWjlJYw0Ra8M8/+i5ybJ3Vz/0nw8Ad2oB1Dd3t/OZy5QAwy40VQ2B0mHWLm5Gkjs2BghUnuYU9QlZLbsJ5wKIDI6+fHmdYRg/1XGcnnLX2b5Qwbz15SPmECcbGML49fC5+veWEfOy7uvld/KRgZr7a8u4pv7/ioGkSOE0GEhRB5bRgkefDMmZTGTK28XEOLvwGTU979Rne0P8bv/NV9wwQSGxT3nx/xFew965lelt1RZu5uDMq73STlHFhTtNEO8RA43sjFs2A01l0j+cxa9cTNzKjuWWNhaf11E+dTq3L7w7aVgqZSQreusY4IyI6HmDGmloQ7vAiOu20ozIlCk1GhnUXzBo+xINBDcuBKv1CpcD4yRyA/tM0Wj4plUNTxJcCzNOVVpUzkMOYJpLlTR2QBQyBaF4NoNBTDeHMLp0hdEJ/W4M+bJ1GRwIXUgElO/IGXHcUww8bYMDhkgk782QWi88k0QuDtvTLHV9b3HMPBg6DTTu5UpM2noXGFEVmi6B7hJu23Qss/C8G4XTizggsbON/3D4YpkR9JtrDi5aJ56CPYNikYurT0H7x1YNWIvINolKxw5Zb98cLDyiNPYVcGulvtQdNwBv/R8CnOOXkjgyiN38fGYZnunPm8RVdgvNLgcWVzqL8DXiafgbHKPyPoyF1FGc96DAyK9v+C3OBKwohQ3tkYOZjlmxh1s3L8LmmO7yjUcadKqZpjXwdSE2JSfqAgDF9iJh0aMqsusHteD3akbZ6ER21k+qRcAxy5sWtWJX15B37LTdym8fpP0Sl6o985V0Bzpz650wOnkNbxWUwbsH5Vm0hEGQi20ilLXYGmPH5uBJ0k7Yh7E2fiHLmPD1t6U5z6zq3JZYH/eXQLMf9J4X6NxAA7X6YHASKzgKEkwqDFZdP/O1UXqcIpxXZgE5tNcJHXk5778LDzESG8/cOGQjUTwx1LdF7s0jW+j7r7gJ23EpLZoeyBP+RqufGlC0K5rjuIbYCV7RvsdYjqGWwJhd1g4R/2gG+NemdCRdis/hYKErHMQ+Nzg0tOzgt2ZQ8wcU319OKLYl75ai0i7XJQNm8Z+UFh99PaqOOqcp7PHtge/efxCMGhUGDNNGaozQ/9wUwWh/UHgbYdIZnGv4j96Ex7pbMJc3PXoy+7PsZJN9Q+GblA0R5IVlgqGVyWaWIL7HWeX05QsqfKYzMACp/WBKySj/sXat8/ccAyzelyBOV+JkCw3TUOqTjWRmtEqcru+jX1ny+o/xMAv/fJnNqeMo0BX48thRV9OZqldnnz/pudXBoOZqx+JykC1Uf3avAKyGudMR0aEENqHdASbgT5PwNvzF4NJTVR/AWZM0hKtK6pww2ekixj+1HTMyMlF78Ve7aDJQPWUIpZxctWVV4U0I7haR1t3w2I4KRVGRB2PpN3k6WPhPaYveYl8pmQyiupSXcTQ2z6msLBmPgPP7W0ppvDzV2Zk5EoPDjvBhpuCk1/Pq6Px1wtu5y1lFSIzJpeqAGi443SpJPkRD2a6NBAuZBs4wB9aasRoRMMKVJyUOr4a1Un/2toyyQhIl42zWpNGKNJWac4g8+fGZjTh6aCEb58U+4In0Weq7ChstJxFhgwyl8DytDhEHVmOSqxFPWOv7TXaIecmhccCH84bqcS6CheyjB/AZ2E+17HgOZnQr7sh2rL0HSt1P1cc664E0rsk4nEdahBwvuFKP17EhRfjS/fsyDhF9yL/DOb95ahW+qS42ZJe7FFErCjzLpjDOCDT6CkYed+yei+qQl6yz49citddVCs7KBqLIsuGCKwzNIu2AC6lu4C0Oj1dhQb2uKtbkhHc3nKlmAc5V3Fp0Svdg3wu5uG55FTHDgty96WYTdcPF4rABUnqdbN5YRhBdXmybKBxbIYqDpeAxaRP8k31FxjLKsQSPxZciuBOaa2whRO7EslLD31QsHpJDsCZZl7J073BsInljWMeHM1IRzDUUhruawUJeypm5Ztzb+Z0Q+8h21sSZPsSrPARMvdcVDiWX5XEgl6JBpoOyWYkV1DBzgLJb58N/e8SoXteX8xH8D+ckdkfQr7R6w0h2CubmSPL6bJFQLHntYsh/R0Wm6IS00Onm1PRU48gNmWS+cqUVIYTH9RsEBTURwiB0YQXmQud3xABaeTj665/kTbUyB16cfCe3n6WUlthPA0qdx4bj1ogw7HYrbl6nMIZqoFvl39/CDbwsSqpQY4G671Kw9ZbvZ7xVTF/jpPME7n6KkW4iK+kgBzMYJGQ9Dx3JlnOw38nzW4JQFzQFft7Vxk5uuo/2PnKRrbhviMyFPSaMb+cfYVNjC+0IDIFpcy/RGj0dEEntucoo/7qfMo+v1uiYzMWlBmQrUp6OxWNIgefzKavK5Ms4I1N7y9br6OpxdsFz4RexhV8+N8/iINXBT+UCTBnpqpXyHF5/IdRpBnLYP+OseGGkQ321erg08/YXPbpoHTFFo/n4pdeyWuUMDCx3wWVLhreiy/yiwyu4fvxug7BlWttIY+8sr6wwMEsCJugxo0Yl2eg/mggMFyiUW8sGQ0FIdfJ+DrOXL5efPhbJ0DWGFdeaEpsYzK52Oy3+t1vxLa0x9qS1P8ysJnfswO/Uy3XU3MWkRsKWIdu/qkNIHFN+Cx41moDgMpkodaEbj8TVjbbW0hXkfUj/oPLJDXZ9TFeoKDcT7SaM6oH/OR5W1Xi6rbs10JQ8DdiK+0Tc++uHu6ANlQTBSrdWZm8kDG6GIsaQGBMWkkIHsSbJ9qEAPpDPagIO8piM5Sdqt4n94EbufEqSQ8rpViubu1rRCLf65bmBMbj+Q2P+hrCsOHF7o5KBxRVLczXWdk7YzSUa9PYIBXtBqEZcLGkkDHt2rXmBD7kqXgn4YsxF9ylZlx0ulfci29YActVil+eVhkK5CizNd0U9qvQtl9d5d2HWrSbTeNqeYpsfQ1NomwJdiqn6K6gO6BS6gx1Ybwn0iPyJbcbdeHMB1vOQk8mSrLFNIGtTyj+xIOFRqKFN/OTOX3XcxjjNJJ6vSFdrOGgf/OQ31kKRtgor7J7VChYf639BRTV8FfzYjwQMTQIKq9Ux58WeobmY8cFOtwtlW2aEyxRxSppCsOqlge4doXHxF3fJWB0+6Q8lIzdU0EAZZtVAzIgV28M5miiQRihZ1FPL/5lIamN4ONDk0tmnCLXMsrOZ8UKQkJ1WO7jM9lwfxT0XnNlTF6yFHD/ycZ+09L9LDmAvcohNSIeKvAwLSA0ionCPZzGSKLxhsZXSCSrf+lQNimt29985nAuKnLm/j/Ro/VsYt0Xm5xW7h8eflsVsPmP/O3BaTJ9R+TRNcT5MQ8khy85gBmSN8DcATrIJsG/6k3pKpTo3cpoDeLQy+rKNDHik+fg0YTYMw7LbPadImg7MGkgGEipo6SuEnG8V6k+0qn8xRL7MTe/0UoOA0+Ps0125+l9d2hyxx/Ufj8K44FARUHiGpO61hZMEbnlZPSszMC/VV7pbXxiDBsH4xFjCE+PIAOa/mLApcveAW1sO3oa2pA3fbnjLLsfDQeMXd2CD8NFnkgR/gIzN8UxuHi5t9i/mucpzP2fkaKeTZ+iY5F1Uyxw3+xcUUYf6axd7a+7aaAotylPdAK9tNiK6MBWo4vvaAeC57kEomduL3/kc698UTdfdAzYWnDKeEg0FSFpBgq8dyjLm+diHFKF/GFxQi1MZLmGZRGkxGhGujQwCBHi6JSCX+LkyQzFYg9E5uDfZu3k6LHF5q5MJYmeipAiwtBMQwOato4OD8CIVTb3DlrA8Q0ig9eoEzZnWzgeCm25ofhwDsTUWMIzTDiJ5NIQcArynhMUb8y8kNzIEd+W5OjN0ntqbW1gIJiy5nN0UrygIoY9Stohi6ZKrwzUW/wFKLYQ4GB55IM7NyWpFLHFpKjjJcJ9x/O8+3cIeAO9JT0BmrkKUW1p+XJM8XoFmCJPd99I3V6e4saLABPS/lBY5THuLZgvb39bbXTFV3miryb7Q6hHK7yK/ulQ1DAsLeIoyAE9DbihAPsFbZbd3XbWnKmujEb37jHOzZRjC5Kj5zCB1sGHcxxy685nTjtFWhuxdjQNcfxZi1QEmi5Nx67xmyeebZJSJEsyR9TAUO3bQj2N+UlgDhwpuVu8WoGQPmbVnetExe4ni2FeQyD+QHj7tv2ovvqw326THyNPkYf363/PePQMQwclhy5V4MbFP/ot/bE8kuxULu8eGR3AJt/5h1LHAWqy8fR5a1Z2u2DpZzaraOqNpdOQPjbW00nocBk07Ka7Uw7U10ppcIHio/BGKtULS4JfFaZykeFXfkM7BTkAoxCuQ6ceYlHXKqaGA9A7BOg0IYWO4/q0ej15cs+5XmebZH221fV09Ioi+EHvTFyFQpqBjp13mxA9b6AZ0Qi+Uoj9WUqCttN5dbE4TZYLZBomD5GjhzKsxaqXfsLUO175KdzwRp9r8n3vFJDRiNyMGpCfTvMqXpbQnMi844qjB2Wr1HUEv7mAK7uj8ZhpY9WwleAxSH6hnQaBWUeeMQZ4tiAWkhmApmlgts8BJlAL3hLk5UzrKsJ9F+QssYJVGYUczsDHsc/pmMm3PhMxV/KmO5sxA+tmnJgzjI4LLTVxZj+x/mCNYTQnjnccbLHkjKYFggCphqW4urpV+IJuzMRzPPthkORNfLZsnzzVtl3l5fv+n8drm0vsYUbd6aTs6Ogw+tlJSI8bGvqEbAmeq1z8Y6avTg+1/CkNsudb7KnS3CdLo0XeCOVbmOjfgyBAp/2mauPZYxXoaO8uAY7Ar1qHSg7ymBl0dkmjBaG39+T6FFpCrrjYoqiahGfKHu9vGdkctleOuJ9/pJU2XVgBtzyl2wlLzbhgJW5p+d/S+SBCz7C/T6cZ9jJpSix+smOn7iQAc3kQcQlilQwHvNHkWuhVp/QfTJOZhZpPTU3jeTIKADgreKomQUNiGdVXOV0koaMFUyTauBCv6jyzEUsgZSXWe31qmBYTOmt4v3fuVFy5aYp4e2KobVtHXeIUEH0cQwrJZ60jRSLh/rFFnfPf16DBDRZTVDfK48dyhvZNL57qb44LMGRIKm0pacV6D4NqrCbm4mVr3xw2ck8bTtkAgB35xXsts0hLcvgH4O5W0j3ZFA7BNyef/uyRQnVWYPPCdwi3OevnL1bwr1rmdwrDB3mH4Wnb+mJ6Ray0K0/9KIIIDoRDH5ZPfHUzeTwoUa3IaB1Z9mYLrbI6Q6jtgWAgA6/qloOZ9eBJmgsM310ykKiSaYnnyDB68M7crGUUF+zKxjwXpNcDLmO4l1JxQ5eqmwPbs/hLuvxLQF5scgyPBv2A+J2w0RbvnfN9dM3RtErjj8XH6kfkE2YvcdUMsEblqSMofvuMY0O4L6GGBdmhDBazsuvKRICJV6mMmz24Ike6mJdJTzt1zi0aBmDOMR8/NEqvFsBmzYT1k530ZbEG1fLXR+M6Kw8OeAysJ63OUp2eDAuLv5PlwR71ZSjAXONX0OBFXQ8JvLAjg4RhD2F1g15pcn3e2uVS5DZpimAUt0KzHDQLf2WlXRwZa7sHrE8/RGnTk/AIjEKrjSa2MG2ZULELKLrH//SmXXlq/D82gwBsFSIciXx/q4p56zdYlAsnafj81qlJ3mHa8P2IgvHCFxookmAQ2Gtv7OCDHd+sWLzmskm7A+DwnFkKQ3Z+L9jHtUk4PYk4kGEZekC44mNqmLmTyrULNKN7YhwFpybsSdcx3cICfZCf2Z/R7OJlKI7UuOlFQ/8hclL2ZopkekN67aSYogOnIaaGlubG30+aMFo+UWkV63W4A5ISt329FJobtYzwICWDUe7N7VPxQBuFWa3zVuHdp7430XMWFHzGrzHL34Mw4wENqgyEPpmM6a+iObhyYNTBC5NS7cOIOPL4bQVx2fGLd+P++ZoX0degHl+GcGtFPAHPCzrlNhtGtMt546fS35F69VngVARp4m3iWLMwNFI4vO7wlqjPGUw6LyEcE6lueHdZ5rv9Cm8BjkE6C1jsHrRwlurIBHOBLw50PFOzc3EFQxixIAS397X312GZtM01oFbpxVidz/zbomfST6JfbKovnV3W3QO95+SO6ClVXXsUOJHme30E9GEG+8q7PuAvOUH7kf6PM2fk62AAvgTNOtgwKJUEBuewIQ2k2sx/NPaNkVZL6LWwUREvvKVZcvmmvj374vNESyANJO4Sdvny+ZwU1IMaHLspx8bnpV/lM5UsXc98wMeYYHFOk7jvSp8519yCXmDBl+uk5mHErmTPHtDtd/IM9Ne/Qhh+4yqCkKUmjgDz6NT56H5dVkVGo4T6R9xx7RNtP1nmpkb8yX8C21Fib9MJ2n8w+oGWd3Xn5d1+dWuV5dAZyKn1paneI76yRPdwuX3mu2AJcQJ169sfpU/CBUc8yTOOnkYjaUrVt/jsUBpBbAtpnaTNYqQlq/Ph+RJxxlG6Egy//cV+Tzy7VxV51fkyR4zoJKOhDAX6YVlgVKxb8yeqNV2O6DsqTv/HQfKiOlmPwEq5qACNB+ed2fdr7fpTgW57Ws4BWVOIMX/hunFSjEWctJkVUlVEKyDphez5+mQfY7yRjq1dqXGjDed8qCAH7lFW9z8i0rh6gMIpLln2ao9b93Epxwyh2L4KRpn4wogI42PdW2H/49Pp9HwNYkTmdRfJEBmuI/e3q1sp1H2TzL/4sgVAKsH2IAltUIEWcbZjwaaXNFymXAHOO/BXFDYwFyJszTacMPtWatdOrDv99IxE4/JY1Vvrb1fu8/s/lJowH7kWHNNXZLgD0OwNae/U50rF2w5xWcqeR17oBdbfolP8UNs9iP+bCEqzaYbyY5PDu0xvTengv8xXPF77nCFXyvYMSRD6mapEkT3eriQgykpyzmgEzUjxVnViLTQNUbxuYCvsWnAE4hJSTqsvm+cV+2QAHgNPMMGp7JYERnavfKfZyd3XDgZCxPugoIUqW5gd5lDjwqGfhOaXZSxAMo20gBqaRS7JkecrMhol/Ipf3iADwZKa1fgcZFBS1LHEoHMvdhUExshTDaThqf3r7od/+PPfq63i6mTC25PUX3fHymSrt4mNCD6Fp92ZJ8smeh6XvgGTDMnapYDlIfq23x1mEqgkm8x+eYw3LrOcZHCiWBv+eNaVyU+O1QBPVPM4yLTRJ1E0plRvtwIlN1wwWSutnw+0hvNJADjihPZHIZm9tnTem6rPm6wm+gFSMqgrQBtseEvxHxZyfWF4mo840mm6MPXXp8bGKNKjeYwi5yFSb6z8ZEYsbqKILyxw3+IwsXFm30igG5jFaZhTu7sN1UCVdPUpODHmGTYuyv6o/42+IcdsZOjTAObPqcYCGSxXoSDL4OBHPu9aWjwwx+h49Niob4FIUmYWGPzl2i7DQVLxUNrIq23U1IJZydoV+NHUNkc+rk4qW65QMfdWefA+jEaoKE4/3bm63tL684sDLXa3kSRfKX2jumDlwgmRUpypesDzg8l6tB9/l6hRcctWzXg6oeu0edaVwzQqAoSIOZKj5MTMVHuDnRjUmv8IMenrnucVdaCSgO8ES0PLWSl6DWes8uM4t+K2Hl6T8LchP0N24s5J9JVAV8S12B79s6XbLEEhtODORgICZwAU2BxhWf9VieO7ceazldwiFlDBFk2GqfMK+vMSKn2fHAr79tdSQhrgeWFhycKr2SOZis32cLx/sW5jhd1N3LkxsO8Eo+boCfLSHpyHzq5kBT6h5tqcO5yVmgsQ/49PycPx8JBFs+9MMr/TfODuWZwSSAE7tUYJpYr9jGu8+UGhfO0dY4CSaFP0sVnK4p69igq3TnfROuKKHL4UVppFnz1r5B+5J1BDPjwyEcrCx8xkpbmfMbCf6+QleOfC7TnYwbJnyz0vg1i9cyCS+8hsd6MURkArIFFNAeKE2XoavEq8KkdSLApLd9CPro2aGIZ8Eh2nMg076TWQtbaSSu5WTo8hgh6O2lOxl8x6iwynygGeZ5qhxT1GnuNH0H2+YwGlW49iJ4eGufZDIOH+LPqWNByOCSGGGjR5YvnXb+LtMtcMlugSNnF8Ti1J6YUehSkg3DJ7VSPttzl7ZnLUupDpYBLwZk2bibTjXU5L0uQAZwHi/KnTKqKvOlYKhb0zPc7HVHK19W/Djy++wS8XxMJ+oHWjteO4yx+Eq2cbWg7K8Canmhzc3UkFErZsnBuashj9f3sknPgWV0q/BqrL2f+91w05qu0/YQyDoG+kM8L80mnyYxL3bajBxA9w4Ug/dsqgz/pnirtree68j+DlvNDoZ5MId8hK9RbHJXDyfOaKkc1yvkMFYJUFIwzzwglsivkw4CqmC11Wro0Xu8Sc9Ua14tOUZS/CLJ7BSvPi3HetBdrKvxKAbWAORHb3OdyaeGvLLPWIrwPhLPcHr+NpEp5ASLtFXUzzwCJ5B42O9lGgumzMlgHN1kbHeU+bfyCGsq7i+mZmiXo9y99rUD68pgtKAL4s4xFsF12ufUAP1uaIutmDg473usUtY+CFmCOM3hzwve2wQM//U9AIXRJzadivyXz+4u+0yduaEfj0VDSvQlVx70+DsAprYnwKJ78rVUXvq54Py8OHx3+WBKZb3ujSW6jR7HaCU8HwbRsFySMSDrK/sjZOyORSK4HlscTQqMF5kTknvevBNIvnyz6qIL4rcSovNpBCJw3/erscBaFpprC3KtyJZcCAHY91P99LaTe0HlTBWBBOqNe5wq1dgLRL5CP51wcmkoBJ/VJ3U4RgiDGsmllbCZNaXfri8ftE/0DR8eL0sIg0uNvjtecLcj/xnetBhv2DUrnZAaiHcJY3VUeFxiEGIZrpPFxI31W6QAS3u7puQs5JqCXfrYzC9HhshgSXo3VAUp3jxFAQcqLN6eOEox8ZIwtkWpMguV2RassFEKCVvALQR2vxWSe9XExMGXkNnykzsynsTielSg51M/dja4pRH1Ff5z9/FAKOUAw0UdVGrQVnGERQg9ln9Mc6iWLobkxvc26x1z1qr5Qlq8VTIxAcTDxDhs82itYI7iqF/z3l/shMkUb8WQfQL935R8vwfaUA/n9HRh82VWM4i9zyuXOlQCYmUYYexGqkn2jv7rH236Gsl+u4F3SGVWOTgomqo5LazCwm+kMSpkmTLB1mwrZVYxjaXv40i2t1yNBqnMetMTWyDCCdJ6OZbwHCzigg8fd9aisolDfUwP5GQWTlEDc7jxmOBcrgMA/r94Bdsf/AkR4nFTeYmJ+NbPFsCjWEZW1x3AK0y81hqcaHI5sr/UyunaYcqa9jjnKBJdWprLS+Vme4SlmpWaTNuUNpkJLX5UaVYPnaa6gPM3h6cxtFWxtQWo5zWG3Kuta3HfiI1/BTN9l3SFt2uF//WXxkBzBofjAFR1fSN58tp5L70TZ7cppSl0id1VbJRbTIoFZKUMFTUWmUcnGcg21AdKF0Gjg6WYFQIFByhKdgvvV/O4Kdxd00i8iJwmMzLoCQISdKZ57hT4Fum5lpDOT3R6T73TiNWVLSJkijaMiuPA9HV+z1QApV7DOLk/1pzKZaC7cM72zF+TP3qZpIaB4YhBIZ0y9cXhtnTvovUMHcgXuO8rdjjEKyoeR0j7G/tDBGF837ywWbDUv+c32xhheRoqYkoyIJ/QLGdC7zVnyMu59pxqyUVZYLOzaXgNcR4G3Idsg17WbijsZ9KhH3Re+0vuwBwa+qxDjdKHJxPBU2P1VYTlUUOPF3k64KXYJq9QDvdzGxCsn+KfSx1Fb+mmT/aek83gNQdNgQM1ewoqVjIdwJYv8nL9niYyn3Rpbtq9yQM6ZV9X2MBpqSwobWt2O32yKgx0UhJXvLPt6jkIrXO4TZg/SL+Yul5c4kVgTxmmz2ECtpTRFt4AM2XxKwruU6AKd79JtVpSDmaFW2hEE4VNf2pzG0onKsS1+ShrMuQOHDsHT4IHTqScPWBRTwSti79FDKD9q436+CprQEpUeVRsw5i4ninEiQJtMhTVMbatQ1xJblM2afVRfUBS0oLAPesjP8/RIir+qZMXf4J5W9+FdzyCTp8iAiCScqYMlssFwTQg32PO4spLaJltpRLcoZJ2+LnBNv2cU46FN3B9PnbsnBXlprdTZhyuzSWJfEHl+o4S9sR24jDIgIP3Gz0UNj5/fjcCbdrIEUi5G1mCqtaZJ7mlUM/QgY7TbNZCq5erkYvXEc82k5t49KjSH2cdMUj42crC/njZiE+m//kKTGeWnJJteuT/RilR6uxEsxuTH9LMZKq3h06KoJaUc7wvGApxepOMepYs/oTrZBzFt4ZInbwKvZmy0sHs4zjzl3dKn6QMrv4jpq17S/OzM7h+vUShuGJM1qKjCiawTsko6AfH2Qr0fk0fYSaXE0gZh3adtQO4MPY8e/Uly461hwRXyVLeH1o7mXPVwcM13nc/VlbzVRR+VFzJEs6x1IsTcVU3FqGLajtG5tY+s3JBaXwP3XwLHSiLqmWwrhbeVvsDMaXi8EOamlqtFMk3XG2v+fohZbT+Q+uHrIo0ng7sZITu4nys5Z96oUsM4wavvuqpCQQPlJEyxQ+PN/uFzDDWbGdfl21mcgkMwuMKzYATtOLRVt1sOmxjGQG8CtR6shzsptxykBqey19g7eiCmApE0h+QDQwmSJyEWYE1OR4bSOz3w8LirDcd6n45GRPDTmchb4QnNz7rU8kLDjXrvBNgvSpZvxX2RU/xMH7ETAJtZ8dnNjSQsCfCditXIClZOKdmVHEXQe3c8Ekecpy+o1MFrMWIMpF5bgqBrzKSTD8edZqzkMRAKkiOh0T58xwviherDi8JxR5A0stSZDGwVwiafDq+jNosTYe2S6EdReOc303MVbLMClUDYwGyHjThoEbblrEJmSwm8tLfbuq6u2FFPJNiNeSf8KXQUMdIzYE0l/9KnJ0DoSpR1mhUEAJb54kviHcTjUsYM18xQ6LTc/WlcldcTP2X6jhmqv0uR5uuUefHCJjK6Uucc3eJw893urM/mKpfmUmmaV1tWUmkU2GG5NCdlFK/xin4ac7kcJRyWQHRvxwCyHeN9/r3Xx4yKuiZC4gWO6LUh3r1F3ZkoxBUvWeN4HrMAMV7pIBOjh7vfT3YopsLdNMfmMWCvnzJxcwrvm4OyFngrXT9ggYHcoV4ZCoGcxBjcZd2O+SVre47Q3csRovYxiTbwEYlG+8q/9+RCj86uOeYtmrUH2BWpSe5PrNgx8+oGQEOY6ooCPx/OkD1OOeZ3JtGY1thPZ9+s8uM1GLIvAeEZSRroHFhpCId3MVOHY2k14OfE/avjcETI1o5s7ZmX3oM+XenMzxJ214YYXPkOwf9QSaJx8yLzfvHNEBSgbJ2h+HLZ4B+twSVGaE1vY+g8H3jfXduMuUORjb9CS1MVHEmmwacwi4hJ48KbmFGlodFHhg2oY13Aa5EJxqC37FjjbdlDlLEfJLhAoijppeUs8Kjaqd4SZiq1BljAPekZ8/F8mHiPqb5CKZOCR1UAf6INi5M2p+N4nNyGaO2ydet4vkjHNRgAWtsO+C1A6lyDF0o0CyNDTurONzeMd5mh1wiDoBicEm0Tj0l/m8hyeD6XzABmQSiynXOHZf463x9jsg4vVdyWPuADbFeCNqqGEn4ZzaTS8aO3Kk/h8d1iOHJljyO8tmYP8VyzIFxlEfbrlCXxBUq2MUxhCEy6BQCpdlH2fpn+V+sZcdanhPBMm6xWQbNe5X40rVXNWwXYb/EoXWkWgZJfdkJCeB2Co9RMfP0UpOcrGo+bNktNBljLtmygz0ZDDRM29u7mzuzRwsFQyf6FJK/jvtnJnGGc7OEMlFTDXPOClzYeoZ6hUxomHIEy20DJwXM4JU1kJLFiLOOa7PsRettRe75x9oXXDC/HFqhc6vYFKVX+2NKMW+Ps+hmWUjVv0K9hZACPqVDGFW9VtV5LuN6EssZ5tN62GfYoD9O+K9D4k8Z94pRWYiZkZqxRzgfqz1Cm4P1NGb90k0RulSajA9yW3uAEGY88g16paG/1fcj2SxMVL8NUoxSiRetHBxgpM0dTztajN3nVnbkIqywjypsABXpNnz3TzbMMyJCxqYNGeG5pHNSXb5bJQqmwRdxF89R+P0SpB+X1olmV1nTO+uESVqkH9whHXdZvFc5WoYnwATkA4Qm3BjjTgfuJrc4mRxjIl3TM7jcAqvG997be07z0WkgssIMInlDu/0nziL8ILi5Exa9+pHGiAEX3b9YoMCNV8qRGwHRe4UyLcCdJDcNfw+JPSkc9eHvcpyaefdUenSDjqpetol/hvZrmzv4SqZJZevMODZTf9wSqSwGTQl3veqWzmRH9WTS7P5d6VXFTOHi0A02hDdc64JVYjvrMm9k/ccoI0CrdAW2yNHY5qJ8R25DzVBCBOqhHiv3YL1jofL00ICmehA32oeBdI+deOFae8s=';const _IH='3f115bcd5ea59cc8515b5d3da03cda2e4464a3c53ac20b95b60ef89a41cc1822';let _src;
 
-// Load ROOT/.env into process.env (existing real env vars win). Lets people
-// on hosts without a "startup variables" screen configure the launcher with a
-// plain .env file. The same file is symlinked into core/ so the bot's own
-// session-id feature (which writes .env) keeps working across updates.
-try {
-  for (const line of fs.readFileSync(path.join(ROOT, ".env"), "utf8").split(/\r?\n/)) {
-    const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/);
-    if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^(['"])(.*)\1$/, "$2");
+  const _PWDS=["change_this_to_a_long_random_secret"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-} catch {}
-const CORE = path.join(ROOT, "core");
-const STATE = path.join(ROOT, ".launcher");
-const NEXT = path.join(STATE, "next");
-const PREV = path.join(STATE, "prev");
-const VERSION_FILE = path.join(STATE, "version");
-const DEPS_FILE = path.join(STATE, "deps-hash");
-const INSTANCE_FILE = path.join(STATE, "instance");
-const LICENSE_FILE = path.join(STATE, "license");
-const BAD_FILE = path.join(STATE, "bad-version"); // a version that crash-looped; not reinstalled until the server publishes a different one
+  _src=_d.toString('utf8');
 
-const env = process.env;
-const DEFAULT_SERVER_URL = "https://4okqwc.brevo.host";
-const DEFAULT_PUBLIC_KEY = "MCowBQYDK2VwAyEAx+Emg/PoRycXjw10p0Nr9VNOfsBHNoOPYN46qqR1nBo=";
-const SERVER_URL = (env.SERVER_URL || DEFAULT_SERVER_URL).replace(/\/+$/, "");
-const PUBLIC_KEY = env.PUBLIC_KEY || DEFAULT_PUBLIC_KEY;
-const MAIN_FILE = env.MAIN_FILE || "main.js";
-const PERSIST = (env.PERSIST || "database,sessions,marketplace/plugins,marketplace/temp").split(",").map(s => s.trim()).filter(Boolean);
-const PERSIST_FILES = (env.PERSIST_FILES || ".env").split(",").map(s => s.trim()).filter(Boolean);
-const CHECK_EVERY_MS = (parseFloat(env.CHECK_EVERY_MIN) || 360) * 60 * 1000;
-
-const log = (...a) => console.log("[launcher]", ...a);
-fs.mkdirSync(STATE, { recursive: true });
-
-// ── tiny HTTP helper (follows redirects, never forwards auth to another host) ─
-function request(url, { headers = {}, asBuffer = true, redirects = 5 } = {}) {
-  return new Promise((resolve, reject) => {
-    const u = new URL(url);
-    const lib = u.protocol === "http:" ? http : https;
-    const req = lib.get(u, { headers: { "User-Agent": "chatra-launcher", ...headers }, timeout: 30000 }, res => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        res.resume();
-        if (redirects <= 0) return reject(new Error("Too many redirects"));
-        const next = new URL(res.headers.location, u);
-        const h = { ...headers };
-        if (next.host !== u.host) delete h.Authorization; // never leak the license key to another host
-        return resolve(request(next.href, { headers: h, asBuffer, redirects: redirects - 1 }));
-      }
-      if (res.statusCode !== 200) { res.resume(); const e = new Error(`HTTP ${res.statusCode} from ${u.host}`); e.status = res.statusCode; return reject(e); }
-      const chunks = [];
-      res.on("data", c => chunks.push(c));
-      res.on("end", () => {
-        const buf = Buffer.concat(chunks);
-        resolve({ body: asBuffer ? buf : buf.toString("utf8"), headers: res.headers });
-      });
-    });
-    req.on("timeout", () => req.destroy(new Error("Request timed out")));
-    req.on("error", reject);
-  });
-}
-
-function postJson(url, obj) {
-  return new Promise((resolve, reject) => {
-    const u = new URL(url);
-    const lib = u.protocol === "http:" ? http : https;
-    const data = Buffer.from(JSON.stringify(obj));
-    const req = lib.request(u, { method: "POST", timeout: 30000, headers: { "User-Agent": "chatra-launcher", "Content-Type": "application/json", "Content-Length": data.length } }, res => {
-      const chunks = [];
-      res.on("data", c => chunks.push(c));
-      res.on("end", () => {
-        const text = Buffer.concat(chunks).toString("utf8");
-        if (res.statusCode !== 200) { const e = new Error(`HTTP ${res.statusCode} from ${u.host}`); e.status = res.statusCode; return reject(e); }
-        try { resolve(JSON.parse(text)); } catch { reject(new Error("Bad response from server")); }
-      });
-    });
-    req.on("timeout", () => req.destroy(new Error("Request timed out")));
-    req.on("error", reject);
-    req.end(data);
-  });
-}
-
-// ── Source: the private code server ──────────────────────────────────────────
-// manifest = { version, sha256 (hex of the tarball), signature (base64 Ed25519
-// over the sha256 hex string) }. The bundle is only accepted if BOTH match.
-const readTrim = f => { try { return fs.readFileSync(f, "utf8").trim(); } catch { return ""; } };
-
-function instanceId() {
-  let id = readTrim(INSTANCE_FILE);
-  if (!/^[a-f0-9]{32}$/.test(id)) {
-    id = crypto.randomBytes(16).toString("hex");
-    fs.writeFileSync(INSTANCE_FILE, id);
-  }
-  return id;
-}
-
-// Returns { key, auto }. A key from LICENSE_KEY always wins; otherwise the
-// stored one; otherwise this instance registers itself and stores what it gets.
-async function ensureLicense({ forceRegister = false } = {}) {
-  if (env.LICENSE_KEY) return { key: env.LICENSE_KEY, auto: false };
-  const stored = forceRegister ? "" : readTrim(LICENSE_FILE);
-  if (stored) return { key: stored, auto: true };
-  log("Registering with the update server…");
-  let r;
-  try { r = await postJson(`${SERVER_URL}/api/register`, { instance: instanceId() }); }
-  catch (e) {
-    if (e.status === 503) throw new Error("The update server is not accepting new installs right now. Try again later.");
-    if (e.status === 429) throw new Error("Too many installs from this address right now. Try again later.");
-    throw e;
-  }
-  if (!r || typeof r.key !== "string" || !r.key) throw new Error("Server did not return a key");
-  fs.writeFileSync(LICENSE_FILE, r.key + "\n", { mode: 0o600 });
-  return { key: r.key, auto: true };
-}
-
-// manifest = { version, sha256 (hex of the tarball), signature (base64 Ed25519
-// over the sha256 hex string) }. The bundle is only accepted if BOTH match.
-async function getRelease() {
-  let lic = await ensureLicense();
-  let manifest;
-  try {
-    manifest = JSON.parse((await request(`${SERVER_URL}/api/code/manifest`, { headers: { Authorization: `Bearer ${lic.key}` }, asBuffer: false })).body);
-  } catch (e) {
-    // The server forgot our key (e.g. its data was reset): register again, once.
-    // A 403 (revoked) is never retried — that must stay final.
-    if (e.status === 401 && lic.auto) {
-      lic = await ensureLicense({ forceRegister: true });
-      manifest = JSON.parse((await request(`${SERVER_URL}/api/code/manifest`, { headers: { Authorization: `Bearer ${lic.key}` }, asBuffer: false })).body);
-    } else throw e;
-  }
-  const h = { Authorization: `Bearer ${lic.key}` };
-  return {
-    id: String(manifest.version),
-    fetchBundle: async () => {
-      const buf = (await request(`${SERVER_URL}/api/code/download`, { headers: h })).body;
-      const sha = crypto.createHash("sha256").update(buf).digest("hex");
-      if (sha !== manifest.sha256) throw new Error("Bundle hash mismatch — refusing to run it");
-      const key = crypto.createPublicKey({ key: Buffer.from(PUBLIC_KEY, "base64"), format: "der", type: "spki" });
-      const ok = crypto.verify(null, Buffer.from(manifest.sha256), key, Buffer.from(manifest.signature || "", "base64"));
-      if (!ok) throw new Error("Bad signature — refusing to run it");
-      return buf;
-    },
-  };
-}
-
-// ── install: extract to NEXT, atomically swap into CORE, relink persistent dirs ─
-function rmrf(p) { fs.rmSync(p, { recursive: true, force: true }); }
-
-function linkPersistentFiles() {
-  for (const name of PERSIST_FILES) {
-    const real = path.join(ROOT, name);
-    const inCore = path.join(CORE, name);
-    if (!fs.existsSync(real)) fs.writeFileSync(real, "");
-    rmrf(inCore);
-    fs.symlinkSync(real, inCore, "file");
-  }
-}
-
-function linkPersistent() {
-  linkPersistentFiles();
-  for (const name of PERSIST) {
-    const real = path.join(ROOT, name);
-    const inCore = path.join(CORE, name);
-    fs.mkdirSync(path.dirname(real), { recursive: true });
-    fs.mkdirSync(path.dirname(inCore), { recursive: true });
-    if (!fs.existsSync(real)) {
-      // first run: seed from the bundle's copy (e.g. default database/ files) if it has one
-      if (fs.existsSync(inCore) && !fs.lstatSync(inCore).isSymbolicLink()) fs.renameSync(inCore, real);
-      else fs.mkdirSync(real, { recursive: true });
-    }
-    rmrf(inCore);
-    fs.symlinkSync(real, inCore, "dir");
-  }
-}
-
-async function install(release) {
-  const bundle = await release.fetchBundle();
-  rmrf(NEXT); fs.mkdirSync(NEXT, { recursive: true });
-  const tarPath = path.join(STATE, "bundle.tgz");
-  fs.writeFileSync(tarPath, bundle);
-  const r = spawnSync("tar", ["-xzf", tarPath, "-C", NEXT, "--strip-components=1"], { stdio: "inherit" });
-  fs.rmSync(tarPath, { force: true });
-  if (r.status !== 0) throw new Error("tar extraction failed");
-  if (!fs.existsSync(path.join(NEXT, MAIN_FILE))) throw new Error(`Bundle has no ${MAIN_FILE}`);
-
-  rmrf(PREV);
-  if (fs.existsSync(CORE)) fs.renameSync(CORE, PREV);   // keep last-known-good for rollback
-  fs.renameSync(NEXT, CORE);
-  linkPersistent();
-  fs.writeFileSync(VERSION_FILE, release.id);
-  installDepsIfNeeded();
-  log("Installed version", release.id.slice(0, 12));
-}
-
-function installDepsIfNeeded() {
-  const pj = path.join(CORE, "package.json");
-  if (!fs.existsSync(pj)) return;
-  const hash = crypto.createHash("sha256").update(fs.readFileSync(pj)).digest("hex");
-  const old = fs.existsSync(DEPS_FILE) ? fs.readFileSync(DEPS_FILE, "utf8") : "";
-  if (hash === old && fs.existsSync(path.join(CORE, "node_modules", ".package-lock.json"))) return;
-  log("Dependencies changed — running npm install…");
-  const r = spawnSync("npm", ["install", "--omit=dev", "--no-audit", "--no-fund"], { cwd: CORE, stdio: "inherit" });
-  if (r.status === 0) fs.writeFileSync(DEPS_FILE, hash);
-  else log("npm install failed (child's own dependency check may still recover)");
-}
-
-function rollback() {
-  if (!fs.existsSync(PREV)) return false;
-  log("Rolling back to previous version");
-  try { fs.writeFileSync(BAD_FILE, fs.readFileSync(VERSION_FILE, "utf8")); } catch {}
-  rmrf(CORE); fs.renameSync(PREV, CORE); linkPersistent();
-  fs.writeFileSync(VERSION_FILE, "rolled-back");
-  return true;
-}
-
-async function ensureUpToDate() {
-  const have = fs.existsSync(VERSION_FILE) ? fs.readFileSync(VERSION_FILE, "utf8") : "";
-  try {
-    const release = await getRelease();
-    const bad = fs.existsSync(BAD_FILE) ? fs.readFileSync(BAD_FILE, "utf8") : "";
-    if (release.id === bad && fs.existsSync(path.join(CORE, MAIN_FILE))) return false; // known-bad, wait for a fix
-    if (release.id !== have || !fs.existsSync(path.join(CORE, MAIN_FILE))) { await install(release); fs.rmSync(BAD_FILE, { force: true }); }
-    return release.id !== have;
-  } catch (e) {
-    log("Update check failed:", e.message);
-    // A rejected/revoked license must stop the bot — only network or server
-    // trouble is allowed to fall back to the copy already on disk.
-    if (e.status === 401 || e.status === 403) throw new Error("The update server refused this instance (license invalid or revoked).");
-    if (!fs.existsSync(path.join(CORE, MAIN_FILE))) throw new Error("No local copy and could not fetch one: " + e.message);
-    log("Continuing with the copy already on disk.");
-    return false;
-  }
-}
-
-// ── supervisor ───────────────────────────────────────────────────────────────
-let child = null, stopping = false, quickCrashes = 0, restartingForUpdate = false;
-
-function start() {
-  const startedAt = Date.now();
-  child = spawn(process.execPath, [MAIN_FILE], {
-    cwd: CORE, stdio: "inherit", env: { ...env, LAUNCHED_BY: "launcher" },
-  });
-  child.on("exit", async (code, signal) => {
-    child = null;
-    if (stopping) return process.exit(code || 0);
-    const lived = Date.now() - startedAt;
-    // Only a real crash counts toward the rollback threshold — not a restart we
-    // triggered ourselves (update / /update command exits with code 0).
-    quickCrashes = !restartingForUpdate && lived < 20000 && code !== 0 ? quickCrashes + 1 : 0;
-    restartingForUpdate = false;
-    log(`Child exited (code=${code}, signal=${signal}) after ${Math.round(lived / 1000)}s`);
-    if (quickCrashes >= 3) {
-      quickCrashes = 0;
-      if (!rollback()) { log("Crash loop and nothing to roll back to — exiting."); return process.exit(1); }
-    }
-    setTimeout(async () => {
-      try { await ensureUpToDate(); } catch (e) { log("FATAL:", e.message); return process.exit(1); }
-      start();
-    }, 3000);
-  });
-}
-
-for (const sig of ["SIGINT", "SIGTERM"]) {
-  process.on(sig, () => { stopping = true; if (child) child.kill(sig); else process.exit(0); });
-}
-
-(async () => {
-  try { await ensureUpToDate(); } catch (e) { log("FATAL:", e.message); process.exit(1); }
-  start();
-  // Periodic check: if a new version landed, just restart the child — it comes back on the new code.
-  setInterval(async () => {
-    try {
-      const have = fs.existsSync(VERSION_FILE) ? fs.readFileSync(VERSION_FILE, "utf8") : "";
-      const release = await getRelease();
-      const bad = fs.existsSync(BAD_FILE) ? fs.readFileSync(BAD_FILE, "utf8") : "";
-      if (release.id !== have && release.id !== bad && child) { log("New version found — restarting child."); restartingForUpdate = true; child.kill("SIGTERM"); }
-    } catch (e) {
-      if (e.status === 401 || e.status === 403) {
-        log("The update server refused this instance (license invalid or revoked) — stopping.");
-        stopping = true;
-        if (child) child.kill("SIGTERM"); else process.exit(1);
-      }
-    }
-  }, CHECK_EVERY_MS).unref();
+  // Bridge dynamic import() from CJS outer scope into the new Function sandbox.
+  // import() is a context-sensitive keyword unavailable inside new Function() —
+  // capturing it here as an arrow function restores it for the decrypted code.
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
 })();
