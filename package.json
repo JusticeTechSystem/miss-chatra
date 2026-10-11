@@ -1,9 +1,10 @@
 {
-  "name": "miss-chatra-launcher",
-  "version": "1.0.0",
-  "description": "Miss Chatra launcher — fetches and runs the bot from the update server",
+  "name": "miss-chatra-bot",
+  "version": "1.2.8",
+  "description": "Miss Chatra — WhatsApp group management and AI bot by JusticeTech",
   "main": "index.js",
   "scripts": { "start": "node index.js" },
   "license": "MIT",
-  "engines": { "node": ">=18" }
+  "author": "JusticeTech",
+  "engines": { "node": ">=22.5" }
 }
