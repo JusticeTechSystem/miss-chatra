@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 175" width="1000" height="175" role="img" aria-label="Setup in six steps">
+  <defs>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00e676"/><stop offset="1" stop-color="#00bcd4"/></linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#00e676"/><stop offset="1" stop-color="#00bcd4"/></linearGradient>
+    <filter id="blur" x="-80%" y="-80%" width="260%" height="260%"><feGaussianBlur stdDeviation="9"/></filter>
+  </defs>
+  <rect width="1000" height="175" rx="20" fill="#04100b"/>
+  <path id="track" d="M83.0 70 L917.0 70" stroke="url(#line)" stroke-width="3" stroke-dasharray="3 9" stroke-linecap="round" opacity=".55">
+    <animate attributeName="stroke-dashoffset" from="0" to="-24" dur="1.6s" repeatCount="indefinite"/>
+  </path>
+  
+  <g>
+    <circle cx="83.0" cy="70" r="34" fill="#00e676" opacity="0" filter="url(#blur)">
+      <animate attributeName="opacity" values="1;0;0" keyTimes="0.000;0.100;1.000" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="83.0" cy="70" r="28" fill="#06180f" stroke="url(#ring)" stroke-width="2.5"/>
+    <text x="83.0" y="80" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="26" font-weight="800" fill="#00e676">1</text>
+    <text x="83.0" y="130" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e8fff3">Upload</text>
+    <text x="83.0" y="152" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12.5" fill="#8fd9b4">index.js + package.json</text>
+  </g>
+  <g>
+    <circle cx="249.8" cy="70" r="34" fill="#00e676" opacity="0" filter="url(#blur)">
+      <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0.000;0.130;0.160;0.260;1.000" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="249.8" cy="70" r="28" fill="#06180f" stroke="url(#ring)" stroke-width="2.5"/>
+    <text x="249.8" y="80" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="26" font-weight="800" fill="#00e676">2</text>
+    <text x="249.8" y="130" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e8fff3">Start</text>
+    <text x="249.8" y="152" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12.5" fill="#8fd9b4">startup file: index.js</text>
+  </g>
+  <g>
+    <circle cx="416.6" cy="70" r="34" fill="#00e676" opacity="0" filter="url(#blur)">
+      <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0.000;0.290;0.320;0.420;1.000" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="416.6" cy="70" r="28" fill="#06180f" stroke="url(#ring)" stroke-width="2.5"/>
+    <text x="416.6" y="80" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="26" font-weight="800" fill="#00e676">3</text>
+    <text x="416.6" y="130" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e8fff3">Open setup link</text>
+    <text x="416.6" y="152" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12.5" fill="#8fd9b4">email · password · number</text>
+  </g>
+  <g>
+    <circle cx="583.4" cy="70" r="34" fill="#00e676" opacity="0" filter="url(#blur)">
+      <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0.000;0.450;0.480;0.580;1.000" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="583.4" cy="70" r="28" fill="#06180f" stroke="url(#ring)" stroke-width="2.5"/>
+    <text x="583.4" y="80" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="26" font-weight="800" fill="#00e676">4</text>
+    <text x="583.4" y="130" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e8fff3">Link WhatsApp</text>
+    <text x="583.4" y="152" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12.5" fill="#8fd9b4">enter the pairing code</text>
+  </g>
+  <g>
+    <circle cx="750.2" cy="70" r="34" fill="#00e676" opacity="0" filter="url(#blur)">
+      <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0.000;0.610;0.640;0.740;1.000" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="750.2" cy="70" r="28" fill="#06180f" stroke="url(#ring)" stroke-width="2.5"/>
+    <text x="750.2" y="80" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="26" font-weight="800" fill="#00e676">5</text>
+    <text x="750.2" y="130" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e8fff3">Verify email</text>
+    <text x="750.2" y="152" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12.5" fill="#8fd9b4">tap the link in your inbox</text>
+  </g>
+  <g>
+    <circle cx="917.0" cy="70" r="34" fill="#00e676" opacity="0" filter="url(#blur)">
+      <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0.000;0.770;0.800;0.900;1.000" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="917.0" cy="70" r="28" fill="#06180f" stroke="url(#ring)" stroke-width="2.5"/>
+    <text x="917.0" y="80" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="26" font-weight="800" fill="#00e676">6</text>
+    <text x="917.0" y="130" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#e8fff3">Choose 1 or 2</text>
+    <text x="917.0" y="152" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="12.5" fill="#8fd9b4">then you're live</text>
+  </g>
+  <circle r="7" fill="#eafff4">
+    <animateMotion dur="12s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.8;1" calcMode="linear" path="M83.0 70 L917.0 70"/>
+  </circle>
+  <circle r="14" fill="#00e676" opacity=".35" filter="url(#blur)">
+    <animateMotion dur="12s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.8;1" calcMode="linear" path="M83.0 70 L917.0 70"/>
+  </circle>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 24" width="1000" height="24" role="img" aria-label="">
+  <defs>
+    <linearGradient id="d" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="500" y2="0" spreadMethod="repeat">
+      <stop offset="0" stop-color="#00e676" stop-opacity="0"/><stop offset=".5" stop-color="#00e676"/><stop offset="1" stop-color="#00bcd4" stop-opacity="0"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="500 0" dur="3.5s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="11" width="1000" height="2" rx="1" fill="url(#d)"/>
+  <g transform="translate(500 12)">
+    <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#00e676" transform="rotate(45)">
+      <animate attributeName="opacity" values="1;.35;1" dur="2.4s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="rotate" values="45;225;405" dur="6s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+</svg>

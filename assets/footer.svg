@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 170" width="1000" height="170" role="img" aria-label="Made with love by JusticeTech">
+  <defs>
+    <linearGradient id="fbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#04100b"/><stop offset="1" stop-color="#06261a"/></linearGradient>
+    <clipPath id="fclip"><rect width="1000" height="170" rx="20"/></clipPath>
+  </defs>
+  <g clip-path="url(#fclip)">
+    <rect width="1000" height="170" fill="url(#fbg)"/>
+    <path d="M0 34 q 125 -10 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 L3000 170 L0 170 Z" fill="#00bcd4" fill-opacity=".18">
+      <animateTransform attributeName="transform" type="translate" from="-500 0" to="0 0" dur="11s" repeatCount="indefinite"/>
+    </path>
+    <path d="M0 50 q 125 -12 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 t 250 0 L3000 170 L0 170 Z" fill="#00e676" fill-opacity=".20">
+      <animateTransform attributeName="transform" type="translate" from="0 0" to="-500 0" dur="8s" repeatCount="indefinite"/>
+    </path>
+    <text x="500" y="106" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="22" fill="#d9ffe9">Made with
+      <tspan fill="#ff4d6d">♥</tspan> by <tspan font-weight="800" fill="#00e676">JusticeTech</tspan>, Nigeria</text>
+    <text x="500" y="138" text-anchor="middle" font-family="'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif" font-size="14" fill="#7fcfa6" letter-spacing="1">Star this repo if Miss Chatra helps your community</text>
+  </g>
+</svg>
