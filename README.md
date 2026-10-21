@@ -4,7 +4,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-v1.2.8%20JT-00e676?style=for-the-badge&logo=whatsapp&logoColor=white)](#-whats-new--v128_jt)
+[![Version](https://img.shields.io/badge/version-v1.2.7%20JT-00e676?style=for-the-badge&logo=whatsapp&logoColor=white)](#-whats-new--v127_jt)
 [![Node](https://img.shields.io/badge/node-22%2B-2b9348?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
 [![Baileys](https://img.shields.io/badge/Baileys-7.0.0--rc13-f77f00?style=for-the-badge)](https://github.com/WhiskeySockets/Baileys)
 [![Updates](https://img.shields.io/badge/updates-automatic-00bcd4?style=for-the-badge&logo=github-actions&logoColor=white)](#-auto-update)
@@ -278,22 +278,16 @@ pm2 start index.js --name "miss-chatra"
 
 <p align="center"><img src="assets/divider.svg" width="100%" alt=""/></p>
 
-## 📝 What's New — v1.2.8_JT
+## 📝 What's New — v1.2.7_JT
 
 > [!NOTE]
 > Full release notes are posted in the [JusticeTech channel](https://whatsapp.com/channel/0029VaoLagu3hRFKWlqk9W2T).
 
 | | |
 |---|---|
-| 🆕 | **Web dashboard** — set up and manage your bot from the browser |
-| 🆕 | **Email verification** during setup; the bot goes live only after you confirm your connection choice on WhatsApp |
-| 🆕 | **Regenerate code** and **Back** buttons on the pairing screen |
-| 🆕 | **Sub-bots** — deploy an extra bot with a single command |
-| 🆕 | **Faster menu** — built once and cached, so `/menu` opens instantly even with hundreds of plugins |
-| 🆕 | `/sleep` and `/wake`, `/linkchannel`, `/linkgroup` and auto-forward to a channel or group |
-| 🆕 | **Automatic updates** every few hours |
-| 🛠️ | Fixed the chatbot "No response" issue, YouTube search crashes on incomplete results, and empty-message sending |
-| 🗑️ | Removed Post Status and Auto-View Status |
+| 🆕 | **Dev Fleet Panel** now auto-tracks every deployed instance, whatever way it was onboarded |
+| 🛠️ | Fixed the `/search <query>` command |
+| 🛠️ | Fixed the empty-media-buffer guard |
 
 <p align="center"><img src="assets/divider.svg" width="100%" alt=""/></p>
 
