@@ -4,7 +4,7 @@
 
 <br/>
 
-[![Version](https://img.shields.io/badge/version-v1.2.7%20JT-00e676?style=for-the-badge&logo=whatsapp&logoColor=white)](#-whats-new--v127_jt)
+[![Version](https://img.shields.io/badge/version-v1.2.8%20JT-00e676?style=for-the-badge&logo=whatsapp&logoColor=white)](#-whats-new--v129_jt)
 [![Node](https://img.shields.io/badge/node-22%2B-2b9348?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
 [![Baileys](https://img.shields.io/badge/Baileys-7.0.0--rc13-f77f00?style=for-the-badge)](https://github.com/WhiskeySockets/Baileys)
 [![Updates](https://img.shields.io/badge/updates-automatic-00bcd4?style=for-the-badge&logo=github-actions&logoColor=white)](#-auto-update)
@@ -278,16 +278,53 @@ pm2 start index.js --name "miss-chatra"
 
 <p align="center"><img src="assets/divider.svg" width="100%" alt=""/></p>
 
-## 📝 What's New — v1.2.7_JT
+## 📝 What's New — v1.2.8_JT
+
+| | |
+|---|---|
+| 🆕 | **Personal payments** — everyone connects their own Paystack/Flutterwave (`paysetup`) |
+| 🆕 | **Bank accounts** — neat shareable account cards (`bankaccount`) |
+| 🆕 | **Free voice transcription** (`sttsetup`), **clear & restore chats**, **hide/restore number** |
+
+<details><summary>Also in v1.2.8_JT — events, AI tools, payments & more</summary>
+
 
 > [!NOTE]
 > Full release notes are posted in the [JusticeTech channel](https://whatsapp.com/channel/0029VaoLagu3hRFKWlqk9W2T).
 
 | | |
 |---|---|
+| 🆕 | **Events & booking** — RSVPs, reminders, calendar export, appointments |
+| 🆕 | **AI group tools** — catch-up, digests, translation, AI-assisted moderation |
+| 🆕 | **Group tools, call links, payments & shop, voice & sticker tools, personal assistant, privacy tools** |
+| 🔒 | Group features are **off by default** — admins enable them per group with `/feature` |
+
+</details>
+
+<details><summary>Also in v1.2.8_JT — fixes & usernames</summary>
+
+> [!NOTE]
+> Full release notes are posted in the [JusticeTech channel](https://whatsapp.com/channel/0029VaoLagu3hRFKWlqk9W2T).
+
+| | |
+|---|---|
+| 🆕 | **Usernames**, **message scheduler**, **vCard reports**, **sticker packs** |
+| 🆕 | **Anti-ban protection**, **group guard** and **presence tracker** |
+| 🛠️ | Console phone-number linking no longer asks for email verification |
+| 🛠️ | Verification and password-reset emails are now delivered reliably |
+| 🛠️ | `/viewonce` fixed — view-once media is saved when it arrives |
+
+</details>
+
+<details><summary>Previous release — v1.2.7_JT</summary>
+
+| | |
+|---|---|
 | 🆕 | **Dev Fleet Panel** now auto-tracks every deployed instance, whatever way it was onboarded |
 | 🛠️ | Fixed the `/search <query>` command |
 | 🛠️ | Fixed the empty-media-buffer guard |
+
+</details>
 
 <p align="center"><img src="assets/divider.svg" width="100%" alt=""/></p>
 
